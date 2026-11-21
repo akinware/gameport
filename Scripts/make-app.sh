@@ -7,6 +7,7 @@ cd "$(dirname "$0")/.."
 # Keep in sync with Sources/GamePortKit/Brand.swift.
 DISPLAY_NAME="GamePort"
 BUNDLE_NAME="GamePort"
+EXECUTABLE_NAME="GamePortApp"
 BUNDLE_ID="app.gameport.GamePort"
 
 swift build -c release --product GamePortApp
@@ -16,7 +17,8 @@ BIN="$(swift build -c release --show-bin-path)"
 APP="build/$BUNDLE_NAME.app"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-cp "$BIN/GamePortApp" "$APP/Contents/MacOS/$BUNDLE_NAME"
+# Keep the GUI executable name distinct from the CLI (`gameport`) for case-insensitive APFS.
+cp "$BIN/GamePortApp" "$APP/Contents/MacOS/$EXECUTABLE_NAME"
 cp "$BIN/gameport" "$APP/Contents/MacOS/gameport"
 
 cat > "$APP/Contents/Info.plist" <<PLIST
@@ -27,7 +29,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>CFBundleName</key><string>$DISPLAY_NAME</string>
   <key>CFBundleDisplayName</key><string>$DISPLAY_NAME</string>
   <key>CFBundleIdentifier</key><string>$BUNDLE_ID</string>
-  <key>CFBundleExecutable</key><string>$BUNDLE_NAME</string>
+  <key>CFBundleExecutable</key><string>$EXECUTABLE_NAME</string>
   <key>CFBundleDevelopmentRegion</key><string>en</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>0.1.0</string>
