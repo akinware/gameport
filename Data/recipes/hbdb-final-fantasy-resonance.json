@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-final-fantasy-resonance",
+  "knownIssues": [
+    {
+      "symptom": "The sound sometimes falls out of sync, and there are minor frame rate issues (M2, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/final-fantasy-resonance.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3259780,
+  "sync": "msync",
+  "title": "FINAL FANTASY RESONANCE"
+}

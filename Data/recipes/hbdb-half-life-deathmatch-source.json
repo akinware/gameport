@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-half-life-deathmatch-source",
+  "knownIssues": [
+    {
+      "symptom": "Quitting the game brings up Wine's crash dialog (reported on an M5 Pro, macOS 27.2, DXVK, engine r29, highball#475)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/half-life-deathmatch-source.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 360,
+  "sync": "msync",
+  "title": "Half-Life Deathmatch: Source"
+}

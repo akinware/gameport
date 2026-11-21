@@ -1,0 +1,26 @@
+{
+  "advertiseAVX": true,
+  "environment": {},
+  "id": "hbdb-death-stranding",
+  "knownIssues": [
+    {
+      "symptom": "\"Death Stranding requires a CPU with AVX support\" at launch (reported on an M5)"
+    },
+    {
+      "symptom": "\"failed to load d3d12.dll\" with exception C06D007F right after the AVX check (reported on an M5, Epic copy, Highball 0.9.15)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/death-stranding.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/death-stranding.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1190460,
+  "sync": "msync",
+  "title": "Death Stranding"
+}

@@ -1,0 +1,27 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-persona-5-royal",
+  "knownIssues": [
+    {
+      "symptom": "On engine r7 with DXMT and DXMT_ALLOW_CROSS_PROCESS_SWAPCHAIN=1 the whole Mac kernel-panicked (reported on an M5, macOS 27.0)"
+    },
+    {
+      "symptom": "Does not run on the Sikarugir (Wine 10) engines"
+    },
+    {
+      "symptom": "Drops to about 40 fps in the colour puzzle in Maruki's Palace, the final cutscene and the end credits (M1, DXVK, Wine 11 r27, highball#530)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/persona-5-royal.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/persona-5-royal.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1687950,
+  "sync": "msync",
+  "title": "Persona 5 Royal"
+}

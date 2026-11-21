@@ -1,0 +1,27 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-gold-mining-simulator-2-demo",
+  "knownIssues": [
+    {
+      "symptom": "Crashes at start on DXMT and DXVK with an Unreal fatal error (CreateTexture2D failed with E_FAIL on a shared render target, MiscFlags 0x2), reported on an M2 Pro, engine r7."
+    },
+    {
+      "symptom": "\"DirectX 12 is not supported on your system\" (reported)."
+    },
+    {
+      "symptom": "Frame rate falls to about 3 fps with other apps open (reported on 16 GB)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/gold-mining-simulator-2-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3626940,
+  "sync": "msync",
+  "title": "Gold Mining Simulator 2 Demo"
+}

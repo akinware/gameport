@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-binding-of-isaac-rebirth",
+  "knownIssues": [
+    {
+      "symptom": "Slows down after a while of play (reported on DXMT, M2 Max, macOS 27, engine r5)"
+    },
+    {
+      "symptom": "Slight frame drops in rooms with many enemies, more often in Greed mode (reported on an M4, DXMT, engine r11)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-binding-of-isaac-rebirth.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 250900,
+  "sync": "msync",
+  "title": "The Binding of Isaac: Rebirth (Repentance+)"
+}

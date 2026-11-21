@@ -1,0 +1,32 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-darksiders-ii-deathinitive-edition",
+  "knownIssues": [
+    {
+      "symptom": "In windowed mode the game sometimes stays on a black screen with no response to keyboard or mouse (reported on an M1 Pro, macOS 26.7, DXVK, engine r28 and the Wine 11 engine r27)"
+    },
+    {
+      "symptom": "The fullscreen picture is wrongly scaled or positioned (reported on an M1 Pro, macOS 26.7, DXVK, engine r28)"
+    },
+    {
+      "symptom": "A controller connected after the game has started is not picked up (reported on an M1 Pro, macOS 26.7, DXVK, engine r28)"
+    },
+    {
+      "symptom": "Occasional flickering and stuttering (reported on an M1 Pro, macOS 26.7, DXVK, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/darksiders-ii-deathinitive-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 388410,
+  "sync": "msync",
+  "title": "Darksiders II Deathinitive Edition"
+}

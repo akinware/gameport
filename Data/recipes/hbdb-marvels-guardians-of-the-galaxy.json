@@ -1,0 +1,29 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-marvels-guardians-of-the-galaxy",
+  "knownIssues": [
+    {
+      "symptom": "Crashes on \"Play Game\" from the splash screen, with Wine's \"has encountered a serious problem\" dialog, on D3DMetal."
+    },
+    {
+      "symptom": "About 10 fps for roughly the first minute of play, improving afterwards."
+    },
+    {
+      "symptom": "A dialog before launch says the graphics card driver is older than supported."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/marvels-guardians-of-the-galaxy.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/marvels-guardians-of-the-galaxy.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1088850,
+  "sync": "msync",
+  "title": "Marvel's Guardians of the Galaxy"
+}

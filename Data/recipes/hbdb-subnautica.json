@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-subnautica",
+  "knownIssues": [
+    {
+      "symptom": "With a controller, after bringing up the Steam overlay and going back, the game keeps switching to mouse input (M4 Pro, DXMT)"
+    },
+    {
+      "symptom": "A DualSense isn't seen by the game (M4, DXMT, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/subnautica.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 264710,
+  "sync": "msync",
+  "title": "Subnautica"
+}

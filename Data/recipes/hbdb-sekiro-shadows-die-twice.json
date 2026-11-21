@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sekiro-shadows-die-twice",
+  "knownIssues": [
+    {
+      "symptom": "With a controller, A and B are swapped from what the game shows, and X and Y too: the game asks for A and B works (M3 Pro, controller-sdl recipe, started from the exe, highball-db#1366)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sekiro-shadows-die-twice.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 814380,
+  "sync": "msync",
+  "title": "Sekiro: Shadows Die Twice"
+}

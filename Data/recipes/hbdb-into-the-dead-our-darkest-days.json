@@ -1,0 +1,17 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-into-the-dead-our-darkest-days",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/into-the-dead-our-darkest-days.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2239710,
+  "sync": "msync",
+  "title": "Into the Dead: Our Darkest Days"
+}

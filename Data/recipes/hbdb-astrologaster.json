@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-astrologaster",
+  "knownIssues": [
+    {
+      "symptom": "Stuck on Loading after starting or continuing a game"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/astrologaster.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 742520,
+  "sync": "msync",
+  "title": "Astrologaster"
+}

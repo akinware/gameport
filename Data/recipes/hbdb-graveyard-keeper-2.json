@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-graveyard-keeper-2",
+  "knownIssues": [
+    {
+      "symptom": "Minor frame drops and stutter while exploring the world (reported on an M5 Pro, D3DMetal, engine r9)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/graveyard-keeper-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4358690,
+  "sync": "msync",
+  "title": "Graveyard Keeper 2"
+}

@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-over-the-hill",
+  "knownIssues": [
+    {
+      "symptom": "Takes all of a 24 GB Mac's memory at launch, in the player's words (M5, DXVK, Wine 10 r28, highball-db#1272)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/over-the-hill.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2929250,
+  "sync": "msync",
+  "title": "over the hill"
+}

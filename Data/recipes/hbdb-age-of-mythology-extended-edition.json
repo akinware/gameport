@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-age-of-mythology-extended-edition",
+  "knownIssues": [
+    {
+      "symptom": "Crashes to the desktop after about 4 to 6 minutes of a random map, after hundreds of 'out of memory for allocation' errors in the log (M4 Pro, Wine 10 r28 and Wine 11 r31, DXMT and D3DMetal, highball-db#1282)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/age-of-mythology-extended-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 266840,
+  "sync": "msync",
+  "title": "Age of Mythology: Extended Edition"
+}

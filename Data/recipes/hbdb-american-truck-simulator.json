@@ -1,0 +1,27 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-american-truck-simulator",
+  "knownIssues": [
+    {
+      "symptom": "Quit Game freezes the screen instead of exiting (reported on an M4, DXMT, engine x64-crossover26.3-r4)."
+    },
+    {
+      "symptom": "A custom ESP32 Bluetooth game controller is not recognised (reported on an M4)."
+    },
+    {
+      "symptom": "On the Wine 11 engine r15 in DXMT mode the game does not start, Euro Truck Simulator 2 the same, while the default engine starts both on the same Mac (reported on an M1, macOS 27.0.1, Highball 0.10.3, highball-db#288)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/american-truck-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 270880,
+  "sync": "msync",
+  "title": "American Truck Simulator"
+}

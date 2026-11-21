@@ -1,0 +1,30 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-five-nights-at-freddys-2",
+  "knownIssues": [
+    {
+      "symptom": "Freezes on DXVK after the first frame, runs at about 5 fps on Wine's own Direct3D (reported on the default engine, highball#67)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [
+    {
+      "data": "y",
+      "key": "HKCU\\Software\\Wine\\AppDefaults\\FiveNightsatFreddys2.exe\\X11 Driver",
+      "name": "EmulateModeset",
+      "type": "REG_SZ"
+    }
+  ],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/five-nights-at-freddys-2.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/five-nights-at-freddys-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 332800,
+  "sync": "msync",
+  "title": "Five Nights at Freddy's 2"
+}

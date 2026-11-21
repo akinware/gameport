@@ -1,0 +1,30 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-planet-coaster-2",
+  "knownIssues": [
+    {
+      "symptom": "Crash dialog at launch offering to send diagnostics to the developer"
+    },
+    {
+      "symptom": "Nothing visible for five minutes with the full recipe configuration on an M3 Pro, and a forced reboot after stopping it"
+    },
+    {
+      "symptom": "The game process starts and stays alive, but no window ever appears, and after several minutes the whole Mac becomes unresponsive and needs a restart (highball-db#356, Apple M5 Pro, macOS 27.0.1, Highball 0.10.10, engine r18 with D3DMetal 4 and r19 with D3DMetal 3, the recipe's variables confirmed by 'Metal API Validation Enabled')"
+    },
+    {
+      "symptom": "On Wine 11 the game starts and then hangs: a black window at 0% CPU for over four minutes on r26 (D3DMetal 4 beta 3), an exit after about 100 seconds with an empty crash dump on r27 (D3DMetal 3). The Mac stayed responsive (M5 Pro, macOS 27.0, highball#537)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/planet-coaster-2.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/planet-coaster-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2688950,
+  "sync": "msync",
+  "title": "Planet Coaster 2"
+}

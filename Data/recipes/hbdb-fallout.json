@@ -1,0 +1,26 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fallout",
+  "knownIssues": [
+    {
+      "symptom": "Slows to a crawl a moment into the opening logo, with every graphics mode (M1, Wine 10 r28 and Wine 11 r28). On Wine 11 r30 with the x87 sidecar the logo starts at full speed and the game can be reached, but it crawls again later, at the Overseer's talking head, whose voice is garbled"
+    },
+    {
+      "symptom": "DXVK mode draws the picture zoomed in (M1, Wine 11 r30, the GOG copy with its high resolution patch)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fallout.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 38400,
+  "sync": "msync",
+  "title": "Fallout"
+}

@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-counter-strike-source",
+  "knownIssues": [
+    {
+      "symptom": "The frame rate falls from about 350 fps to under 100 while the mouse or trackpad moves, which feels like mouse lag (reported on an M4, macOS 27.0.1, DXVK, engine r28, highball#482)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/counter-strike-source.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 240,
+  "sync": "msync",
+  "title": "Counter-Strike: Source"
+}

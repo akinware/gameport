@@ -1,0 +1,29 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-heartopia",
+  "knownIssues": [
+    {
+      "symptom": "After switching to another app and back, the game window has focus but ignores the mouse and keyboard until the game is restarted"
+    },
+    {
+      "symptom": "Takes no clicks at all from the start when launched with Steam's Play button"
+    },
+    {
+      "symptom": "The dialog shown while the game loads has no text, only a white and a teal button. The account page's text is missing the same way (still on engine r29 with D3DMetal, highball-db#578, 2026-10-20)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/heartopia.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4025700,
+  "sync": "msync",
+  "title": "Heartopia"
+}

@@ -1,0 +1,32 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tekken-8",
+  "knownIssues": [
+    {
+      "symptom": "Online ranked and quick match searches never find an opponent, with no error, while offline modes play (16 GB base M5, Wine 11 r33, D3DMetal, highball-db#1345)"
+    },
+    {
+      "symptom": "On DXMT the game stops with 'DirectX 12 is not supported on your system' (highball-db#1345)"
+    },
+    {
+      "symptom": "On the default Wine 10 engine r28 with D3DMetal the game crashes after about 5 minutes (EXCEPTION_ACCESS_VIOLATION reading 0x2107 in Polaris-Win64-Shipping), and the graphics settings reset at every start (16 GB base M5, highball-db#1345)"
+    },
+    {
+      "symptom": "A dialog at start says the AMD graphics driver has known issues in D3D12 (highball-db#1345)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tekken-8.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1778820,
+  "sync": "msync",
+  "title": "TEKKEN 8"
+}

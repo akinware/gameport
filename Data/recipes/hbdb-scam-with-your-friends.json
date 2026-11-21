@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-scam-with-your-friends",
+  "knownIssues": [
+    {
+      "symptom": "The game crashes partway through a session (reported on an M4 and an M1 Pro, macOS 27.0.1, DXMT, engines r11 and r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/scam-with-your-friends.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4954910,
+  "sync": "msync",
+  "title": "Scam With Your Friends"
+}

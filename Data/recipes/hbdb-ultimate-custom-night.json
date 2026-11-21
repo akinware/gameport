@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ultimate-custom-night",
+  "knownIssues": [
+    {
+      "symptom": "The loading screen plays as a very slow slideshow, the menu never appears and the cursor is hidden, so the game has to be force quit (DXMT mode, A18 Pro, macOS 27.0, engine r11)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ultimate-custom-night.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 871720,
+  "sync": "msync",
+  "title": "Ultimate Custom Night"
+}

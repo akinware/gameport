@@ -1,0 +1,33 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-portal-2",
+  "knownIssues": [
+    {
+      "symptom": "No dynamic shadows. Furniture, objects and characters cast no shadows from lamps or sunlight (reported on an M3 Pro, Discord 2026-10-05)"
+    },
+    {
+      "symptom": "Textures softer than the original, Model / Texture Detail on Low (reported on an M3 Pro, Discord 2026-10-06)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [
+    {
+      "data": "2047",
+      "key": "HKCU\\Software\\Wine\\AppDefaults\\portal2.exe\\Direct3D",
+      "name": "VideoMemorySize",
+      "type": "REG_SZ"
+    }
+  ],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/portal-2.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/portal-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 620,
+  "sync": "msync",
+  "title": "Portal 2"
+}

@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dokimon-quest",
+  "knownIssues": [
+    {
+      "symptom": "Four boxes saying 'Win32 function failed: HRESULT 0x80070057' from GR_D3D_Device->CheckMultisampleQualityLevels before the game starts"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dokimon-quest.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2019300,
+  "sync": "msync",
+  "title": "Dokimon Quest"
+}

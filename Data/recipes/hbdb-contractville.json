@@ -1,0 +1,36 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-contractville",
+  "knownIssues": [
+    {
+      "symptom": "Stops at 'DX12 is not supported on your system. Try running without the -dx12 or -d3d12 command line argument.'"
+    },
+    {
+      "symptom": "Endless loading screen after the logos on the default engine (reported on an M1 and an M2, reproduced on an M1 Pro, engine r7)."
+    },
+    {
+      "symptom": "Character preview drawn black in the character creator on DXVK (Wine 11, M1 Pro)."
+    },
+    {
+      "symptom": "Crashes at start on DXMT with the Unreal crash reporter on the Wine 10 engine (M1 Pro, engine r7, DXMT 0.80)."
+    },
+    {
+      "symptom": "In-game tutorial videos show a blank white screen instead of playing (reported on the Wine 11 engine r11, DXMT, M1, highball#202)."
+    },
+    {
+      "symptom": "Steam's own window shows only its frame, the page area black, after moving the environment to the Wine 11 engine (reported on an M1, r11, reproduced on an M1 Pro, r12)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/contractville.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/contractville.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2698780,
+  "sync": "msync",
+  "title": "ContractVille"
+}

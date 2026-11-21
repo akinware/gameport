@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-forager",
+  "knownIssues": [
+    {
+      "symptom": "The mouse feels a little floaty (reported on an M5, DXMT, engine r11)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/forager.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 751780,
+  "sync": "msync",
+  "title": "Forager"
+}

@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dokapon-kingdom-connect",
+  "knownIssues": [
+    {
+      "symptom": "Crashes at startup with a page fault at address zero on every graphics mode (reported on an M3, macOS 27)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dokapon-kingdom-connect.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2338140,
+  "sync": "msync",
+  "title": "Dokapon Kingdom: Connect"
+}

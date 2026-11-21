@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-teardown",
+  "knownIssues": [
+    {
+      "symptom": "Crashes on DXMT and on DXVK (reported on an M5, engine r28, highball#410), while an M1 report played on DXMT"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/teardown.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1167630,
+  "sync": "msync",
+  "title": "Teardown"
+}

@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-heroes-of-might-and-magic-v-tribes-of-the-east",
+  "knownIssues": [
+    {
+      "symptom": "Black screen on the very first launch, right after macOS asks for access to the Documents folder"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/heroes-of-might-and-magic-v-tribes-of-the-east.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 15370,
+  "sync": "msync",
+  "title": "Heroes of Might and Magic V: Tribes of the East"
+}

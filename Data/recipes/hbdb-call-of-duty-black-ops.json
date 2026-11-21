@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-call-of-duty-black-ops",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops and freezes outside cutscenes (M2)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/call-of-duty-black-ops.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 42700,
+  "sync": "msync",
+  "title": "Call of Duty: Black Ops"
+}

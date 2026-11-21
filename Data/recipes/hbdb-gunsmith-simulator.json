@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-gunsmith-simulator",
+  "knownIssues": [
+    {
+      "symptom": "Needs 1280 wide and the lowest graphics settings for 60 fps on an M3 (reported, highball-db#221)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/gunsmith-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1101120,
+  "sync": "msync",
+  "title": "Gunsmith Simulator"
+}

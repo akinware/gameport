@@ -15,6 +15,7 @@ let package = Package(
         .target(name: "GamePortKit"),
         .executableTarget(name: "gameport", dependencies: ["GamePortKit"]),
         .executableTarget(name: "GamePortApp", dependencies: ["GamePortKit"]),
+        .executableTarget(name: "import-recipes", dependencies: ["GamePortKit"], path: "Tools/import-recipes"),
         .testTarget(name: "GamePortKitTests", dependencies: ["GamePortKit"]),
     ]
 )

@@ -1,0 +1,33 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-forza-horizon-5",
+  "knownIssues": [
+    {
+      "symptom": "The game crashes at startup during graphics setup (a read of address 0x10 in ForzaHorizon5.exe)"
+    },
+    {
+      "symptom": "The Xbox sign-in window is black"
+    },
+    {
+      "symptom": "All scenery (trees, poles, buildings) draws tilted, only the car and the road look right (highball-db#386)"
+    },
+    {
+      "symptom": "A Fatal Error with code 0x800705aa (not enough system resources) after 37 seconds to 6 minutes of driving (highball-db#386)"
+    },
+    {
+      "symptom": "On DXMT the game crashes at DXGI, asking for an interface DXMT does not know ({f0db4c7f-fe5a-42a2-bd62-f2a6cf6fc83e})"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/forza-horizon-5.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1551360,
+  "sync": "msync",
+  "title": "Forza Horizon 5"
+}

@@ -1,0 +1,27 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-elite-dangerous-odyssey",
+  "knownIssues": [
+    {
+      "symptom": "A HOTAS or other flight stick is not seen by the game"
+    },
+    {
+      "symptom": "No sound at all (reported on an M2 Pro, macOS 27.0.1, D3DMetal, engine r28)"
+    },
+    {
+      "symptom": "The frame rate falls to about 10 fps while browsing ships in the shipyard and stays low until the game is restarted (reported on an M2 Pro with 16 GB)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/elite-dangerous-odyssey.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 359320,
+  "sync": "msync",
+  "title": "Elite Dangerous (Odyssey)"
+}

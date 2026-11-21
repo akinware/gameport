@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-naruto-shippuden-ultimate-ninja-storm-4",
+  "knownIssues": [
+    {
+      "symptom": "On DXMT a fight is black most of the time with brief flashes of the picture; on DXVK the characters and stage never draw."
+    },
+    {
+      "symptom": "After switching away from the game and back, the picture shows only on the left part of the screen, cut off on the right (M1 Pro, Wine 10 r28, 192 dpi, highball-db#1216)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/naruto-shippuden-ultimate-ninja-storm-4.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 349040,
+  "sync": "msync",
+  "title": "NARUTO SHIPPUDEN: Ultimate Ninja STORM 4"
+}

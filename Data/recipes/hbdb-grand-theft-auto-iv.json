@@ -1,0 +1,30 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-grand-theft-auto-iv",
+  "knownIssues": [
+    {
+      "symptom": "Black line segments in a grid pattern flicker across the picture in play on Wine's Direct3D (reported on an M4, engine r17)"
+    },
+    {
+      "symptom": "Brief stutter when moving the camera (reported on an M4, engine r17)"
+    },
+    {
+      "symptom": "A DualSense controller is not seen by the game (reported on an M4)"
+    },
+    {
+      "symptom": "Black squares glitch in and out across the screen now and then (M5, DXVK by the report, Wine 11 r31, highball-db#1285)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/grand-theft-auto-iv.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 12210,
+  "sync": "msync",
+  "title": "Grand Theft Auto IV: The Complete Edition"
+}

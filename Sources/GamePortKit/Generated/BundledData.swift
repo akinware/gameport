@@ -315,6 +315,17446 @@ enum BundledData {
 """#,
         #"""
 {
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-18-wheels-of-steel-extreme-trucker",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops when switching cameras (reported on an M1, macOS 26.5.2, DXMT, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/18-wheels-of-steel-extreme-trucker.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 33730,
+  "sync": "msync",
+  "title": "18 Wheels of Steel: Extreme Trucker"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-20-minutes-till-dawn",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/20-minutes-till-dawn.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1966900,
+  "sync": "msync",
+  "title": "20 Minutes Till Dawn"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-9-kings",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/9-kings.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2784470,
+  "sync": "msync",
+  "title": "9 Kings"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-a-game-about-digging-a-hole",
+  "knownIssues": [
+    {
+      "symptom": "The Mac's mouse cursor sometimes shows and moves over the game (M1, DXMT, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/a-game-about-digging-a-hole.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3244220,
+  "sync": "msync",
+  "title": "A Game About Digging A Hole"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-a-memoir-blue",
+  "knownIssues": [
+    {
+      "symptom": "Quitting the game does not end it cleanly"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/a-memoir-blue.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1497450,
+  "sync": "msync",
+  "title": "A Memoir Blue"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-a-plague-tale-innocence",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/a-plague-tale-innocence.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 752590,
+  "sync": "msync",
+  "title": "A Plague Tale: Innocence"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-a-short-hike",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/a-short-hike.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1055540,
+  "sync": "msync",
+  "title": "A Short Hike"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-abiotic-factor",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/abiotic-factor.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 427410,
+  "sync": "msync",
+  "title": "Abiotic Factor"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-absolute-drift",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/absolute-drift.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 320140,
+  "sync": "msync",
+  "title": "Absolute Drift"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-abyssal-lapidary-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/abyssal-lapidary-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4736580,
+  "sync": "msync",
+  "title": "Abyssal Lapidary Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-abzu",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/abzu.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 384190,
+  "sync": "msync",
+  "title": "ABZU"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ace-combat-7-skies-unknown",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ace-combat-7-skies-unknown.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 502500,
+  "sync": "msync",
+  "title": "ACE COMBAT™ 7: SKIES UNKNOWN"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-active-neurons-wonders-of-the-world",
+  "knownIssues": [
+    {
+      "symptom": "Black background with subtitled narration between puzzle waves"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/active-neurons-wonders-of-the-world.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1422630,
+  "sync": "msync",
+  "title": "Active Neurons - Wonders Of The World"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-aethermancer-demo",
+  "knownIssues": [
+    {
+      "symptom": "Short frame hiccups here and there, one a drop of about 2 seconds (reported on an M3 Max, macOS 26.6.2, DXMT, Wine 11 engine r27, through Proton-ish)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/aethermancer-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3462260,
+  "sync": "msync",
+  "title": "Aethermancer Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-against-the-storm",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/against-the-storm.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1336490,
+  "sync": "msync",
+  "title": "Against the Storm"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-age-of-empires-definitive-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/age-of-empires-definitive-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1017900,
+  "sync": "msync",
+  "title": "Age of Empires: Definitive Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-age-of-empires-ii-2013",
+  "knownIssues": [
+    {
+      "symptom": "After OK on Validating Subscriptions, the game closes."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/age-of-empires-ii-2013.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 221380,
+  "sync": "msync",
+  "title": "Age of Empires II (2013)"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-age-of-empires-iv-anniversary-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/age-of-empires-iv-anniversary-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1466860,
+  "sync": "msync",
+  "title": "Age of Empires IV: Anniversary Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-age-of-history-3",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/age-of-history-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2772750,
+  "sync": "msync",
+  "title": "Age of History 3"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-age-of-mythology-extended-edition",
+  "knownIssues": [
+    {
+      "symptom": "Crashes to the desktop after about 4 to 6 minutes of a random map, after hundreds of 'out of memory for allocation' errors in the log (M4 Pro, Wine 10 r28 and Wine 11 r31, DXMT and D3DMetal, highball-db#1282)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/age-of-mythology-extended-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 266840,
+  "sync": "msync",
+  "title": "Age of Mythology: Extended Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-agent-a-a-puzzle-in-disguise",
+  "knownIssues": [
+    {
+      "symptom": "'Authentication failed' on the title screen (Epic copy, M1, D3DMetal and DXMT, Wine 10 r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/agent-a-a-puzzle-in-disguise.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 801480,
+  "sync": "msync",
+  "title": "Agent A: A puzzle in disguise"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-aimlabs",
+  "knownIssues": [
+    {
+      "symptom": "Signing in with Google does not work"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/aimlabs.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 714010,
+  "sync": "msync",
+  "title": "Aimlabs"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-akane",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/akane.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 884260,
+  "sync": "msync",
+  "title": "Akane"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-alice-madness-returns",
+  "knownIssues": [
+    {
+      "symptom": "The game fails until thousands of '._' files are deleted from its folder"
+    },
+    {
+      "symptom": "DXSETUP.exe shows errors on the first start"
+    },
+    {
+      "symptom": "Clicking in the game switches the resolution so only a quarter of the picture shows (reported on an M1, macOS 27.0.1, D3DMetal environment, highball-db#429)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [
+    {
+      "data": "y",
+      "key": "HKCU\\Software\\Wine\\AppDefaults\\AliceMadnessReturns.exe\\X11 Driver",
+      "name": "EmulateModeset",
+      "type": "REG_SZ"
+    }
+  ],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/alice-madness-returns.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/alice-madness-returns.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 19680,
+  "sync": "msync",
+  "title": "Alice: Madness Returns"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-alien-isolation",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/alien-isolation.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 214490,
+  "sync": "msync",
+  "title": "Alien: Isolation"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-aliens-fireteam-elite",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/aliens-fireteam-elite.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1549970,
+  "sync": "msync",
+  "title": "Aliens: Fireteam Elite"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-amanda-the-adventurer",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/amanda-the-adventurer.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2166060,
+  "sync": "msync",
+  "title": "Amanda the Adventurer"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-american-truck-simulator",
+  "knownIssues": [
+    {
+      "symptom": "Quit Game freezes the screen instead of exiting (reported on an M4, DXMT, engine x64-crossover26.3-r4)."
+    },
+    {
+      "symptom": "A custom ESP32 Bluetooth game controller is not recognised (reported on an M4)."
+    },
+    {
+      "symptom": "On the Wine 11 engine r15 in DXMT mode the game does not start, Euro Truck Simulator 2 the same, while the default engine starts both on the same Mac (reported on an M1, macOS 27.0.1, Highball 0.10.3, highball-db#288)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/american-truck-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 270880,
+  "sync": "msync",
+  "title": "American Truck Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-among-us",
+  "knownIssues": [
+    {
+      "symptom": "Closes by itself within two seconds of starting on DXMT, often. On an M4 with macOS 27.0 that happened in 8 of 12 launches on engine r13"
+    },
+    {
+      "symptom": "After switching to another app and back, the game keeps drawing but ignores clicks and keys until it is restarted"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/among-us.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 945360,
+  "sync": "msync",
+  "title": "Among Us"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-aniimo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/aniimo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4126040,
+  "sync": "msync",
+  "title": "Aniimo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-anno-1800",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/anno-1800.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 916440,
+  "sync": "msync",
+  "title": "Anno 1800"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-another-world-20th-anniversary-edition",
+  "knownIssues": [
+    {
+      "symptom": "About 45 seconds of black screen after Play and then Intro, then the game starts (M1, DXMT and WineD3D, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/another-world-20th-anniversary-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 233550,
+  "sync": "msync",
+  "title": "Another World: 20th Anniversary Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-aperture-desk-job",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/aperture-desk-job.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/aperture-desk-job.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1902490,
+  "sync": "msync",
+  "title": "Aperture Desk Job"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-arc-raiders",
+  "knownIssues": [
+    {
+      "symptom": "The game does not start (reported on an M1, macOS 27.0.1)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/arc-raiders.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1808500,
+  "sync": "msync",
+  "title": "ARC Raiders"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-arcade-paradise",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/arcade-paradise.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1388870,
+  "sync": "msync",
+  "title": "Arcade Paradise"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-armored-core-vi",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/armored-core-vi.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1888160,
+  "sync": "msync",
+  "title": "Armored Core VI"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-art-of-rally",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/art-of-rally.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 550320,
+  "sync": "msync",
+  "title": "art of rally"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-artillery-miner",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/artillery-miner.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4391380,
+  "sync": "msync",
+  "title": "Artillery Miner"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ascend-to-zero",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops and a little stutter (reported on an M2 Pro, one-minute session)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ascend-to-zero.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2697940,
+  "sync": "msync",
+  "title": "Ascend to ZERO"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-assassins-creed-brotherhood",
+  "knownIssues": [
+    {
+      "symptom": "Freezes in some cutscenes (reported on an M1, macOS 26.6.2, DXMT, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/assassins-creed-brotherhood.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 48190,
+  "sync": "msync",
+  "title": "Assassin's Creed Brotherhood"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-assassins-creed-ii",
+  "knownIssues": [
+    {
+      "symptom": "On DXVK, switching away with Cmd+Tab in fullscreen crashes the game (M4 Pro, Wine 11 r31, highball-db#1284)"
+    },
+    {
+      "symptom": "On DXVK the game closes by itself during play, without switching away, after about 18 minutes in one session and 1.5 in the next (M4 Pro, Wine 11 r31, highball-db#1320)"
+    },
+    {
+      "symptom": "Laggy in the environment Highball sets up for Ubisoft Connect, which uses DXMT with sync off (M4 Pro, Wine 11 r31, highball-db#1284)"
+    },
+    {
+      "symptom": "After a change of graphics mode the game keeps the old one while Ubisoft Connect is still running, and Highball says the environment was not restarted (M4 Pro, highball-db#1320)"
+    },
+    {
+      "symptom": "On Wine's own Direct3D, Cmd+Space opens Spotlight over the game (M4 Pro, highball-db#1320)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/assassins-creed-ii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 33230,
+  "sync": "msync",
+  "title": "Assassin's Creed II"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-assassins-creed-syndicate",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/assassins-creed-syndicate.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 368500,
+  "sync": "msync",
+  "title": "Assassin's Creed Syndicate"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-assassins-creed",
+  "knownIssues": [
+    {
+      "symptom": "The title screen stutters at about 7 fps and the game crashes on the way in (M1, Wine 11 r28, D3DMetal)"
+    },
+    {
+      "symptom": "The opening logo plays in slow motion on the Wine 10 engine"
+    },
+    {
+      "symptom": "No controller input until a controller is chosen in the game's settings, at every start. On a DualSense RT isn't recognized"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/assassins-creed.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 15100,
+  "sync": "msync",
+  "title": "Assassin's Creed"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-assetto-corsa-competizione",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/assetto-corsa-competizione.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 805550,
+  "sync": "msync",
+  "title": "Assetto Corsa Competizione"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-assetto-corsa",
+  "knownIssues": [
+    {
+      "symptom": "The launcher (AssettoCorsa.exe, .NET/WPF) shows 'Configuration system failed to initialize' and exits; the game itself never starts from Steam's Play."
+    },
+    {
+      "symptom": "acs.exe exits immediately with no error and no log when started directly."
+    },
+    {
+      "symptom": "On D3DMetal the session dies on Start with a Metal assertion, a texture of width and height 4294967295 (reported on a 13-inch M1 with 8 GB, macOS 26.6.2, highball#94)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "Upstream prerequisites: dotnet48."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/assetto-corsa.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/assetto-corsa.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 244210,
+  "sync": "msync",
+  "title": "Assetto Corsa"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-asteroids-recharged",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/asteroids-recharged.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1700890,
+  "sync": "msync",
+  "title": "Asteroids: Recharged"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-astral-ascent",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/astral-ascent.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1280930,
+  "sync": "msync",
+  "title": "Astral Ascent"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-astrologaster",
+  "knownIssues": [
+    {
+      "symptom": "Stuck on Loading after starting or continuing a game"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/astrologaster.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 742520,
+  "sync": "msync",
+  "title": "Astrologaster"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-astrometica",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/astrometica.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2353250,
+  "sync": "msync",
+  "title": "Astrometica"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-astroneer",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/astroneer.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 361420,
+  "sync": "msync",
+  "title": "ASTRONEER"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-atari-mania",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/atari-mania.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1911800,
+  "sync": "msync",
+  "title": "Atari Mania"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-atelier-sophie-2-the-alchemist-of-the-mysterious-dream",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/atelier-sophie-2-the-alchemist-of-the-mysterious-dream.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1621310,
+  "sync": "msync",
+  "title": "Atelier Sophie 2: The Alchemist of the Mysterious Dream"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-atomic-heart",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/atomic-heart.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 668580,
+  "sync": "msync",
+  "title": "Atomic Heart"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-autonauts",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/autonauts.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 979120,
+  "sync": "msync",
+  "title": "Autonauts"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-aven-colony",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/aven-colony.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 484900,
+  "sync": "msync",
+  "title": "Aven Colony"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-back-4-blood",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/back-4-blood.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 924970,
+  "sync": "msync",
+  "title": "Back 4 Blood"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-backrooms-escape-together",
+  "knownIssues": [
+    {
+      "symptom": "Friends cannot hear you in voice chat although the microphone picks up your voice"
+    },
+    {
+      "symptom": "Scene half rendered and lights wrong on DXMT and DXVK"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/backrooms-escape-together.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2141730,
+  "sync": "msync",
+  "title": "Backrooms: Escape Together"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bad-cheese",
+  "knownIssues": [
+    {
+      "symptom": "DualSense controller not recognized by the game (an Xbox style XInput pad works)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bad-cheese.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3094480,
+  "sync": "msync",
+  "title": "Bad Cheese"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bad-north-jotunn-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bad-north-jotunn-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 688420,
+  "sync": "msync",
+  "title": "Bad North: Jotunn Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-balatro",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/balatro.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2379780,
+  "sync": "msync",
+  "title": "Balatro"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-baldur-s-gate-3",
+  "knownIssues": [
+    {
+      "symptom": "Changing the aspect ratio in the game's video settings stretches the picture, in borderless and in fullscreen"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/baldur-s-gate-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1086940,
+  "sync": "msync",
+  "title": "Baldur's Gate 3"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-banished",
+  "knownIssues": [
+    {
+      "symptom": "The audio drops out when the game is paused or the player switches away from it (M1, DXVK by the report, Wine 10 r28, highball-db#1268)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/banished.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 242920,
+  "sync": "msync",
+  "title": "Banished"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-batman-arkham-knight",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/batman-arkham-knight.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 208650,
+  "sync": "msync",
+  "title": "Batman: Arkham Knight"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-batman-arkham-origins",
+  "knownIssues": [
+    {
+      "symptom": "Stutters through the legal screen and the logos and never reaches the title screen (M1, Wine 10 r29, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/batman-arkham-origins.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 209000,
+  "sync": "msync",
+  "title": "Batman: Arkham Origins"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-batomon-showdown",
+  "knownIssues": [
+    {
+      "symptom": "Sound effects stutter occasionally."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/batomon-showdown.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4557380,
+  "sync": "msync",
+  "title": "Batomon Showdown"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-battle-engine-aquila",
+  "knownIssues": [
+    {
+      "symptom": "The game's resolution is wrong"
+    },
+    {
+      "symptom": "Slow on the Wine 11 engine"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/battle-engine-aquila.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1346400,
+  "sync": "msync",
+  "title": "Battle Engine Aquila"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-battle-realms-zen-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/battle-realms-zen-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1025600,
+  "sync": "msync",
+  "title": "Battle Realms: Zen Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bendy-and-the-ink-machine",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bendy-and-the-ink-machine.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 622650,
+  "sync": "msync",
+  "title": "Bendy and the Ink Machine"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-between-horizons",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/between-horizons.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1921980,
+  "sync": "msync",
+  "title": "Between Horizons – A Sci-Fi Detective Adventure"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-beyond-two-souls",
+  "knownIssues": [
+    {
+      "symptom": "Black screen with no error box"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/beyond-two-souls.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 960990,
+  "sync": "msync",
+  "title": "Beyond: Two Souls"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-big-walk",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/big-walk.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1478500,
+  "sync": "msync",
+  "title": "Big Walk"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-binary-domain",
+  "knownIssues": [
+    {
+      "symptom": "'Critical Error! Graphics device is invalid, please run the configuration tool' and the game quits"
+    },
+    {
+      "symptom": "Sound and picture stutter together in game"
+    },
+    {
+      "symptom": "The picture spans the external monitor and the laptop screen"
+    },
+    {
+      "symptom": "A controller works in menus but not in play"
+    },
+    {
+      "symptom": "A 'Microsoft .NET Framework 3.5 Setup' error box ('You must use Turn Windows features on or off...') behind Steam's 'Setup is loading installation components', at every start"
+    },
+    {
+      "symptom": "Controller button hints show as plain black squares"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/binary-domain.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 203750,
+  "sync": "msync",
+  "title": "Binary Domain"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bionic-commando-rearmed",
+  "knownIssues": [
+    {
+      "symptom": "Crash on launch, on DXVK and on Wine's own Direct3D alike (highball#375)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "Upstream prerequisites: physx.",
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bionic-commando-rearmed.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/bionic-commando-rearmed.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 21680,
+  "sync": "msync",
+  "title": "Bionic Commando: Rearmed"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-birds-organized-neatly",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/birds-organized-neatly.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2707110,
+  "sync": "msync",
+  "title": "Birds Organized Neatly"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-black-desert",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/black-desert.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 582660,
+  "sync": "msync",
+  "title": "Black Desert"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-black-mesa",
+  "knownIssues": [
+    {
+      "symptom": "Crash at the loading screen, or the GPU device lost (MoltenVK Internal Error 0000010d), on DXVK"
+    },
+    {
+      "symptom": "5 to 10 fps on Wine's own Direct3D and a crash at the loading screen in every other mode, on the default engine"
+    },
+    {
+      "symptom": "The game does not start without -oldgameui"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/black-mesa.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/black-mesa.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 362890,
+  "sync": "msync",
+  "title": "Black Mesa"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-blackshard-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/blackshard-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3462270,
+  "sync": "msync",
+  "title": "BLACKSHARD Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bleach-brave-souls",
+  "knownIssues": [
+    {
+      "symptom": "The intro video after the logo is black while its audio plays"
+    },
+    {
+      "symptom": "Some dialogs ignore the controller"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bleach-brave-souls.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1201240,
+  "sync": "msync",
+  "title": "BLEACH Brave Souls"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-blood-bowl-3",
+  "knownIssues": [
+    {
+      "symptom": "Some videos show a black screen and have to be skipped (M2, DXMT, Wine 10 r28, highball-db#1263)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/blood-bowl-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1016950,
+  "sync": "msync",
+  "title": "Blood Bowl 3"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bloodbreaker-labyrinth-of-the-witch-demo",
+  "knownIssues": [
+    {
+      "symptom": "Four boxes saying 'Win32 function failed: HRESULT 0x80070057' from GR_D3D_Device->CheckMultisampleQualityLevels before the game starts"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bloodbreaker-labyrinth-of-the-witch-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3649940,
+  "sync": "msync",
+  "title": "Bloodbreaker: Labyrinth of the Witch Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bloody-spell",
+  "knownIssues": [
+    {
+      "symptom": "Title screen text missing"
+    },
+    {
+      "symptom": "Freezes a few seconds into a video (the opening one, or the one after the difficulty selection), on every graphics mode"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "Upstream prerequisites: corefonts."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bloody-spell.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/bloody-spell.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 992300,
+  "sync": "msync",
+  "title": "Bloody Spell"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bloons-td-6",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bloons-td-6.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 960090,
+  "sync": "msync",
+  "title": "Bloons TD 6"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bmx-streets",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bmx-streets.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 871540,
+  "sync": "msync",
+  "title": "BMX Streets"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bomber-crew",
+  "knownIssues": [
+    {
+      "symptom": "A mission never starts and the menu freezes after the preparation screen (reported on an M3, macOS 27.0.1, Wine's own Direct3D and DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bomber-crew.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 537800,
+  "sync": "msync",
+  "title": "Bomber Crew"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bomjman",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bomjman.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1092040,
+  "sync": "msync",
+  "title": "BOMJMAN"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-boomerang-fu",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/boomerang-fu.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 965680,
+  "sync": "msync",
+  "title": "Boomerang Fu"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-booster-pack-heroes-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/booster-pack-heroes-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4659940,
+  "sync": "msync",
+  "title": "Booster Pack Heroes Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-borderlands-2",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops at the highest resolution (MacBook Neo, Wine 11 r27, DXMT, highball-db#1243)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/borderlands-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 49520,
+  "sync": "msync",
+  "title": "Borderlands 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-brawlhalla",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/brawlhalla.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 291550,
+  "sync": "msync",
+  "title": "Brawlhalla"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-brazilian-drug-dealer-3",
+  "knownIssues": [
+    {
+      "symptom": "The mouse cursor stays visible"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/brazilian-drug-dealer-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3191050,
+  "sync": "msync",
+  "title": "BRAZILIAN DRUG DEALER 3: I OPENED A PORTAL TO HELL IN THE FAVELA TRYING TO REVIVE MIT AIA I NEED TO CLOSE IT"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-breach-and-clear",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/breach-and-clear.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 266130,
+  "sync": "msync",
+  "title": "Breach & Clear"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-brotato",
+  "knownIssues": [
+    {
+      "symptom": "Changing the display needs Highball restarted, and automatic resizing is a bit buggy, in the player's words (M4, Wine 10 r28, highball-db#1195)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/brotato.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1942280,
+  "sync": "msync",
+  "title": "Brotato"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-brothers-a-tale-of-two-sons",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/brothers-a-tale-of-two-sons.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 225080,
+  "sync": "msync",
+  "title": "Brothers - A Tale of Two Sons"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-buckshot-roulette",
+  "knownIssues": [
+    {
+      "symptom": "Random black squares on screen, play unaffected (M5, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/buckshot-roulette.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2835570,
+  "sync": "msync",
+  "title": "Buckshot Roulette"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bus-simulator-21-next-stop",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bus-simulator-21-next-stop.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 976590,
+  "sync": "msync",
+  "title": "Bus Simulator 21 Next Stop"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-cairn",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/cairn.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1588550,
+  "sync": "msync",
+  "title": "Cairn"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-call-of-duty-black-ops",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops and freezes outside cutscenes (M2)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/call-of-duty-black-ops.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 42700,
+  "sync": "msync",
+  "title": "Call of Duty: Black Ops"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-call-of-duty-modern-warfare-2-2009",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/call-of-duty-modern-warfare-2-2009.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 10180,
+  "sync": "msync",
+  "title": "Call of Duty: Modern Warfare 2 (2009)"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-call-of-duty-world-at-war",
+  "knownIssues": [
+    {
+      "symptom": "Very low frame rate in play, even at the lowest settings"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/call-of-duty-world-at-war.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 10090,
+  "sync": "msync",
+  "title": "Call of Duty: World at War"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-captain-of-industry",
+  "knownIssues": [
+    {
+      "symptom": "The colours of the picture change after the game is minimized (M1 Max, D3DMetal, Wine 10 r28, highball-db#1260)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/captain-of-industry.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1594320,
+  "sync": "msync",
+  "title": "Captain of Industry"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-car-for-sale-simulator",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/car-for-sale-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2248760,
+  "sync": "msync",
+  "title": "Car For Sale Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-car-park-capital",
+  "knownIssues": [
+    {
+      "symptom": "A command prompt opens and closes after a few seconds, no game window"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/car-park-capital.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3031880,
+  "sync": "msync",
+  "title": "Car Park Capital"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-caravan-sandwitch",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/caravan-sandwitch.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1582650,
+  "sync": "msync",
+  "title": "Caravan SandWitch"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-carpe-diem",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/carpe-diem.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 423880,
+  "sync": "msync",
+  "title": "Carpe Diem"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-castlevania-belmonts-curse-demo",
+  "knownIssues": [
+    {
+      "symptom": "A DualSense controller does nothing in game"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/castlevania-belmonts-curse-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5000760,
+  "sync": "msync",
+  "title": "Castlevania: Belmont's Curse Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-castlevania-lords-of-shadow-ultimate-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/castlevania-lords-of-shadow-ultimate-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 234080,
+  "sync": "msync",
+  "title": "Castlevania: Lords of Shadow - Ultimate Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-catto-pew-pew",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/catto-pew-pew.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3665520,
+  "sync": "msync",
+  "title": "Catto Pew Pew!"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-cave-story-plus",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/cave-story-plus.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 200900,
+  "sync": "msync",
+  "title": "Cave Story+"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-chained-together",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/chained-together.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2567870,
+  "sync": "msync",
+  "title": "Chained Together"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-changed",
+  "knownIssues": [
+    {
+      "symptom": "Alt+Enter doesn't switch the game to fullscreen (M5 Pro, DXVK, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/changed.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 814540,
+  "sync": "msync",
+  "title": "Changed"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-chasing-styx",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/chasing-styx.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 594300,
+  "sync": "msync",
+  "title": "Chasing Styx"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-cheap-car-repair-welcome-to-nowhere",
+  "knownIssues": [
+    {
+      "symptom": "Micro stuttering and audio glitches"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/cheap-car-repair-welcome-to-nowhere.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4584240,
+  "sync": "msync",
+  "title": "Cheap Car Repair: Welcome to Nowhere"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-chrono-trigger",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/chrono-trigger.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 613830,
+  "sync": "msync",
+  "title": "CHRONO TRIGGER"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-cities-skylines-ii",
+  "knownIssues": [
+    {
+      "symptom": "In the Paradox Launcher clicks land slightly below the pointer, so the Play button needs a click a little above it. The game itself has no offset (M5 Max, Wine 11 r29, Retina pixels at 100%, highball-db#1244)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/cities-skylines-ii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 949230,
+  "sync": "msync",
+  "title": "Cities: Skylines II"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-cities-skylines",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/cities-skylines.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 255710,
+  "sync": "msync",
+  "title": "Cities: Skylines"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-city-of-gangsters",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/city-of-gangsters.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1386780,
+  "sync": "msync",
+  "title": "City of Gangsters"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-civilization-iii-complete",
+  "knownIssues": [
+    {
+      "symptom": "Conquests crashes as soon as it starts, a page fault reading address 0xb9c at civ3conquests+0x1cdbe6 (M1, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/civilization-iii-complete.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3910,
+  "sync": "msync",
+  "title": "Sid Meier's Civilization III Complete"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-civilization-iv",
+  "knownIssues": [
+    {
+      "symptom": "Choppy for about 30 seconds after the game starts (M2 Pro, Wine 10 r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/civilization-iv.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3900,
+  "sync": "msync",
+  "title": "Sid Meier's Civilization IV"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-civilization-vi",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/civilization-vi.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 289070,
+  "sync": "msync",
+  "title": "Sid Meier's Civilization VI"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-clair-obscur-expedition-33",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/clair-obscur-expedition-33.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1903340,
+  "sync": "msync",
+  "title": "Clair Obscur: Expedition 33"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-class-of-09-the-flip-side",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/class-of-09-the-flip-side.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2757330,
+  "sync": "msync",
+  "title": "Class of '09: The Flip Side"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-cleared-hot",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/cleared-hot.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1710820,
+  "sync": "msync",
+  "title": "Cleared Hot"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-cloverpit",
+  "knownIssues": [
+    {
+      "symptom": "Reported frozen on launch in every graphics mode (no chip, engine or log given)."
+    },
+    {
+      "symptom": "Low frame rate and heavy battery drain on an A18 Pro"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/cloverpit.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3314790,
+  "sync": "msync",
+  "title": "CloverPit"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-combat-master",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/combat-master.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2281730,
+  "sync": "msync",
+  "title": "Combat Master"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-combolands-roguelike-citybuilder",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/combolands-roguelike-citybuilder.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4075620,
+  "sync": "msync",
+  "title": "Combolands: Roguelike Citybuilder"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-command-and-conquer-3-tiberium-wars",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/command-and-conquer-3-tiberium-wars.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 24790,
+  "sync": "msync",
+  "title": "Command & Conquer 3: Tiberium Wars"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-command-and-conquer-generals-zero-hour",
+  "knownIssues": [
+    {
+      "symptom": "'DirectX 8 or later required' at start (reported on an M2 Pro, macOS 27.0.1)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/command-and-conquer-generals-zero-hour.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2732960,
+  "sync": "msync",
+  "title": "Command & Conquer Generals Zero Hour"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-command-and-conquer-red-alert-2-and-yuri-s-revenge",
+  "knownIssues": [
+    {
+      "symptom": "'Error - unable to set video mode' and the game doesn't start"
+    },
+    {
+      "symptom": "The CnCNet 5 Yuri's Revenge installer does not launch (M5, default engine r28, with .NET 4.8 installed)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/command-and-conquer-red-alert-2-and-yuri-s-revenge.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2229850,
+  "sync": "msync",
+  "title": "Command & Conquer Red Alert™ 2 and Yuri’s Revenge™"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-company-of-heroes-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/company-of-heroes-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 231430,
+  "sync": "msync",
+  "title": "Company of Heroes 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-conarium",
+  "knownIssues": [
+    {
+      "symptom": "DualSense controller not recognized by the game (an Xbox style XInput pad works)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/conarium.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 313780,
+  "sync": "msync",
+  "title": "Conarium"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-construction-simulator",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/construction-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1273400,
+  "sync": "msync",
+  "title": "Construction Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-contractville",
+  "knownIssues": [
+    {
+      "symptom": "Stops at 'DX12 is not supported on your system. Try running without the -dx12 or -d3d12 command line argument.'"
+    },
+    {
+      "symptom": "Endless loading screen after the logos on the default engine (reported on an M1 and an M2, reproduced on an M1 Pro, engine r7)."
+    },
+    {
+      "symptom": "Character preview drawn black in the character creator on DXVK (Wine 11, M1 Pro)."
+    },
+    {
+      "symptom": "Crashes at start on DXMT with the Unreal crash reporter on the Wine 10 engine (M1 Pro, engine r7, DXMT 0.80)."
+    },
+    {
+      "symptom": "In-game tutorial videos show a blank white screen instead of playing (reported on the Wine 11 engine r11, DXMT, M1, highball#202)."
+    },
+    {
+      "symptom": "Steam's own window shows only its frame, the page area black, after moving the environment to the Wine 11 engine (reported on an M1, r11, reproduced on an M1 Pro, r12)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/contractville.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/contractville.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2698780,
+  "sync": "msync",
+  "title": "ContractVille"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-control-resonant",
+  "knownIssues": [
+    {
+      "symptom": "Freezes on the Remedy logo seconds after boot on D3DMetal 4 beta 3, starts only with DLSS off, and crashes at once on the Wine 10 engine r29"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/control-resonant.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3669870,
+  "sync": "msync",
+  "title": "Control Resonant"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-control",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/control.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 870780,
+  "sync": "msync",
+  "title": "Control"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-coral-island",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/coral-island.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1158160,
+  "sync": "msync",
+  "title": "Coral Island"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-counter-strike-condition-zero",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/counter-strike-condition-zero.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 80,
+  "sync": "msync",
+  "title": "Counter-Strike: Condition Zero"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-counter-strike-source",
+  "knownIssues": [
+    {
+      "symptom": "The frame rate falls from about 350 fps to under 100 while the mouse or trackpad moves, which feels like mouse lag (reported on an M4, macOS 27.0.1, DXVK, engine r28, highball#482)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/counter-strike-source.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 240,
+  "sync": "msync",
+  "title": "Counter-Strike: Source"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-counter-strike",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/counter-strike.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 10,
+  "sync": "msync",
+  "title": "Counter-Strike"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-cpm-2",
+  "knownIssues": [
+    {
+      "symptom": "The game never shows a window: UnityPlayer.dll fails to initialize at startup (reported on an M1, macOS 27.0.1 and 15.7.8, engines r21 and r28, D3DMetal and DXMT, highball#295 and #435)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/cpm-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4252340,
+  "sync": "msync",
+  "title": "CPM 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-crab-champions",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/crab-champions.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 774801,
+  "sync": "msync",
+  "title": "Crab Champions"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-cricket-19",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/cricket-19.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1028630,
+  "sync": "msync",
+  "title": "Cricket 19"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-crime-simulator",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/crime-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2737070,
+  "sync": "msync",
+  "title": "Crime Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-crusader-kings-iii",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/crusader-kings-iii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1158310,
+  "sync": "msync",
+  "title": "Crusader Kings III"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-crush-crush",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/crush-crush.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 459820,
+  "sync": "msync",
+  "title": "Crush Crush"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-crypt-custodian",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/crypt-custodian.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2394650,
+  "sync": "msync",
+  "title": "Crypt Custodian"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-csgo-legacy",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/csgo-legacy.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/csgo-legacy.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4465480,
+  "sync": "msync",
+  "title": "Counter-Strike: Global Offensive (Legacy)"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dark-souls-iii",
+  "knownIssues": [
+    {
+      "symptom": "The game freezes when an enemy is killed, then crashes (reported on an M4 Pro, macOS 26.6.2, engine x64-sikarugir10.0_6-r7, DXMT, Highball 0.9.35, highball-db#204, rated 2, launches but not playable)."
+    },
+    {
+      "symptom": "The game crashes when its settings open (reported on an M5, engine r28, D3DMetal, highball-db#583)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dark-souls-iii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 374320,
+  "sync": "msync",
+  "title": "Dark Souls III"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dark-souls-remastered",
+  "knownIssues": [
+    {
+      "symptom": "The sky flickers in Blighttown (M5, Wine 10 r28, DXVK by the report, highball-db#1219)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dark-souls-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 570940,
+  "sync": "msync",
+  "title": "Dark Souls: Remastered"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-darkenstein-3d",
+  "knownIssues": [
+    {
+      "symptom": "The game crashes at startup, after Steam's overlay notice, on DXVK (reported on an M5 Pro, macOS 27.2, engine r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/darkenstein-3d.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2195910,
+  "sync": "msync",
+  "title": "Darkenstein 3D"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-darkest-dungeon",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/darkest-dungeon.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 262060,
+  "sync": "msync",
+  "title": "Darkest Dungeon"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-darksiders-ii-deathinitive-edition",
+  "knownIssues": [
+    {
+      "symptom": "In windowed mode the game sometimes stays on a black screen with no response to keyboard or mouse (reported on an M1 Pro, macOS 26.7, DXVK, engine r28 and the Wine 11 engine r27)"
+    },
+    {
+      "symptom": "The fullscreen picture is wrongly scaled or positioned (reported on an M1 Pro, macOS 26.7, DXVK, engine r28)"
+    },
+    {
+      "symptom": "A controller connected after the game has started is not picked up (reported on an M1 Pro, macOS 26.7, DXVK, engine r28)"
+    },
+    {
+      "symptom": "Occasional flickering and stuttering (reported on an M1 Pro, macOS 26.7, DXVK, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/darksiders-ii-deathinitive-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 388410,
+  "sync": "msync",
+  "title": "Darksiders II Deathinitive Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-darksiders-warmastered-edition",
+  "knownIssues": [
+    {
+      "symptom": "Crashes on exit (reported on an M1 Pro, macOS 26.7, DXVK, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/darksiders-warmastered-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 462780,
+  "sync": "msync",
+  "title": "Darksiders Warmastered Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dawnsbury-days",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dawnsbury-days.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2693730,
+  "sync": "msync",
+  "title": "Dawnsbury Days"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-days-gone",
+  "knownIssues": [
+    {
+      "symptom": "Freezes on a still frame at start, with sound playing but the picture never changing (M5 Pro, Wine 11 r30, DXMT)"
+    },
+    {
+      "symptom": "Occasional minor stutter at a 60 fps cap (M5 Pro, Wine 11 r30, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/days-gone.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1259420,
+  "sync": "msync",
+  "title": "Days Gone"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dcs-world-steam-edition",
+  "knownIssues": [
+    {
+      "symptom": "Crash at start, Wine's debugger opens with an unhandled page fault reading address 4 (M5, engine r28, highball#673)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dcs-world-steam-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 223750,
+  "sync": "msync",
+  "title": "DCS World Steam Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dead-island-2",
+  "knownIssues": [
+    {
+      "symptom": "Smooth to the menu, then the game quits (reported on an M1 Pro, macOS 26.5.2, DXVK, engine r28)"
+    },
+    {
+      "symptom": "On D3DMetal the game stops on the opening copyright screen with the music playing (reported on an M1 Pro, macOS 26.5.2, highball#451)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dead-island-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 934700,
+  "sync": "msync",
+  "title": "Dead Island 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dead-rising-3",
+  "knownIssues": [
+    {
+      "symptom": "The mouse cannot move the character or aim (reported on an M5, macOS 26.6.2)"
+    },
+    {
+      "symptom": "Split screen freezes the game (reported on an M5, macOS 26.6.2)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dead-rising-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 265550,
+  "sync": "msync",
+  "title": "Dead Rising 3 Apocalypse Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dead-space-remake",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dead-space-remake.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1693980,
+  "sync": "msync",
+  "title": "Dead Space"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-deadlock",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/deadlock.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1422450,
+  "sync": "msync",
+  "title": "Deadlock"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-deadly-days-roadtrip",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/deadly-days-roadtrip.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3026450,
+  "sync": "msync",
+  "title": "Deadly Days: Roadtrip"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": true,
+  "environment": {},
+  "id": "hbdb-death-stranding-directors-cut",
+  "knownIssues": [
+    {
+      "symptom": "\"Death Stranding requires a CPU with AVX support\" at launch"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/death-stranding-directors-cut.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/death-stranding-directors-cut.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1850570,
+  "sync": "msync",
+  "title": "Death Stranding Director's Cut"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": true,
+  "environment": {},
+  "id": "hbdb-death-stranding",
+  "knownIssues": [
+    {
+      "symptom": "\"Death Stranding requires a CPU with AVX support\" at launch (reported on an M5)"
+    },
+    {
+      "symptom": "\"failed to load d3d12.dll\" with exception C06D007F right after the AVX check (reported on an M5, Epic copy, Highball 0.9.15)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/death-stranding.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/death-stranding.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1190460,
+  "sync": "msync",
+  "title": "Death Stranding"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-deaths-door",
+  "knownIssues": [
+    {
+      "symptom": "The player and enemies are invisible while the level draws (reported on an M1 Max and again on an M2 Max, both with DXVK, highball#219)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/deaths-door.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 894020,
+  "sync": "msync",
+  "title": "Death's Door"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-deep-rock-galactic",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/deep-rock-galactic.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 548430,
+  "sync": "msync",
+  "title": "Deep Rock Galactic"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-defense-grid-the-awakening",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/defense-grid-the-awakening.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 18500,
+  "sync": "msync",
+  "title": "Defense Grid: The Awakening"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-deltarune",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/deltarune.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1671210,
+  "sync": "msync",
+  "title": "DELTARUNE"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-denshattack",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/denshattack.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2524850,
+  "sync": "msync",
+  "title": "Denshattack!"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-deskrawl",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/deskrawl.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4623570,
+  "sync": "msync",
+  "title": "Deskrawl"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-detroit-become-human-demo",
+  "knownIssues": [
+    {
+      "symptom": "The frame rate drops after 30 minutes with DEPTH_OF_FIELD at 1, in the player's words (M3 Max, Wine 11 r31, highball-db#1211)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/detroit-become-human-demo.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/detroit-become-human-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1224230,
+  "sync": "msync",
+  "title": "Detroit: Become Human Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-detroit-become-human",
+  "knownIssues": [
+    {
+      "symptom": "Launcher's shader compile stops at 98 percent, or shows only a spinner (engine r10, highball#125)."
+    },
+    {
+      "symptom": "Shader step takes about 22 minutes and the game stutters badly (base M1 16 GB, r30 or r31)."
+    },
+    {
+      "symptom": "A blur over parts of the picture every so often."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/detroit-become-human.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/detroit-become-human.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1222140,
+  "sync": "msync",
+  "title": "Detroit: Become Human"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-devil-may-cry-4-special-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/devil-may-cry-4-special-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 329050,
+  "sync": "msync",
+  "title": "Devil May Cry 4 Special Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-devil-may-cry-5",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/devil-may-cry-5.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 601150,
+  "sync": "msync",
+  "title": "Devil May Cry 5"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-devil-may-cry-hd-collection",
+  "knownIssues": [
+    {
+      "symptom": "A Bluetooth controller isn't recognized in game (A18 Pro, DXMT, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/devil-may-cry-hd-collection.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 631510,
+  "sync": "msync",
+  "title": "Devil May Cry HD Collection"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": true,
+  "environment": {},
+  "id": "hbdb-diablo-ii-resurrected",
+  "knownIssues": [
+    {
+      "symptom": "Never opens a window on the default engine, the game process idle (M5, macOS 27.0.1, the Battle.net copy; the Steam copy on an M5 Pro the same, highball#371)"
+    },
+    {
+      "symptom": "On the Wine 11 engines before r35 the Steam copy exits a few seconds after start, before any window (M5 Pro, highball#371). On the Wine 11 engine the Battle.net copy doesn't get that far, Battle.net crashed after login or never drew its window"
+    },
+    {
+      "symptom": "The cursor keeps switching between the game's cursor and the Mac pointer (M5 Pro, highball-db#1194)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/diablo-ii-resurrected.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/diablo-ii-resurrected.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2536520,
+  "sync": "msync",
+  "title": "Diablo II: Resurrected"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dice-dice-baby",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dice-dice-baby.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3904950,
+  "sync": "msync",
+  "title": "Dice Dice Baby"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dimraeth",
+  "knownIssues": [
+    {
+      "symptom": "In fullscreen the picture is cut by the MacBook's camera notch"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dimraeth.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2402680,
+  "sync": "msync",
+  "title": "Dimraeth"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dirt-rally-2-0",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dirt-rally-2-0.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 690790,
+  "sync": "msync",
+  "title": "DiRT Rally 2.0"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dirt-rally",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dirt-rally.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 310560,
+  "sync": "msync",
+  "title": "DiRT Rally"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-disco-elysium",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/disco-elysium.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 632470,
+  "sync": "msync",
+  "title": "Disco Elysium - The Final Cut"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dishonored-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dishonored-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 403640,
+  "sync": "msync",
+  "title": "Dishonored 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dishonored",
+  "knownIssues": [
+    {
+      "symptom": "Stutter the first time a mission or map loads"
+    },
+    {
+      "symptom": "Freezes when attacking (M5, D3DMetal, Wine 10 r28)"
+    },
+    {
+      "symptom": "Laggy with night vision on, and some lag when changing worlds (M5, D3DMetal, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dishonored.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 205100,
+  "sync": "msync",
+  "title": "Dishonored"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-disney-speedstorm",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/disney-speedstorm.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1537830,
+  "sync": "msync",
+  "title": "Disney Speedstorm"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-djmax-respect-v",
+  "knownIssues": [
+    {
+      "symptom": "Input delay, noticeable in a rhythm game"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/djmax-respect-v.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 960170,
+  "sync": "msync",
+  "title": "DJMAX RESPECT V"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dodonpachi-resurrection",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dodonpachi-resurrection.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 464450,
+  "sync": "msync",
+  "title": "DoDonPachi Resurrection"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dokapon-kingdom-connect",
+  "knownIssues": [
+    {
+      "symptom": "Crashes at startup with a page fault at address zero on every graphics mode (reported on an M3, macOS 27)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dokapon-kingdom-connect.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2338140,
+  "sync": "msync",
+  "title": "Dokapon Kingdom: Connect"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dokimon-quest",
+  "knownIssues": [
+    {
+      "symptom": "Four boxes saying 'Win32 function failed: HRESULT 0x80070057' from GR_D3D_Device->CheckMultisampleQualityLevels before the game starts"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dokimon-quest.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2019300,
+  "sync": "msync",
+  "title": "Dokimon Quest"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-doom-64",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/doom-64.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1148590,
+  "sync": "msync",
+  "title": "DOOM 64"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-doom-eternal",
+  "knownIssues": [
+    {
+      "symptom": "Play DOOM Eternal stops with _gpu_validation.reason_vendor_not_recon, \"Unknown GPU vendor Apple M5 Pro\" (highball#666)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/doom-eternal.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 782330,
+  "sync": "msync",
+  "title": "DOOM Eternal"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-doomsday-last-survivors",
+  "knownIssues": [
+    {
+      "symptom": "The launcher's web pages do not load and switching accounts fails"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/doomsday-last-survivors.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2439510,
+  "sync": "msync",
+  "title": "Doomsday: Last Survivors"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-door-kickers",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/door-kickers.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 248610,
+  "sync": "msync",
+  "title": "Door Kickers"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dragon-ball-xenoverse-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dragon-ball-xenoverse-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 454650,
+  "sync": "msync",
+  "title": "DRAGON BALL XENOVERSE 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dragon-quest-i-ii-hd-2d-remake",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dragon-quest-i-ii-hd-2d-remake.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2893570,
+  "sync": "msync",
+  "title": "DRAGON QUEST I & II HD-2D Remake"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dragon-quest-vii-reimagined",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dragon-quest-vii-reimagined.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2499860,
+  "sync": "msync",
+  "title": "DRAGON QUEST VII Reimagined"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-drone-sector",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/drone-sector.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3279440,
+  "sync": "msync",
+  "title": "Drone Sector"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-drop-duchy",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/drop-duchy.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2525310,
+  "sync": "msync",
+  "title": "Drop Duchy"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dune-spice-wars",
+  "knownIssues": [
+    {
+      "symptom": "'OpenGL Error: unable to create an OpenGL context, OpenGL 3.2+ is required' at launch (reported on an M3, highball#206)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dune-spice-wars.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1605220,
+  "sync": "msync",
+  "title": "Dune: Spice Wars"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dwarf-fortress",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dwarf-fortress.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 975370,
+  "sync": "msync",
+  "title": "Dwarf Fortress"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dying-light-2-reloaded-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dying-light-2-reloaded-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 534380,
+  "sync": "msync",
+  "title": "Dying Light 2: Reloaded Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dying-light",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dying-light.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 239140,
+  "sync": "msync",
+  "title": "Dying Light"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dyson-sphere-program",
+  "knownIssues": [
+    {
+      "symptom": "Leaving the game to the desktop sometimes hangs on a black screen (M3, DXMT, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dyson-sphere-program.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1366540,
+  "sync": "msync",
+  "title": "Dyson Sphere Program"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-easy-delivery-co",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/easy-delivery-co.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3293010,
+  "sync": "msync",
+  "title": "Easy Delivery Co."
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-efootball",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/efootball.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1665460,
+  "sync": "msync",
+  "title": "eFootball"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-elden-ring-nightreign",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/elden-ring-nightreign.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2622380,
+  "sync": "msync",
+  "title": "ELDEN RING NIGHTREIGN"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-electronic-super-joy-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/electronic-super-joy-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1113940,
+  "sync": "msync",
+  "title": "Electronic Super Joy 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-elite-dangerous-odyssey",
+  "knownIssues": [
+    {
+      "symptom": "A HOTAS or other flight stick is not seen by the game"
+    },
+    {
+      "symptom": "No sound at all (reported on an M2 Pro, macOS 27.0.1, D3DMetal, engine r28)"
+    },
+    {
+      "symptom": "The frame rate falls to about 10 fps while browsing ships in the shipyard and stays low until the game is restarted (reported on an M2 Pro with 16 GB)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/elite-dangerous-odyssey.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 359320,
+  "sync": "msync",
+  "title": "Elite Dangerous (Odyssey)"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-elsword",
+  "knownIssues": [
+    {
+      "symptom": "The game's DirectX 11 mode does not work, DirectX 9 does"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/elsword.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 237310,
+  "sync": "msync",
+  "title": "Elsword"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-emberward",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/emberward.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2643980,
+  "sync": "msync",
+  "title": "Emberward"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-empyrion-galactic-survival",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/empyrion-galactic-survival.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 383120,
+  "sync": "msync",
+  "title": "Empyrion - Galactic Survival"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-endless-legend-2",
+  "knownIssues": [
+    {
+      "symptom": "No new save can be created after the first run"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/endless-legend-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3407390,
+  "sync": "msync",
+  "title": "Endless Legend 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-enigma-of-fear",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/enigma-of-fear.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1507580,
+  "sync": "msync",
+  "title": "Enigma of Fear"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-enshrouded",
+  "knownIssues": [
+    {
+      "symptom": "Does not launch (DXMT and DXVK)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/enshrouded.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1203620,
+  "sync": "msync",
+  "title": "Enshrouded"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-escape-the-backrooms",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/escape-the-backrooms.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1943950,
+  "sync": "msync",
+  "title": "Escape the Backrooms"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-esoteric-ebb",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/esoteric-ebb.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2057760,
+  "sync": "msync",
+  "title": "Esoteric Ebb"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-euro-truck-simulator-2",
+  "knownIssues": [
+    {
+      "symptom": "On the Wine 11 engine r15 in DXMT mode the game does not start, while the default engine starts it on the same Mac (reported on an M1, macOS 27.0.1, highball-db#288)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/euro-truck-simulator-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 227300,
+  "sync": "msync",
+  "title": "Euro Truck Simulator 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-europa-universalis-5",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/europa-universalis-5.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3450310,
+  "sync": "msync",
+  "title": "Europa Universalis 5"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-evans-remains-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/evans-remains-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1114470,
+  "sync": "msync",
+  "title": "Evan's Remains Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-everrail-demo",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops when crashing or crafting in solo (M5, DXMT)"
+    },
+    {
+      "symptom": "The land is sometimes drawn a little wrong (M5, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/everrail-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4371260,
+  "sync": "msync",
+  "title": "EverRail Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ez2on-reboot-r",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ez2on-reboot-r.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1477590,
+  "sync": "msync",
+  "title": "EZ2ON REBOOT : R"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-f1-2020",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/f1-2020.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1080110,
+  "sync": "msync",
+  "title": "F1 2020"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-f1-manager-2024",
+  "knownIssues": [
+    {
+      "symptom": "Crash at the copyright screen (reported on an M1, macOS 26.6.2, engine of Highball 0.9.35)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/f1-manager-2024.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2591280,
+  "sync": "msync",
+  "title": "F1 Manager 2024"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-factorio",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/factorio.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 427520,
+  "sync": "msync",
+  "title": "Factorio"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fahrenheit-indigo-prophecy-remastered",
+  "knownIssues": [
+    {
+      "symptom": "The game stops before opening a window in every graphics mode, its own DLLs not found"
+    },
+    {
+      "symptom": "The first menu click switches the game to 1024x768 and then it fails with 'A DirectX 9.0c or higher compliant video card is needed' or 'D3D ERROR! Fail to create texture surface' (an M1, DXVK's Direct3D 9, highball-db#700)"
+    },
+    {
+      "symptom": "A DirectX 9 warning dialog at start"
+    },
+    {
+      "symptom": "In a window the mouse cursor sticks to the screen's edge and the mouse cannot be used (the default Wine 10 engine)"
+    },
+    {
+      "symptom": "A DualSense's right stick does nothing"
+    },
+    {
+      "symptom": "In a window, a click in the picture on the splash screen zooms it in (M1, Wine 11 r30)"
+    },
+    {
+      "symptom": "The picture is slightly cropped on the right (M1, Wine 11 r30, in a window)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fahrenheit-indigo-prophecy-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 312840,
+  "sync": "msync",
+  "title": "Fahrenheit: Indigo Prophecy Remastered"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fallout-2",
+  "knownIssues": [
+    {
+      "symptom": "'Error initializing video mode 640x480' at start"
+    },
+    {
+      "symptom": "Runs in slow motion once started, as Fallout does (M1, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fallout-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 38410,
+  "sync": "msync",
+  "title": "Fallout 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fallout-4",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fallout-4.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 377160,
+  "sync": "msync",
+  "title": "Fallout 4"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fallout-76",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fallout-76.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1151340,
+  "sync": "msync",
+  "title": "Fallout 76"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fallout-new-vegas",
+  "knownIssues": [
+    {
+      "symptom": "Under 10 fps with lag spikes in the main menu on the Wine 11 engine r11 with DXVK, and under about 15 fps (estimated) with Wine's own Direct3D there (M3 Pro, macOS 27.0, highball-db#211)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fallout-new-vegas.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 22380,
+  "sync": "msync",
+  "title": "Fallout: New Vegas"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fallout",
+  "knownIssues": [
+    {
+      "symptom": "Slows to a crawl a moment into the opening logo, with every graphics mode (M1, Wine 10 r28 and Wine 11 r28). On Wine 11 r30 with the x87 sidecar the logo starts at full speed and the game can be reached, but it crawls again later, at the Overseer's talking head, whose voice is garbled"
+    },
+    {
+      "symptom": "DXVK mode draws the picture zoomed in (M1, Wine 11 r30, the GOG copy with its high resolution patch)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fallout.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 38400,
+  "sync": "msync",
+  "title": "Fallout"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-family-time",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/family-time.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5072600,
+  "sync": "msync",
+  "title": "Family Time"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-far-cry-3",
+  "knownIssues": [
+    {
+      "symptom": "Frame and sound lag after a smooth start (reported on an M1 Pro, macOS 27.0.1, DXMT, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/far-cry-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 220240,
+  "sync": "msync",
+  "title": "Far Cry 3"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-far-cry-5",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/far-cry-5.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 552520,
+  "sync": "msync",
+  "title": "Far Cry 5"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-farfarwest",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/farfarwest.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3124540,
+  "sync": "msync",
+  "title": "Far Far West"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-farm-and-feast",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/farm-and-feast.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4521650,
+  "sync": "msync",
+  "title": "Farm & Feast"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fart-together-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fart-together-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5208630,
+  "sync": "msync",
+  "title": "Fart Together Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-farthest-frontier",
+  "knownIssues": [
+    {
+      "symptom": "Typing a save name shows no characters in the input field"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/farthest-frontier.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1044720,
+  "sync": "msync",
+  "title": "Farthest Frontier"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fear-and-hunger",
+  "knownIssues": [
+    {
+      "symptom": "Lag and stuttering now and then, enough to change the outcome of a run at times (M1, DXMT, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fear-and-hunger.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1002300,
+  "sync": "msync",
+  "title": "Fear & Hunger"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fear",
+  "knownIssues": [
+    {
+      "symptom": "Clicking the title menu zooms the picture in about four times, so the menu no longer fits on the screen and the game can't be played. On D3DMetal and DXMT it is zoomed from the start, on WineD3D only after the click (M1, Wine 10 r29)"
+    },
+    {
+      "symptom": "Stays at 800x600, a higher resolution chosen in the game doesn't stick (M1, WineD3D, Wine 10 r29)"
+    },
+    {
+      "symptom": "No controller is read, XInput or DirectInput, with or without Steam Input"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fear.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 21090,
+  "sync": "msync",
+  "title": "F.E.A.R."
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ferocious",
+  "knownIssues": [
+    {
+      "symptom": "The menu and shader loading take about a minute, and the game slows down when new shaders or animations load (M5 Pro, DXVK, Wine 11 r29)"
+    },
+    {
+      "symptom": "Some visual glitches, such as artifacts in water reflections (M5 Pro, DXVK)"
+    },
+    {
+      "symptom": "The resolution was wrong at the first start"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ferocious.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1645630,
+  "sync": "msync",
+  "title": "FEROCIOUS"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fields-of-mistria",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fields-of-mistria.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2142790,
+  "sync": "msync",
+  "title": "Fields of Mistria"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fifa-22",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fifa-22.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1506830,
+  "sync": "msync",
+  "title": "FIFA 22"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-final-fantasy-resonance-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/final-fantasy-resonance-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4474710,
+  "sync": "msync",
+  "title": "FINAL FANTASY RESONANCE DEMO"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-final-fantasy-resonance",
+  "knownIssues": [
+    {
+      "symptom": "The sound sometimes falls out of sync, and there are minor frame rate issues (M2, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/final-fantasy-resonance.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3259780,
+  "sync": "msync",
+  "title": "FINAL FANTASY RESONANCE"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-final-fantasy-vii-rebirth",
+  "knownIssues": [
+    {
+      "symptom": "The game doesn't run until AVX is advertised"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/final-fantasy-vii-rebirth.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2909400,
+  "sync": "msync",
+  "title": "FINAL FANTASY VII REBIRTH"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-final-fantasy-vii-remake-intergrade",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/final-fantasy-vii-remake-intergrade.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1462040,
+  "sync": "msync",
+  "title": "FINAL FANTASY VII REMAKE INTERGRADE"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-final-fantasy-xiii",
+  "knownIssues": [
+    {
+      "symptom": "The game does not get past its initial load at start"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/final-fantasy-xiii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 292120,
+  "sync": "msync",
+  "title": "FINAL FANTASY XIII"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fireside-feelings",
+  "knownIssues": [
+    {
+      "symptom": "Crashes on D3DMetal"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fireside-feelings.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2990600,
+  "sync": "msync",
+  "title": "Fireside Feelings"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-five-nights-at-freddys-2",
+  "knownIssues": [
+    {
+      "symptom": "Freezes on DXVK after the first frame, runs at about 5 fps on Wine's own Direct3D (reported on the default engine, highball#67)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [
+    {
+      "data": "y",
+      "key": "HKCU\\Software\\Wine\\AppDefaults\\FiveNightsatFreddys2.exe\\X11 Driver",
+      "name": "EmulateModeset",
+      "type": "REG_SZ"
+    }
+  ],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/five-nights-at-freddys-2.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/five-nights-at-freddys-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 332800,
+  "sync": "msync",
+  "title": "Five Nights at Freddy's 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-five-nights-at-freddys-4",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/five-nights-at-freddys-4.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 388090,
+  "sync": "msync",
+  "title": "Five Nights at Freddy's 4"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-five-nights-at-freddys-into-the-pit",
+  "knownIssues": [
+    {
+      "symptom": "DualSense controller not recognized by the game (an Xbox style XInput pad works)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/five-nights-at-freddys-into-the-pit.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2638370,
+  "sync": "msync",
+  "title": "Five Nights at Freddy's: Into the Pit"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-five-nights-at-freddys-secret-of-the-mimic",
+  "knownIssues": [
+    {
+      "symptom": "The mouse cursor appears and moves around when the view is turned toward a corner of the screen (reported on an M4, macOS 27.2, DXMT, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/five-nights-at-freddys-secret-of-the-mimic.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2215390,
+  "sync": "msync",
+  "title": "Five Nights at Freddy's: Secret of the Mimic"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-five-nights-at-freddys-security-breach",
+  "knownIssues": [
+    {
+      "symptom": "Every 3D scene is black while menus, dialogue and sound work"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/five-nights-at-freddys-security-breach.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 747660,
+  "sync": "msync",
+  "title": "Five Nights at Freddy's: Security Breach"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-five-nights-at-freddys",
+  "knownIssues": [
+    {
+      "symptom": "The office runs at about 18 to 27 fps on macOS 27, where it ran at 60 on macOS 26, and already on macOS 26.7 (21 fps there, highball#400)"
+    },
+    {
+      "symptom": "Without the recipe, on a display whose logical resolution is not 16:10: the picture sits down and to the right with black bars along the top and left, and is clipped at the right and bottom edges."
+    },
+    {
+      "symptom": "On a 14-inch M1 Pro the game draws small in a corner of the screen and the mouse position does not match what it clicks (reported on 0.9.12, highball#67)"
+    },
+    {
+      "symptom": "On the Wine 11 engines (x64-crossover26.3-r11, r12) under DXVK the game runs at about 40 fps with cut sound and uneven frames, against 76 fps on the default engine's DXVK Direct3D 9 (Metal HUD, menu, M1 Pro, macOS 27.0, 2026-09-25)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [
+    {
+      "data": "y",
+      "key": "HKCU\\Software\\Wine\\AppDefaults\\FiveNightsatFreddys.exe\\X11 Driver",
+      "name": "EmulateModeset",
+      "type": "REG_SZ"
+    }
+  ],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/five-nights-at-freddys.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/five-nights-at-freddys.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 319510,
+  "sync": "msync",
+  "title": "Five Nights at Freddy's"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-flotsam",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/flotsam.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 821250,
+  "sync": "msync",
+  "title": "Flotsam"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-folded-fables-tidy-up-the-dragon-hoard",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops when moving around (M3)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/folded-fables-tidy-up-the-dragon-hoard.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4995030,
+  "sync": "msync",
+  "title": "Folded Fables: Tidy Up The Dragon Hoard"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-forager",
+  "knownIssues": [
+    {
+      "symptom": "The mouse feels a little floaty (reported on an M5, DXMT, engine r11)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/forager.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 751780,
+  "sync": "msync",
+  "title": "Forager"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-forgive-me-father",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/forgive-me-father.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1590910,
+  "sync": "msync",
+  "title": "Forgive Me Father"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fort-solis",
+  "knownIssues": [
+    {
+      "symptom": "Hangs on the loading screen at launch (M1, D3DMetal, Wine 10 r28)"
+    },
+    {
+      "symptom": "On engine r29 a white rectangle shows over a picture of Mars after the loading screen, and the game freezes about 30 seconds later without crashing (M1, D3DMetal from GPTK 4.0b2)"
+    },
+    {
+      "symptom": "A launch right after a working one ended after about a minute and a half without reaching the game (M1, D3DMetal, Wine 10 r29)"
+    },
+    {
+      "symptom": "On the Wine 11 engine r30 with D3DMetal it ran as a slideshow at about 8 fps (M1)"
+    },
+    {
+      "symptom": "Resolutions below 1920x1080 shrink the picture and change the Mac's display mode (M1, Wine 11 r30)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fort-solis.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1931730,
+  "sync": "msync",
+  "title": "Fort Solis"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-forts",
+  "knownIssues": [
+    {
+      "symptom": "The mouse pointer stays visible where the game hides it"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/forts.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 410900,
+  "sync": "msync",
+  "title": "Forts"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-forza-horizon-4",
+  "knownIssues": [
+    {
+      "symptom": "Steam shows the game running, no window ever opens, the game quits after a few minutes"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/forza-horizon-4.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1293830,
+  "sync": "msync",
+  "title": "Forza Horizon 4"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-forza-horizon-5",
+  "knownIssues": [
+    {
+      "symptom": "The game crashes at startup during graphics setup (a read of address 0x10 in ForzaHorizon5.exe)"
+    },
+    {
+      "symptom": "The Xbox sign-in window is black"
+    },
+    {
+      "symptom": "All scenery (trees, poles, buildings) draws tilted, only the car and the road look right (highball-db#386)"
+    },
+    {
+      "symptom": "A Fatal Error with code 0x800705aa (not enough system resources) after 37 seconds to 6 minutes of driving (highball-db#386)"
+    },
+    {
+      "symptom": "On DXMT the game crashes at DXGI, asking for an interface DXMT does not know ({f0db4c7f-fe5a-42a2-bd62-f2a6cf6fc83e})"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/forza-horizon-5.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1551360,
+  "sync": "msync",
+  "title": "Forza Horizon 5"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-forza-horizon-6",
+  "knownIssues": [
+    {
+      "symptom": "A hitch of about a tenth of a second roughly once a second, in menus, the garage and while driving"
+    },
+    {
+      "symptom": "Liveries look washed out or missing (the car shows mostly its base paint), factory paint has blotchy, faceted reflections, and trees sway oddly (an M5 in highball#290, an M5 Pro in highball-db#449, an M4 Max)"
+    },
+    {
+      "symptom": "Snow and patches of ground can turn black (an M5 Pro in highball-db#449)"
+    },
+    {
+      "symptom": "Dialogue, the navigator's voice and most of the engine sound are missing, on any Mac with a two-channel output such as its speakers or headphones (an M5 Max, an M5 Pro, an M5, an M2 Pro)"
+    },
+    {
+      "symptom": "FHE21 right after the splash, or a Wine crash, when forzahorizon6.exe is added to Highball and started by itself (highball#319, #486, #550)"
+    },
+    {
+      "symptom": "A freeze of several seconds in all, in one burst, about half a minute into the first drive after starting the game (native arm64 engine)"
+    },
+    {
+      "symptom": "On the native arm64 route, the game crashes the moment a controller is used (M5 Max, highball#618)"
+    },
+    {
+      "symptom": "On the native arm64 route, speech and commentary don't play and the car's sound is missing head on, heard only when viewing from the sides (M3 Pro, engine arm64-kk-wine11.18-r4, highball-db#1318)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "Upstream prerequisites: concrt140-native."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/forza-horizon-6.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/forza-horizon-6.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2483190,
+  "sync": "msync",
+  "title": "Forza Horizon 6"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fps-chess",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fps-chess.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2021910,
+  "sync": "msync",
+  "title": "FPS Chess"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-freddy-fazbears-pizzeria-simulator",
+  "knownIssues": [
+    {
+      "symptom": "Text does not show in some minigames, for example Midnight Motorist"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/freddy-fazbears-pizzeria-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 738060,
+  "sync": "msync",
+  "title": "Freddy Fazbear's Pizzeria Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-frostpunk",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/frostpunk.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 323190,
+  "sync": "msync",
+  "title": "Frostpunk"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-frozen-synapse",
+  "knownIssues": [
+    {
+      "symptom": "The frame rate falls steeply when the action starts, in every graphics mode (reported on an M2)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/frozen-synapse.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 98200,
+  "sync": "msync",
+  "title": "Frozen Synapse"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fumes",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fumes.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1920430,
+  "sync": "msync",
+  "title": "FUMES"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-gamedec-definitive-edition",
+  "knownIssues": [
+    {
+      "symptom": "A little stutter when moving around at the start (M1, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/gamedec-definitive-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 917720,
+  "sync": "msync",
+  "title": "Gamedec - Definitive Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-garden-story",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/garden-story.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1062140,
+  "sync": "msync",
+  "title": "Garden Story"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-garrys-mod",
+  "knownIssues": [
+    {
+      "symptom": "Crashed once while creating a world for the first time (M5, macOS 27, DXMT)"
+    },
+    {
+      "symptom": "Motion feels slightly jittery and not a true 120 Hz, though performance is good"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/garrys-mod.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4000,
+  "sync": "msync",
+  "title": "Garry's Mod"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-geometry-dash",
+  "knownIssues": [
+    {
+      "symptom": "Low frame rate (reported on an M2)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/geometry-dash.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 322170,
+  "sync": "msync",
+  "title": "Geometry Dash"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ghost-of-tsushima-directors-cut",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ghost-of-tsushima-directors-cut.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2215430,
+  "sync": "msync",
+  "title": "Ghost of Tsushima DIRECTOR'S CUT"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ghostrunner-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ghostrunner-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2144740,
+  "sync": "msync",
+  "title": "Ghostrunner 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ghostrunner",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ghostrunner.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1139900,
+  "sync": "msync",
+  "title": "Ghostrunner"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ghostwire-tokyo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ghostwire-tokyo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1475810,
+  "sync": "msync",
+  "title": "Ghostwire: Tokyo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-goat-simulator-3",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/goat-simulator-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 850190,
+  "sync": "msync",
+  "title": "Goat Simulator 3"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-god-of-war-ragnarok",
+  "knownIssues": [
+    {
+      "symptom": "A black screen for about two minutes, then a crash, on the default engine with D3DMetal (reported on an M5 Pro, macOS 26.6.2)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/god-of-war-ragnarok.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2322010,
+  "sync": "msync",
+  "title": "God of War Ragnarök"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-god-of-war",
+  "knownIssues": [
+    {
+      "symptom": "Noise artifacts on Kratos and Atreus depending on lighting and depth on DXMT (reported on an M4 Pro)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/god-of-war.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1593500,
+  "sync": "msync",
+  "title": "God of War"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-gold-mining-simulator-2-demo",
+  "knownIssues": [
+    {
+      "symptom": "Crashes at start on DXMT and DXVK with an Unreal fatal error (CreateTexture2D failed with E_FAIL on a shared render target, MiscFlags 0x2), reported on an M2 Pro, engine r7."
+    },
+    {
+      "symptom": "\"DirectX 12 is not supported on your system\" (reported)."
+    },
+    {
+      "symptom": "Frame rate falls to about 3 fps with other apps open (reported on 16 GB)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/gold-mining-simulator-2-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3626940,
+  "sync": "msync",
+  "title": "Gold Mining Simulator 2 Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-golden-chambers",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/golden-chambers.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2437570,
+  "sync": "msync",
+  "title": "Golden Chambers"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-gotham-knights",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/gotham-knights.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1496790,
+  "sync": "msync",
+  "title": "Gotham Knights"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-gothic-1-remake",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/gothic-1-remake.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1297900,
+  "sync": "msync",
+  "title": "Gothic 1 Remake"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-granblue-fantasy-versus-rising",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/granblue-fantasy-versus-rising.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2157560,
+  "sync": "msync",
+  "title": "Granblue Fantasy Versus: Rising"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-grand-theft-auto-iv",
+  "knownIssues": [
+    {
+      "symptom": "Black line segments in a grid pattern flicker across the picture in play on Wine's Direct3D (reported on an M4, engine r17)"
+    },
+    {
+      "symptom": "Brief stutter when moving the camera (reported on an M4, engine r17)"
+    },
+    {
+      "symptom": "A DualSense controller is not seen by the game (reported on an M4)"
+    },
+    {
+      "symptom": "Black squares glitch in and out across the screen now and then (M5, DXVK by the report, Wine 11 r31, highball-db#1285)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/grand-theft-auto-iv.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 12210,
+  "sync": "msync",
+  "title": "Grand Theft Auto IV: The Complete Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-grand-theft-auto-san-andreas-the-definitive-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/grand-theft-auto-san-andreas-the-definitive-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1547000,
+  "sync": "msync",
+  "title": "Grand Theft Auto: San Andreas – The Definitive Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-grand-theft-auto-san-andreas",
+  "knownIssues": [
+    {
+      "symptom": "Fails to start with 'Cannot find 800x600x32 video mode' (reported on an M4, macOS 27.0, engine r17)"
+    },
+    {
+      "symptom": "Very slow on DXVK, in the menus and in play (reported on an M4)"
+    },
+    {
+      "symptom": "A DualSense controller is not seen by the game (reported on an M4)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/grand-theft-auto-san-andreas.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 12120,
+  "sync": "msync",
+  "title": "Grand Theft Auto: San Andreas"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-grand-theft-auto-v-enhanced",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/grand-theft-auto-v-enhanced.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3240220,
+  "sync": "msync",
+  "title": "Grand Theft Auto V Enhanced"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-graveyard-keeper-2",
+  "knownIssues": [
+    {
+      "symptom": "Minor frame drops and stutter while exploring the world (reported on an M5 Pro, D3DMetal, engine r9)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/graveyard-keeper-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4358690,
+  "sync": "msync",
+  "title": "Graveyard Keeper 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-green-hell",
+  "knownIssues": [
+    {
+      "symptom": "Lags on the default Wine 10 engine (reported on an M5, macOS 27.0.1, DXMT, highball-db#640)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/green-hell.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 815370,
+  "sync": "msync",
+  "title": "Green Hell"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-griftlands",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/griftlands.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 601840,
+  "sync": "msync",
+  "title": "Griftlands"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-grim-dawn",
+  "knownIssues": [
+    {
+      "symptom": "The game's resolution does not scale to the screen"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/grim-dawn.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 219990,
+  "sync": "msync",
+  "title": "Grim Dawn"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-grounded",
+  "knownIssues": [
+    {
+      "symptom": "Endless loading spinner at start"
+    },
+    {
+      "symptom": "Multiplayer fails with ConnectToNetwork: Failed: 3: 63"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/grounded.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 962130,
+  "sync": "msync",
+  "title": "Grounded"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-gu-long-feng-yun-lu",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/gu-long-feng-yun-lu.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2340650,
+  "sync": "msync",
+  "title": "古龙风云录"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-guild-wars-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/guild-wars-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1284210,
+  "sync": "msync",
+  "title": "Guild Wars 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-gunslugs",
+  "knownIssues": [
+    {
+      "symptom": "With a controller connected, closes as soon as A is pressed at the title screen to play (M1, DualSense, D3DMetal, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/gunslugs.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 371890,
+  "sync": "msync",
+  "title": "Gunslugs"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-gunsmith-simulator",
+  "knownIssues": [
+    {
+      "symptom": "Needs 1280 wide and the lowest graphics settings for 60 fps on an M3 (reported, highball-db#221)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/gunsmith-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1101120,
+  "sync": "msync",
+  "title": "Gunsmith Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hack-n-slash",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hack-n-slash.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 246070,
+  "sync": "msync",
+  "title": "Hack 'n' Slash"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hacker-evolution-2019-hd-remaster",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hacker-evolution-2019-hd-remaster.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1153990,
+  "sync": "msync",
+  "title": "Hacker Evolution - 2019 HD remaster"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hades-ii",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hades-ii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1145350,
+  "sync": "msync",
+  "title": "Hades II"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-haiku-the-robot",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/haiku-the-robot.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1231880,
+  "sync": "msync",
+  "title": "Haiku, the Robot"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-half-life-2-deathmatch",
+  "knownIssues": [
+    {
+      "symptom": "Short frame rate drops on some maps and the first time some effects play (reported on an M5 Pro, DXVK)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/half-life-2-deathmatch.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 320,
+  "sync": "msync",
+  "title": "Half-Life 2: Deathmatch"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-half-life-2",
+  "knownIssues": [
+    {
+      "symptom": "The game runs its DirectX 8 path (no HDR lighting, simpler water and shaders) on a fresh install"
+    },
+    {
+      "symptom": "Frame drops when shooting or when an NPC is hit, blood and muzzle flash effects (reported on an M1, macOS 27)"
+    },
+    {
+      "symptom": "Low frame rate for such an old game, 14 to 33 fps at 1280x720 on an M1 Pro depending on the mode"
+    },
+    {
+      "symptom": "The -vulkan launch option shows nothing"
+    },
+    {
+      "symptom": "On the Wine 11 engine r11 with the DXVK mode, no window appears (measured on the demo build on a Wine 11 test engine built from r11's components, 2026-09-24)."
+    },
+    {
+      "symptom": "Minor stuttering (reported on an M3 Max, macOS 26.5.2, DXMT environment, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream recipe has optional settings; see its source for details."
+  ],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/half-life-2.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/half-life-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 220,
+  "sync": "msync",
+  "title": "Half-Life 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-half-life-deathmatch-source",
+  "knownIssues": [
+    {
+      "symptom": "Quitting the game brings up Wine's crash dialog (reported on an M5 Pro, macOS 27.2, DXVK, engine r29, highball#475)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/half-life-deathmatch-source.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 360,
+  "sync": "msync",
+  "title": "Half-Life Deathmatch: Source"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-half-life",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/half-life.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 70,
+  "sync": "msync",
+  "title": "Half-Life"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-halls-of-torment",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/halls-of-torment.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2218750,
+  "sync": "msync",
+  "title": "Halls of Torment"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-halo-infinite",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/halo-infinite.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1240440,
+  "sync": "msync",
+  "title": "Halo Infinite"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-heartopia",
+  "knownIssues": [
+    {
+      "symptom": "After switching to another app and back, the game window has focus but ignores the mouse and keyboard until the game is restarted"
+    },
+    {
+      "symptom": "Takes no clicks at all from the start when launched with Steam's Play button"
+    },
+    {
+      "symptom": "The dialog shown while the game loads has no text, only a white and a teal button. The account page's text is missing the same way (still on engine r29 with D3DMetal, highball-db#578, 2026-10-20)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/heartopia.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4025700,
+  "sync": "msync",
+  "title": "Heartopia"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-heavy-rain",
+  "knownIssues": [
+    {
+      "symptom": "Crashes a few seconds into the first loading screen (origami in the corner)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/heavy-rain.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 960910,
+  "sync": "msync",
+  "title": "Heavy Rain"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hell-clock",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hell-clock.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1782460,
+  "sync": "msync",
+  "title": "Hell Clock"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hellblade-senuas-sacrifice",
+  "knownIssues": [
+    {
+      "symptom": "Does not start in DXMT mode without -dx11"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hellblade-senuas-sacrifice.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 414340,
+  "sync": "msync",
+  "title": "Hellblade: Senua's Sacrifice"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hellcard-ii-demo",
+  "knownIssues": [
+    {
+      "symptom": "The first start says the Visual C++ runtime is missing and crashes"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hellcard-ii-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5246950,
+  "sync": "msync",
+  "title": "HELLCARD II Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hello-neighbor",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hello-neighbor.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 521890,
+  "sync": "msync",
+  "title": "Hello Neighbor"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-heretic-hexen",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/heretic-hexen.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3286930,
+  "sync": "msync",
+  "title": "Heretic + Hexen"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hero-s-adventure-road-to-passion",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hero-s-adventure-road-to-passion.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1948980,
+  "sync": "msync",
+  "title": "Hero's Adventure: Road to Passion"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-heroes-of-hammerwatch-ii",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/heroes-of-hammerwatch-ii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 619820,
+  "sync": "msync",
+  "title": "Heroes of Hammerwatch II"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-heroes-of-might-and-magic-olden-era",
+  "knownIssues": [
+    {
+      "symptom": "Fullscreen issues, not described further, on the Wine 11 engine with DXMT"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/heroes-of-might-and-magic-olden-era.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3105440,
+  "sync": "msync",
+  "title": "Heroes of Might and Magic: Olden Era"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-heroes-of-might-and-magic-v-tribes-of-the-east",
+  "knownIssues": [
+    {
+      "symptom": "Black screen on the very first launch, right after macOS asks for access to the Documents folder"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/heroes-of-might-and-magic-v-tribes-of-the-east.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 15370,
+  "sync": "msync",
+  "title": "Heroes of Might and Magic V: Tribes of the East"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hitman",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hitman.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 236870,
+  "sync": "msync",
+  "title": "HITMAN"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ho-tu-lo-shu-the-books-of-dragon",
+  "knownIssues": [
+    {
+      "symptom": "About 23 fps at 1920x1080 on an M4"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ho-tu-lo-shu-the-books-of-dragon.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 952860,
+  "sync": "msync",
+  "title": "河洛群俠傳 (Ho Tu Lo Shu ： The Books of Dragon)"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hobo-tough-life",
+  "knownIssues": [
+    {
+      "symptom": "Controller button prompts and bindings are not shown, the keyboard works (M4 Max, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hobo-tough-life.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 632300,
+  "sync": "msync",
+  "title": "Hobo: Tough Life"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hollow-knight",
+  "knownIssues": [
+    {
+      "symptom": "Keyboard input drops once in a while (reported, Windows build through Highball)"
+    },
+    {
+      "symptom": "Some cutscenes (the Nailsmith's, the Black Egg's) stay on a black screen with the ambience playing (reported on an M4, DXMT, default engine r5 and r6, then Wine 11 engine r5, highball#214)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hollow-knight.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 367520,
+  "sync": "msync",
+  "title": "Hollow Knight"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-holocure-save-the-fans",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/holocure-save-the-fans.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2420510,
+  "sync": "msync",
+  "title": "HoloCure - Save the Fans!"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-homgard",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/homgard.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4287570,
+  "sync": "msync",
+  "title": "Homgard"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-horizon-chase-turbo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/horizon-chase-turbo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 389140,
+  "sync": "msync",
+  "title": "Horizon Chase Turbo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-horizon-zero-dawn",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/horizon-zero-dawn.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1151640,
+  "sync": "msync",
+  "title": "Horizon Zero Dawn"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hot-brass",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hot-brass.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 892860,
+  "sync": "msync",
+  "title": "Hot Brass"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hot-wheels-unleashed",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hot-wheels-unleashed.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1271700,
+  "sync": "msync",
+  "title": "HOT WHEELS UNLEASHED"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hotel-architect",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hotel-architect.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1602000,
+  "sync": "msync",
+  "title": "Hotel Architect"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hotline-miami",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hotline-miami.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 219150,
+  "sync": "msync",
+  "title": "Hotline Miami"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-how-many-dudes",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/how-many-dudes.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3934270,
+  "sync": "msync",
+  "title": "How Many Dudes?"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-how-to-fish",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/how-to-fish.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4001890,
+  "sync": "msync",
+  "title": "How to Fish"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hubert-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hubert-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3676940,
+  "sync": "msync",
+  "title": "Hubert Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hue",
+  "knownIssues": [
+    {
+      "symptom": "The sound stutters, with some video stutter, in every graphics mode (M1, the default Wine 10 engine r22 to r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hue.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 383270,
+  "sync": "msync",
+  "title": "Hue"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-human-fall-flat",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/human-fall-flat.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 477160,
+  "sync": "msync",
+  "title": "Human Fall Flat"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-humanitz",
+  "knownIssues": [
+    {
+      "symptom": "On DXMT the game crashes at start with \"Direct3DDevice->CreateTexture2D failed with error E_FAIL\", MiscFlags 0x2 (reported on an M5 Pro)"
+    },
+    {
+      "symptom": "On DXVK the menu draws but the game is very dark, characters and terrain barely visible (reported on an M5 Pro)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/humanitz.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/humanitz.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1766060,
+  "sync": "msync",
+  "title": "HumanitZ"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-i-know-a-guy-shady-life-simulator",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/i-know-a-guy-shady-life-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4173620,
+  "sync": "msync",
+  "title": "I Know a Guy: Shady Life Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-idle-champions-of-the-forgotten-realms",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/idle-champions-of-the-forgotten-realms.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 627690,
+  "sync": "msync",
+  "title": "Idle Champions of the Forgotten Realms"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ikaruga",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ikaruga.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 253750,
+  "sync": "msync",
+  "title": "Ikaruga"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-in-falsus",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/in-falsus.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3971950,
+  "sync": "msync",
+  "title": "In Falsus"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-incremental-traffic",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/incremental-traffic.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5475960,
+  "sync": "msync",
+  "title": "Incremental Traffic"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-injustice-2",
+  "knownIssues": [
+    {
+      "symptom": "Cutscenes jitter at 30 fps while the fights run smoothly (M1, D3DMetal, Wine 10 r29)"
+    },
+    {
+      "symptom": "On a Wine 11 engine the cutscenes show a green line across the screen and wrong colors, grey with green and magenta patches (M1, D3DMetal from GPTK 4.0b3)"
+    },
+    {
+      "symptom": "The game doesn't take Steam Input"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/injustice-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 627270,
+  "sync": "msync",
+  "title": "Injustice 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-injustice-gods-among-us-ultimate-edition",
+  "knownIssues": [
+    {
+      "symptom": "Sound effects echo heavily from the moment a cutscene hands over to a fight until the next cutscene, after a freeze of a few seconds at the hand-over (M1, D3DMetal, Wine 10 r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/injustice-gods-among-us-ultimate-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 242700,
+  "sync": "msync",
+  "title": "Injustice: Gods Among Us Ultimate Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-insaniquarium-deluxe",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/insaniquarium-deluxe.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3320,
+  "sync": "msync",
+  "title": "Insaniquarium Deluxe"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-inside",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/inside.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 304430,
+  "sync": "msync",
+  "title": "INSIDE"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-into-the-dead-our-darkest-days",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/into-the-dead-our-darkest-days.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2239710,
+  "sync": "msync",
+  "title": "Into the Dead: Our Darkest Days"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ion-fury",
+  "knownIssues": [
+    {
+      "symptom": "Mouse turns now and then feel laggy or jumpy, and the way the world redraws can look off (M5 Pro, Wine 11 r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ion-fury.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 562860,
+  "sync": "msync",
+  "title": "Ion Fury"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-iracing-arcade",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/iracing-arcade.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3226450,
+  "sync": "msync",
+  "title": "iRacing Arcade"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-iron-nest-heavy-turret-simulator-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/iron-nest-heavy-turret-simulator-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4300500,
+  "sync": "msync",
+  "title": "IRON NEST: Heavy Turret Simulator Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-iron-nest-heavy-turret-simulator",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/iron-nest-heavy-turret-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2950790,
+  "sync": "msync",
+  "title": "IRON NEST: Heavy Turret Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-it-takes-two",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops in some levels (underwater) and visual artifacts in snow (M2, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/it-takes-two.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1426210,
+  "sync": "msync",
+  "title": "It Takes Two"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-jet-set-radio",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/jet-set-radio.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 205950,
+  "sync": "msync",
+  "title": "Jet Set Radio"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-jurassic-world-evolution-2",
+  "knownIssues": [
+    {
+      "symptom": "Does not start on the default engine"
+    },
+    {
+      "symptom": "Black areas at some camera angles"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/jurassic-world-evolution-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1244460,
+  "sync": "msync",
+  "title": "Jurassic World Evolution 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-just-cause-4",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops (M5 Pro, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/just-cause-4.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 517630,
+  "sync": "msync",
+  "title": "Just Cause 4"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kannagi-usagi",
+  "knownIssues": [
+    {
+      "symptom": "About 23 fps on an M1"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kannagi-usagi.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2551500,
+  "sync": "msync",
+  "title": "巫兎 - KANNAGI USAGI"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kards-the-wwii-card-game",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kards-the-wwii-card-game.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 544810,
+  "sync": "msync",
+  "title": "KARDS - The WWII Card Game"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kena-bridge-of-spirits",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kena-bridge-of-spirits.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1954200,
+  "sync": "msync",
+  "title": "Kena: Bridge of Spirits"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kenshi",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kenshi.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 233860,
+  "sync": "msync",
+  "title": "Kenshi"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kingdom-come-deliverance-ii",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kingdom-come-deliverance-ii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1771300,
+  "sync": "msync",
+  "title": "Kingdom Come: Deliverance II"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kingdom-new-lands",
+  "knownIssues": [
+    {
+      "symptom": "Occasional freezes during play and slightly laggy sound (reported on an M3, DXVK, engine r7)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kingdom-new-lands.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 496300,
+  "sync": "msync",
+  "title": "Kingdom: New Lands"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kingdom-two-crowns",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kingdom-two-crowns.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 701160,
+  "sync": "msync",
+  "title": "Kingdom Two Crowns"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kings-quest",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kings-quest.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 345390,
+  "sync": "msync",
+  "title": "King's Quest"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kunitsu-gami-path-of-the-goddess-demo",
+  "knownIssues": [
+    {
+      "symptom": "Unsupported graphics card error at start, naming AtomicInt64OnDescriptorHeapResourceSupported, then the game quits (M1, the same in D3DMetal, DXMT and DXVK mode)"
+    },
+    {
+      "symptom": "In gameplay the scene draws as black silhouettes over a flat pale grey ground and sky (M1, Wine 11 r32 with D3DMetal 4.0 beta 3, HB_TSSHIM_ATOMIC64=1). The same on r33 with D3DMetal 3, and the character draws right once it moves"
+    },
+    {
+      "symptom": "A DualSense isn't recognised in the game, with Steam Input on or off (M1)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kunitsu-gami-path-of-the-goddess-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2842890,
+  "sync": "msync",
+  "title": "Kunitsu-Gami: Path of the Goddess Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kuukiyomi-consider-it",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kuukiyomi-consider-it.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1221540,
+  "sync": "msync",
+  "title": "KUUKIYOMI: Consider It"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-last-epoch",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/last-epoch.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 899770,
+  "sync": "msync",
+  "title": "Last Epoch"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-last-evil",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/last-evil.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 823910,
+  "sync": "msync",
+  "title": "Last Evil"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-last-pirates-die-together",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/last-pirates-die-together.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4317790,
+  "sync": "msync",
+  "title": "Last Pirates: Die Together"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-leaf-it-alone",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/leaf-it-alone.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3981100,
+  "sync": "msync",
+  "title": "Leaf it Alone"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-left-4-dead-2",
+  "knownIssues": [
+    {
+      "symptom": "Campaign freezes as it loads on DXVK, or runs at very low fps on Wine's Direct3D"
+    },
+    {
+      "symptom": "Freezes during a match, the log shows 'out of realized font handles' (M5, default engine r28, highball#525)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/left-4-dead-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 550,
+  "sync": "msync",
+  "title": "Left 4 Dead 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-left-4-dead",
+  "knownIssues": [
+    {
+      "symptom": "\"Failed to create D3D device!\" at launch in every graphics mode (reported on an M5, macOS 26.6.2)"
+    },
+    {
+      "symptom": "3 to 5 fps on DXMT, DXVK and D3DMetal, 15 to 20 fps on Wine's Direct3D on low settings (reported on an M5)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/left-4-dead.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 500,
+  "sync": "msync",
+  "title": "Left 4 Dead"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-legends-of-idleon-mmo",
+  "knownIssues": [
+    {
+      "symptom": "Frequent lag (reported on an M3 Max, macOS 26.6.2, DXMT, Wine 11 engine r27, through Proton-ish)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/legends-of-idleon-mmo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1476970,
+  "sync": "msync",
+  "title": "Legends of Idleon MMO"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-lego-batman-3-beyond-gotham",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/lego-batman-3-beyond-gotham.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 313690,
+  "sync": "msync",
+  "title": "LEGO Batman 3: Beyond Gotham"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-lego-city-undercover",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/lego-city-undercover.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 578330,
+  "sync": "msync",
+  "title": "LEGO City Undercover"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-lego-marvel-super-heroes",
+  "knownIssues": [
+    {
+      "symptom": "The game freezes on its intro videos (M5, DXVK)"
+    },
+    {
+      "symptom": "In-engine cutscenes draw without some floor and background textures (M5, DXVK)"
+    },
+    {
+      "symptom": "Minor audio stutter (M5, DXVK)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/lego-marvel-super-heroes.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 249130,
+  "sync": "msync",
+  "title": "LEGO® MARVEL Super Heroes"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-lego-star-wars-the-force-awakens",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/lego-star-wars-the-force-awakens.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 438640,
+  "sync": "msync",
+  "title": "LEGO Star Wars: The Force Awakens"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-lego-star-wars-the-skywalker-saga",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/lego-star-wars-the-skywalker-saga.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 920210,
+  "sync": "msync",
+  "title": "LEGO Star Wars: The Skywalker Saga"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-lego-the-lord-of-the-rings",
+  "knownIssues": [
+    {
+      "symptom": "Occasional slowdowns and stutters at first (M5, DXVK)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/lego-the-lord-of-the-rings.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 214510,
+  "sync": "msync",
+  "title": "LEGO® The Lord of the Rings™"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-lego-voyagers",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/lego-voyagers.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1538550,
+  "sync": "msync",
+  "title": "LEGO Voyagers"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-lethal-company",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/lethal-company.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1966720,
+  "sync": "msync",
+  "title": "Lethal Company"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-librarian-tidy-up-the-arcane-library",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/librarian-tidy-up-the-arcane-library.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4197610,
+  "sync": "msync",
+  "title": "Librarian: Tidy Up the Arcane Library!"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-life-is-strange-before-the-storm-remastered",
+  "knownIssues": [
+    {
+      "symptom": "The picture does not fill the screen"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/life-is-strange-before-the-storm-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1265930,
+  "sync": "msync",
+  "title": "Life is Strange: Before the Storm Remastered"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-life-is-strange-remastered",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/life-is-strange-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1265920,
+  "sync": "msync",
+  "title": "Life is Strange Remastered"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-limbus-company",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/limbus-company.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1973530,
+  "sync": "msync",
+  "title": "Limbus Company"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-loftia-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/loftia-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5315310,
+  "sync": "msync",
+  "title": "Loftia Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-luftrausers",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/luftrausers.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 233150,
+  "sync": "msync",
+  "title": "LUFTRAUSERS"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-lumina-veil",
+  "knownIssues": [
+    {
+      "symptom": "The picture stays very dark even with the brightness raised"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/lumina-veil.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2840000,
+  "sync": "msync",
+  "title": "Lumina Veil"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mafia-definitive-edition",
+  "knownIssues": [
+    {
+      "symptom": "No controller input with Steam Input on, even from an XInput (Xbox) pad, and no built-in DualSense support (M1, Wine 10 r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mafia-definitive-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1030840,
+  "sync": "msync",
+  "title": "Mafia: Definitive Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mafia-ii-definitive-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mafia-ii-definitive-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1030830,
+  "sync": "msync",
+  "title": "Mafia II: Definitive Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mage-arena",
+  "knownIssues": [
+    {
+      "symptom": "The game opens larger than the Mac's screen and its settings do not fix it"
+    },
+    {
+      "symptom": "The microphone may not work well, and the game's spells are cast by voice"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mage-arena.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3716600,
+  "sync": "msync",
+  "title": "Mage Arena"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-magic-the-gathering-arena",
+  "knownIssues": [
+    {
+      "symptom": "The first download stops at 5.97 MB"
+    },
+    {
+      "symptom": "The Windows version downloads its update files before the login screen but cannot install them (M1 Pro, default engine r28, highball#527)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/magic-the-gathering-arena.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2141910,
+  "sync": "msync",
+  "title": "Magic: The Gathering Arena"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-magicka",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/magicka.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 42910,
+  "sync": "msync",
+  "title": "Magicka"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mahjong-soul",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mahjong-soul.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2739990,
+  "sync": "msync",
+  "title": "Mahjong Soul"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-maneater",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/maneater.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 629820,
+  "sync": "msync",
+  "title": "Maneater"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-manifold-garden",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/manifold-garden.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 473950,
+  "sync": "msync",
+  "title": "Manifold Garden"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-manor-lords",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/manor-lords.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1363080,
+  "sync": "msync",
+  "title": "Manor Lords"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mar-millions-are-rising-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mar-millions-are-rising-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5307540,
+  "sync": "msync",
+  "title": "MAR: Millions Are Rising Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-marvel-rivals",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/marvel-rivals.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2767030,
+  "sync": "msync",
+  "title": "Marvel Rivals"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-marvel-snap",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/marvel-snap.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1997040,
+  "sync": "msync",
+  "title": "MARVEL SNAP"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-marvel-vs-capcom-fighting-collection-arcade-classics",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/marvel-vs-capcom-fighting-collection-arcade-classics.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2634890,
+  "sync": "msync",
+  "title": "MARVEL vs. CAPCOM Fighting Collection: Arcade Classics"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-marvels-guardians-of-the-galaxy",
+  "knownIssues": [
+    {
+      "symptom": "Crashes on \"Play Game\" from the splash screen, with Wine's \"has encountered a serious problem\" dialog, on D3DMetal."
+    },
+    {
+      "symptom": "About 10 fps for roughly the first minute of play, improving afterwards."
+    },
+    {
+      "symptom": "A dialog before launch says the graphics card driver is older than supported."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/marvels-guardians-of-the-galaxy.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/marvels-guardians-of-the-galaxy.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1088850,
+  "sync": "msync",
+  "title": "Marvel's Guardians of the Galaxy"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-marvels-spider-man-2",
+  "knownIssues": [
+    {
+      "symptom": "Characters stuck in a T-pose (reported on an M4 Pro, D3DMetal, Wine 10 r29)"
+    },
+    {
+      "symptom": "The sound glitches at times (reported on an M4 Pro, D3DMetal, Wine 10 r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/marvels-spider-man-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2651280,
+  "sync": "msync",
+  "title": "Marvel's Spider-Man 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-marvels-spider-man-miles-morales",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/marvels-spider-man-miles-morales.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1817190,
+  "sync": "msync",
+  "title": "Marvel's Spider-Man: Miles Morales"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-marvels-spider-man-remastered",
+  "knownIssues": [
+    {
+      "symptom": "Two warnings at launch, 'driver below the current game requirements' and 'no installed graphics card has been detected' (reported on an M5 Pro)"
+    },
+    {
+      "symptom": "Fullscreen does not work, the game had to be switched to windowed (reported on an M5 Pro)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/marvels-spider-man-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1817070,
+  "sync": "msync",
+  "title": "Marvel's Spider-Man Remastered"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-max-payne-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/max-payne-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 12150,
+  "sync": "msync",
+  "title": "Max Payne 2: The Fall of Max Payne"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-max-payne-3",
+  "knownIssues": [
+    {
+      "symptom": "Stutter and minor graphics glitches (M4 Pro, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/max-payne-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 204100,
+  "sync": "msync",
+  "title": "Max Payne 3"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-max-payne",
+  "knownIssues": [
+    {
+      "symptom": "The first video before the game loads isn't shown (M4 Pro, WineD3D, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/max-payne.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 12140,
+  "sync": "msync",
+  "title": "Max Payne"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-meccha-chameleon",
+  "knownIssues": [
+    {
+      "symptom": "Launcher says the Visual C++ 2015-2022 runtime is missing although it is installed, then hangs at sign-in"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/meccha-chameleon.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4704690,
+  "sync": "msync",
+  "title": "MECCHA CHAMELEON"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mega-man-x-legacy-collection",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mega-man-x-legacy-collection.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 743890,
+  "sync": "msync",
+  "title": "Mega Man X Legacy Collection"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-megabonk",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/megabonk.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3405340,
+  "sync": "msync",
+  "title": "Megabonk"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-melatonin",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/melatonin.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1585220,
+  "sync": "msync",
+  "title": "Melatonin"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-meltdown-crew-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/meltdown-crew-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5324440,
+  "sync": "msync",
+  "title": "Meltdown Crew Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-message-from-aliens-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/message-from-aliens-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5195140,
+  "sync": "msync",
+  "title": "Message From Aliens Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-metal-gear-solid-master-collection-version",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/metal-gear-solid-master-collection-version.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2131630,
+  "sync": "msync",
+  "title": "METAL GEAR SOLID - Master Collection Version"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-metaphor-refantazio",
+  "knownIssues": [
+    {
+      "symptom": "Engines before r8: page fault reading 0x20FF seconds after launch (Wine 10, r0 to r2), or a black window and a hang at full CPU (Wine 11, r5 to r7)"
+    },
+    {
+      "symptom": "The full game with Denuvo is not verified here, only the free Prologue Demo"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/metaphor-refantazio.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/metaphor-refantazio.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2679460,
+  "sync": "msync",
+  "title": "Metaphor: ReFantazio"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-metro-2033",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/metro-2033.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 43110,
+  "sync": "msync",
+  "title": "Metro 2033"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-metro-last-light-redux",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/metro-last-light-redux.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 287390,
+  "sync": "msync",
+  "title": "Metro: Last Light Redux"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mi-chang-sheng",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mi-chang-sheng.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1189490,
+  "sync": "msync",
+  "title": "觅长生"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-middle-earth-shadow-of-war",
+  "knownIssues": [
+    {
+      "symptom": "Some texture flickering in the landscape during the game's benchmark (M1, DXMT, Wine 11 r32, highball-db#1287)"
+    },
+    {
+      "symptom": "A black screen on D3DMetal (M1, Wine 10 r31, highball-db#1287)"
+    },
+    {
+      "symptom": "DualSense and XInput pads don't work, with Steam Input on or off (M1, Wine 10 r31, highball-db#1287)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/middle-earth-shadow-of-war.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 356190,
+  "sync": "msync",
+  "title": "Middle-earth: Shadow of War"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-might-mushroom-playtest",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/might-mushroom-playtest.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4399150,
+  "sync": "msync",
+  "title": "Might & Mushroom Playtest"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mindcop",
+  "knownIssues": [
+    {
+      "symptom": "A graphics driver check dialog shows at start"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mindcop.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1517180,
+  "sync": "msync",
+  "title": "Mindcop"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mindustry",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mindustry.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1127400,
+  "sync": "msync",
+  "title": "Mindustry"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-minecraft-dungeons-ii",
+  "knownIssues": [
+    {
+      "symptom": "Microsoft account sign-in does not work, so capes cannot be redeemed (reported on an M1, Wine 11 r27, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/minecraft-dungeons-ii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1912410,
+  "sync": "msync",
+  "title": "Minecraft Dungeons II"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-minecraft-dungeons",
+  "knownIssues": [
+    {
+      "symptom": "The Microsoft account sign-in comes back at every start, and its 'Let's Go' step often does not go through (default engine)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/minecraft-dungeons.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/minecraft-dungeons.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1672970,
+  "sync": "msync",
+  "title": "Minecraft Dungeons"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-minemergematic-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/minemergematic-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5029110,
+  "sync": "msync",
+  "title": "MineMergeMatic Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mini-settlers",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mini-settlers.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2521630,
+  "sync": "msync",
+  "title": "Mini Settlers"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mirrors-edge-catalyst",
+  "knownIssues": [
+    {
+      "symptom": "Does not launch: the EA app installer Steam runs first ends with Something went wrong (INST-14-1603 or INST-14-1627)"
+    },
+    {
+      "symptom": "The game loads for two and a half to four minutes after its splash, then quits (exit code 0xFFFFFFFA) on DXMT, D3DMetal and DXVK alike (reported on an M1, macOS 27.0.1, Wine 11 r27, highball-db#318)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "Upstream prerequisites: ea-app.",
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mirrors-edge-catalyst.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/mirrors-edge-catalyst.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1233570,
+  "sync": "msync",
+  "title": "Mirror's Edge Catalyst"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mon-bazou",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mon-bazou.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1520370,
+  "sync": "msync",
+  "title": "Mon Bazou"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-monomoon",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/monomoon.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3285880,
+  "sync": "msync",
+  "title": "MONOMOON"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-monster-hunter-rise",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/monster-hunter-rise.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1446780,
+  "sync": "msync",
+  "title": "Monster Hunter Rise"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-monster-hunter-world",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/monster-hunter-world.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 582010,
+  "sync": "msync",
+  "title": "Monster Hunter: World"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-monument-valley-3",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/monument-valley-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3132930,
+  "sync": "msync",
+  "title": "Monument Valley 3"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-monument-valley",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/monument-valley.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1927720,
+  "sync": "msync",
+  "title": "Monument Valley"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-moon-mystery",
+  "knownIssues": [
+    {
+      "symptom": "Crash when loading a game on DXVK"
+    },
+    {
+      "symptom": "Resolution capped at 1440 pixels and low graphics forced on D3DMetal"
+    },
+    {
+      "symptom": "Steam overlay's FPS counter shows a black square"
+    },
+    {
+      "symptom": "Doesn't start, \"CreateProcess() returned 2\" for MoonMystery-Win64-Shipping.exe (after moving the Steam library to another drive)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/moon-mystery.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1933840,
+  "sync": "msync",
+  "title": "Moon Mystery"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-moon-sweepers",
+  "knownIssues": [
+    {
+      "symptom": "The Mac runs hot and frames drop when moving or turning quickly (M3, M1)"
+    },
+    {
+      "symptom": "Crashes now and then (M3, Wine 10 r28, DXVK by the report)"
+    },
+    {
+      "symptom": "After switching away from the game once, it doesn't take focus back (M1 Pro, Wine 11 r31, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/moon-sweepers.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5335510,
+  "sync": "msync",
+  "title": "Moon Sweepers"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mortal-kombat-1",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mortal-kombat-1.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1971870,
+  "sync": "msync",
+  "title": "Mortal Kombat 1"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mortal-kombat-11",
+  "knownIssues": [
+    {
+      "symptom": "Character faces distorted, with deep creases in the skin, clothing and stages fine (DXMT and D3DMetal on an M1 with 8 GB, Highball 0.10.21, highball#390; DXVK on 0.7.6; DXMT on an M4, Highball 0.10.22, highball-db#685)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mortal-kombat-11.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 976310,
+  "sync": "msync",
+  "title": "Mortal Kombat 11"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mortal-kombat-x",
+  "knownIssues": [
+    {
+      "symptom": "On the brightness screen the logo stays visible even with the slider at 0 percent (M1, a Dell S2722QC display)"
+    },
+    {
+      "symptom": "With Fullscreen picked by the automatic settings, the game stays in a window (M1)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mortal-kombat-x.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 307780,
+  "sync": "msync",
+  "title": "Mortal Kombat X"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-motor-town-behind-the-wheel",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/motor-town-behind-the-wheel.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1369670,
+  "sync": "msync",
+  "title": "Motor Town: Behind The Wheel"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-motorslice",
+  "knownIssues": [
+    {
+      "symptom": "The frame rate drops from about 50 to 30 to 40 fps when moving or attacking, at the lowest settings (M1, Wine 10 r28 and Wine 11 r31, DXMT, highball-db#1237, highball-db#1245)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/motorslice.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2830030,
+  "sync": "msync",
+  "title": "MOTORSLICE"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mount-blade-ii-bannerlord",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mount-blade-ii-bannerlord.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 261550,
+  "sync": "msync",
+  "title": "Mount & Blade II: Bannerlord"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mount-noire",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops, below 60 fps (reported on an M4, DXMT, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mount-noire.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4170430,
+  "sync": "msync",
+  "title": "Mount Noire"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mouse-pi-for-hire",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mouse-pi-for-hire.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2416450,
+  "sync": "msync",
+  "title": "MOUSE: P.I. For Hire"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-moving-out",
+  "knownIssues": [
+    {
+      "symptom": "Controller not detected in the game"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/moving-out.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 996770,
+  "sync": "msync",
+  "title": "Moving Out"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mudrunner",
+  "knownIssues": [
+    {
+      "symptom": "A minor visual glitch on the mud."
+    },
+    {
+      "symptom": "Some stutter at the start of the game."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mudrunner.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 675010,
+  "sync": "msync",
+  "title": "MudRunner"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mushihimesama",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mushihimesama.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 377860,
+  "sync": "msync",
+  "title": "Mushihimesama"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mx-bikes",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mx-bikes.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 655500,
+  "sync": "msync",
+  "title": "MX Bikes"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-my-summer-car",
+  "knownIssues": [
+    {
+      "symptom": "After a long session the game freezes, and the log fills with \"msync: warn: node memory pool exhausted\" (242 million lines in one report)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/my-summer-car.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 516750,
+  "sync": "msync",
+  "title": "My Summer Car"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-my-time-at-sandrock",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/my-time-at-sandrock.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1084600,
+  "sync": "msync",
+  "title": "My Time at Sandrock"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-my-winter-car",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/my-winter-car.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4164420,
+  "sync": "msync",
+  "title": "My Winter Car"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mycopunk",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mycopunk.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3247750,
+  "sync": "msync",
+  "title": "Mycopunk"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-naruto-shippuden-ultimate-ninja-storm-4",
+  "knownIssues": [
+    {
+      "symptom": "On DXMT a fight is black most of the time with brief flashes of the picture; on DXVK the characters and stage never draw."
+    },
+    {
+      "symptom": "After switching away from the game and back, the picture shows only on the left part of the screen, cut off on the right (M1 Pro, Wine 10 r28, 192 dpi, highball-db#1216)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/naruto-shippuden-ultimate-ninja-storm-4.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 349040,
+  "sync": "msync",
+  "title": "NARUTO SHIPPUDEN: Ultimate Ninja STORM 4"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-need-for-speed-most-wanted-2012",
+  "knownIssues": [
+    {
+      "symptom": "The audio stutters a lot (M4, Wine 10 r28, highball-db#1207)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/need-for-speed-most-wanted-2012.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1262560,
+  "sync": "msync",
+  "title": "Need for Speed Most Wanted (2012)"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-neighbors-suburban-warfare",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/neighbors-suburban-warfare.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1732430,
+  "sync": "msync",
+  "title": "Neighbors: Suburban Warfare"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-nekopara-vol-1-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/nekopara-vol-1-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 334660,
+  "sync": "msync",
+  "title": "NEKOPARA Vol. 1 Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-nekopara-vol-4",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops throughout on DXMT and DXVK, and during animated character scenes on Wine's own Direct3D (reported on an M5 Pro, engine r7)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/nekopara-vol-4.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1406990,
+  "sync": "msync",
+  "title": "NEKOPARA Vol. 4"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-neon-inferno-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/neon-inferno-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3509220,
+  "sync": "msync",
+  "title": "Neon Inferno Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-neotokyo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/neotokyo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 244630,
+  "sync": "msync",
+  "title": "NEOTOKYO°"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-nested-lands",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/nested-lands.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2553040,
+  "sync": "msync",
+  "title": "Nested Lands"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-neva",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/neva.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2420660,
+  "sync": "msync",
+  "title": "Neva"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-new-tales-from-the-borderlands",
+  "knownIssues": [
+    {
+      "symptom": "Black screen with only sound and subtitles, in the game itself as well as the logos and cutscenes (M1, D3DMetal, Wine 10 r29)"
+    },
+    {
+      "symptom": "On the first launch the 2K logo crawls at about 4 fps (M1, Wine 11 r30, D3DMetal)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/new-tales-from-the-borderlands.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1454970,
+  "sync": "msync",
+  "title": "New Tales from the Borderlands"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ni-no-kuni-ii-revenant-kingdom",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ni-no-kuni-ii-revenant-kingdom.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 589360,
+  "sync": "msync",
+  "title": "Ni no Kuni II: Revenant Kingdom"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ni-no-kuni-wrath-of-the-white-witch",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ni-no-kuni-wrath-of-the-white-witch.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 798460,
+  "sync": "msync",
+  "title": "Ni no Kuni: Wrath of the White Witch"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-nier-automata",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/nier-automata.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 524220,
+  "sync": "msync",
+  "title": "NieR: Automata"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-nier-replicant-ver-1-22474487139",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/nier-replicant-ver-1-22474487139.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1113560,
+  "sync": "msync",
+  "title": "NieR Replicant ver.1.22474487139..."
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-nimby-rails",
+  "knownIssues": [
+    {
+      "symptom": "The game speed indicator is hidden under the notch on a MacBook"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/nimby-rails.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1134710,
+  "sync": "msync",
+  "title": "NIMBY Rails"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-no-im-not-a-human",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/no-im-not-a-human.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3180070,
+  "sync": "msync",
+  "title": "No, I'm not a Human"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-no-rest-for-the-wicked",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/no-rest-for-the-wicked.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1371980,
+  "sync": "msync",
+  "title": "No Rest for the Wicked"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-noita",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/noita.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 881100,
+  "sync": "msync",
+  "title": "Noita"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-nubbys-number-factory",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/nubbys-number-factory.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3191030,
+  "sync": "msync",
+  "title": "Nubby's Number Factory"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-nuclear-option",
+  "knownIssues": [
+    {
+      "symptom": "An endless loading screen after the main menu"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/nuclear-option.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/nuclear-option.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2168680,
+  "sync": "msync",
+  "title": "Nuclear Option"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ocean-world-eden-crafters-prologue",
+  "knownIssues": [
+    {
+      "symptom": "Never opens a window, WGL fails to create an OpenGL context (GLFW_VERSION_UNAVAILABLE)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ocean-world-eden-crafters-prologue.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2811830,
+  "sync": "msync",
+  "title": "Ocean World: Eden Crafters Prologue"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-off-axis-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/off-axis-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5261640,
+  "sync": "msync",
+  "title": "Off Axis Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-omori",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/omori.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1150690,
+  "sync": "msync",
+  "title": "OMORI"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-onimusha-way-of-the-sword-benchmark",
+  "knownIssues": [
+    {
+      "symptom": "Unsupported graphics card error at start on M1 and M2 chips"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/onimusha-way-of-the-sword-benchmark.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/onimusha-way-of-the-sword-benchmark.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4196100,
+  "sync": "msync",
+  "title": "Onimusha: Way of the Sword Benchmark"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-onimusha-way-of-the-sword-demo",
+  "knownIssues": [
+    {
+      "symptom": "Unsupported graphics card error at start, then the game quits (M1 Pro)"
+    },
+    {
+      "symptom": "At the first launch nothing happens: Steam's window is black and the demo never starts (Wine 11 engine, D3DMetal)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/onimusha-way-of-the-sword-demo.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/onimusha-way-of-the-sword-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3974650,
+  "sync": "msync",
+  "title": "Onimusha: Way of the Sword Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-onimusha-way-of-the-sword",
+  "knownIssues": [
+    {
+      "symptom": "Unsupported graphics card error at start on M1 and M2 chips"
+    },
+    {
+      "symptom": "After the graphics card check Metal refuses a pipeline ('output of type uint4 is not compatible with a MTLPixelFormatRGBA8Sint color attachment') and no game window appears (M1 Max, stock layer)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/onimusha-way-of-the-sword.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2638890,
+  "sync": "msync",
+  "title": "Onimusha: Way of the Sword"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-oninaki-demo",
+  "knownIssues": [
+    {
+      "symptom": "Crashes at the first Healing Point, about 15 minutes in, when Start is pressed (M1, D3DMetal, Wine 10 r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/oninaki-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1047000,
+  "sync": "msync",
+  "title": "ONINAKI Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-operation-flashpoint-dragon-rising",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/operation-flashpoint-dragon-rising.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 12830,
+  "sync": "msync",
+  "title": "Operation Flashpoint: Dragon Rising"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-operator",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/operator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1913370,
+  "sync": "msync",
+  "title": "OPERATOR"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-orcs-must-die",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/orcs-must-die.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 102600,
+  "sync": "msync",
+  "title": "Orcs Must Die!"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-order-of-the-sinking-star",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/order-of-the-sinking-star.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 499170,
+  "sync": "msync",
+  "title": "Order of the Sinking Star"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ore-factory-squad",
+  "knownIssues": [
+    {
+      "symptom": "The top bar sits in the wrong place"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ore-factory-squad.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4210580,
+  "sync": "msync",
+  "title": "Ore Factory Squad"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ori-and-the-blind-forest",
+  "knownIssues": [
+    {
+      "symptom": "Micro freezes (reported on an M5, macOS 26.6.2, DXVK)"
+    },
+    {
+      "symptom": "Audio plays twice, about a second apart (Definitive Edition through Proton-ish, Wine 11 r27, DXMT)"
+    },
+    {
+      "symptom": "Heavy sound crackling and stutter, the frame counter at 120 with very uneven frame pacing (Definitive Edition, M4, Wine 11 r31, DXMT and D3DMetal)"
+    },
+    {
+      "symptom": "Stays on the loading screen (Definitive Edition, M4, Wine 11 r31, DXVK)"
+    },
+    {
+      "symptom": "Plays in slow motion and stutters (Definitive Edition, M4, Wine 11 r31, WineD3D)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ori-and-the-blind-forest.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 387290,
+  "sync": "msync",
+  "title": "Ori and the Blind Forest"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ori-and-the-will-of-the-wisps",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ori-and-the-will-of-the-wisps.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1057090,
+  "sync": "msync",
+  "title": "Ori and the Will of the Wisps"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-orx",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/orx.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1071140,
+  "sync": "msync",
+  "title": "ORX"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-out-of-sight",
+  "knownIssues": [
+    {
+      "symptom": "At the language selection screen the keyboard and an XInput pad do nothing for the first 5 to 10 seconds (M1, D3DMetal, Wine 10 r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/out-of-sight.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2526310,
+  "sync": "msync",
+  "title": "Out of Sight"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-outcast-a-new-beginning",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/outcast-a-new-beginning.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 690040,
+  "sync": "msync",
+  "title": "Outcast: A New Beginning"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-outdrive",
+  "knownIssues": [
+    {
+      "symptom": "On DXVK the boss helicopter appears without its model at about minute 8, only its shots visible, then the world turns black with only the overlay left (M5 Pro, Wine 11 r30, highball-db#1181)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/outdrive.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 441870,
+  "sync": "msync",
+  "title": "OutDrive"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-outer-wilds",
+  "knownIssues": [
+    {
+      "symptom": "The other travelers are invisible, only their instruments show (reported on an M1 Pro, engine r21, mode not stated)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/outer-wilds.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 753640,
+  "sync": "msync",
+  "title": "Outer Wilds"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-outlast-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/outlast-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 414700,
+  "sync": "msync",
+  "title": "Outlast 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-over-the-hill",
+  "knownIssues": [
+    {
+      "symptom": "Takes all of a 24 GB Mac's memory at launch, in the player's words (M5, DXVK, Wine 10 r28, highball-db#1272)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/over-the-hill.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2929250,
+  "sync": "msync",
+  "title": "over the hill"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-overwatch-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/overwatch-2.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/overwatch-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2357570,
+  "sync": "msync",
+  "title": "Overwatch 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-pacific-drive",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/pacific-drive.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1458140,
+  "sync": "msync",
+  "title": "Pacific Drive"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-palia",
+  "knownIssues": [
+    {
+      "symptom": "Black window with sound and the game's cursor on macOS 14 (M2 Pro, DXMT, highball#584)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/palia.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2707930,
+  "sync": "msync",
+  "title": "Palia"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-paperback-the-game",
+  "knownIssues": [
+    {
+      "symptom": "Wine's Program Error dialog (winedbg) right at launch, page fault on read access at address 0, on every graphics mode"
+    },
+    {
+      "symptom": "Loud parts of the music sound harsh, like a bad bitrate"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/paperback-the-game.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/paperback-the-game.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 710700,
+  "sync": "msync",
+  "title": "Paperback: The Game"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-paradise-killer",
+  "knownIssues": [
+    {
+      "symptom": "DualSense controller not recognized by the game (an Xbox style XInput pad works)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/paradise-killer.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1160220,
+  "sync": "msync",
+  "title": "Paradise Killer"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-particle-mace",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/particle-mace.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 295690,
+  "sync": "msync",
+  "title": "PARTICLE MACE"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-path-of-achra",
+  "knownIssues": [
+    {
+      "symptom": "Esc doesn't leave the search bar, and leaving a menu with an empty search bar needs a character typed first (M5 Pro, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/path-of-achra.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2128270,
+  "sync": "msync",
+  "title": "Path of Achra"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-path-of-exile",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/path-of-exile.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 238960,
+  "sync": "msync",
+  "title": "Path of Exile"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-payday-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/payday-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 218620,
+  "sync": "msync",
+  "title": "PAYDAY 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-payday-3",
+  "knownIssues": [
+    {
+      "symptom": "Occasional stutters (reported on an M4, macOS 26.5.1, DXMT, engine r26)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/payday-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1272080,
+  "sync": "msync",
+  "title": "PAYDAY 3"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-payday-the-heist",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/payday-the-heist.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 24240,
+  "sync": "msync",
+  "title": "PAYDAY: The Heist"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-per-aspera",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/per-aspera.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 803050,
+  "sync": "msync",
+  "title": "Per Aspera"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-persona-3-portable",
+  "knownIssues": [
+    {
+      "symptom": "A problem with sound through headphones at first (M3 Pro, DXMT, Wine 10 r28, highball-db#1309)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/persona-3-portable.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1809700,
+  "sync": "msync",
+  "title": "Persona 3 Portable"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-persona-3-reload-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/persona-3-reload-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3358440,
+  "sync": "msync",
+  "title": "Persona 3 Reload Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-persona-3-reload",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/persona-3-reload.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2161700,
+  "sync": "msync",
+  "title": "Persona 3 Reload"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-persona-5-royal",
+  "knownIssues": [
+    {
+      "symptom": "On engine r7 with DXMT and DXMT_ALLOW_CROSS_PROCESS_SWAPCHAIN=1 the whole Mac kernel-panicked (reported on an M5, macOS 27.0)"
+    },
+    {
+      "symptom": "Does not run on the Sikarugir (Wine 10) engines"
+    },
+    {
+      "symptom": "Drops to about 40 fps in the colour puzzle in Maruki's Palace, the final cutscene and the end credits (M1, DXVK, Wine 11 r27, highball#530)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/persona-5-royal.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/persona-5-royal.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1687950,
+  "sync": "msync",
+  "title": "Persona 5 Royal"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-phantom-brigade",
+  "knownIssues": [
+    {
+      "symptom": "In full screen the game can't be hidden or switched away from to other apps"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/phantom-brigade.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 553540,
+  "sync": "msync",
+  "title": "Phantom Brigade"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-phantom-fury",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/phantom-fury.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1733240,
+  "sync": "msync",
+  "title": "Phantom Fury"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-phasmophobia",
+  "knownIssues": [
+    {
+      "symptom": "Voice chat works in a match but not in the lobby (reported on an M3)"
+    },
+    {
+      "symptom": "Voice recognition does not pick up speech (reported on an M3)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/phasmophobia.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 739630,
+  "sync": "msync",
+  "title": "Phasmophobia"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-picayune-dreams",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/picayune-dreams.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2088840,
+  "sync": "msync",
+  "title": "Picayune Dreams"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-pico-park-classic-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/pico-park-classic-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 461040,
+  "sync": "msync",
+  "title": "PICO PARK:Classic Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-planet-coaster-2",
+  "knownIssues": [
+    {
+      "symptom": "Crash dialog at launch offering to send diagnostics to the developer"
+    },
+    {
+      "symptom": "Nothing visible for five minutes with the full recipe configuration on an M3 Pro, and a forced reboot after stopping it"
+    },
+    {
+      "symptom": "The game process starts and stays alive, but no window ever appears, and after several minutes the whole Mac becomes unresponsive and needs a restart (highball-db#356, Apple M5 Pro, macOS 27.0.1, Highball 0.10.10, engine r18 with D3DMetal 4 and r19 with D3DMetal 3, the recipe's variables confirmed by 'Metal API Validation Enabled')"
+    },
+    {
+      "symptom": "On Wine 11 the game starts and then hangs: a black window at 0% CPU for over four minutes on r26 (D3DMetal 4 beta 3), an exit after about 100 seconds with an empty crash dump on r27 (D3DMetal 3). The Mac stayed responsive (M5 Pro, macOS 27.0, highball#537)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/planet-coaster-2.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/planet-coaster-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2688950,
+  "sync": "msync",
+  "title": "Planet Coaster 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-planet-of-lana",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/planet-of-lana.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1608230,
+  "sync": "msync",
+  "title": "Planet of Lana"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-planet-zoo-2",
+  "knownIssues": [
+    {
+      "symptom": "No window; the game runs at 100% CPU for one to six minutes and exits with c0000409"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/planet-zoo-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3219030,
+  "sync": "msync",
+  "title": "Planet Zoo 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-playrooms",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/playrooms.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5037510,
+  "sync": "msync",
+  "title": "Playrooms"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-poppy-playtime",
+  "knownIssues": [
+    {
+      "symptom": "Chapter 2 draws only red outlines of its models"
+    },
+    {
+      "symptom": "Chapter 3 shows a blank screen with the game's cursor after starting a new game, while sound and menus work"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/poppy-playtime.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1721470,
+  "sync": "msync",
+  "title": "Poppy Playtime"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-portal-1",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/portal-1.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/portal-1.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 400,
+  "sync": "msync",
+  "title": "Portal"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-portal-2",
+  "knownIssues": [
+    {
+      "symptom": "No dynamic shadows. Furniture, objects and characters cast no shadows from lamps or sunlight (reported on an M3 Pro, Discord 2026-10-05)"
+    },
+    {
+      "symptom": "Textures softer than the original, Model / Texture Detail on Low (reported on an M3 Pro, Discord 2026-10-06)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [
+    {
+      "data": "2047",
+      "key": "HKCU\\Software\\Wine\\AppDefaults\\portal2.exe\\Direct3D",
+      "name": "VideoMemorySize",
+      "type": "REG_SZ"
+    }
+  ],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/portal-2.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/portal-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 620,
+  "sync": "msync",
+  "title": "Portal 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-portal-first-slice",
+  "knownIssues": [
+    {
+      "symptom": "An occasional small stutter, which the player thinks may be shaders compiling (M1, Wine 10 r31, highball-db#1253)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/portal-first-slice.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 410,
+  "sync": "msync",
+  "title": "Portal: First Slice"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-potato-please",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/potato-please.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5266240,
+  "sync": "msync",
+  "title": "Potato Please"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-potion-craft-alchemist-simulator",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/potion-craft-alchemist-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1210320,
+  "sync": "msync",
+  "title": "Potion Craft: Alchemist Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-powerwash-simulator",
+  "knownIssues": [
+    {
+      "symptom": "No sound at all (reported on an M5 Pro, macOS 27.0.1)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/powerwash-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1290000,
+  "sync": "msync",
+  "title": "PowerWash Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-pragmata-sketchbook-demo",
+  "knownIssues": [
+    {
+      "symptom": "Unsupported graphics card error at start, then the game quits (M1 Pro)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/pragmata-sketchbook-demo.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/pragmata-sketchbook-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4003800,
+  "sync": "msync",
+  "title": "PRAGMATA Sketchbook (Demo)"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-pragmata",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/pragmata.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3357650,
+  "sync": "msync",
+  "title": "PRAGMATA"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-prey-2017",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/prey-2017.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 480490,
+  "sync": "msync",
+  "title": "Prey (2017)"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-prince-of-persia-the-two-thrones",
+  "knownIssues": [
+    {
+      "symptom": "Black screen after the launch screen, then the game quits (reported on an M2 Pro, macOS 26.6.1)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/prince-of-persia-the-two-thrones.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 13530,
+  "sync": "msync",
+  "title": "Prince of Persia: The Two Thrones"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-prison-architect",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/prison-architect.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 233450,
+  "sync": "msync",
+  "title": "Prison Architect"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-probably-stolen",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/probably-stolen.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4348910,
+  "sync": "msync",
+  "title": "Probably Stolen"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-prominence-poker",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/prominence-poker.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 384180,
+  "sync": "msync",
+  "title": "Prominence Poker"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-psycho-sleuth",
+  "knownIssues": [
+    {
+      "symptom": "A dialogue can stay stuck for good (M4 MacBook Air, Highball 0.10.26, every setup tried)"
+    },
+    {
+      "symptom": "The battle screen's effects are drawn distorted, not black (M4 MacBook Air, Highball 0.10.26, every setup tried)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/psycho-sleuth.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3432860,
+  "sync": "msync",
+  "title": "Psycho-Sleuth"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-pyramids-and-aliens-escape-room",
+  "knownIssues": [
+    {
+      "symptom": "DirectInput pad bindings are wrong and XInput pads don't work"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/pyramids-and-aliens-escape-room.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2833640,
+  "sync": "msync",
+  "title": "Pyramids and Aliens: Escape Room"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-quake-ii",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/quake-ii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2320,
+  "sync": "msync",
+  "title": "Quake II"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-queens-domain-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/queens-domain-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4081520,
+  "sync": "msync",
+  "title": "Queen's Domain Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-queens-domain",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/queens-domain.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1799840,
+  "sync": "msync",
+  "title": "Queen's Domain"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-qun-xia-zhuan-qi-dong",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/qun-xia-zhuan-qi-dong.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2098790,
+  "sync": "msync",
+  "title": "群侠传，启动！"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-raceroom-racing-experience",
+  "knownIssues": [
+    {
+      "symptom": "Freezes on the pre-race screen after the track loads, VK_ERROR_DEVICE_LOST (reported on an M3, macOS 15.8, engine r2)"
+    },
+    {
+      "symptom": "Stuck on the first loading screen with the logo, or on the splash screen with its music playing (reported on an M1, macOS 27.0.1, engine r5, DXVK, highball#498)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream recipe has optional settings; see its source for details."
+  ],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/raceroom-racing-experience.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/raceroom-racing-experience.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 211500,
+  "sync": "msync",
+  "title": "RaceRoom Racing Experience"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-raft",
+  "knownIssues": [
+    {
+      "symptom": "Multiplayer with Windows players does not connect"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/raft.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 648800,
+  "sync": "msync",
+  "title": "Raft"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ragbrawl",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ragbrawl.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2300280,
+  "sync": "msync",
+  "title": "RagBrawl"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-rain-world",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/rain-world.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 312520,
+  "sync": "msync",
+  "title": "Rain World"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-rave-real-time-audio-visual-experience",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/rave-real-time-audio-visual-experience.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1412990,
+  "sync": "msync",
+  "title": "R.A.V.E - Real-time Audio Visual Experience"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ravenfield",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ravenfield.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 636480,
+  "sync": "msync",
+  "title": "Ravenfield"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-re-volt",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/re-volt.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 287310,
+  "sync": "msync",
+  "title": "Re-Volt"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ready-or-not",
+  "knownIssues": [
+    {
+      "symptom": "The Mac's mouse cursor shows over the game (M4, Wine 11 r31)"
+    },
+    {
+      "symptom": "The first launch sits on a black screen for a long time (M4, Wine 11 r31)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ready-or-not.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1144200,
+  "sync": "msync",
+  "title": "Ready or Not"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-reblade-the-death-spiral-demo",
+  "knownIssues": [
+    {
+      "symptom": "Resolution changes in the game misbehave (a click made the picture four times bigger, 1920x1080 came out squished, and once 800x600 was the largest size offered)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/reblade-the-death-spiral-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4513800,
+  "sync": "msync",
+  "title": "ReBlade: The Death Spiral Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-red-dead-redemption",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/red-dead-redemption.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2668510,
+  "sync": "msync",
+  "title": "Red Dead Redemption"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-regular-factory-escape-room",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/regular-factory-escape-room.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1790490,
+  "sync": "msync",
+  "title": "Regular Factory: Escape Room"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-replaced",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/replaced.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1663850,
+  "sync": "msync",
+  "title": "REPLACED"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-repo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/repo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3241660,
+  "sync": "msync",
+  "title": "R.E.P.O."
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-resident-evil-2",
+  "knownIssues": [
+    {
+      "symptom": "Some lights flicker in the police station (D3DMetal, M3 Pro)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/resident-evil-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 883710,
+  "sync": "msync",
+  "title": "Resident Evil 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-resident-evil-3",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/resident-evil-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 952060,
+  "sync": "msync",
+  "title": "Resident Evil 3"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-resident-evil-4-remake",
+  "knownIssues": [
+    {
+      "symptom": "The HDR brightness setup screen is blank (reported)"
+    },
+    {
+      "symptom": "Some freezes during play (reported on an M5, Wine 11 engine r10, D3DMetal)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/resident-evil-4-remake.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2050650,
+  "sync": "msync",
+  "title": "Resident Evil 4"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-resident-evil-5",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/resident-evil-5.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 21690,
+  "sync": "msync",
+  "title": "Resident Evil 5"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-resident-evil-6-benchmark",
+  "knownIssues": [
+    {
+      "symptom": "The benchmark loses the GPU while loading, a black screen after Benchmark is chosen (VK_ERROR_OUT_OF_DEVICE_MEMORY, then device lost in DXVK)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/resident-evil-6-benchmark.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 229950,
+  "sync": "msync",
+  "title": "Resident Evil 6 Benchmark Tool"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-resident-evil-village",
+  "knownIssues": [
+    {
+      "symptom": "Small 'CAPCOM InstallerMessage' window on first launch asking to install 'VIDEO CODEC: WMVideo Decoder'"
+    },
+    {
+      "symptom": "Black screen right after the game starts, process alive at under one percent CPU, for as long as you wait"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/resident-evil-village.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1196590,
+  "sync": "msync",
+  "title": "Resident Evil Village"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-resident-evil",
+  "knownIssues": [
+    {
+      "symptom": "A pause the first time a door animation or the menu loads, quick after that (reported). A player on an M3 saw frame drops and stutter on entering a new room or when new lighting first shows, such as lightning (highball-db#1341)."
+    },
+    {
+      "symptom": "Minor graphical glitches during door animations and in some locations (reported on D3DMetal)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/resident-evil.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 304240,
+  "sync": "msync",
+  "title": "Resident Evil"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-restory-chill-electronics-repairs",
+  "knownIssues": [
+    {
+      "symptom": "A shader issue on DXMT (reported on an M1, macOS 27.0, engine r28, highball-db#674)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/restory-chill-electronics-repairs.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3812600,
+  "sync": "msync",
+  "title": "ReStory: Chill Electronics Repairs"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-retro-rewind-video-store-simulator",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/retro-rewind-video-store-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3552140,
+  "sync": "msync",
+  "title": "Retro Rewind: Video Store Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-revue-starlight-el-dorado",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/revue-starlight-el-dorado.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2849960,
+  "sync": "msync",
+  "title": "少女☆歌劇 レヴュースタァライト 舞台奏像劇 遙かなるエルドラド"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-rims-racing",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/rims-racing.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1346010,
+  "sync": "msync",
+  "title": "RiMS Racing"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-rippleloop-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/rippleloop-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4758450,
+  "sync": "msync",
+  "title": "RippleLoop Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-rivals-of-aether",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/rivals-of-aether.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 383980,
+  "sync": "msync",
+  "title": "Rivals of Aether"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-roadcraft",
+  "knownIssues": [
+    {
+      "symptom": "Cannot switch away from the game with Command-Tab while it runs (reported)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/roadcraft.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2104890,
+  "sync": "msync",
+  "title": "RoadCraft"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-rogue-wizards",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/rogue-wizards.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 392260,
+  "sync": "msync",
+  "title": "Rogue Wizards"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-rollercoaster-tycoon-3-complete-edition",
+  "knownIssues": [
+    {
+      "symptom": "The sound runs slow and the game lags (M1, Wine 11 r28, D3DMetal and WineD3D)"
+    },
+    {
+      "symptom": "A placed rollercoaster is drawn as grey mush (M1, Wine 11, D3DMetal and WineD3D)"
+    },
+    {
+      "symptom": "Slows to a crawl before the legal screen on the Wine 10 engine (M1)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/rollercoaster-tycoon-3-complete-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1368820,
+  "sync": "msync",
+  "title": "RollerCoaster Tycoon 3: Complete Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-romestead",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/romestead.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1805320,
+  "sync": "msync",
+  "title": "Romestead"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-runescape-dragonwilds",
+  "knownIssues": [
+    {
+      "symptom": "At 16:10 resolutions (2056x1329 on a MacBook) the settings menu's right-hand description panel is cut off at the screen edge, and the picture can look very bright"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/runescape-dragonwilds.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1374490,
+  "sync": "msync",
+  "title": "RuneScape: Dragonwilds"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-rv-there-yet",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/rv-there-yet.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3949040,
+  "sync": "msync",
+  "title": "RV There Yet?"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-s-t-a-l-k-e-r-shadow-of-chernobyl",
+  "knownIssues": [
+    {
+      "symptom": "Loading hangs on synchronization for 20 minutes or more (an A18 Pro with Highball 0.9.39, highball#237)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/s-t-a-l-k-e-r-shadow-of-chernobyl.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4500,
+  "sync": "msync",
+  "title": "S.T.A.L.K.E.R.: Shadow of Chernobyl"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-saiko-no-sutoka",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/saiko-no-sutoka.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1546860,
+  "sync": "msync",
+  "title": "Saiko no sutoka"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-saints-row-iv-re-elected",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/saints-row-iv-re-elected.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 206420,
+  "sync": "msync",
+  "title": "Saints Row IV: Re-Elected"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-saints-row-the-third-remastered",
+  "knownIssues": [
+    {
+      "symptom": "Quit to Desktop freezes or crashes the game instead of quitting (M4 Pro, Wine 10 r28, highball-db#1352)"
+    },
+    {
+      "symptom": "Some stutter in outdoor areas, seemingly at specific spots (M4 Pro, Wine 10 r28, highball-db#1352)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/saints-row-the-third-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 978300,
+  "sync": "msync",
+  "title": "Saints Row: The Third Remastered"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sandcastle",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sandcastle.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4894830,
+  "sync": "msync",
+  "title": "Sandcastle"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sayonara-wild-hearts",
+  "knownIssues": [
+    {
+      "symptom": "Switching to another app while the game runs loses audio and keyboard and mouse input, on engines before r15"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sayonara-wild-hearts.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1122720,
+  "sync": "msync",
+  "title": "Sayonara Wild Hearts"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-scam-with-your-friends",
+  "knownIssues": [
+    {
+      "symptom": "The game crashes partway through a session (reported on an M4 and an M1 Pro, macOS 27.0.1, DXMT, engines r11 and r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/scam-with-your-friends.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4954910,
+  "sync": "msync",
+  "title": "Scam With Your Friends"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-scary-game-2-the-mad-shepherd",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/scary-game-2-the-mad-shepherd.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4479970,
+  "sync": "msync",
+  "title": "Scary Game 2: The Mad Shepherd"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-schedule-i",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/schedule-i.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3164500,
+  "sync": "msync",
+  "title": "Schedule I"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-scp-idle-secure-contain-progress-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/scp-idle-secure-contain-progress-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4989200,
+  "sync": "msync",
+  "title": "SCP Idle: SECURE. CONTAIN. PROGRESS. Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sea-power",
+  "knownIssues": [
+    {
+      "symptom": "The game's Vuplex web view crashes"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sea-power.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1286220,
+  "sync": "msync",
+  "title": "Sea Power: Naval Combat in the Missile Age"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-seasons-after-fall",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/seasons-after-fall.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 366320,
+  "sync": "msync",
+  "title": "Seasons after Fall"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sekiro-shadows-die-twice",
+  "knownIssues": [
+    {
+      "symptom": "With a controller, A and B are swapped from what the game shows, and X and Y too: the game asks for A and B works (M3 Pro, controller-sdl recipe, started from the exe, highball-db#1366)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sekiro-shadows-die-twice.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 814380,
+  "sync": "msync",
+  "title": "Sekiro: Shadows Die Twice"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sex-secrets-and-used-tech",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sex-secrets-and-used-tech.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3576350,
+  "sync": "msync",
+  "title": "Sex, Secrets & Used Tech"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-shadow-of-the-tomb-raider",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/shadow-of-the-tomb-raider.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 750920,
+  "sync": "msync",
+  "title": "Shadow of the Tomb Raider"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-shadow-tactics-blades-of-the-shogun-demo",
+  "knownIssues": [
+    {
+      "symptom": "Sound glitches (reported on an M1 Pro, macOS 15.8.1, DXMT, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/shadow-tactics-blades-of-the-shogun-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 547490,
+  "sync": "msync",
+  "title": "Shadow Tactics: Blades of the Shogun Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-shape-of-dreams",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/shape-of-dreams.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2444750,
+  "sync": "msync",
+  "title": "Shape of Dreams"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sheltered",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sheltered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 356040,
+  "sync": "msync",
+  "title": "Sheltered"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-shift-2-unleashed",
+  "knownIssues": [
+    {
+      "symptom": "The activation window never appears after Steam's CD key dialog"
+    },
+    {
+      "symptom": "PhysXLoader.dll cannot be loaded"
+    },
+    {
+      "symptom": "On DXVK the game hangs as a race starts with the sound looping (MoltenVK Internal Error 0000010d, then VK_ERROR_DEVICE_LOST)"
+    },
+    {
+      "symptom": "In DXMT mode the window disappears when the game changes display mode"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/shift-2-unleashed.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 47920,
+  "sync": "msync",
+  "title": "Shift 2 Unleashed"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-shift-at-midnight",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/shift-at-midnight.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3722330,
+  "sync": "msync",
+  "title": "Shift At Midnight"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ship-of-fools",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ship-of-fools.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1286580,
+  "sync": "msync",
+  "title": "Ship of Fools"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-shiren-the-wanderer-the-mystery-dungeon-of-serpentcoil-island",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/shiren-the-wanderer-the-mystery-dungeon-of-serpentcoil-island.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2178480,
+  "sync": "msync",
+  "title": "Shiren the Wanderer: The Mystery Dungeon of Serpentcoil Island"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-shogun-showdown",
+  "knownIssues": [
+    {
+      "symptom": "No DualSense (DirectInput) support out of the box, an XInput controller works"
+    },
+    {
+      "symptom": "DualSense controller not recognized by the game (an Xbox style XInput pad works)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/shogun-showdown.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2084000,
+  "sync": "msync",
+  "title": "Shogun Showdown"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-shop-titans",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/shop-titans.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1258080,
+  "sync": "msync",
+  "title": "Shop Titans"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sifu",
+  "knownIssues": [
+    {
+      "symptom": "Some frame drops, on an M3 Max when turning the camera (M5 and M3 Max, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sifu.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2138710,
+  "sync": "msync",
+  "title": "Sifu"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-signalis",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/signalis.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1262350,
+  "sync": "msync",
+  "title": "SIGNALIS"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-silent-hill-townfall",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/silent-hill-townfall.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1636440,
+  "sync": "msync",
+  "title": "SILENT HILL: Townfall"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-silver-pines",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/silver-pines.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2333000,
+  "sync": "msync",
+  "title": "Silver Pines"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sin-reloaded",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sin-reloaded.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 632950,
+  "sync": "msync",
+  "title": "SiN Reloaded"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-skillshot-city",
+  "knownIssues": [
+    {
+      "symptom": "Exits at startup; the game's data/log.txt says 'needs OpenGL VBO support', with GLAD_GL_VERSION_3_0 0 in a 2.1 context"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/skillshot-city.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 308600,
+  "sync": "msync",
+  "title": "Skillshot City"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-slap-em-up",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/slap-em-up.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3703520,
+  "sync": "msync",
+  "title": "Slap 'em UP!"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-slashzero-demo",
+  "knownIssues": [
+    {
+      "symptom": "Unreal Engine 'Fatal error!' crash window right after the logo (M1, D3DMetal, Wine 10 r29)"
+    },
+    {
+      "symptom": "On a Wine 11 engine with D3DMetal, Steam shows a black window with white boxes at the first launch and the game never starts (M1, Wine 11 r28)"
+    },
+    {
+      "symptom": "Highball says the demo never started, no process of its own appearing in six minutes, while the game is running (M1, Wine 11)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/slashzero-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5099550,
+  "sync": "msync",
+  "title": "SlashZero Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-slay-the-spire-2",
+  "knownIssues": [
+    {
+      "symptom": "A green screen with sound at start on D3DMetal (Godot's Direct3D 12 renderer)"
+    },
+    {
+      "symptom": "Multiplayer doesn't work"
+    },
+    {
+      "symptom": "Online lobbies don't work when the game isn't started through the Windows Steam client"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/slay-the-spire-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2868840,
+  "sync": "msync",
+  "title": "Slay the Spire 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-slay-the-spire",
+  "knownIssues": [
+    {
+      "symptom": "Very infrequent, very short stutters in Fullscreen and Borderless Fullscreen (reported on an M2 Pro 14-inch MacBook Pro, DXMT, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/slay-the-spire.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 646570,
+  "sync": "msync",
+  "title": "Slay the Spire"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sleeping-dogs-definitive-edition",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sleeping-dogs-definitive-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 307690,
+  "sync": "msync",
+  "title": "Sleeping Dogs: Definitive Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-slime-rancher-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/slime-rancher-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1657630,
+  "sync": "msync",
+  "title": "Slime Rancher 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-snaptic-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/snaptic-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5273300,
+  "sync": "msync",
+  "title": "SNAPTIC Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sniper-ghost-warrior-2",
+  "knownIssues": [
+    {
+      "symptom": "Heavy frame drops, barely playable (an M5, DXVK, async shader compilation off)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sniper-ghost-warrior-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 34870,
+  "sync": "msync",
+  "title": "Sniper: Ghost Warrior 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sniper-ghost-warrior-contracts",
+  "knownIssues": [
+    {
+      "symptom": "Launches, but textures and assets do not load"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sniper-ghost-warrior-contracts.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 973580,
+  "sync": "msync",
+  "title": "Sniper Ghost Warrior Contracts"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sobosuba-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sobosuba-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5017590,
+  "sync": "msync",
+  "title": "sobosuba Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-solar-expanse-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/solar-expanse-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2517120,
+  "sync": "msync",
+  "title": "Solar Expanse Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-solarpunk",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/solarpunk.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1805110,
+  "sync": "msync",
+  "title": "Solarpunk"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sonic-adventure-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sonic-adventure-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 213610,
+  "sync": "msync",
+  "title": "Sonic Adventure 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sonic-mania",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sonic-mania.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 584400,
+  "sync": "msync",
+  "title": "Sonic Mania"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sonic-rumble-party",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sonic-rumble-party.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2951690,
+  "sync": "msync",
+  "title": "Sonic Rumble Party"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sos-ops",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sos-ops.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2475460,
+  "sync": "msync",
+  "title": "SOS OPS!"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-soulstice",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/soulstice.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1602080,
+  "sync": "msync",
+  "title": "Soulstice"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sounds-of-her-love",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sounds-of-her-love.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 603880,
+  "sync": "msync",
+  "title": "Sounds of Her Love"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-south-of-midnight",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/south-of-midnight.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1934570,
+  "sync": "msync",
+  "title": "South of Midnight"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-south-park-the-stick-of-truth",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/south-park-the-stick-of-truth.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 213670,
+  "sync": "msync",
+  "title": "South Park: The Stick of Truth"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-space-engineers-2",
+  "knownIssues": [
+    {
+      "symptom": "Exits at start with \"No supported GPU found\" (M3 Max, D3DMetal, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/space-engineers-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1133870,
+  "sync": "msync",
+  "title": "Space Engineers 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-space-pirates-and-zombies",
+  "knownIssues": [
+    {
+      "symptom": "Black screen after quitting the game, nothing happens"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/space-pirates-and-zombies.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 107200,
+  "sync": "msync",
+  "title": "Space Pirates and Zombies"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-spam",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/spam.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2902720,
+  "sync": "msync",
+  "title": "SPAM"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-spelunky-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/spelunky-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 418530,
+  "sync": "msync",
+  "title": "Spelunky 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-splendor",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/splendor.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 376680,
+  "sync": "msync",
+  "title": "Splendor"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-split-fiction",
+  "knownIssues": [
+    {
+      "symptom": "Some graphical glitches here and there, like the artifacts other players have posted for the game, not game breaking (highball-db#476)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/split-fiction.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2001120,
+  "sync": "msync",
+  "title": "Split Fiction"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-spore-galactic-adventures",
+  "knownIssues": [
+    {
+      "symptom": "Heavy lag once more than about 20 animated props are on screen in an adventure, at the lowest settings (reported on an M4, macOS 26.5, DXMT, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/spore-galactic-adventures.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 24720,
+  "sync": "msync",
+  "title": "SPORE Galactic Adventures"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-sprocket",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/sprocket.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1674170,
+  "sync": "msync",
+  "title": "Sprocket"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-stacking",
+  "knownIssues": [
+    {
+      "symptom": "Gameplay much darker than the Xbox 360 version, dolls nearly black, while the intro and cutscenes look normal"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/stacking.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 115110,
+  "sync": "msync",
+  "title": "Stacking"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-star-wars-battlefront-ii",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/star-wars-battlefront-ii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1237950,
+  "sync": "msync",
+  "title": "STAR WARS Battlefront II"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-star-wars-empire-at-war-gold-pack",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/star-wars-empire-at-war-gold-pack.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 32470,
+  "sync": "msync",
+  "title": "STAR WARS Empire at War: Gold Pack"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-star-wars-galactic-racer",
+  "knownIssues": [
+    {
+      "symptom": "Exits right after starting, before any window (M1, Wine 10 engines and Wine 11 r28, r30 and r31)"
+    },
+    {
+      "symptom": "Epic Online Services fails to install on the Wine 10 engines (SetNamedSecurityInfo error 120, MSI error 1603)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/star-wars-galactic-racer.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4078430,
+  "sync": "msync",
+  "title": "STAR WARS: Galactic Racer"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-star-wars-jedi-survivor",
+  "knownIssues": [
+    {
+      "symptom": "Some of the game's videos stutter now and then (M1 Max, Wine 11 r30)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/star-wars-jedi-survivor.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1774580,
+  "sync": "msync",
+  "title": "STAR WARS Jedi: Survivor"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-star-wars-zero-company",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops after switching away from the game and back, not every time (M3 Pro, Wine 10 r29, D3DMetal)"
+    },
+    {
+      "symptom": "The Escape key stops working in some sessions (M3 Pro, Wine 10 r29, D3DMetal)"
+    },
+    {
+      "symptom": "Earning an achievement moves the focus to Steam (M3 Pro, Wine 10 r29, in a window)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/star-wars-zero-company.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2075800,
+  "sync": "msync",
+  "title": "STAR WARS Zero Company"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-starfield",
+  "knownIssues": [
+    {
+      "symptom": "Blocky, stair-stepped shadows in some scenes (M1 Max, D3DMetal 3 and 4)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/starfield.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1716740,
+  "sync": "msync",
+  "title": "Starfield"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-steep",
+  "knownIssues": [
+    {
+      "symptom": "In D3DMetal mode the game stops at start with 'Call to unimplemented function D3D11.DLL.D3D11CoreCreateDevice, aborting'"
+    },
+    {
+      "symptom": "DXMT refuses an 8-sample texture and the game does not start"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/steep.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 460920,
+  "sync": "msync",
+  "title": "Steep"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-stellar-blade",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/stellar-blade.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3489700,
+  "sync": "msync",
+  "title": "Stellar Blade"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-stellaris",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/stellaris.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 281990,
+  "sync": "msync",
+  "title": "Stellaris"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-story-of-seasons-friends-of-mineral-town",
+  "knownIssues": [
+    {
+      "symptom": "Occasional minor screen flicker (reported)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/story-of-seasons-friends-of-mineral-town.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 978780,
+  "sync": "msync",
+  "title": "STORY OF SEASONS: Friends of Mineral Town"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-storyteller",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/storyteller.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1624540,
+  "sync": "msync",
+  "title": "Storyteller"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-stranded-with-you-demo",
+  "knownIssues": [
+    {
+      "symptom": "No game window appears while Highball and Steam show the game running (M1, D3DMetal and DXMT, Wine 10 r29). On a Wine 11 engine with D3DMetal, Steam shows a black window instead"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/stranded-with-you-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4339760,
+  "sync": "msync",
+  "title": "Stranded with You Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-stray",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/stray.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1332010,
+  "sync": "msync",
+  "title": "Stray"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-street-fighter-v",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/street-fighter-v.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 310950,
+  "sync": "msync",
+  "title": "Street Fighter V"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-streets-of-rage-4",
+  "knownIssues": [
+    {
+      "symptom": "Crashes at some loading screens, with 'The archive entry was compressed using an unsupported compression method'"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/streets-of-rage-4.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 985890,
+  "sync": "msync",
+  "title": "Streets of Rage 4"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-strinova",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/strinova.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1282270,
+  "sync": "msync",
+  "title": "Strinova"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-stronghold-crusader-hd",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/stronghold-crusader-hd.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 40970,
+  "sync": "msync",
+  "title": "Stronghold Crusader HD"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-stumble-guys",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/stumble-guys.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1677740,
+  "sync": "msync",
+  "title": "Stumble Guys"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-subnautica-2",
+  "knownIssues": [
+    {
+      "symptom": "Some keybinds don't work correctly (M5, Wine 10 r14)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/subnautica-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1962700,
+  "sync": "msync",
+  "title": "Subnautica 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-subnautica",
+  "knownIssues": [
+    {
+      "symptom": "With a controller, after bringing up the Steam overlay and going back, the game keeps switching to mouse input (M4 Pro, DXMT)"
+    },
+    {
+      "symptom": "A DualSense isn't seen by the game (M4, DXMT, Wine 10 r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/subnautica.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 264710,
+  "sync": "msync",
+  "title": "Subnautica"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-suicide-squad-kill-the-justice-league",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/suicide-squad-kill-the-justice-league.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 315210,
+  "sync": "msync",
+  "title": "Suicide Squad: Kill the Justice League"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-super-meat-boy",
+  "knownIssues": [
+    {
+      "symptom": "Music sounds distorted"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/super-meat-boy.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 40800,
+  "sync": "msync",
+  "title": "Super Meat Boy"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-super-robot-wars-v",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/super-robot-wars-v.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1031500,
+  "sync": "msync",
+  "title": "SUPER ROBOT WARS V"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-syberia-remastered",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/syberia-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3660220,
+  "sync": "msync",
+  "title": "Syberia - Remastered"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tale-of-wuxia",
+  "knownIssues": [
+    {
+      "symptom": "Maps run at about 4 fps while menus run at 100 fps or more"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tale-of-wuxia.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 377530,
+  "sync": "msync",
+  "title": "Tale of Wuxia"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tape-to-tape",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tape-to-tape.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1566200,
+  "sync": "msync",
+  "title": "Tape to Tape"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tbh-task-bar-hero",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tbh-task-bar-hero.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3678970,
+  "sync": "msync",
+  "title": "TBH: Task Bar Hero"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tcg-card-shop-simulator",
+  "knownIssues": [
+    {
+      "symptom": "Hangs when switching to another app while the game runs (reported)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tcg-card-shop-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3070070,
+  "sync": "msync",
+  "title": "TCG Card Shop Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-teardown",
+  "knownIssues": [
+    {
+      "symptom": "Crashes on DXMT and on DXVK (reported on an M5, engine r28, highball#410), while an M1 report played on DXMT"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/teardown.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1167630,
+  "sync": "msync",
+  "title": "Teardown"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tekken-7",
+  "knownIssues": [
+    {
+      "symptom": "Fullscreen offers at most 1521x910 on an M1 Pro, the size macOS shows for its scaled display (highball-db#664)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tekken-7.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 389730,
+  "sync": "msync",
+  "title": "TEKKEN 7"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tekken-8",
+  "knownIssues": [
+    {
+      "symptom": "Online ranked and quick match searches never find an opponent, with no error, while offline modes play (16 GB base M5, Wine 11 r33, D3DMetal, highball-db#1345)"
+    },
+    {
+      "symptom": "On DXMT the game stops with 'DirectX 12 is not supported on your system' (highball-db#1345)"
+    },
+    {
+      "symptom": "On the default Wine 10 engine r28 with D3DMetal the game crashes after about 5 minutes (EXCEPTION_ACCESS_VIOLATION reading 0x2107 in Polaris-Win64-Shipping), and the graphics settings reset at every start (16 GB base M5, highball-db#1345)"
+    },
+    {
+      "symptom": "A dialog at start says the AMD graphics driver has known issues in D3D12 (highball-db#1345)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tekken-8.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1778820,
+  "sync": "msync",
+  "title": "TEKKEN 8"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tell-me-why",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tell-me-why.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1180660,
+  "sync": "msync",
+  "title": "Tell Me Why"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tempest-rising",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tempest-rising.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1486920,
+  "sync": "msync",
+  "title": "Tempest Rising"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-terminal-esc",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/terminal-esc.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2809460,
+  "sync": "msync",
+  "title": "Terminal ESC"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-terra-invicta",
+  "knownIssues": [
+    {
+      "symptom": "In fleet combat, shots cause big black flares on the screen (M5 Pro, DXMT, Wine 11 r31)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/terra-invicta.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1176470,
+  "sync": "msync",
+  "title": "Terra Invicta"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-terra-nil",
+  "knownIssues": [
+    {
+      "symptom": "Arrow keys and WASD do not move the camera, mouse scrolling does (reported on an M2, DXMT, engine r7)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/terra-nil.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1593030,
+  "sync": "msync",
+  "title": "Terra Nil"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-thalassomania-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/thalassomania-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5407340,
+  "sync": "msync",
+  "title": "Thalassomania Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-alters",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-alters.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1601570,
+  "sync": "msync",
+  "title": "The Alters"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-alto-collection",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-alto-collection.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2837600,
+  "sync": "msync",
+  "title": "The Alto Collection"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-artisan-of-glimmith",
+  "knownIssues": [
+    {
+      "symptom": "A bit slow at higher resolutions (M1 Pro, Wine 10 r28, highball-db#1209)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-artisan-of-glimmith.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4160210,
+  "sync": "msync",
+  "title": "The Artisan of Glimmith"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-binding-of-isaac-rebirth",
+  "knownIssues": [
+    {
+      "symptom": "Slows down after a while of play (reported on DXMT, M2 Max, macOS 27, engine r5)"
+    },
+    {
+      "symptom": "Slight frame drops in rooms with many enemies, more often in Greed mode (reported on an M4, DXMT, engine r11)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-binding-of-isaac-rebirth.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 250900,
+  "sync": "msync",
+  "title": "The Binding of Isaac: Rebirth (Repentance+)"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-blood-of-dawnwalker",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-blood-of-dawnwalker.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3751260,
+  "sync": "msync",
+  "title": "The Blood of Dawnwalker"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-crew-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-crew-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 646910,
+  "sync": "msync",
+  "title": "The Crew 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-dig",
+  "knownIssues": [
+    {
+      "symptom": "Small window that stays small in full screen; speech in the opening but not in play"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-dig.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 6040,
+  "sync": "msync",
+  "title": "The Dig"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-exit-8",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-exit-8.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2653790,
+  "sync": "msync",
+  "title": "The Exit 8"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-farmer-was-replaced",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-farmer-was-replaced.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2060160,
+  "sync": "msync",
+  "title": "The Farmer Was Replaced"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-forest",
+  "knownIssues": [
+    {
+      "symptom": "Moving the mouse quickly drops the frame rate (M4, Wine 10 r28, highball-db#1204)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-forest.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 242760,
+  "sync": "msync",
+  "title": "The Forest"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-fruit-of-grisaia",
+  "knownIssues": [
+    {
+      "symptom": "Animations and picture transitions are a bit laggy"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-fruit-of-grisaia.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 345610,
+  "sync": "msync",
+  "title": "The Fruit of Grisaia"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-invincible",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-invincible.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 731040,
+  "sync": "msync",
+  "title": "The Invincible"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-killing-antidote-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-killing-antidote-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3274030,
+  "sync": "msync",
+  "title": "The Killing Antidote Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-king-of-fighters-97-global-match",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-king-of-fighters-97-global-match.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 702120,
+  "sync": "msync",
+  "title": "THE KING OF FIGHTERS '97 GLOBAL MATCH"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-last-caretaker",
+  "knownIssues": [
+    {
+      "symptom": "Starts, then crashes before the main menu (reported on an M3 Ultra, Highball 0.9.23)"
+    },
+    {
+      "symptom": "'Microsoft Visual C++ 2015-2022 Redistributable (x64) is required' dialog at launch"
+    },
+    {
+      "symptom": "Steam's own window goes blank after the game's mode is set to D3DMetal (reported on 0.9.23)"
+    },
+    {
+      "symptom": "Black window at idle GPU once the game reaches its menu (the demo's second run onward, the first shows the title before the video starts)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-last-caretaker.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/the-last-caretaker.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1783560,
+  "sync": "msync",
+  "title": "The Last Caretaker"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-last-flame",
+  "knownIssues": [
+    {
+      "symptom": "Pressing Start or Embark does nothing on a first run; Player.log has IOException: Unknown error (0x...) from System.IO on the save file"
+    },
+    {
+      "symptom": "The menu's background video does not show"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-last-flame.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/the-last-flame.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1830970,
+  "sync": "msync",
+  "title": "The Last Flame"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-last-gas-station",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-last-gas-station.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3690030,
+  "sync": "msync",
+  "title": "The Last Gas Station"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-mageseeker-a-league-of-legends-story",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-mageseeker-a-league-of-legends-story.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1457080,
+  "sync": "msync",
+  "title": "The Mageseeker: A League of Legends Story"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-mortuary-assistant",
+  "knownIssues": [
+    {
+      "symptom": "One skin type is shaded wrongly (reported on an M4, DXMT, DXVK and Wine's Direct3D alike)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-mortuary-assistant.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1295920,
+  "sync": "msync",
+  "title": "The Mortuary Assistant"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-outer-worlds",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-outer-worlds.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 578650,
+  "sync": "msync",
+  "title": "The Outer Worlds"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-quarry",
+  "knownIssues": [
+    {
+      "symptom": "Playable only at the lowest settings, some clothing glitches (reported on an M4, DXVK)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-quarry.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1577120,
+  "sync": "msync",
+  "title": "The Quarry"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-sims-2-legacy-collection",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-sims-2-legacy-collection.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3314070,
+  "sync": "msync",
+  "title": "The Sims 2 Legacy Collection"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-sims-4",
+  "knownIssues": [
+    {
+      "symptom": "After minimizing the game window, the mouse stays confined to part of the screen"
+    },
+    {
+      "symptom": "Steam copy: the first launches start the EA app but not the game"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-sims-4.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1222670,
+  "sync": "msync",
+  "title": "The Sims 4"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-sims-legacy-collection",
+  "knownIssues": [
+    {
+      "symptom": "Sims drawn as black silhouettes on the lot, and in the neighbourhood view the family portrait is coloured noise and the lot preview a black block"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-sims-legacy-collection.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/the-sims-legacy-collection.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3314060,
+  "sync": "msync",
+  "title": "The Sims Legacy Collection"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-stanley-parable",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-stanley-parable.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 221910,
+  "sync": "msync",
+  "title": "The Stanley Parable"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-surge",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-surge.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 378540,
+  "sync": "msync",
+  "title": "The Surge"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-talos-principle-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-talos-principle-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 835960,
+  "sync": "msync",
+  "title": "The Talos Principle 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-talos-principle",
+  "knownIssues": [
+    {
+      "symptom": "In fullscreen the game doesn't show on an external display, in a window it does (Apple M6, Wine 10 r28, highball-db#1189)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-talos-principle.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 257510,
+  "sync": "msync",
+  "title": "The Talos Principle"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-thing-remastered",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-thing-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2958970,
+  "sync": "msync",
+  "title": "The Thing: Remastered"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-walking-dead",
+  "knownIssues": [
+    {
+      "symptom": "WalkingDead101.exe crashes into Wine's debugger right after starting, in every graphics mode (an M1, r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-walking-dead.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 207610,
+  "sync": "msync",
+  "title": "The Walking Dead"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-wolf-among-us",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-wolf-among-us.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 250320,
+  "sync": "msync",
+  "title": "The Wolf Among Us"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-theme-hospital",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/theme-hospital.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2229820,
+  "sync": "msync",
+  "title": "Theme Hospital"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-thief",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/thief.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 239160,
+  "sync": "msync",
+  "title": "THIEF: Definitive Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-this-war-of-mine",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/this-war-of-mine.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 282070,
+  "sync": "msync",
+  "title": "This War of Mine"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-throne-and-liberty",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/throne-and-liberty.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2429640,
+  "sync": "msync",
+  "title": "THRONE AND LIBERTY"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tiny-glade",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tiny-glade.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2198150,
+  "sync": "msync",
+  "title": "Tiny Glade"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tiny-terraces",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tiny-terraces.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3136330,
+  "sync": "msync",
+  "title": "Tiny Terraces"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-titanfall-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/titanfall-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1237970,
+  "sync": "msync",
+  "title": "Titanfall 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tlatoani-aztec-cities-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tlatoani-aztec-cities-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2925280,
+  "sync": "msync",
+  "title": "Tlatoani: Aztec Cities Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-toem",
+  "knownIssues": [
+    {
+      "symptom": "Opens on the built-in screen even with Display set to Main display (a MacBook with an external display)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/toem.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1307580,
+  "sync": "msync",
+  "title": "TOEM"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tokyo-xtreme-racer",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tokyo-xtreme-racer.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2634950,
+  "sync": "msync",
+  "title": "Tokyo Xtreme Racer"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tom-clancys-the-division",
+  "knownIssues": [
+    {
+      "symptom": "Signing in to the game's servers takes five to ten minutes."
+    },
+    {
+      "symptom": "On D3DMetal the game does not open at all."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tom-clancys-the-division.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 365590,
+  "sync": "msync",
+  "title": "Tom Clancy's The Division"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tomb-raider-game-of-the-year",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tomb-raider-game-of-the-year.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 203160,
+  "sync": "msync",
+  "title": "Tomb Raider Game of the Year Edition"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tomb-raider-iv-vi-remastered",
+  "knownIssues": [
+    {
+      "symptom": "Crashes right after launch on every graphics mode, page fault at address zero (reported on an M1 Pro, macOS 27)"
+    },
+    {
+      "symptom": "Pixelated picture, the game renders at 1512x982 and is upscaled (reported on an M1 Pro)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tomb-raider-iv-vi-remastered.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/tomb-raider-iv-vi-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2525380,
+  "sync": "msync",
+  "title": "Tomb Raider IV-VI Remastered"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-toram-online",
+  "knownIssues": [
+    {
+      "symptom": "Japanese text does not draw until Japanese fonts are installed in the environment (reported on the Wine 11 engine r8 with DXVK, highball-db#206)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "Upstream prerequisites: fakejapanese."
+  ],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/toram-online.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/toram-online.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1827180,
+  "sync": "msync",
+  "title": "Toram Online"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-total-conflict-resistance",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/total-conflict-resistance.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1860510,
+  "sync": "msync",
+  "title": "Total Conflict: Resistance"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-total-war-warhammer-iii",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/total-war-warhammer-iii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1142710,
+  "sync": "msync",
+  "title": "Total War: WARHAMMER III"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-touhou-danmaku-kagura-phantasia-lost",
+  "knownIssues": [
+    {
+      "symptom": "A black window that never moves (DXMT, Wine 11 r27, through Proton-ish)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/touhou-danmaku-kagura-phantasia-lost.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2190220,
+  "sync": "msync",
+  "title": "Touhou Danmaku Kagura Phantasia Lost"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-tower-dominion",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/tower-dominion.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3226530,
+  "sync": "msync",
+  "title": "Tower Dominion"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-trackmania-nations-forever",
+  "knownIssues": [
+    {
+      "symptom": "Under 1 fps during play (DXVK)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/trackmania-nations-forever.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 11020,
+  "sync": "msync",
+  "title": "TrackMania Nations Forever"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-trackmania",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/trackmania.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2225070,
+  "sync": "msync",
+  "title": "Trackmania"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-trailmakers",
+  "knownIssues": [
+    {
+      "symptom": "Much lower frame rate above the lowest graphics setting on an A18 Pro"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/trailmakers.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 585420,
+  "sync": "msync",
+  "title": "Trailmakers"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-train-sim-world-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/train-sim-world-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1282590,
+  "sync": "msync",
+  "title": "Train Sim World 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-train-sim-world-5",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/train-sim-world-5.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2967990,
+  "sync": "msync",
+  "title": "Train Sim World 5"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-train-sim-world-6",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/train-sim-world-6.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3656800,
+  "sync": "msync",
+  "title": "Train Sim World 6"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-train-simulator-classic",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/train-simulator-classic.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 24010,
+  "sync": "msync",
+  "title": "Train Simulator Classic"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-trepang2",
+  "knownIssues": [
+    {
+      "symptom": "DXVK mode shows a black screen with only a few coloured lines (M5 Pro, Wine 11 r29)"
+    },
+    {
+      "symptom": "About a minute passes before the intro loads (M5 Pro, Wine 11 r29, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/trepang2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1164940,
+  "sync": "msync",
+  "title": "Trepang2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-triangle-strategy",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/triangle-strategy.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1850510,
+  "sync": "msync",
+  "title": "TRIANGLE STRATEGY"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-trinity-fusion",
+  "knownIssues": [
+    {
+      "symptom": "Seems to hang on the way into the game, then gets there after a wait (M1, DXMT, Wine 11 r32, highball-db#1288)"
+    },
+    {
+      "symptom": "Missing assets on DXVK (M1, Wine 10 and Wine 11 r32, highball-db#1288)"
+    },
+    {
+      "symptom": "On D3DMetal it crashed while Unity initialized on Wine 10, and hung on the Wine 11 engine r32 (M1, highball-db#1288)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/trinity-fusion.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1911360,
+  "sync": "msync",
+  "title": "Trinity Fusion"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ufo-50",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ufo-50.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1147860,
+  "sync": "msync",
+  "title": "UFO 50"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ultimate-custom-night",
+  "knownIssues": [
+    {
+      "symptom": "The loading screen plays as a very slow slideshow, the menu never appears and the cursor is hidden, so the game has to be force quit (DXMT mode, A18 Pro, macOS 27.0, engine r11)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ultimate-custom-night.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 871720,
+  "sync": "msync",
+  "title": "Ultimate Custom Night"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ultrakill",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ultrakill.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1229490,
+  "sync": "msync",
+  "title": "ULTRAKILL"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-umamusume-pretty-derby",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/umamusume-pretty-derby.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3224770,
+  "sync": "msync",
+  "title": "Umamusume: Pretty Derby"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-uncharted-legacy-of-thieves-collection",
+  "knownIssues": [
+    {
+      "symptom": "An error report window opens when the game quits (reported on an M4, engine r18)"
+    },
+    {
+      "symptom": "Trees flicker in some scenes (reported on an M4, engine r18)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/uncharted-legacy-of-thieves-collection.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1659420,
+  "sync": "msync",
+  "title": "UNCHARTED: Legacy of Thieves Collection"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-undertale",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/undertale.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 391540,
+  "sync": "msync",
+  "title": "Undertale"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-upload-labs",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/upload-labs.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3606890,
+  "sync": "msync",
+  "title": "Upload Labs"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-v-rising",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/v-rising.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1604030,
+  "sync": "msync",
+  "title": "V Rising"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-vampire-survivors",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/vampire-survivors.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1794680,
+  "sync": "msync",
+  "title": "Vampire Survivors"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-vaultbreakers",
+  "knownIssues": [
+    {
+      "symptom": "'DIRECTX 11 NOT SUPPORTED, Vaultbreakers requires DirectX 12' (0xC361) at start"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/vaultbreakers.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/vaultbreakers.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 306910,
+  "sync": "msync",
+  "title": "Vaultbreakers"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-vellum",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/vellum.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 917950,
+  "sync": "msync",
+  "title": "Vellum"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-velocity-ultra",
+  "knownIssues": [
+    {
+      "symptom": "The main window rarely opens after the pre-launcher's Play, and when it does the ship moves very slowly"
+    },
+    {
+      "symptom": "game.exe exits about two seconds in, or stops itself with a fatal error (0xc0000409), right after creating its Direct3D 9 device, on DXVK ('Failed to create surface') and on Wine's own Direct3D ('failed to set pixel format') alike (reported on an M1, engine r28, highball-db#493, 2026-10-21 and 23)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/velocity-ultra.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 244890,
+  "sync": "msync",
+  "title": "Velocity Ultra"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-viewfinder",
+  "knownIssues": [
+    {
+      "symptom": "The first launch shows nothing (reported on the Epic copy, M5, macOS 27.0.1, DXMT, highball-db#647)"
+    },
+    {
+      "symptom": "A photo cannot be placed without a mouse (reported on the Epic copy, M5, DXMT, highball-db#647)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/viewfinder.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1382070,
+  "sync": "msync",
+  "title": "Viewfinder"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-vindictus",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/vindictus.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 212160,
+  "sync": "msync",
+  "title": "Vindictus"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-visage",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/visage.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 594330,
+  "sync": "msync",
+  "title": "Visage"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-vital-decisions-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/vital-decisions-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5213930,
+  "sync": "msync",
+  "title": "Vital Decisions Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-vital-shell",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/vital-shell.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3741860,
+  "sync": "msync",
+  "title": "Vital Shell"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-voidwrought",
+  "knownIssues": [
+    {
+      "symptom": "Crashes now and then while the game starts, play itself is fine once in"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/voidwrought.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2014550,
+  "sync": "msync",
+  "title": "Voidwrought"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-wanderburg",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/wanderburg.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3624140,
+  "sync": "msync",
+  "title": "Wanderburg"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-wandering-sword",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/wandering-sword.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1876890,
+  "sync": "msync",
+  "title": "Wandering Sword"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-war-robots",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/war-robots.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 767560,
+  "sync": "msync",
+  "title": "War Robots"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-warhammer-40000-battlesector",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/warhammer-40000-battlesector.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1295500,
+  "sync": "msync",
+  "title": "Warhammer 40,000: Battlesector"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-warhammer-40000-boltgun",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/warhammer-40000-boltgun.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2005010,
+  "sync": "msync",
+  "title": "Warhammer 40,000: Boltgun"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-warhammer-dark-omen-classic",
+  "knownIssues": [
+    {
+      "symptom": "Black screen with sound on every mode"
+    },
+    {
+      "symptom": "'Dark Omen has failed due to an incompatible DirectX version or out-of-date display drivers' at start"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/warhammer-dark-omen-classic.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4280860,
+  "sync": "msync",
+  "title": "Warhammer: Dark Omen (Classic)"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-warhammer-survivors-demo",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/warhammer-survivors-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4499200,
+  "sync": "msync",
+  "title": "Warhammer Survivors Demo"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-watch-dogs-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/watch-dogs-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 447040,
+  "sync": "msync",
+  "title": "Watch_Dogs® 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-watchmen-the-end-is-nigh",
+  "knownIssues": [
+    {
+      "symptom": "MultiLauncher.exe says the .NET Framework must be enabled from Windows Features, with .NET 4.8 installed"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/watchmen-the-end-is-nigh.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 21010,
+  "sync": "msync",
+  "title": "Watchmen: The End is Nigh"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-water-td",
+  "knownIssues": [
+    {
+      "symptom": "In fullscreen the MacBook Pro's camera notch covers part of the picture (M3 Pro, DXMT, Wine 10 r28, highball-db#1334)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/water-td.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5295330,
+  "sync": "msync",
+  "title": "Water TD"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-waterpark-simulator",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/waterpark-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3293260,
+  "sync": "msync",
+  "title": "Waterpark Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-wavetale",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops, 25 to 30 fps (M1, Wine 11 r31)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/wavetale.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1823930,
+  "sync": "msync",
+  "title": "Wavetale"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-wayfinder",
+  "knownIssues": [
+    {
+      "symptom": "The world stays invisible, or the game stops saying DirectX 12 is not supported"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/wayfinder.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1171690,
+  "sync": "msync",
+  "title": "Wayfinder"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-weakless",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/weakless.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1072620,
+  "sync": "msync",
+  "title": "Weakless"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-well-dweller",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/well-dweller.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3699590,
+  "sync": "msync",
+  "title": "Well Dweller"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-where-safety-ends-remake",
+  "knownIssues": [
+    {
+      "symptom": "The window is larger than the screen and runs past its bottom edge, cutting off parts of the game (profiles, menus)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/where-safety-ends-remake.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2823140,
+  "sync": "msync",
+  "title": "WHERE SAFETY ENDS *Remake*"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-where-winds-meet",
+  "knownIssues": [
+    {
+      "symptom": "Crashes at random, from 15 seconds to an hour and a half into a session, once with the in-game Store window open (reported on an M5 Pro, Wine 11 engine r12, DXMT, highball#240)"
+    },
+    {
+      "symptom": "Stutter in areas with many NPCs on DXMT, and a bit of stutter on D3DMetal too (reported on an M5 Pro)"
+    },
+    {
+      "symptom": "The official launcher from the game's site stops on 'Failed to create OpenGL context' and never opens (M1, the default engine r31, highball-db#1297)"
+    },
+    {
+      "symptom": "The Steam install asks for about 200 GB and failed after reserving 165 GB (M1, highball-db#1297)"
+    },
+    {
+      "symptom": "Crashed at a boss fight on D3DMetal 4 beta 3 (M1, Wine 11 r32, highball-db#1297)"
+    },
+    {
+      "symptom": "DXMT and DXVK crash on a base M1 (highball-db#1297)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/where-winds-meet.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3564740,
+  "sync": "msync",
+  "title": "Where Winds Meet"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-while-true-learn",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/while-true-learn.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 619150,
+  "sync": "msync",
+  "title": "while True: learn()"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-will-you-snail",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/will-you-snail.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1115050,
+  "sync": "msync",
+  "title": "Will You Snail?"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-windrose",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/windrose.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3041230,
+  "sync": "msync",
+  "title": "Windrose"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-winter-burrow",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/winter-burrow.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3008740,
+  "sync": "msync",
+  "title": "Winter Burrow"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-wobbly-life",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/wobbly-life.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1211020,
+  "sync": "msync",
+  "title": "Wobbly Life"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-woman-simulator",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/woman-simulator.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4072240,
+  "sync": "msync",
+  "title": "Woman Simulator"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-word-link",
+  "knownIssues": [
+    {
+      "symptom": "Does not run on the default engine (reported on an M5 Pro); on an M1 Pro the demo quits three seconds after launch on every engine tried (2026-09-26)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/word-link.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5149020,
+  "sync": "msync",
+  "title": "Word Link"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-workers-and-resources-soviet-republic",
+  "knownIssues": [
+    {
+      "symptom": "Audio and performance issues at very high graphics settings"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/workers-and-resources-soviet-republic.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 784150,
+  "sync": "msync",
+  "title": "Workers & Resources: Soviet Republic"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-worms-armageddon",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/worms-armageddon.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 217200,
+  "sync": "msync",
+  "title": "Worms Armageddon"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-wrath-aeon-of-ruin",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/wrath-aeon-of-ruin.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1000410,
+  "sync": "msync",
+  "title": "WRATH: Aeon of Ruin"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-wwe-2k25",
+  "knownIssues": [
+    {
+      "symptom": "Pink dots on screen (M1 Pro, D3DMetal by the report, Wine 11 r30, highball-db#1280)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/wwe-2k25.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2878960,
+  "sync": "msync",
+  "title": "WWE 2K25"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-xcom-enemy-unknown",
+  "knownIssues": [
+    {
+      "symptom": "At 3440x1440 ultrawide some menus are cut off and clicks land off target, unevenly, in menus and on the map's grid (M4 Max, Wine 10 r28)"
+    },
+    {
+      "symptom": "The game's config files in Documents\\My Games\\XCOM - Enemy Unknown\\XComGame\\Config got corrupted"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/xcom-enemy-unknown.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 200510,
+  "sync": "msync",
+  "title": "XCOM: Enemy Unknown"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-yakuza-0-directors-cut",
+  "knownIssues": [
+    {
+      "symptom": "Characters' dialogue in cutscenes sounds muffled (M1 Pro, D3DMetal, Wine 10 r28, highball-db#1303)"
+    },
+    {
+      "symptom": "A Nintendo Pro controller couldn't connect, with the controller-sdl recipe (M1 Pro, Wine 10 r28, highball-db#1303)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/yakuza-0-directors-cut.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2988580,
+  "sync": "msync",
+  "title": "Yakuza 0 Director's Cut"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-yakuza-kiwami-2",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/yakuza-kiwami-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3717340,
+  "sync": "msync",
+  "title": "Yakuza Kiwami 2"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-yakuza-kiwami",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/yakuza-kiwami.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3717330,
+  "sync": "msync",
+  "title": "Yakuza Kiwami"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ys-viii-lacrimosa-of-dana",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ys-viii-lacrimosa-of-dana.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 579180,
+  "sync": "msync",
+  "title": "Ys VIII: Lacrimosa of Dana"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-yu-gi-oh-master-duel",
+  "knownIssues": [
+    {
+      "symptom": "In fullscreen the picture runs under the MacBook's camera notch (reported on an M4, macOS 15.7.9, DXMT, engine r19)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/yu-gi-oh-master-duel.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1449850,
+  "sync": "msync",
+  "title": "Yu-Gi-Oh! Master Duel"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-zero-sievert",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/zero-sievert.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1782120,
+  "sync": "msync",
+  "title": "ZERO Sievert"
+}
+"""#,
+        #"""
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-zoria-age-of-shattering",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/zoria-age-of-shattering.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1159090,
+  "sync": "msync",
+  "title": "Zoria: Age of Shattering"
+}
+"""#,
+        #"""
+{
   "schema": 1,
   "id": "hogwarts-legacy",
   "title": "Hogwarts Legacy",

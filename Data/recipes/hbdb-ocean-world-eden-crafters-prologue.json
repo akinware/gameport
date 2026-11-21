@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ocean-world-eden-crafters-prologue",
+  "knownIssues": [
+    {
+      "symptom": "Never opens a window, WGL fails to create an OpenGL context (GLFW_VERSION_UNAVAILABLE)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ocean-world-eden-crafters-prologue.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2811830,
+  "sync": "msync",
+  "title": "Ocean World: Eden Crafters Prologue"
+}

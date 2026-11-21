@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-terra-nil",
+  "knownIssues": [
+    {
+      "symptom": "Arrow keys and WASD do not move the camera, mouse scrolling does (reported on an M2, DXMT, engine r7)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/terra-nil.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1593030,
+  "sync": "msync",
+  "title": "Terra Nil"
+}

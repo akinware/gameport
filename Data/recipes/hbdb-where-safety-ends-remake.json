@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-where-safety-ends-remake",
+  "knownIssues": [
+    {
+      "symptom": "The window is larger than the screen and runs past its bottom edge, cutting off parts of the game (profiles, menus)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/where-safety-ends-remake.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2823140,
+  "sync": "msync",
+  "title": "WHERE SAFETY ENDS *Remake*"
+}

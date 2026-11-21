@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-folded-fables-tidy-up-the-dragon-hoard",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops when moving around (M3)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/folded-fables-tidy-up-the-dragon-hoard.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4995030,
+  "sync": "msync",
+  "title": "Folded Fables: Tidy Up The Dragon Hoard"
+}

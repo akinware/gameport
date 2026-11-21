@@ -1,0 +1,37 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-alice-madness-returns",
+  "knownIssues": [
+    {
+      "symptom": "The game fails until thousands of '._' files are deleted from its folder"
+    },
+    {
+      "symptom": "DXSETUP.exe shows errors on the first start"
+    },
+    {
+      "symptom": "Clicking in the game switches the resolution so only a quarter of the picture shows (reported on an M1, macOS 27.0.1, D3DMetal environment, highball-db#429)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [
+    {
+      "data": "y",
+      "key": "HKCU\\Software\\Wine\\AppDefaults\\AliceMadnessReturns.exe\\X11 Driver",
+      "name": "EmulateModeset",
+      "type": "REG_SZ"
+    }
+  ],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/alice-madness-returns.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/alice-madness-returns.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 19680,
+  "sync": "msync",
+  "title": "Alice: Madness Returns"
+}

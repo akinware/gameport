@@ -2,7 +2,7 @@
 
 ## Current Status
 
-GamePort has a working macOS SwiftUI app, CLI, and core library (`swift test`: 28/28 passing) running on the `x64-crossover26.3-hb20261014` engine (Wine 11 under Rosetta):
+GamePort has a working macOS SwiftUI app, CLI, and core library running on the `x64-crossover26.3-hb20261014` engine (Wine 11 under Rosetta):
 
 - **Done:**
   - Per-game isolated Wine prefixes (`Z:` drive removed), SHA-256 verified engine installer, D3DMetal license gate.
@@ -11,7 +11,7 @@ GamePort has a working macOS SwiftUI app, CLI, and core library (`swift test`: 2
   - Pre-download anti-cheat warnings (1,166 games).
   - Patched DXVK (`Patches/dxvk/`, `Scripts/build-dxvk.sh`) fixing the D3D11 pipeline-statistics crash on MoltenVK.
   - Experimental KosmicKrisp Vulkan 1.4 shim (`Tools/kosmickrisp-shim/`) selectable per profile (`gameport vulkan <profile> kosmickrisp`); Team Fortress 2 (D3D9 via DXVK) renders on it (182 FPS typical on M1).
-- **Current recipe status (21 bundled):** 1 `verified` (`team-fortress-2`), 17 `community`, 3 `untested` (`3dmark-demo`, `age-of-empires-2-de`, `path-of-exile-2`).
+- **Current recipe status (795 bundled):** 1 `verified` (`team-fortress-2`), 791 `community`, 3 `untested` (`3dmark-demo`, `age-of-empires-2-de`, `path-of-exile-2`).
 
 ---
 
@@ -20,7 +20,7 @@ GamePort has a working macOS SwiftUI app, CLI, and core library (`swift test`: 2
 Goal: Make GamePort feel effortless across a wide library of Windows games with trustworthy, measured recipes.
 
 1. **Scale the recipe catalog (CC0 import + verification):**
-   - Use `HighballDBImporter` (`Sources/GamePortKit/Recipe.swift`) to import the CC0 subset of `highball-db` (600+ games) while keeping `status: "community"` until GamePort's own Lab verifies each title on real hardware.
+   - The pinned CC0 import added 774 Steam recipes. `Scripts/import-recipes.py` combines curated records in `db/games` with portable settings from `recipes/games`, skips blocked titles, and preserves existing recipes by ID and Steam app ID. Imported titles stay at `community` pending GamePort Lab verification.
    - Verify and tune a priority set of popular titles end-to-end (`elden-ring`, `cyberpunk-2077`, `skyrim-se`, `risk-of-rain-2`, `the-witcher-3`, `red-dead-redemption-2`, `counter-strike-2`, `peak`, etc.), recording chip, macOS version, engine, and FPS provenance.
    - Revisit `skyrim-se` and `peak` defaults: both currently default to `dxvk`, which crashes on stock engine DXVK unless `Scripts/build-dxvk.sh` has been run. Either ship the patched DXVK as part of the engine override flow or document/default safely.
 2. **Per-game config & launch polish:**

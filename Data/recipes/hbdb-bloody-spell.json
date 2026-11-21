@@ -1,0 +1,27 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-bloody-spell",
+  "knownIssues": [
+    {
+      "symptom": "Title screen text missing"
+    },
+    {
+      "symptom": "Freezes a few seconds into a video (the opening one, or the one after the difficulty selection), on every graphics mode"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "Upstream prerequisites: corefonts."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/bloody-spell.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/bloody-spell.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 992300,
+  "sync": "msync",
+  "title": "Bloody Spell"
+}

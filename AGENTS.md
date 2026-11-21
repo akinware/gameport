@@ -19,13 +19,13 @@ GamePort is a native macOS app + CLI for running Windows games smoothly on Apple
 | `Sources/gameport/` | Command-line interface (`main.swift`) |
 | `Sources/GamePortApp/` | SwiftUI macOS app (`App.swift`) |
 | `Data/engines/` | Engine manifests (every component pinned by URL + SHA-256) |
-| `Data/recipes/` | Per-game JSON recipes (21 currently; 1 verified, 17 community, 3 untested) |
+| `Data/recipes/` | Per-game JSON recipes (795 currently; 1 verified, 791 community, 3 untested) |
 | `Data/anticheat/` | Anti-cheat lookup map (1,166 games, MIT) |
 | `Patches/dxvk/` | GamePort's DXVK patches (D3D11 pipeline-statistics fix for MoltenVK) |
 | `Tools/kosmickrisp-shim/` | Experimental Vulkan shim routing only game `.exe`s to Mesa KosmicKrisp while keeping Steam/Wine on MoltenVK |
-| `Scripts/` | `embed-data.py`, `make-app.sh`, `build-dxvk.sh`, `import-anticheat.py`, `lab-heaven.sh`, `lab-parse.py`, `mark-wine-builtin.py` |
+| `Scripts/` | `embed-data.py`, `make-app.sh`, `build-dxvk.sh`, `import-anticheat.py`, `import-recipes.py`, `lab-heaven.sh`, `lab-parse.py`, `mark-wine-builtin.py` |
 | `research_notes/` | Technical notes on the open DirectX 12 / KosmicKrisp path and MoltenVK extension dumps |
-| `Tests/GamePortKitTests/` | XCTest suite (28 unit tests) |
+| `Tests/GamePortKitTests/` | XCTest suite for GamePortKit |
 
 ## Essential Commands
 
@@ -35,6 +35,10 @@ swift test
 
 # After editing Data/ or Tools/kosmickrisp-shim/shim.c (embedded for installed CLI/app use):
 python3 Scripts/embed-data.py
+
+# Add missing community recipes from the pinned CC0 catalog and re-embed
+python3 Scripts/import-recipes.py
+python3 -m unittest discover -s Tests/ScriptTests
 
 # Build release CLI
 swift build -c release

@@ -1,0 +1,29 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-rollercoaster-tycoon-3-complete-edition",
+  "knownIssues": [
+    {
+      "symptom": "The sound runs slow and the game lags (M1, Wine 11 r28, D3DMetal and WineD3D)"
+    },
+    {
+      "symptom": "A placed rollercoaster is drawn as grey mush (M1, Wine 11, D3DMetal and WineD3D)"
+    },
+    {
+      "symptom": "Slows to a crawl before the legal screen on the Wine 10 engine (M1)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/rollercoaster-tycoon-3-complete-edition.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1368820,
+  "sync": "msync",
+  "title": "RollerCoaster Tycoon 3: Complete Edition"
+}

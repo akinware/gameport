@@ -1,0 +1,17 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-crusader-kings-iii",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/crusader-kings-iii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1158310,
+  "sync": "msync",
+  "title": "Crusader Kings III"
+}

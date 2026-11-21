@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-captain-of-industry",
+  "knownIssues": [
+    {
+      "symptom": "The colours of the picture change after the game is minimized (M1 Max, D3DMetal, Wine 10 r28, highball-db#1260)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/captain-of-industry.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1594320,
+  "sync": "msync",
+  "title": "Captain of Industry"
+}

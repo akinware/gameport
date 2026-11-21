@@ -1,0 +1,26 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-raceroom-racing-experience",
+  "knownIssues": [
+    {
+      "symptom": "Freezes on the pre-race screen after the track loads, VK_ERROR_DEVICE_LOST (reported on an M3, macOS 15.8, engine r2)"
+    },
+    {
+      "symptom": "Stuck on the first loading screen with the logo, or on the splash screen with its music playing (reported on an M1, macOS 27.0.1, engine r5, DXVK, highball#498)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream recipe has optional settings; see its source for details."
+  ],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/raceroom-racing-experience.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/raceroom-racing-experience.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 211500,
+  "sync": "msync",
+  "title": "RaceRoom Racing Experience"
+}

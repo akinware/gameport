@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-kingdom-new-lands",
+  "knownIssues": [
+    {
+      "symptom": "Occasional freezes during play and slightly laggy sound (reported on an M3, DXVK, engine r7)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/kingdom-new-lands.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 496300,
+  "sync": "msync",
+  "title": "Kingdom: New Lands"
+}

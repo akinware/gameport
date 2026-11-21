@@ -1,0 +1,29 @@
+{
+  "advertiseAVX": true,
+  "environment": {},
+  "id": "hbdb-diablo-ii-resurrected",
+  "knownIssues": [
+    {
+      "symptom": "Never opens a window on the default engine, the game process idle (M5, macOS 27.0.1, the Battle.net copy; the Steam copy on an M5 Pro the same, highball#371)"
+    },
+    {
+      "symptom": "On the Wine 11 engines before r35 the Steam copy exits a few seconds after start, before any window (M5 Pro, highball#371). On the Wine 11 engine the Battle.net copy doesn't get that far, Battle.net crashed after login or never drew its window"
+    },
+    {
+      "symptom": "The cursor keeps switching between the game's cursor and the Mac pointer (M5 Pro, highball-db#1194)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/diablo-ii-resurrected.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/diablo-ii-resurrected.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2536520,
+  "sync": "msync",
+  "title": "Diablo II: Resurrected"
+}

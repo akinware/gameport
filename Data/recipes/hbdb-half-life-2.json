@@ -1,0 +1,38 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-half-life-2",
+  "knownIssues": [
+    {
+      "symptom": "The game runs its DirectX 8 path (no HDR lighting, simpler water and shaders) on a fresh install"
+    },
+    {
+      "symptom": "Frame drops when shooting or when an NPC is hit, blood and muzzle flash effects (reported on an M1, macOS 27)"
+    },
+    {
+      "symptom": "Low frame rate for such an old game, 14 to 33 fps at 1280x720 on an M1 Pro depending on the mode"
+    },
+    {
+      "symptom": "The -vulkan launch option shows nothing"
+    },
+    {
+      "symptom": "On the Wine 11 engine r11 with the DXVK mode, no window appears (measured on the demo build on a Wine 11 test engine built from r11's components, 2026-09-24)."
+    },
+    {
+      "symptom": "Minor stuttering (reported on an M3 Max, macOS 26.5.2, DXMT environment, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream recipe has optional settings; see its source for details."
+  ],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/half-life-2.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/half-life-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 220,
+  "sync": "msync",
+  "title": "Half-Life 2"
+}

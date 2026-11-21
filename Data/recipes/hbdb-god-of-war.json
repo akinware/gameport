@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-god-of-war",
+  "knownIssues": [
+    {
+      "symptom": "Noise artifacts on Kratos and Atreus depending on lighting and depth on DXMT (reported on an M4 Pro)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/god-of-war.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1593500,
+  "sync": "msync",
+  "title": "God of War"
+}

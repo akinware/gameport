@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-steep",
+  "knownIssues": [
+    {
+      "symptom": "In D3DMetal mode the game stops at start with 'Call to unimplemented function D3D11.DLL.D3D11CoreCreateDevice, aborting'"
+    },
+    {
+      "symptom": "DXMT refuses an 8-sample texture and the game does not start"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/steep.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 460920,
+  "sync": "msync",
+  "title": "Steep"
+}

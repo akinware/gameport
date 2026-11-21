@@ -1,0 +1,35 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fort-solis",
+  "knownIssues": [
+    {
+      "symptom": "Hangs on the loading screen at launch (M1, D3DMetal, Wine 10 r28)"
+    },
+    {
+      "symptom": "On engine r29 a white rectangle shows over a picture of Mars after the loading screen, and the game freezes about 30 seconds later without crashing (M1, D3DMetal from GPTK 4.0b2)"
+    },
+    {
+      "symptom": "A launch right after a working one ended after about a minute and a half without reaching the game (M1, D3DMetal, Wine 10 r29)"
+    },
+    {
+      "symptom": "On the Wine 11 engine r30 with D3DMetal it ran as a slideshow at about 8 fps (M1)"
+    },
+    {
+      "symptom": "Resolutions below 1920x1080 shrink the picture and change the Mac's display mode (M1, Wine 11 r30)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fort-solis.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1931730,
+  "sync": "msync",
+  "title": "Fort Solis"
+}

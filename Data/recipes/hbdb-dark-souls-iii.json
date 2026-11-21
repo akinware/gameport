@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dark-souls-iii",
+  "knownIssues": [
+    {
+      "symptom": "The game freezes when an enemy is killed, then crashes (reported on an M4 Pro, macOS 26.6.2, engine x64-sikarugir10.0_6-r7, DXMT, Highball 0.9.35, highball-db#204, rated 2, launches but not playable)."
+    },
+    {
+      "symptom": "The game crashes when its settings open (reported on an M5, engine r28, D3DMetal, highball-db#583)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dark-souls-iii.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 374320,
+  "sync": "msync",
+  "title": "Dark Souls III"
+}

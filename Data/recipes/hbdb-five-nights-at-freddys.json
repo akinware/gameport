@@ -1,0 +1,39 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-five-nights-at-freddys",
+  "knownIssues": [
+    {
+      "symptom": "The office runs at about 18 to 27 fps on macOS 27, where it ran at 60 on macOS 26, and already on macOS 26.7 (21 fps there, highball#400)"
+    },
+    {
+      "symptom": "Without the recipe, on a display whose logical resolution is not 16:10: the picture sits down and to the right with black bars along the top and left, and is clipped at the right and bottom edges."
+    },
+    {
+      "symptom": "On a 14-inch M1 Pro the game draws small in a corner of the screen and the mouse position does not match what it clicks (reported on 0.9.12, highball#67)"
+    },
+    {
+      "symptom": "On the Wine 11 engines (x64-crossover26.3-r11, r12) under DXVK the game runs at about 40 fps with cut sound and uneven frames, against 76 fps on the default engine's DXVK Direct3D 9 (Metal HUD, menu, M1 Pro, macOS 27.0, 2026-09-25)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [
+    {
+      "data": "y",
+      "key": "HKCU\\Software\\Wine\\AppDefaults\\FiveNightsatFreddys.exe\\X11 Driver",
+      "name": "EmulateModeset",
+      "type": "REG_SZ"
+    }
+  ],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/five-nights-at-freddys.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/five-nights-at-freddys.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 319510,
+  "sync": "msync",
+  "title": "Five Nights at Freddy's"
+}

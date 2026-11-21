@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-vaultbreakers",
+  "knownIssues": [
+    {
+      "symptom": "'DIRECTX 11 NOT SUPPORTED, Vaultbreakers requires DirectX 12' (0xC361) at start"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/vaultbreakers.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/vaultbreakers.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 306910,
+  "sync": "msync",
+  "title": "Vaultbreakers"
+}

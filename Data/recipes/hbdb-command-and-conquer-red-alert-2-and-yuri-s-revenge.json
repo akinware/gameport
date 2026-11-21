@@ -1,0 +1,26 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-command-and-conquer-red-alert-2-and-yuri-s-revenge",
+  "knownIssues": [
+    {
+      "symptom": "'Error - unable to set video mode' and the game doesn't start"
+    },
+    {
+      "symptom": "The CnCNet 5 Yuri's Revenge installer does not launch (M5, default engine r28, with .NET 4.8 installed)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/command-and-conquer-red-alert-2-and-yuri-s-revenge.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2229850,
+  "sync": "msync",
+  "title": "Command & Conquer Red Alert™ 2 and Yuri’s Revenge™"
+}

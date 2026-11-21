@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-touhou-danmaku-kagura-phantasia-lost",
+  "knownIssues": [
+    {
+      "symptom": "A black window that never moves (DXMT, Wine 11 r27, through Proton-ish)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/touhou-danmaku-kagura-phantasia-lost.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2190220,
+  "sync": "msync",
+  "title": "Touhou Danmaku Kagura Phantasia Lost"
+}

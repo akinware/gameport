@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dune-spice-wars",
+  "knownIssues": [
+    {
+      "symptom": "'OpenGL Error: unable to create an OpenGL context, OpenGL 3.2+ is required' at launch (reported on an M3, highball#206)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dune-spice-wars.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1605220,
+  "sync": "msync",
+  "title": "Dune: Spice Wars"
+}

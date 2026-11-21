@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-yu-gi-oh-master-duel",
+  "knownIssues": [
+    {
+      "symptom": "In fullscreen the picture runs under the MacBook's camera notch (reported on an M4, macOS 15.7.9, DXMT, engine r19)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/yu-gi-oh-master-duel.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1449850,
+  "sync": "msync",
+  "title": "Yu-Gi-Oh! Master Duel"
+}

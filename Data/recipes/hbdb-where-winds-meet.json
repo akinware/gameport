@@ -1,0 +1,36 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-where-winds-meet",
+  "knownIssues": [
+    {
+      "symptom": "Crashes at random, from 15 seconds to an hour and a half into a session, once with the in-game Store window open (reported on an M5 Pro, Wine 11 engine r12, DXMT, highball#240)"
+    },
+    {
+      "symptom": "Stutter in areas with many NPCs on DXMT, and a bit of stutter on D3DMetal too (reported on an M5 Pro)"
+    },
+    {
+      "symptom": "The official launcher from the game's site stops on 'Failed to create OpenGL context' and never opens (M1, the default engine r31, highball-db#1297)"
+    },
+    {
+      "symptom": "The Steam install asks for about 200 GB and failed after reserving 165 GB (M1, highball-db#1297)"
+    },
+    {
+      "symptom": "Crashed at a boss fight on D3DMetal 4 beta 3 (M1, Wine 11 r32, highball-db#1297)"
+    },
+    {
+      "symptom": "DXMT and DXVK crash on a base M1 (highball-db#1297)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/where-winds-meet.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3564740,
+  "sync": "msync",
+  "title": "Where Winds Meet"
+}

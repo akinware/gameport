@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ion-fury",
+  "knownIssues": [
+    {
+      "symptom": "Mouse turns now and then feel laggy or jumpy, and the way the world redraws can look off (M5 Pro, Wine 11 r29)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ion-fury.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 562860,
+  "sync": "msync",
+  "title": "Ion Fury"
+}

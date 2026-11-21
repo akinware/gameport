@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mortal-kombat-x",
+  "knownIssues": [
+    {
+      "symptom": "On the brightness screen the logo stays visible even with the slider at 0 percent (M1, a Dell S2722QC display)"
+    },
+    {
+      "symptom": "With Fullscreen picked by the automatic settings, the game stays in a window (M1)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mortal-kombat-x.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 307780,
+  "sync": "msync",
+  "title": "Mortal Kombat X"
+}

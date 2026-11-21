@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-pragmata-sketchbook-demo",
+  "knownIssues": [
+    {
+      "symptom": "Unsupported graphics card error at start, then the game quits (M1 Pro)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/pragmata-sketchbook-demo.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/pragmata-sketchbook-demo.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4003800,
+  "sync": "msync",
+  "title": "PRAGMATA Sketchbook (Demo)"
+}

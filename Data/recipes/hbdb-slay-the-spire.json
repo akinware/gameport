@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-slay-the-spire",
+  "knownIssues": [
+    {
+      "symptom": "Very infrequent, very short stutters in Fullscreen and Borderless Fullscreen (reported on an M2 Pro 14-inch MacBook Pro, DXMT, engine r28)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/slay-the-spire.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 646570,
+  "sync": "msync",
+  "title": "Slay the Spire"
+}

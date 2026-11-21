@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-quarry",
+  "knownIssues": [
+    {
+      "symptom": "Playable only at the lowest settings, some clothing glitches (reported on an M4, DXVK)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-quarry.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1577120,
+  "sync": "msync",
+  "title": "The Quarry"
+}

@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-last-flame",
+  "knownIssues": [
+    {
+      "symptom": "Pressing Start or Embark does nothing on a first run; Player.log has IOException: Unknown error (0x...) from System.IO on the save file"
+    },
+    {
+      "symptom": "The menu's background video does not show"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-last-flame.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/the-last-flame.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1830970,
+  "sync": "msync",
+  "title": "The Last Flame"
+}

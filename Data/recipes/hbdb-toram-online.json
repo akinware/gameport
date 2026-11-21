@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-toram-online",
+  "knownIssues": [
+    {
+      "symptom": "Japanese text does not draw until Japanese fonts are installed in the environment (reported on the Wine 11 engine r8 with DXVK, highball-db#206)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "Upstream prerequisites: fakejapanese."
+  ],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/toram-online.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/toram-online.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1827180,
+  "sync": "msync",
+  "title": "Toram Online"
+}

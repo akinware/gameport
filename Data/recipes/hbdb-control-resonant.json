@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-control-resonant",
+  "knownIssues": [
+    {
+      "symptom": "Freezes on the Remedy logo seconds after boot on D3DMetal 4 beta 3, starts only with DLSS off, and crashes at once on the Wine 10 engine r29"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/control-resonant.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 3669870,
+  "sync": "msync",
+  "title": "Control Resonant"
+}

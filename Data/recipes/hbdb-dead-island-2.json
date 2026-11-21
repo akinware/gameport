@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-dead-island-2",
+  "knownIssues": [
+    {
+      "symptom": "Smooth to the menu, then the game quits (reported on an M1 Pro, macOS 26.5.2, DXVK, engine r28)"
+    },
+    {
+      "symptom": "On D3DMetal the game stops on the opening copyright screen with the music playing (reported on an M1 Pro, macOS 26.5.2, highball#451)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/dead-island-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 934700,
+  "sync": "msync",
+  "title": "Dead Island 2"
+}

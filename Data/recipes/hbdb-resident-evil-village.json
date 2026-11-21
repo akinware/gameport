@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-resident-evil-village",
+  "knownIssues": [
+    {
+      "symptom": "Small 'CAPCOM InstallerMessage' window on first launch asking to install 'VIDEO CODEC: WMVideo Decoder'"
+    },
+    {
+      "symptom": "Black screen right after the game starts, process alive at under one percent CPU, for as long as you wait"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/resident-evil-village.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1196590,
+  "sync": "msync",
+  "title": "Resident Evil Village"
+}

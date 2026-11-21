@@ -1,0 +1,41 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-fahrenheit-indigo-prophecy-remastered",
+  "knownIssues": [
+    {
+      "symptom": "The game stops before opening a window in every graphics mode, its own DLLs not found"
+    },
+    {
+      "symptom": "The first menu click switches the game to 1024x768 and then it fails with 'A DirectX 9.0c or higher compliant video card is needed' or 'D3D ERROR! Fail to create texture surface' (an M1, DXVK's Direct3D 9, highball-db#700)"
+    },
+    {
+      "symptom": "A DirectX 9 warning dialog at start"
+    },
+    {
+      "symptom": "In a window the mouse cursor sticks to the screen's edge and the mouse cannot be used (the default Wine 10 engine)"
+    },
+    {
+      "symptom": "A DualSense's right stick does nothing"
+    },
+    {
+      "symptom": "In a window, a click in the picture on the splash screen zooms it in (M1, Wine 11 r30)"
+    },
+    {
+      "symptom": "The picture is slightly cropped on the right (M1, Wine 11 r30, in a window)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/fahrenheit-indigo-prophecy-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 312840,
+  "sync": "msync",
+  "title": "Fahrenheit: Indigo Prophecy Remastered"
+}

@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-meccha-chameleon",
+  "knownIssues": [
+    {
+      "symptom": "Launcher says the Visual C++ 2015-2022 runtime is missing although it is installed, then hangs at sign-in"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/meccha-chameleon.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 4704690,
+  "sync": "msync",
+  "title": "MECCHA CHAMELEON"
+}

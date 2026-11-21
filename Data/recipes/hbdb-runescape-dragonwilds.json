@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-runescape-dragonwilds",
+  "knownIssues": [
+    {
+      "symptom": "At 16:10 resolutions (2056x1329 on a MacBook) the settings menu's right-hand description panel is cut off at the screen edge, and the picture can look very bright"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/runescape-dragonwilds.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1374490,
+  "sync": "msync",
+  "title": "RuneScape: Dragonwilds"
+}

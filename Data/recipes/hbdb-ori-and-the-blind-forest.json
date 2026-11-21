@@ -1,0 +1,35 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-ori-and-the-blind-forest",
+  "knownIssues": [
+    {
+      "symptom": "Micro freezes (reported on an M5, macOS 26.6.2, DXVK)"
+    },
+    {
+      "symptom": "Audio plays twice, about a second apart (Definitive Edition through Proton-ish, Wine 11 r27, DXMT)"
+    },
+    {
+      "symptom": "Heavy sound crackling and stutter, the frame counter at 120 with very uneven frame pacing (Definitive Edition, M4, Wine 11 r31, DXMT and D3DMetal)"
+    },
+    {
+      "symptom": "Stays on the loading screen (Definitive Edition, M4, Wine 11 r31, DXVK)"
+    },
+    {
+      "symptom": "Plays in slow motion and stutters (Definitive Edition, M4, Wine 11 r31, WineD3D)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/ori-and-the-blind-forest.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 387290,
+  "sync": "msync",
+  "title": "Ori and the Blind Forest"
+}

@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-euro-truck-simulator-2",
+  "knownIssues": [
+    {
+      "symptom": "On the Wine 11 engine r15 in DXMT mode the game does not start, while the default engine starts it on the same Mac (reported on an M1, macOS 27.0.1, highball-db#288)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/euro-truck-simulator-2.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 227300,
+  "sync": "msync",
+  "title": "Euro Truck Simulator 2"
+}

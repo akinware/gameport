@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-active-neurons-wonders-of-the-world",
+  "knownIssues": [
+    {
+      "symptom": "Black background with subtitled narration between puzzle waves"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/active-neurons-wonders-of-the-world.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1422630,
+  "sync": "msync",
+  "title": "Active Neurons - Wonders Of The World"
+}

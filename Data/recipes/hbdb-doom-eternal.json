@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-doom-eternal",
+  "knownIssues": [
+    {
+      "symptom": "Play DOOM Eternal stops with _gpu_validation.reason_vendor_not_recon, \"Unknown GPU vendor Apple M5 Pro\" (highball#666)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxvk",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/doom-eternal.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 782330,
+  "sync": "msync",
+  "title": "DOOM Eternal"
+}

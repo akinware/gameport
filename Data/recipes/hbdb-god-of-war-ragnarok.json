@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-god-of-war-ragnarok",
+  "knownIssues": [
+    {
+      "symptom": "A black screen for about two minutes, then a crash, on the default engine with D3DMetal (reported on an M5 Pro, macOS 26.6.2)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/god-of-war-ragnarok.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2322010,
+  "sync": "msync",
+  "title": "God of War Ragnarök"
+}

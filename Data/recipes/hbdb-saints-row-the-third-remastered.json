@@ -1,0 +1,26 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-saints-row-the-third-remastered",
+  "knownIssues": [
+    {
+      "symptom": "Quit to Desktop freezes or crashes the game instead of quitting (M4 Pro, Wine 10 r28, highball-db#1352)"
+    },
+    {
+      "symptom": "Some stutter in outdoor areas, seemingly at specific spots (M4 Pro, Wine 10 r28, highball-db#1352)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/saints-row-the-third-remastered.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 978300,
+  "sync": "msync",
+  "title": "Saints Row: The Third Remastered"
+}

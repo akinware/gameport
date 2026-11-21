@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-it-takes-two",
+  "knownIssues": [
+    {
+      "symptom": "Frame drops in some levels (underwater) and visual artifacts in snow (M2, DXMT)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/it-takes-two.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1426210,
+  "sync": "msync",
+  "title": "It Takes Two"
+}

@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-mortal-kombat-11",
+  "knownIssues": [
+    {
+      "symptom": "Character faces distorted, with deep creases in the skin, clothing and stages fine (DXMT and D3DMetal on an M1 with 8 GB, Highball 0.10.21, highball#390; DXVK on 0.7.6; DXMT on an M4, Highball 0.10.22, highball-db#685)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/mortal-kombat-11.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 976310,
+  "sync": "msync",
+  "title": "Mortal Kombat 11"
+}

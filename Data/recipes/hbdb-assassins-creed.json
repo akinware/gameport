@@ -1,0 +1,29 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-assassins-creed",
+  "knownIssues": [
+    {
+      "symptom": "The title screen stutters at about 7 fps and the game crashes on the way in (M1, Wine 11 r28, D3DMetal)"
+    },
+    {
+      "symptom": "The opening logo plays in slow motion on the Wine 10 engine"
+    },
+    {
+      "symptom": "No controller input until a controller is chosen in the game's settings, at every start. On a DualSense RT isn't recognized"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/assassins-creed.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 15100,
+  "sync": "msync",
+  "title": "Assassin's Creed"
+}

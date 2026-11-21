@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-green-hell",
+  "knownIssues": [
+    {
+      "symptom": "Lags on the default Wine 10 engine (reported on an M5, macOS 27.0.1, DXMT, highball-db#640)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/green-hell.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 815370,
+  "sync": "msync",
+  "title": "Green Hell"
+}

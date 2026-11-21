@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-left-4-dead",
+  "knownIssues": [
+    {
+      "symptom": "\"Failed to create D3D device!\" at launch in every graphics mode (reported on an M5, macOS 26.6.2)"
+    },
+    {
+      "symptom": "3 to 5 fps on DXMT, DXVK and D3DMetal, 15 to 20 fps on Wine's Direct3D on low settings (reported on an M5)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/left-4-dead.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 500,
+  "sync": "msync",
+  "title": "Left 4 Dead"
+}

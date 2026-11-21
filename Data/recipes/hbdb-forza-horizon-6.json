@@ -1,0 +1,45 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-forza-horizon-6",
+  "knownIssues": [
+    {
+      "symptom": "A hitch of about a tenth of a second roughly once a second, in menus, the garage and while driving"
+    },
+    {
+      "symptom": "Liveries look washed out or missing (the car shows mostly its base paint), factory paint has blotchy, faceted reflections, and trees sway oddly (an M5 in highball#290, an M5 Pro in highball-db#449, an M4 Max)"
+    },
+    {
+      "symptom": "Snow and patches of ground can turn black (an M5 Pro in highball-db#449)"
+    },
+    {
+      "symptom": "Dialogue, the navigator's voice and most of the engine sound are missing, on any Mac with a two-channel output such as its speakers or headphones (an M5 Max, an M5 Pro, an M5, an M2 Pro)"
+    },
+    {
+      "symptom": "FHE21 right after the splash, or a Wine crash, when forzahorizon6.exe is added to Highball and started by itself (highball#319, #486, #550)"
+    },
+    {
+      "symptom": "A freeze of several seconds in all, in one burst, about half a minute into the first drive after starting the game (native arm64 engine)"
+    },
+    {
+      "symptom": "On the native arm64 route, the game crashes the moment a controller is used (M5 Max, highball#618)"
+    },
+    {
+      "symptom": "On the native arm64 route, speech and commentary don't play and the car's sound is missing head on, heard only when viewing from the sides (M3 Pro, engine arm64-kk-wine11.18-r4, highball-db#1318)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "See the upstream recipe for its full Highball setup.",
+    "Upstream prerequisites: concrt140-native."
+  ],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/forza-horizon-6.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/forza-horizon-6.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2483190,
+  "sync": "msync",
+  "title": "Forza Horizon 6"
+}

@@ -1,0 +1,36 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-binary-domain",
+  "knownIssues": [
+    {
+      "symptom": "'Critical Error! Graphics device is invalid, please run the configuration tool' and the game quits"
+    },
+    {
+      "symptom": "Sound and picture stutter together in game"
+    },
+    {
+      "symptom": "The picture spans the external monitor and the laptop screen"
+    },
+    {
+      "symptom": "A controller works in menus but not in play"
+    },
+    {
+      "symptom": "A 'Microsoft .NET Framework 3.5 Setup' error box ('You must use Turn Windows features on or off...') behind Steam's 'Setup is loading installation components', at every start"
+    },
+    {
+      "symptom": "Controller button hints show as plain black squares"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/binary-domain.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 203750,
+  "sync": "msync",
+  "title": "Binary Domain"
+}

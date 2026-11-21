@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-water-td",
+  "knownIssues": [
+    {
+      "symptom": "In fullscreen the MacBook Pro's camera notch covers part of the picture (M3 Pro, DXMT, Wine 10 r28, highball-db#1334)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/water-td.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5295330,
+  "sync": "msync",
+  "title": "Water TD"
+}

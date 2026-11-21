@@ -1,0 +1,17 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-marvels-spider-man-miles-morales",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/marvels-spider-man-miles-morales.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1817190,
+  "sync": "msync",
+  "title": "Marvel's Spider-Man: Miles Morales"
+}

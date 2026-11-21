@@ -1,0 +1,27 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-middle-earth-shadow-of-war",
+  "knownIssues": [
+    {
+      "symptom": "Some texture flickering in the landscape during the game's benchmark (M1, DXMT, Wine 11 r32, highball-db#1287)"
+    },
+    {
+      "symptom": "A black screen on D3DMetal (M1, Wine 10 r31, highball-db#1287)"
+    },
+    {
+      "symptom": "DualSense and XInput pads don't work, with Steam Input on or off (M1, Wine 10 r31, highball-db#1287)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/middle-earth-shadow-of-war.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 356190,
+  "sync": "msync",
+  "title": "Middle-earth: Shadow of War"
+}

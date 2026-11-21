@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-minecraft-dungeons",
+  "knownIssues": [
+    {
+      "symptom": "The Microsoft account sign-in comes back at every start, and its 'Let's Go' step often does not go through (default engine)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/minecraft-dungeons.json + https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/recipes/games/minecraft-dungeons.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1672970,
+  "sync": "msync",
+  "title": "Minecraft Dungeons"
+}

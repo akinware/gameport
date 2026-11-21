@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-the-mortuary-assistant",
+  "knownIssues": [
+    {
+      "symptom": "One skin type is shaded wrongly (reported on an M4, DXMT, DXVK and Wine's Direct3D alike)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/the-mortuary-assistant.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1295920,
+  "sync": "msync",
+  "title": "The Mortuary Assistant"
+}

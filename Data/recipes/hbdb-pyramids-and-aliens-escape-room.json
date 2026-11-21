@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-pyramids-and-aliens-escape-room",
+  "knownIssues": [
+    {
+      "symptom": "DirectInput pad bindings are wrong and XInput pads don't work"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/pyramids-and-aliens-escape-room.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 2833640,
+  "sync": "msync",
+  "title": "Pyramids and Aliens: Escape Room"
+}

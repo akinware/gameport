@@ -1,0 +1,30 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-moon-mystery",
+  "knownIssues": [
+    {
+      "symptom": "Crash when loading a game on DXVK"
+    },
+    {
+      "symptom": "Resolution capped at 1440 pixels and low graphics forced on D3DMetal"
+    },
+    {
+      "symptom": "Steam overlay's FPS counter shows a black square"
+    },
+    {
+      "symptom": "Doesn't start, \"CreateProcess() returned 2\" for MoonMystery-Win64-Shipping.exe (after moving the Steam library to another drive)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/moon-mystery.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1933840,
+  "sync": "msync",
+  "title": "Moon Mystery"
+}

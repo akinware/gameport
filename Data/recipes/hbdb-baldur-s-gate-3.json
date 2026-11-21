@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-baldur-s-gate-3",
+  "knownIssues": [
+    {
+      "symptom": "Changing the aspect ratio in the game's video settings stretches the picture, in borderless and in fullscreen"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "d3dmetal",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/baldur-s-gate-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1086940,
+  "sync": "msync",
+  "title": "Baldur's Gate 3"
+}

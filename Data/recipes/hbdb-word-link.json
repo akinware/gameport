@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-word-link",
+  "knownIssues": [
+    {
+      "symptom": "Does not run on the default engine (reported on an M5 Pro); on an M1 Pro the demo quits three seconds after launch on every engine tried (2026-09-26)."
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/word-link.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 5149020,
+  "sync": "msync",
+  "title": "Word Link"
+}

@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-viewfinder",
+  "knownIssues": [
+    {
+      "symptom": "The first launch shows nothing (reported on the Epic copy, M5, macOS 27.0.1, DXMT, highball-db#647)"
+    },
+    {
+      "symptom": "A photo cannot be placed without a mouse (reported on the Epic copy, M5, DXMT, highball-db#647)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "wined3d",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/viewfinder.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1382070,
+  "sync": "msync",
+  "title": "Viewfinder"
+}

@@ -1,0 +1,24 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-among-us",
+  "knownIssues": [
+    {
+      "symptom": "Closes by itself within two seconds of starting on DXMT, often. On an M4 with macOS 27.0 that happened in 8 of 12 launches on engine r13"
+    },
+    {
+      "symptom": "After switching to another app and back, the game keeps drawing but ignores clicks and keys until it is restarted"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/among-us.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 945360,
+  "sync": "msync",
+  "title": "Among Us"
+}

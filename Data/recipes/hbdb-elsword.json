@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-elsword",
+  "knownIssues": [
+    {
+      "symptom": "The game's DirectX 11 mode does not work, DirectX 9 does"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/elsword.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 237310,
+  "sync": "msync",
+  "title": "Elsword"
+}

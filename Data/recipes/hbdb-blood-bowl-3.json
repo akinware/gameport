@@ -1,0 +1,21 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-blood-bowl-3",
+  "knownIssues": [
+    {
+      "symptom": "Some videos show a black screen and have to be skipped (M2, DXMT, Wine 10 r28, highball-db#1263)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/blood-bowl-3.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1016950,
+  "sync": "msync",
+  "title": "Blood Bowl 3"
+}

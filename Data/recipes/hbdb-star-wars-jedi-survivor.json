@@ -1,0 +1,23 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-star-wars-jedi-survivor",
+  "knownIssues": [
+    {
+      "symptom": "Some of the game's videos stutter now and then (M1 Max, Wine 11 r30)"
+    }
+  ],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [
+    "The upstream record does not specify a renderer. DXMT is the starting default."
+  ],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/star-wars-jedi-survivor.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1774580,
+  "sync": "msync",
+  "title": "STAR WARS Jedi: Survivor"
+}

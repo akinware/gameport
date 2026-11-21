@@ -1,0 +1,17 @@
+{
+  "advertiseAVX": false,
+  "environment": {},
+  "id": "hbdb-hero-s-adventure-road-to-passion",
+  "knownIssues": [],
+  "launch": "steam",
+  "launchArguments": [],
+  "notes": [],
+  "registry": [],
+  "renderer": "dxmt",
+  "schema": 1,
+  "source": "https://github.com/gauthierpiarrette/highball-db/blob/44de5600ef86d7e98d5a4b6f7c5e5cc8f36e23b7/db/games/hero-s-adventure-road-to-passion.json (CC0-1.0)",
+  "status": "community",
+  "steamAppID": 1948980,
+  "sync": "msync",
+  "title": "Hero's Adventure: Road to Passion"
+}
