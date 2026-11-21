@@ -41,10 +41,64 @@ final class GamePortKitTests: XCTestCase {
         XCTAssertEqual(catalog["steam"]?.sync, SyncMode.none)
     }
 
-    func testPrefixDefaultsAreValidRegistryValues() throws {
-        // Same rules recipes follow, so a bad default fails here rather than inside wineboot.
-        try Recipe(id: "prefix-defaults", title: "", renderer: .dxmt, registry: WineRunner.prefixDefaults).validate()
-        XCTAssertTrue(WineRunner.prefixDefaults.contains { $0.name == "CaptureDisplaysForFullscreen" && $0.data == "n" })
+    func testOptionalWineDefaultsUseNoClobberFlagsAndKeepRecipeScope() throws {
+        let controller = ConfigPatcher.WineDefault.controller
+        let display = ConfigPatcher.WineDefault.openGL
+        XCTAssertEqual(try controller.registry.map { try ConfigPatcher.registryLine($0, preset: controller) }, [
+            #"HKLM,"System\CurrentControlSet\Services\winebus","Enable SDL",0x00010003,1"#,
+            #"HKLM,"System\CurrentControlSet\Services\winebus","DisableHidraw",0x00010003,1"#
+        ])
+        let gl = try XCTUnwrap(display.registry.first)
+        XCTAssertEqual(try ConfigPatcher.registryLine(gl, preset: display),
+                       #"HKCU,"Software\Wine\Mac Driver","CaptureDisplaysForFullscreen",0x00000002,"n""#)
+        XCTAssertThrowsError(try ConfigPatcher.Defaults(ini: nil, registry: controller.registry).validate())
+        XCTAssertThrowsError(try ConfigPatcher.registryLine(gl, preset: controller))
+        var modified = gl
+        modified.name = "Other"
+        XCTAssertThrowsError(try ConfigPatcher.registryLine(modified, preset: display))
+    }
+
+    func testWineDefaultsAreExplicitAndConfinedToOneProfile() throws {
+        let kit = GamePort(paths: Paths(root: temp))
+        let manifest = try XCTUnwrap(kit.defaultManifest)
+        let engine = InstalledEngine(manifest: manifest, root: kit.paths.engine(manifest.id))
+        func installStub(_ url: URL, _ script: String) throws {
+            try kit.paths.ensure(url.deletingLastPathComponent())
+            try Data(("#!/bin/sh\n" + script + "\n").utf8).write(to: url)
+            try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: url.path)
+        }
+        try installStub(engine.wineServer, "exit 0")
+        try installStub(engine.wine, #"""
+        case "$1" in
+          rundll32.exe) cp "$WINEPREFIX"/drive_c/gameport-*.inf "$WINEPREFIX/applied.inf" ;;
+          reg) [ "$2" = query ] ;;
+          *) exit 1 ;;
+        esac
+        """#)
+        try JSONEncoder().encode(manifest).write(to: engine.root.appendingPathComponent(EngineStore.receiptName))
+        for id in ["first", "second"] {
+            var profile = Profile(id: id, title: id, recipeID: nil, engineID: engine.id)
+            profile.renderer = .wined3d
+            try kit.profiles.save(profile)
+            let runner = try kit.runner(for: id)
+            try kit.paths.ensure(runner.prefix.appendingPathComponent("drive_c"))
+            try runner.settle()
+        }
+        let first = kit.profiles.prefix("first").appendingPathComponent("applied.inf")
+        let second = kit.profiles.prefix("second").appendingPathComponent("applied.inf")
+        XCTAssertFalse(FileManager.default.fileExists(atPath: first.path))
+        try kit.applyWineDefault(.controller, to: "first")
+        let original = try String(contentsOf: first, encoding: .utf8)
+        XCTAssertTrue(original.contains("DisableHidraw"))
+        XCTAssertFalse(original.contains("CaptureDisplaysForFullscreen"))
+        try kit.applyWineDefault(.controller, to: "first")
+        XCTAssertEqual(try String(contentsOf: first, encoding: .utf8), original)
+        XCTAssertFalse(FileManager.default.fileExists(atPath: second.path))
+        let files = try FileManager.default.contentsOfDirectory(atPath: first.deletingLastPathComponent().appendingPathComponent("drive_c").path)
+        XCTAssertTrue(files.isEmpty)
+        try installStub(engine.wineServer, "exit 1")
+        XCTAssertThrowsError(try kit.applyWineDefault(.openGL, to: "first"))
+        XCTAssertEqual(try String(contentsOf: first, encoding: .utf8), original)
     }
 
     func testIDValidationRejectsTraversal() {

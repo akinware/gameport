@@ -2,6 +2,31 @@ import Foundation
 
 /// Player-selected defaults. Existing keys (including custom values) always win.
 public enum ConfigPatcher {
+    /// Fixed, prefix-wide settings, selected individually by the player.
+    public enum WineDefault: String, Sendable, CaseIterable {
+        case controller
+        case openGL = "opengl"
+
+        public var title: String {
+            switch self {
+            case .controller: return "Use SDL controller defaults"
+            case .openGL: return "Disable fullscreen display capture for OpenGL"
+            }
+        }
+
+        var registry: [Recipe.RegistryValue] {
+            switch self {
+            case .controller:
+                let service = #"HKLM\System\CurrentControlSet\Services\winebus"#
+                return [.init(key: service, name: "Enable SDL", type: "REG_DWORD", data: "1"),
+                        .init(key: service, name: "DisableHidraw", type: "REG_DWORD", data: "1")]
+            case .openGL:
+                return [.init(key: #"HKCU\Software\Wine\Mac Driver"#, name: "CaptureDisplaysForFullscreen",
+                              type: "REG_SZ", data: "n")]
+            }
+        }
+    }
+
     public struct INI: Codable, Sendable, Equatable {
         /// Relative to the Wine user's AppData/Local. The game must have created the parent folder.
         public var file: String
@@ -135,29 +160,33 @@ public enum ConfigPatcher {
     }
 
     /// SetupAPI's AddReg NOCLOBBER flag performs the existence check in Wine, including on retries.
-    static func registryLine(_ entry: Recipe.RegistryValue) throws -> String {
+    static func registryLine(_ entry: Recipe.RegistryValue, preset: WineDefault? = nil) throws -> String {
         let path = entry.key.components(separatedBy: "\\")
-        guard path.count >= 5, path.prefix(4).map({ $0.lowercased() }) == ["hkcu", "software", "wine", "appdefaults"],
-              path[4].lowercased().hasSuffix(".exe"), path.dropFirst().allSatisfy(safeField),
-              safeField(entry.name) else { throw GamePortError.invalid("expected a named per-game Wine AppDefaults value") }
+        // Recipe data stays restricted to AppDefaults. Only the exact built-in preset may use driver keys.
+        if preset?.registry.contains(entry) != true {
+            guard path.count >= 5, path.prefix(4).map({ $0.lowercased() }) == ["hkcu", "software", "wine", "appdefaults"],
+                  path[4].lowercased().hasSuffix(".exe"), path.dropFirst().allSatisfy(safeField),
+                  safeField(entry.name) else { throw GamePortError.invalid("expected a named per-game Wine AppDefaults value") }
+        }
+        let hive = path[0].uppercased()
         let key = path.dropFirst().joined(separator: "\\")
         switch entry.type {
         case "REG_SZ" where safeField(entry.data):
-            return #"HKCU,"\#(key)","\#(entry.name)",0x00000002,"\#(entry.data)""#
+            return #"\#(hive),"\#(key)","\#(entry.name)",0x00000002,"\#(entry.data)""#
         case "REG_DWORD":
             let hex = entry.data.lowercased().hasPrefix("0x")
             let digits = hex ? String(entry.data.dropFirst(2)) : entry.data
             if let value = UInt32(digits, radix: hex ? 16 : 10) {
-                return #"HKCU,"\#(key)","\#(entry.name)",0x00010003,\#(value)"#
+                return #"\#(hive),"\#(key)","\#(entry.name)",0x00010003,\#(value)"#
             }
             fallthrough
         default: throw GamePortError.invalid("unsupported registry default \(entry.name)")
         }
     }
 
-    static func applyRegistry(_ entries: [Recipe.RegistryValue], runner: WineRunner) throws {
+    static func applyRegistry(_ entries: [Recipe.RegistryValue], runner: WineRunner, preset: WineDefault? = nil) throws {
         guard !entries.isEmpty else { return }
-        let lines = try entries.map(registryLine)
+        let lines = try entries.map { try registryLine($0, preset: preset) }
         let name = "gameport-\(UUID().uuidString).inf"
         let file = try checkedFile(in: runner.prefix, parts: ["drive_c", name])
         let inf = ["[Version]", #"Signature="$CHICAGO$""#, "[DefaultInstall]", "AddReg=Defaults", "[Defaults]"] + lines
@@ -169,15 +198,25 @@ public enum ConfigPatcher {
 }
 
 extension GamePort {
+    public func applyWineDefault(_ setting: ConfigPatcher.WineDefault, to profileID: String) throws {
+        let runner = try runner(for: profileID)
+        try requireIdleForConfig(runner)
+        try ConfigPatcher.applyRegistry(setting.registry, runner: runner, preset: setting)
+    }
+
+    private func requireIdleForConfig(_ runner: WineRunner) throws {
+        guard try runner.waitForServer(timeout: 2) else {
+            throw GamePortError.invalid("close the game and Steam before applying settings")
+        }
+    }
+
     public func applyConfigDefaults(_ profileID: String, progress: ProgressHandler? = nil) throws {
         let runner = try runner(for: profileID)
         guard let defaults = runner.recipe?.configDefaults else {
             throw GamePortError.missing("optional config defaults for \(profileID)")
         }
         try defaults.validate()
-        guard try runner.waitForServer(timeout: 2) else {
-            throw GamePortError.invalid("close the game and Steam before applying recipe settings")
-        }
+        try requireIdleForConfig(runner)
         let user = ProcessInfo.processInfo.environment["USER"] ?? NSUserName()
         for entry in defaults.ini ?? [] {
             let message = try ConfigPatcher.apply(entry, in: runner.prefix, user: user)

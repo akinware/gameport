@@ -32,8 +32,7 @@ for p in "$HOME_DIR"/profiles/*/; do
     "$GAMEPORT" stop "$other" >/dev/null 2>&1 && echo "• stopped $other (so it does not skew the measurement)"
 done
 
-# Profiles made before the prefix defaults existed: stop fullscreen GL from capturing (and blanking) the display.
-"$GAMEPORT" run "$ID" reg add 'HKCU\Software\Wine\Mac Driver' /v CaptureDisplaysForFullscreen /t REG_SZ /d n /f >/dev/null 2>&1
+# To prevent a blank fullscreen OpenGL display, run `gameport config lab-heaven opengl` before the benchmark.
 
 # Sets the profile's renderer override, msync, the Metal HUD (on screen and logged) and DLL-load logging.
 set_renderer() {

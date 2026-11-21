@@ -20,6 +20,7 @@ Usage:
   \(cli) profile fallback <profile> <other-profile|off>   Select an alternate engine profile for play
   \(cli) profile list                   Profiles
   \(cli) config <profile>               Apply missing optional recipe settings after closing the game
+  \(cli) config <profile> controller|opengl   Apply missing controller or OpenGL defaults in this profile
   \(cli) snapshot <profile> [name]      Snapshot a profile (before an update)
   \(cli) snapshot list <profile>        Snapshots
   \(cli) snapshot restore <profile> <name>  Roll a profile back to a snapshot
@@ -142,8 +143,12 @@ do {
 
     case "config":
         let id = arg(0, "profile")
-        guard args.count == 1 else { fail("expected config <profile>") }
-        try gameport.applyConfigDefaults(id, progress: progress)
+        if args.count == 1 {
+            try gameport.applyConfigDefaults(id, progress: progress)
+        } else if args.count == 2, let preset = ConfigPatcher.WineDefault(rawValue: args[1]) {
+            try gameport.applyWineDefault(preset, to: id)
+            print("✓ Applied missing defaults. Existing settings kept.")
+        } else { fail("expected config <profile> [controller|opengl]") }
 
     case "base":
         let base = try gameport.steamBase()

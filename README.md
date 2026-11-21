@@ -45,6 +45,11 @@ keeps a byte-for-byte backup beside each file it changes. The log names the back
 can also supply named REG_SZ and REG_DWORD defaults under the game's Wine AppDefaults registry key.
 Existing values take precedence on every run.
 
+With the game and Steam closed, `gameport config <profile> controller` adds missing WineBus settings
+for SDL controllers (SDL on, hidraw off). `gameport config <profile> opengl` disables Wine's fullscreen
+display capture for OpenGL titles that blank the Mac display. Both presets act on the selected
+profile only and preserve existing registry values, including those set by earlier GamePort releases.
+
 **Snapshots.** Before a Steam, game or engine update, `gameport snapshot <profile>` saves the profile's state;
 if something breaks, `gameport snapshot restore <profile> <name>` rolls it back. An automatic snapshot is taken
 before Steam's first start each day (the newest two are kept; turn it off with

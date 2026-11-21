@@ -108,21 +108,17 @@ public struct WineRunner: Sendable {
     }
 
     /// Makes a prefix that was cloned from elsewhere (Steam base, snapshot) this profile's own:
-    /// host drives dropped again, GamePort's defaults and the recipe's registry values applied.
+    /// host drives dropped again and the recipe's registry values applied.
     public func settle() throws {
-        try applyRegistry(Self.prefixDefaults)
         try applyRegistry()
         // Last, after the server has exited: Wine's mount manager maps volumes again whenever it starts.
         try waitForServer()
         try isolateHostDrives()
     }
 
-    /// Registry values every new prefix gets before the recipe's own (which can override them).
-    /// Wine's Mac driver otherwise captures the display for fullscreen OpenGL games, and macOS blanks a
-    /// captured display: the whole screen went black in the Heaven OpenGL lab run.
-    public static let prefixDefaults: [Recipe.RegistryValue] = [
-        .init(key: "HKCU\\Software\\Wine\\Mac Driver", name: "CaptureDisplaysForFullscreen", type: "REG_SZ", data: "n"),
-    ]
+    /// Display settings installed automatically by older releases.
+    @available(*, deprecated, message: "Use GamePort.applyWineDefault(_:to:) to apply the OpenGL preset.")
+    public static let prefixDefaults = ConfigPatcher.WineDefault.openGL.registry
 
     /// Wine maps the whole Mac as Z: and every mounted volume as D:, E:, …. Keep only C: (and the prefix)
     /// so a game cannot wander the disk. Steam libraries live inside the prefix, so nothing a game needs is lost.
@@ -171,9 +167,14 @@ public struct WineRunner: Sendable {
         try process.run()
         let deadline = Date().addingTimeInterval(timeout)
         while process.isRunning && Date() < deadline { Thread.sleep(forTimeInterval: 0.5) }
-        guard process.isRunning else { return true }
-        process.terminate()
-        return false
+        if process.isRunning {
+            process.terminate()
+            return false
+        }
+        guard process.terminationStatus == 0 else {
+            throw GamePortError.process("wineserver -w could not check whether the profile is idle", process.terminationStatus)
+        }
+        return true
     }
 
     /// Stops every process in this profile's prefix and nothing else.
