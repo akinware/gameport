@@ -8,6 +8,7 @@ public struct GamePort: Sendable {
     public var engines: EngineStore { EngineStore(paths: paths) }
     public var profiles: ProfileStore { ProfileStore(paths: paths) }
     public var licenses: LicenseStore { LicenseStore(paths: paths) }
+    public var telemetry: TelemetryStore { TelemetryStore(paths: paths) }
     public var catalog: RecipeCatalog { RecipeCatalog.load(paths: paths) }
 
     /// The engine new profiles use: the first bundled manifest.

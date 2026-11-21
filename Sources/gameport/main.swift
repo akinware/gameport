@@ -34,6 +34,7 @@ Usage:
   \(cli) lab <profile> auto [s]         Try every renderer and set the fastest working one
   \(cli) lab <profile> compare <other-profile> [s]  Compare two engines on the same game
   \(cli) vulkan <profile> [driver]      Vulkan driver for the game: moltenvk (default) or kosmickrisp (experimental)
+  \(cli) telemetry [status|on|off|preview|reset-id]  Anonymous FPS & compatibility sharing (default: on)
   \(cli) env <profile>                  Show the game's environment variables
   \(cli) run <profile> <windows command…>  Run a Windows program in a profile
 
@@ -311,6 +312,27 @@ do {
         profile.vulkanDriver = driver == .moltenvk ? nil : driver
         try gameport.profiles.save(profile)
         print("✓ \(id) uses \(driver.displayName) for Vulkan (DXVK's D3D9/10/11, vkd3d's D3D12).")
+
+    case "telemetry":
+        let action = args.first ?? "status"
+        switch action {
+        case "status":
+            let on = gameport.telemetry.isEffectivelyEnabled()
+            let endpoint = gameport.telemetry.endpoint()?.absoluteString ?? "not configured"
+            print("Anonymous compatibility sharing: \(on ? "on" : "off") (endpoint: \(endpoint))")
+        case "on":
+            _ = try gameport.telemetry.setEnabled(true)
+            print("✓ Anonymous compatibility sharing enabled.")
+        case "off":
+            _ = try gameport.telemetry.setEnabled(false)
+            print("✓ Anonymous compatibility sharing disabled.")
+        case "preview":
+            print(gameport.telemetry.previewJSON())
+        case "reset-id":
+            let updated = try gameport.telemetry.resetInstallID()
+            print("✓ Anonymous install ID rotated: \(updated.installID)")
+        default: fail(usage)
+        }
 
     case "env":
         let env = try gameport.runner(for: arg(0, "profile")).environment()

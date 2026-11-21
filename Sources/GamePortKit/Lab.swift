@@ -396,6 +396,9 @@ extension GamePort {
         let encoder = JSONEncoder.pretty
         encoder.dateEncodingStrategy = .iso8601
         try encoder.encode(result).write(to: labDir.appendingPathComponent("\(stamp).json"))
+        if let appID = runner.recipe?.steamAppID {
+            _ = await telemetry.submitIfEnabled(result, steamAppID: appID)
+        }
         return result
     }
 }

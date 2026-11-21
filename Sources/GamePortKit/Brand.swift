@@ -14,4 +14,9 @@ public enum Brand {
     public static let homeEnvironmentVariable = "GAMEPORT_HOME"
     /// macOS bundle identifier of the app (also set in Scripts/make-app.sh).
     public static let bundleIdentifier = "app.gameport.GamePort"
+    /// Optional HTTPS endpoint for anonymous Lab reports (e.g. your Cloudflare Worker `/v1/report`).
+    /// Nil keeps uploads dormant until deployed; override with `GAMEPORT_TELEMETRY_URL` for testing.
+    public static let telemetryEndpoint: String? = nil
+    /// Environment variable overriding `telemetryEndpoint`.
+    public static let telemetryURLVariable = "GAMEPORT_TELEMETRY_URL"
 }

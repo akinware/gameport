@@ -16,6 +16,7 @@ final class AppModel: ObservableObject {
     @Published var busy: String?
     @Published var log: [String] = []
     @Published var gptkAccepted = false
+    @Published var telemetryEnabled = true
     @Published var steamBase: SteamBase.Stamp?
     private(set) var engineProfiles: [String: [Profile]] = [:]
 
@@ -31,6 +32,7 @@ final class AppModel: ObservableObject {
         profilesByRecipe = Dictionary(profiles.compactMap { p in p.recipeID.map { ($0, p) } }, uniquingKeysWith: { first, _ in first })
         labResultsByProfile = profiles.reduce(into: [:]) { $0[$1.id] = gameport.profiles.labResults($1.id) }
         gptkAccepted = gameport.licenses.isAccepted("apple-gptk")
+        telemetryEnabled = gameport.telemetry.load().enabled
         steamBase = (try? gameport.steamBase()).flatMap { $0.isReady ? $0.stamp : nil }
         engineProfiles = profiles.reduce(into: [:]) { groups, profile in
             if let id = profile.recipeID { groups[id, default: []].append(profile) }

@@ -7,6 +7,7 @@ import GamePortKit
 struct SetupView: View {
     @EnvironmentObject var model: AppModel
     @State private var showLicense = false
+    @State private var showTelemetryPreview = false
 
     var body: some View {
         ScrollView {
@@ -71,6 +72,26 @@ struct SetupView: View {
                         }
                     }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
                 }
+                GroupBox("Community compatibility sharing") {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Toggle("Share anonymous FPS & compatibility results", isOn: Binding(
+                            get: { model.telemetryEnabled },
+                            set: { on in
+                                _ = try? model.gameport.telemetry.setEnabled(on)
+                                model.refresh()
+                            }
+                        ))
+                        Text("Crucial for smooth gaming: sharing anonymous FPS and crash verdicts lets GamePort learn which renderer runs best on M1–M4 Macs so games work without trial-and-error. Never sends your Steam account, username, file paths, or IP.")
+                            .foregroundStyle(.secondary)
+                        HStack {
+                            Button("Preview data") { showTelemetryPreview = true }
+                            Button("Reset anonymous ID") {
+                                _ = try? model.gameport.telemetry.resetInstallID()
+                                model.say("✓ Anonymous telemetry ID reset")
+                            }
+                        }
+                    }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
+                }
             }.padding(24)
         }
         .sheet(isPresented: $showLicense) {
@@ -78,6 +99,31 @@ struct SetupView: View {
                 LicenseSheet(id: "apple-gptk", license: license)
             }
         }
+        .sheet(isPresented: $showTelemetryPreview) {
+            TelemetryPreviewSheet(json: model.gameport.telemetry.previewJSON())
+        }
+    }
+}
+
+struct TelemetryPreviewSheet: View {
+    @Environment(\.dismiss) var dismiss
+    let json: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("What GamePort shares").font(.title2.bold())
+            Text("Only anonymous compatibility metrics from Lab runs — no Steam ID, paths, usernames, or IP addresses.")
+                .foregroundStyle(.secondary)
+            ScrollView {
+                Text(json).font(.system(.caption, design: .monospaced)).textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(8).background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 8))
+            HStack {
+                Spacer()
+                Button("Close") { dismiss() }.keyboardShortcut(.defaultAction)
+            }
+        }.padding(24).frame(width: 500, height: 380)
     }
 }
 
