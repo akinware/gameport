@@ -83,4 +83,44 @@ final class TelemetryTests: XCTestCase {
             "https://telemetry.example.com/v1/report"
         )
     }
+
+    func testPlaySessionClassification() throws {
+        // Running smoothly past 60s -> works
+        let healthy = try XCTUnwrap(TelemetryReport.fromPlaySession(
+            steamAppID: 440, recipeID: "team-fortress-2", renderer: .dxmt, vulkanDriver: .moltenvk,
+            sync: .msync, engineID: "e1", engineArch: .rosetta, machine: "Apple M1", macOS: "27.2",
+            gameStarted: true, playedSeconds: 95, stillRunning: true, crashSigns: [],
+            peakThermalState: .nominal, installID: "anon-1"
+        ))
+        XCTAssertEqual(healthy.verdict, .works)
+        XCTAssertNil(healthy.avgFPS)
+
+        // Crashed early -> stopped with normalized code
+        let crashed = try XCTUnwrap(TelemetryReport.fromPlaySession(
+            steamAppID: 440, recipeID: "team-fortress-2", renderer: .dxvk, vulkanDriver: .moltenvk,
+            sync: .msync, engineID: "e1", engineArch: .rosetta, machine: "Apple M1", macOS: "27.2",
+            gameStarted: true, playedSeconds: 12, stillRunning: false,
+            crashSigns: ["Unhandled exception at 0x1234"], peakThermalState: .nominal, installID: "anon-1"
+        ))
+        XCTAssertEqual(crashed.verdict, .stopped)
+        XCTAssertEqual(crashed.crashCodes, ["wine_exception"])
+
+        // Quick clean exit (< 60s, no crashes) -> nil (ignored)
+        XCTAssertNil(TelemetryReport.fromPlaySession(
+            steamAppID: 440, recipeID: "team-fortress-2", renderer: .dxmt, vulkanDriver: .moltenvk,
+            sync: .msync, engineID: "e1", engineArch: .rosetta, machine: "Apple M1", macOS: "27.2",
+            gameStarted: true, playedSeconds: 15, stillRunning: false, crashSigns: [],
+            peakThermalState: .nominal, installID: "anon-1"
+        ))
+
+        // Never started with Steam GPU crash -> noFrames
+        let noStart = try XCTUnwrap(TelemetryReport.fromPlaySession(
+            steamAppID: 440, recipeID: "team-fortress-2", renderer: .dxvk, vulkanDriver: .kosmickrisp,
+            sync: .msync, engineID: "e1", engineArch: .rosetta, machine: "Apple M1", macOS: "27.2",
+            gameStarted: false, playedSeconds: 0, stillRunning: false,
+            crashSigns: ["Steam's GPU process crashed 3 times"], peakThermalState: .nominal, installID: "anon-1"
+        ))
+        XCTAssertEqual(noStart.verdict, .noFrames)
+        XCTAssertEqual(noStart.crashCodes, ["steam_gpu_crash"])
+    }
 }

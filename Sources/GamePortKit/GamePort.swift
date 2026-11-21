@@ -141,9 +141,15 @@ public struct GamePort: Sendable {
             progress?("Steam does not yet report the game as installed (appmanifest_\(id)). Trying anyway.")
         }
         if let s = autoSnapshot(actual) { progress?("Automatic snapshot: \(s.name)") }
+        func fileSize(_ file: URL) -> UInt64 { (try? FileManager.default.attributesOfItem(atPath: file.path)[.size] as? UInt64) ?? 0 }
+        let cefOffset = fileSize(steam.logs.appendingPathComponent("cef_log.txt"))
+        let bootstrapOffset = fileSize(steam.logs.appendingPathComponent("bootstrap_log.txt"))
         progress?("Launching \(actual) on \(runner.engine.id) (\(runner.engine.manifest.arch.label)). Log: \(runner.logs.appendingPathComponent("game.log").path)")
         let process = try steam.play()
         recordLaunch(requested: profileID, actual: actual)
+        if let appID = runner.recipe?.steamAppID {
+            telemetry.monitorPlaySession(runner: runner, steamAppID: appID, cefLogOffset: cefOffset, bootstrapLogOffset: bootstrapOffset)
+        }
         return process
     }
 

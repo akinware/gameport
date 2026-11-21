@@ -61,6 +61,62 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
         )
     }
 
+    /// Build a sanitized report from a normal Play session (no Metal HUD required).
+    /// Returns nil for short clean exits (< 60 s) so quick manual quits don't skew data.
+    public static func fromPlaySession(
+        steamAppID: Int,
+        recipeID: String?,
+        renderer: Renderer,
+        vulkanDriver: VulkanDriver,
+        sync: SyncMode,
+        engineID: String,
+        engineArch: EngineArchitecture,
+        machine: String = Shell.machineDescription,
+        macOS: String = Shell.macOSVersionString,
+        gameStarted: Bool,
+        playedSeconds: TimeInterval,
+        stillRunning: Bool,
+        crashSigns: [String],
+        peakThermalState: LabThermalState?,
+        installID: String,
+        startedAt: Date = Date()
+    ) -> TelemetryReport? {
+        guard steamAppID > 0 else { return nil }
+        let codes = classifyCrashSigns(crashSigns)
+        let fatal = codes.contains("wine_exception") || codes.contains("vulkan_error") || codes.contains("vulkan_query_unsupported")
+        let verdict: LabResult.Verdict
+        if !gameStarted {
+            guard !codes.isEmpty else { return nil }
+            verdict = .noFrames
+        } else if stillRunning && playedSeconds >= 60 && !fatal {
+            verdict = .works
+        } else if fatal || (!stillRunning && !codes.isEmpty && playedSeconds < 60) {
+            verdict = .stopped
+        } else if playedSeconds >= 60 {
+            verdict = .works
+        } else {
+            return nil
+        }
+        return TelemetryReport(
+            installID: installID,
+            steamAppID: steamAppID,
+            recipeID: recipeID,
+            renderer: renderer,
+            vulkanDriver: vulkanDriver,
+            sync: sync,
+            engineID: engineID,
+            engineArch: engineArch,
+            chip: bucketChip(machine),
+            macOS: majorMinor(macOS),
+            verdict: verdict,
+            avgFPS: nil,
+            onePercentLowFPS: nil,
+            peakThermalState: peakThermalState?.label,
+            crashCodes: codes,
+            reportedDay: utcDay(startedAt)
+        )
+    }
+
     public static func sample(installID: String) -> TelemetryReport {
         TelemetryReport(
             installID: installID,
@@ -185,8 +241,114 @@ public struct TelemetryStore: Sendable {
                                 environment: [String: String] = ProcessInfo.processInfo.environment) async -> Bool {
         guard isEffectivelyEnabled(environment: environment),
               let url = endpoint(environment: environment),
-              let report = TelemetryReport.from(result, steamAppID: steamAppID, installID: load().installID),
-              let body = try? JSONEncoder().encode(report) else { return false }
+              let report = TelemetryReport.from(result, steamAppID: steamAppID, installID: load().installID) else { return false }
+        return await post(report, to: url)
+    }
+
+    /// Lightweight background observer for normal Play sessions (no Metal HUD overlay).
+    /// Polls every 5 s; reports `.works` once a game runs cleanly for 90 s, or `.stopped`/`.noFrames` on crash.
+    public func monitorPlaySession(
+        runner: WineRunner,
+        steamAppID: Int,
+        cefLogOffset: UInt64,
+        bootstrapLogOffset: UInt64,
+        environment: [String: String] = ProcessInfo.processInfo.environment
+    ) {
+        guard isEffectivelyEnabled(environment: environment),
+              let url = endpoint(environment: environment) else { return }
+        let installID = load().installID
+        let startedAt = Date()
+        let gameLog = runner.logs.appendingPathComponent("game.log")
+        let steam = SteamClient(runner: runner)
+        let cefLog = steam.logs.appendingPathComponent("cef_log.txt")
+        let bootstrapLog = steam.logs.appendingPathComponent("bootstrap_log.txt")
+        let recipeID = runner.profile.recipeID
+        let renderer = runner.effectiveRenderer
+        let vulkanDriver = runner.effectiveVulkanDriver
+        let sync = runner.effectiveSync
+        let engineID = runner.engine.id
+        let engineArch = runner.engine.manifest.arch
+
+        Task.detached(priority: .utility) {
+            var gameStart: Date?
+            var thermalSamples: [LabThermalState] = [LabThermalState.current()].compactMap { $0 }
+            let maxWaitWithoutGame: TimeInterval = 180
+            let healthyThreshold: TimeInterval = 90
+
+            while true {
+                try? await Task.sleep(for: .seconds(5))
+                if let t = LabThermalState.current() { thermalSamples.append(t) }
+                let ps = (try? Shell.run("/bin/ps", ["-axo", "pid=,command="], check: false).output) ?? ""
+                let activePIDs = LabResult.gameProcessIDs(inProcessList: ps)
+                let now = Date()
+
+                if !activePIDs.isEmpty {
+                    if gameStart == nil { gameStart = now }
+                    let played = now.timeIntervalSince(gameStart!)
+                    if played >= healthyThreshold {
+                        let logText = (try? String(contentsOf: gameLog, encoding: .utf8)) ?? ""
+                        let signs = LabTriage.findings(
+                            game: logText,
+                            cef: GamePort.tail(of: cefLog, from: cefLogOffset),
+                            bootstrap: GamePort.tail(of: bootstrapLog, from: bootstrapLogOffset),
+                            gameExited: false
+                        )
+                        if let report = TelemetryReport.fromPlaySession(
+                            steamAppID: steamAppID, recipeID: recipeID, renderer: renderer,
+                            vulkanDriver: vulkanDriver, sync: sync, engineID: engineID, engineArch: engineArch,
+                            gameStarted: true, playedSeconds: played, stillRunning: true,
+                            crashSigns: signs, peakThermalState: LabThermalState.peak(thermalSamples),
+                            installID: installID, startedAt: startedAt
+                        ) {
+                            _ = await self.post(report, to: url)
+                        }
+                        return
+                    }
+                } else if let start = gameStart {
+                    let played = now.timeIntervalSince(start)
+                    let logText = (try? String(contentsOf: gameLog, encoding: .utf8)) ?? ""
+                    let signs = LabTriage.findings(
+                        game: logText,
+                        cef: GamePort.tail(of: cefLog, from: cefLogOffset),
+                        bootstrap: GamePort.tail(of: bootstrapLog, from: bootstrapLogOffset),
+                        gameExited: true
+                    )
+                    if let report = TelemetryReport.fromPlaySession(
+                        steamAppID: steamAppID, recipeID: recipeID, renderer: renderer,
+                        vulkanDriver: vulkanDriver, sync: sync, engineID: engineID, engineArch: engineArch,
+                        gameStarted: true, playedSeconds: played, stillRunning: false,
+                        crashSigns: signs, peakThermalState: LabThermalState.peak(thermalSamples),
+                        installID: installID, startedAt: startedAt
+                    ) {
+                        _ = await self.post(report, to: url)
+                    }
+                    return
+                } else if now.timeIntervalSince(startedAt) >= maxWaitWithoutGame {
+                    let logText = (try? String(contentsOf: gameLog, encoding: .utf8)) ?? ""
+                    let signs = LabTriage.findings(
+                        game: logText,
+                        cef: GamePort.tail(of: cefLog, from: cefLogOffset),
+                        bootstrap: GamePort.tail(of: bootstrapLog, from: bootstrapLogOffset),
+                        gameExited: false
+                    )
+                    if let report = TelemetryReport.fromPlaySession(
+                        steamAppID: steamAppID, recipeID: recipeID, renderer: renderer,
+                        vulkanDriver: vulkanDriver, sync: sync, engineID: engineID, engineArch: engineArch,
+                        gameStarted: false, playedSeconds: 0, stillRunning: false,
+                        crashSigns: signs, peakThermalState: LabThermalState.peak(thermalSamples),
+                        installID: installID, startedAt: startedAt
+                    ) {
+                        _ = await self.post(report, to: url)
+                    }
+                    return
+                }
+            }
+        }
+    }
+
+    @discardableResult
+    func post(_ report: TelemetryReport, to url: URL) async -> Bool {
+        guard let body = try? JSONEncoder().encode(report) else { return false }
         var request = URLRequest(url: url, timeoutInterval: 5)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

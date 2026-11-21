@@ -77,7 +77,7 @@ With redacted timings the frame counter still supplies average FPS and the slowe
 The result also records the highest macOS thermal state sampled at launch, at 30-second intervals
 and at the end. Crash findings distinguish Wine exceptions, Vulkan failures and Steam GPU restart loops.
 
-**Compatibility sharing.** Enabled by default (switch off anytime in **Setup**, with `gameport telemetry off`, or `DO_NOT_TRACK=1`). After a Lab run, GamePort shares anonymous FPS, chip, macOS version, renderer, and crash category codes — never your Steam account, username, paths, or IP — so GamePort learns which settings run games smoothly on Apple Silicon. Run `gameport telemetry preview` to inspect the exact JSON.
+**Compatibility sharing.** Enabled by default (switch off anytime in **Setup**, with `gameport telemetry off`, or `DO_NOT_TRACK=1`). During normal Play sessions and Lab runs, GamePort shares anonymous launch/crash verdicts, FPS (from Lab), chip, macOS version, renderer, and crash category codes — never your Steam account, username, paths, or IP — so GamePort learns which settings run games smoothly on Apple Silicon. Run `gameport telemetry preview` to inspect the exact JSON.
 
 **Anti-cheat.** `gameport anticheat <game name|Steam id>` tells you before downloading whether a game's
 anti-cheat blocks it on a Mac (1,166 games, highball-db / Are We Anti-Cheat Yet?, MIT). The app shows the same

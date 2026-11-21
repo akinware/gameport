@@ -112,7 +112,7 @@ struct TelemetryPreviewSheet: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("What GamePort shares").font(.title2.bold())
-            Text("Only anonymous compatibility metrics from Lab runs — no Steam ID, paths, usernames, or IP addresses.")
+            Text("Only anonymous compatibility metrics from Play and Lab sessions — no Steam ID, paths, usernames, or IP addresses.")
                 .foregroundStyle(.secondary)
             ScrollView {
                 Text(json).font(.system(.caption, design: .monospaced)).textSelection(.enabled)
