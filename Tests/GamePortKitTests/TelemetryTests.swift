@@ -123,4 +123,24 @@ final class TelemetryTests: XCTestCase {
         XCTAssertEqual(noStart.verdict, .noFrames)
         XCTAssertEqual(noStart.crashCodes, ["steam_gpu_crash"])
     }
+
+    func testPlayFPSLogParsingAndProbeBuild() throws {
+        // Warmup bucket (low FPS) followed by steady 60 FPS buckets with 120 intervals
+        var lines = ["100.000 500 10 1.000 100.00 100.00"]
+        for i in 0..<6 {
+            let t = 135.0 + Double(i)
+            let intervals = Array(repeating: "16.67", count: 19) + ["25.00"]
+            lines.append("\(t) 500 60 1.000 " + intervals.joined(separator: " "))
+        }
+        let stats = try XCTUnwrap(TelemetryStore.parsePlayFPSLog(lines.joined(separator: "\n"), steadyAfter: 30))
+        XCTAssertEqual(stats.avgFPS, 60.0)
+        XCTAssertEqual(stats.onePercentLowFPS, 40.0) // 1000 / 25.0
+
+        #if os(macOS)
+        let dylib = try XCTUnwrap(store.fpsProbeLibrary(for: .rosetta))
+        XCTAssertTrue(FileManager.default.fileExists(atPath: dylib.path))
+        // Cached hit returns the same path immediately
+        XCTAssertEqual(store.fpsProbeLibrary(for: .rosetta), dylib)
+        #endif
+    }
 }

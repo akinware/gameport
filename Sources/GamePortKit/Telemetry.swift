@@ -78,6 +78,8 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
         stillRunning: Bool,
         crashSigns: [String],
         peakThermalState: LabThermalState?,
+        avgFPS: Double? = nil,
+        onePercentLowFPS: Double? = nil,
         installID: String,
         startedAt: Date = Date()
     ) -> TelemetryReport? {
@@ -109,8 +111,8 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
             chip: bucketChip(machine),
             macOS: majorMinor(macOS),
             verdict: verdict,
-            avgFPS: nil,
-            onePercentLowFPS: nil,
+            avgFPS: avgFPS,
+            onePercentLowFPS: onePercentLowFPS,
             peakThermalState: peakThermalState?.label,
             crashCodes: codes,
             reportedDay: utcDay(startedAt)
@@ -245,13 +247,97 @@ public struct TelemetryStore: Sendable {
         return await post(report, to: url)
     }
 
+    /// Parses 1-second buckets written by `libgameport_fps.dylib` (`<uptime> <pid> <frames> <elapsed_s> [dt_ms...]`).
+    /// Prefers samples after `steadyAfter` seconds of gameplay; falls back to all samples if shorter.
+    public struct PlayFPSStats: Sendable, Equatable {
+        public var avgFPS: Double
+        public var onePercentLowFPS: Double?
+    }
+
+    public static func parsePlayFPSLog(_ text: String, steadyAfter: TimeInterval = 30) -> PlayFPSStats? {
+        struct Bucket {
+            let uptime: Double
+            let pid: Int
+            let frames: Int
+            let elapsed: Double
+            let intervals: [Double]
+        }
+        var buckets: [Bucket] = []
+        for raw in text.split(separator: "\n") {
+            let cols = raw.split(separator: " ")
+            guard cols.count >= 4,
+                  let uptime = Double(cols[0]),
+                  let pid = Int(cols[1]),
+                  let frames = Int(cols[2]), frames > 0,
+                  let elapsed = Double(cols[3]), elapsed > 0.05 else { continue }
+            let intervals = cols.dropFirst(4).compactMap { Double($0) }.filter { $0 > 0.1 && $0 < 10000 }
+            buckets.append(Bucket(uptime: uptime, pid: pid, frames: frames, elapsed: elapsed, intervals: intervals))
+        }
+        guard !buckets.isEmpty else { return nil }
+        // Keep the busiest game PID (in case a launcher + game both lived under steamapps\common\).
+        var totalsByPID: [Int: Int] = [:]
+        for b in buckets { totalsByPID[b.pid, default: 0] += b.frames }
+        guard let mainPID = totalsByPID.max(by: { $0.value < $1.value })?.key else { return nil }
+        let mine = buckets.filter { $0.pid == mainPID }.sorted { $0.uptime < $1.uptime }
+        guard let firstTime = mine.first?.uptime else { return nil }
+        let steady = mine.filter { $0.uptime - firstTime >= steadyAfter }
+        let selected = steady.count >= 5 ? steady : mine
+        let totalFrames = selected.reduce(0) { $0 + $1.frames }
+        let totalElapsed = selected.reduce(0.0) { $0 + $1.elapsed }
+        guard totalElapsed > 0.5, totalFrames > 0 else { return nil }
+        let avgFPS = ((Double(totalFrames) / totalElapsed) * 10).rounded() / 10
+        let allIntervals = selected.flatMap(\.intervals).sorted()
+        var onePercentLow: Double? = nil
+        if allIntervals.count >= 100 {
+            let idx = min(allIntervals.count - 1, max(0, Int(ceil(0.99 * Double(allIntervals.count))) - 1))
+            let p99 = allIntervals[idx]
+            if p99 > 0 { onePercentLow = ((1000.0 / p99) * 10).rounded() / 10 }
+        }
+        return PlayFPSStats(avgFPS: avgFPS, onePercentLowFPS: onePercentLow)
+    }
+
+    /// Compiles and caches the invisible Metal FPS probe dylib for `arch` under `<root>/tmp/`.
+    /// Returns nil silently if clang / Command Line Tools are unavailable.
+    public func fpsProbeLibrary(for arch: EngineArchitecture) -> URL? {
+        #if os(macOS)
+        do {
+            try paths.ensure(paths.temp)
+            let hash = String(Checksum.sha256(data: Data(BundledData.fpsProbeSource.utf8)).prefix(12))
+            let dylib = paths.temp.appendingPathComponent("libgameport_fps-\(arch.rawValue)-\(hash).dylib")
+            if FileManager.default.fileExists(atPath: dylib.path) { return dylib }
+            let src = paths.temp.appendingPathComponent("fps_probe-\(UUID().uuidString).m")
+            let tmpOut = paths.temp.appendingPathComponent("fps_probe-\(UUID().uuidString).dylib")
+            defer {
+                try? FileManager.default.removeItem(at: src)
+                try? FileManager.default.removeItem(at: tmpOut)
+            }
+            try Data(BundledData.fpsProbeSource.utf8).write(to: src)
+            try Shell.run("/usr/bin/xcrun", [
+                "clang", "-arch", arch.rawValue, "-dynamiclib", "-O2", "-fobjc-arc",
+                "-framework", "Foundation", "-framework", "QuartzCore",
+                "-o", tmpOut.path, src.path,
+            ])
+            try Shell.run("/usr/bin/codesign", ["--force", "--sign", "-", tmpOut.path])
+            try? FileManager.default.removeItem(at: dylib)
+            try FileManager.default.moveItem(at: tmpOut, to: dylib)
+            return dylib
+        } catch {
+            return nil
+        }
+        #else
+        return nil
+        #endif
+    }
+
     /// Lightweight background observer for normal Play sessions (no Metal HUD overlay).
-    /// Polls every 5 s; reports `.works` once a game runs cleanly for 90 s, or `.stopped`/`.noFrames` on crash.
+    /// Polls every 5 s; reports `.works` once a game runs cleanly for 90 s (including invisible Metal FPS if available),
+    /// or `.stopped`/`.noFrames` on crash.
     public func monitorPlaySession(
         runner: WineRunner,
         steamAppID: Int,
         cefLogOffset: UInt64,
         bootstrapLogOffset: UInt64,
+        fpsLog: URL? = nil,
         environment: [String: String] = ProcessInfo.processInfo.environment
     ) {
         guard isEffectivelyEnabled(environment: environment),
@@ -275,6 +361,11 @@ public struct TelemetryStore: Sendable {
             let maxWaitWithoutGame: TimeInterval = 180
             let healthyThreshold: TimeInterval = 90
 
+            func readFPS() -> PlayFPSStats? {
+                guard let fpsLog, let text = try? String(contentsOf: fpsLog, encoding: .utf8) else { return nil }
+                return Self.parsePlayFPSLog(text)
+            }
+
             while true {
                 try? await Task.sleep(for: .seconds(5))
                 if let t = LabThermalState.current() { thermalSamples.append(t) }
@@ -293,11 +384,13 @@ public struct TelemetryStore: Sendable {
                             bootstrap: GamePort.tail(of: bootstrapLog, from: bootstrapLogOffset),
                             gameExited: false
                         )
+                        let fps = readFPS()
                         if let report = TelemetryReport.fromPlaySession(
                             steamAppID: steamAppID, recipeID: recipeID, renderer: renderer,
                             vulkanDriver: vulkanDriver, sync: sync, engineID: engineID, engineArch: engineArch,
                             gameStarted: true, playedSeconds: played, stillRunning: true,
                             crashSigns: signs, peakThermalState: LabThermalState.peak(thermalSamples),
+                            avgFPS: fps?.avgFPS, onePercentLowFPS: fps?.onePercentLowFPS,
                             installID: installID, startedAt: startedAt
                         ) {
                             _ = await self.post(report, to: url)
@@ -313,11 +406,13 @@ public struct TelemetryStore: Sendable {
                         bootstrap: GamePort.tail(of: bootstrapLog, from: bootstrapLogOffset),
                         gameExited: true
                     )
+                    let fps = readFPS()
                     if let report = TelemetryReport.fromPlaySession(
                         steamAppID: steamAppID, recipeID: recipeID, renderer: renderer,
                         vulkanDriver: vulkanDriver, sync: sync, engineID: engineID, engineArch: engineArch,
                         gameStarted: true, playedSeconds: played, stillRunning: false,
                         crashSigns: signs, peakThermalState: LabThermalState.peak(thermalSamples),
+                        avgFPS: fps?.avgFPS, onePercentLowFPS: fps?.onePercentLowFPS,
                         installID: installID, startedAt: startedAt
                     ) {
                         _ = await self.post(report, to: url)

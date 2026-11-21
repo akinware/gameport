@@ -40,6 +40,8 @@ with tempfile.TemporaryDirectory(dir=os.path.dirname(out)) as temp, \
         f.write("    static let kosmicKrisp = " + lit(text) + "\n")
     with open(os.path.join(root, "Tools/kosmickrisp-shim/shim.c"), encoding="utf-8") as shim:
         f.write("    static let vulkanShimSource = " + lit(shim.read()) + "\n")
+    with open(os.path.join(root, "Tools/fps-probe/fps_probe.m"), encoding="utf-8") as probe:
+        f.write("    static let fpsProbeSource = " + lit(probe.read()) + "\n")
     f.write("}\n")
     f.flush()
     os.replace(f.name, out)

@@ -134,8 +134,21 @@ public struct GamePort: Sendable {
     }
 
     public func play(_ profileID: String, progress: ProgressHandler? = nil) throws -> Process {
-        let runner = try playbackRunner(profileID, progress: progress)
-        let actual = runner.profile.id
+        let baseRunner = try playbackRunner(profileID, progress: progress)
+        let actual = baseRunner.profile.id
+        var launchProfile = baseRunner.profile
+        var fpsLog: URL? = nil
+        if telemetry.isEffectivelyEnabled(), telemetry.endpoint() != nil,
+           let probe = telemetry.fpsProbeLibrary(for: baseRunner.engine.manifest.arch) {
+            try? paths.ensure(baseRunner.logs)
+            let log = baseRunner.logs.appendingPathComponent("play-fps.log")
+            try? FileManager.default.removeItem(at: log)
+            let existing = launchProfile.environment["DYLD_INSERT_LIBRARIES"] ?? ""
+            launchProfile.environment["DYLD_INSERT_LIBRARIES"] = existing.isEmpty ? probe.path : "\(probe.path):\(existing)"
+            launchProfile.environment["GAMEPORT_FPS_LOG"] = log.path
+            fpsLog = log
+        }
+        let runner = WineRunner(paths: paths, engine: baseRunner.engine, profile: launchProfile, recipe: baseRunner.recipe)
         let steam = SteamClient(runner: runner)
         if let id = runner.recipe?.steamAppID, !steam.isGameInstalled(appID: id) {
             progress?("Steam does not yet report the game as installed (appmanifest_\(id)). Trying anyway.")
@@ -148,7 +161,7 @@ public struct GamePort: Sendable {
         let process = try steam.play()
         recordLaunch(requested: profileID, actual: actual)
         if let appID = runner.recipe?.steamAppID {
-            telemetry.monitorPlaySession(runner: runner, steamAppID: appID, cefLogOffset: cefOffset, bootstrapLogOffset: bootstrapOffset)
+            telemetry.monitorPlaySession(runner: runner, steamAppID: appID, cefLogOffset: cefOffset, bootstrapLogOffset: bootstrapOffset, fpsLog: fpsLog)
         }
         return process
     }
