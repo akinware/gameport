@@ -123,6 +123,8 @@ public struct LabResult: Codable, Sendable {
         case works          // still presenting new frames at the end of the run
         case stopped        // rendered, then stopped: crash, hang or a dialog
         case noFrames       // never presented a Metal frame
+        case blackScreen    // the foreground game window stayed black at the end
+        case unchangedImage // HUD advanced, but the image did not: an idle scene or possible freeze
         case notVisible     // another app was in front most of the time: macOS throttles a covered
                             // window's frames, so the run measured nothing either way
     }
@@ -164,6 +166,8 @@ public struct LabResult: Codable, Sendable {
         case .works: what = "works"
         case .stopped: what = "stopped rendering (crash or hang)"
         case .noFrames: what = "no frames"
+        case .blackScreen: what = "game window stayed black"
+        case .unchangedImage: what = "unchanged game image (possible freeze or idle scene); rerun during gameplay"
         case .notVisible: return "\(setup): not measured, the game window was not in front" + thermalSummary
         }
         let fps = (steady ?? whole).map { s in
@@ -184,10 +188,14 @@ public struct LabResult: Codable, Sendable {
     /// started, or the log shows a crash (a TF2 run hid a Steam web-helper crash loop this way).
     static func verdict(_ samples: [MetalHUDLog.Sample], end: TimeInterval, window: TimeInterval = 30,
                         frontmostShare: Double? = nil, gameStarted: Bool? = nil, crashSigns: [String] = [],
-                        gameExited: Bool = false) -> Verdict {
+                        gameExited: Bool = false, visual: LabFrameFinding? = nil) -> Verdict {
         if gameStarted == false { return .noFrames }
         let measured = measuredVerdict(samples, end: end, window: window)
         if gameExited { return measured == .noFrames ? .noFrames : .stopped }
+        if visual == .black { return .blackScreen }
+        if visual == .unchanged, measured == .works {
+            return crashSigns.isEmpty ? .unchangedImage : .stopped
+        }
         if measured != .works, let share = frontmostShare, share < 0.5, gameStarted != false, crashSigns.isEmpty {
             return .notVisible
         }
@@ -233,7 +241,10 @@ extension LabResult {
     /// The pids of Windows game processes in `ps -axo pid=,command=` output (Wine shows each by its Windows path).
     static func gameProcessIDs(inProcessList text: String) -> Set<Int> {
         Set(text.split(separator: "\n").compactMap { line -> Int? in
-            guard line.contains("\\steamapps\\common\\"), line.lowercased().contains(".exe") else { return nil }
+            // Only the executable path counts. Steam's command-line arguments can name a game too.
+            let command = line.lowercased()
+            guard let exe = command.range(of: ".exe"),
+                  command[..<exe.lowerBound].contains("\\steamapps\\common\\") else { return nil }
             return Int(line.split(separator: " ", maxSplits: 1).first ?? "")
         })
     }
@@ -283,6 +294,10 @@ extension GamePort {
         if let vulkanDriver { trial.vulkanDriver = vulkanDriver }
         trial.metalHUD = true
         trial.environment["MTL_HUD_LOG_ENABLED"] = "1"
+        #if os(macOS)
+        let marker = UUID().uuidString
+        trial.environment[LabWindowCapture.markerKey] = marker
+        #endif
         let runner = try self.runner(for: trial)
         try runner.engine.checkHost()
         try runner.engine.checkFiles()
@@ -312,6 +327,15 @@ extension GamePort {
         let cefStart = size(cefLog), bootstrapStart = size(bootstrapLog)
         var thermalSamples = [LabThermalState.current()].compactMap { $0 }
         _ = try steam.play()
+        #if os(macOS)
+        let capture = LabWindowCapture(marker: marker)
+        let visualTask = Task {
+            if steadyAfter < Double(seconds) {
+                await capture.monitor(after: steadyAfter, progress: progress)
+            }
+        }
+        defer { visualTask.cancel() }
+        #endif
         var stopped = false
         defer { if !stopped { try? runner.killAll() } }
         var front: [Bool] = []
@@ -335,6 +359,12 @@ extension GamePort {
             gamePIDs.formUnion(runningGamePIDs())
         }
         let end = Date().timeIntervalSince1970
+        #if os(macOS)
+        visualTask.cancel()
+        let visual = await capture.finding(progress: progress)
+        #else
+        let visual: LabFrameFinding? = nil
+        #endif
         let finalPIDs = runningGamePIDs()
         let gameExited = !gamePIDs.isEmpty && finalPIDs.isEmpty
         gamePIDs.formUnion(finalPIDs)
@@ -358,7 +388,7 @@ extension GamePort {
             engineID: runner.engine.id, engineArchitecture: runner.engine.manifest.arch,
             macOS: Shell.macOSVersionString, machine: Shell.machineDescription,
             startedAt: startedAt, seconds: seconds, verdict: LabResult.verdict(samples, end: end, frontmostShare: frontmostShare,
-                                                                         gameStarted: gameSeen, crashSigns: crashSigns, gameExited: gameExited),
+                                                                         gameStarted: gameSeen, crashSigns: crashSigns, gameExited: gameExited, visual: visual),
             steady: LabStats.from(samples, after: startedAt.timeIntervalSince1970 + steadyAfter),
             whole: LabStats.from(samples), hudLog: hudLog.lastPathComponent, frontmostShare: frontmostShare,
             gameStarted: gameSeen, crashSigns: crashSigns, vulkanDriver: runner.effectiveVulkanDriver,
@@ -405,8 +435,8 @@ public struct Evidence: Sendable, Equatable {
     }
 
     static func measuredOrStated(_ recipe: Recipe, results: [LabResult]) -> Evidence {
-        // A run with the window covered measured nothing; it is not evidence either way.
-        if let last = results.filter({ $0.verdict != .notVisible }).max(by: { $0.startedAt < $1.startedAt }) {
+        // A covered window or idle scene cannot establish compatibility either way.
+        if let last = results.filter({ $0.verdict != .notVisible && $0.verdict != .unchangedImage }).max(by: { $0.startedAt < $1.startedAt }) {
             let when = last.startedAt.formatted(date: .abbreviated, time: .omitted)
             let fps = (last.steady ?? last.whole).map { " · average \($0.averageFPS) FPS" } ?? ""
             return last.verdict == .works

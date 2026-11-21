@@ -64,6 +64,13 @@ counts as "not measured", unless the game process never started or the log shows
 is accepted) and DXVK in turn, and sets the profile to the one with the highest average FPS after warm-up
 among those that worked to the end.
 
+With macOS Screen Recording access enabled for GamePort (or your terminal for the CLI), the Lab
+also samples the foreground game window every five seconds after warm-up. It discards each image
+after computing its brightness and perceptual hash. A window that stays black for the final 20 seconds
+is recorded as a black screen. An unchanged image with advancing HUD frames can be an idle menu or
+a freeze. This result is inconclusive and cannot win automatic renderer selection. If capture is
+unavailable, the Lab continues with its HUD and process checks.
+
 The Lab reports 1% low FPS as 1000 divided by the 99th-percentile present interval in milliseconds.
 It needs at least 100 unredacted frame intervals from the measured game in that phase of the run.
 With redacted timings the frame counter still supplies average FPS and the slowest second.
