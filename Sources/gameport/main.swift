@@ -764,7 +764,7 @@ do {
         for b in env.crossoverBottles {
             print("  • bottle \(b.name): \(b.steamGames.count) Steam games")
         }
-        print("Mac Steam: \(env.macSteamApp?.path ?? "not installed") (\(env.macSteamGames.count) games\(env.notProtonInstalled ? ", NotProton detected" : ""))")
+        print("Mac Steam: \(env.macSteamApp?.path ?? "not installed") (\(env.macSteamGames.count) installed, \(env.macSteamOwnedGames.count) owned in localconfig\(env.notProtonInstalled ? ", NotProton/Bridgeplay detected" : ""))")
         for g in env.macSteamGames.prefix(15) {
             print("  • \(g.name) (\(g.appID))")
         }

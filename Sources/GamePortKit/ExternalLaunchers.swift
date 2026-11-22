@@ -10,6 +10,22 @@ public struct DiscoveredSteamGame: Sendable, Equatable, Identifiable {
     public var id: Int { appID }
 }
 
+/// A Steam game discovered from the signed-in native Mac Steam client's `userdata/*/config/localconfig.vdf`
+/// (owned/played games on the local Steam account, even when not yet downloaded).
+public struct OwnedSteamGame: Sendable, Equatable, Identifiable {
+    public let appID: Int
+    public let lastPlayed: Date?
+    public let playtimeMinutes: Int
+
+    public var id: Int { appID }
+
+    public init(appID: Int, lastPlayed: Date?, playtimeMinutes: Int) {
+        self.appID = appID
+        self.lastPlayed = lastPlayed
+        self.playtimeMinutes = playtimeMinutes
+    }
+}
+
 /// An existing CrossOver bottle discovered under `~/Library/Application Support/CrossOver/Bottles`.
 public struct CrossOverBottle: Sendable, Equatable, Identifiable {
     public let name: String
@@ -56,6 +72,7 @@ public struct ExternalEnvironment: Sendable, Equatable {
     public let crossoverBottles: [CrossOverBottle]
     public let macSteamApp: URL?
     public let macSteamGames: [DiscoveredSteamGame]
+    public let macSteamOwnedGames: [OwnedSteamGame]
     public let notProtonInstalled: Bool
 
     public var hasObelisk: Bool { obeliskApp != nil }
@@ -91,7 +108,7 @@ public struct ExternalEnvironment: Sendable, Equatable {
 
     public static let empty = ExternalEnvironment(
         obeliskApp: nil, siliconiumApp: nil, crossoverApp: nil, crossoverBottles: [],
-        macSteamApp: nil, macSteamGames: [], notProtonInstalled: false
+        macSteamApp: nil, macSteamGames: [], macSteamOwnedGames: [], notProtonInstalled: false
     )
 }
 
@@ -125,9 +142,10 @@ public enum ExternalDiscovery {
 
         let steamRoot = home.appendingPathComponent("Library/Application Support/Steam", isDirectory: true)
         let macSteamGames = scanSteamApps(in: steamRoot.appendingPathComponent("steamapps", isDirectory: true))
+        let macSteamOwnedGames = scanMacSteamOwnedGames(in: steamRoot.appendingPathComponent("userdata", isDirectory: true))
         let compatTools = steamRoot.appendingPathComponent("compatibilitytools.d", isDirectory: true)
         let notProton = ((try? fm.contentsOfDirectory(atPath: compatTools.path)) ?? [])
-            .contains { $0.localizedCaseInsensitiveContains("notproton") || $0.localizedCaseInsensitiveContains("proton") }
+            .contains { $0.localizedCaseInsensitiveContains("notproton") || $0.localizedCaseInsensitiveContains("proton") || $0.localizedCaseInsensitiveContains("bridgeplay") }
 
         return ExternalEnvironment(
             obeliskApp: obelisk,
@@ -136,6 +154,7 @@ public enum ExternalDiscovery {
             crossoverBottles: bottles,
             macSteamApp: macSteam,
             macSteamGames: macSteamGames,
+            macSteamOwnedGames: macSteamOwnedGames,
             notProtonInstalled: notProton
         )
     }
@@ -150,6 +169,93 @@ public enum ExternalDiscovery {
             let steamApps = dir.appendingPathComponent("drive_c/Program Files (x86)/Steam/steamapps", isDirectory: true)
             return CrossOverBottle(name: name, path: dir, steamGames: scanSteamApps(in: steamApps))
         }
+    }
+
+    /// Scans signed-in Mac Steam `userdata/*/config/localconfig.vdf` files for owned/played AppIDs
+    /// (read-only, zero Steam API key or credentials).
+    public static func scanMacSteamOwnedGames(in userdataDir: URL) -> [OwnedSteamGame] {
+        let fm = FileManager.default
+        guard let accounts = try? fm.contentsOfDirectory(atPath: userdataDir.path) else { return [] }
+        var byAppID: [Int: OwnedSteamGame] = [:]
+        for acct in accounts where acct.allSatisfy(\.isNumber) {
+            let vdf = userdataDir.appendingPathComponent("\(acct)/config/localconfig.vdf")
+            guard let text = try? String(contentsOf: vdf, encoding: .utf8) else { continue }
+            for game in parseLocalConfigApps(text) {
+                if let existing = byAppID[game.appID] {
+                    let newerDate = max(existing.lastPlayed ?? .distantPast, game.lastPlayed ?? .distantPast)
+                    byAppID[game.appID] = OwnedSteamGame(
+                        appID: game.appID,
+                        lastPlayed: newerDate == .distantPast ? nil : newerDate,
+                        playtimeMinutes: max(existing.playtimeMinutes, game.playtimeMinutes)
+                    )
+                } else {
+                    byAppID[game.appID] = game
+                }
+            }
+        }
+        return byAppID.values.sorted { lhs, rhs in
+            let lTime = lhs.lastPlayed?.timeIntervalSince1970 ?? 0
+            let rTime = rhs.lastPlayed?.timeIntervalSince1970 ?? 0
+            if lTime != rTime { return lTime > rTime }
+            if lhs.playtimeMinutes != rhs.playtimeMinutes { return lhs.playtimeMinutes > rhs.playtimeMinutes }
+            return lhs.appID < rhs.appID
+        }
+    }
+
+    /// Parses the `"apps" { "<appID>" { "LastPlayed" "..." "Playtime" "..." } }` section of `localconfig.vdf`.
+    public static func parseLocalConfigApps(_ text: String) -> [OwnedSteamGame] {
+        var results: [OwnedSteamGame] = []
+        var depth = 0
+        var appsDepth: Int? = nil
+        var pendingKey: String? = nil
+        var currentAppID: Int? = nil
+        var currentLastPlayed: TimeInterval? = nil
+        var currentPlaytime: Int? = nil
+
+        for rawLine in text.split(whereSeparator: \.isNewline) {
+            let line = rawLine.trimmingCharacters(in: .whitespaces)
+            if line == "{" {
+                depth += 1
+                if appsDepth == nil, pendingKey?.lowercased() == "apps" {
+                    appsDepth = depth
+                } else if let ad = appsDepth, depth == ad + 1, let key = pendingKey, let id = Int(key), id > 0 {
+                    currentAppID = id
+                    currentLastPlayed = nil
+                    currentPlaytime = nil
+                }
+                pendingKey = nil
+                continue
+            }
+            if line == "}" {
+                if let ad = appsDepth {
+                    if depth == ad + 1, let appID = currentAppID {
+                        // Exclude Steam client internal buckets (7, 760) that have neither LastPlayed nor Playtime.
+                        if currentLastPlayed != nil || currentPlaytime != nil {
+                            let lp = (currentLastPlayed ?? 0) > 0 ? Date(timeIntervalSince1970: currentLastPlayed!) : nil
+                            results.append(OwnedSteamGame(appID: appID, lastPlayed: lp, playtimeMinutes: currentPlaytime ?? 0))
+                        }
+                        currentAppID = nil
+                    } else if depth == ad {
+                        appsDepth = nil
+                    }
+                }
+                depth = max(0, depth - 1)
+                pendingKey = nil
+                continue
+            }
+            let tokens = extractQuotedTokens(line)
+            if tokens.count == 1 {
+                pendingKey = tokens[0]
+            } else if tokens.count >= 2, let ad = appsDepth, depth == ad + 1, currentAppID != nil {
+                let k = tokens[0].lowercased()
+                if k == "lastplayed", let ts = TimeInterval(tokens[1]) {
+                    currentLastPlayed = ts
+                } else if k == "playtime", let mins = Int(tokens[1]) {
+                    currentPlaytime = mins
+                }
+            }
+        }
+        return results
     }
 
     public static func scanSteamApps(in steamappsDir: URL) -> [DiscoveredSteamGame] {
