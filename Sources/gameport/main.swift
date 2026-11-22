@@ -44,6 +44,7 @@ Usage:
   \(cli) bridge add-to-steam <profile>       Put a downloaded game into the profile's Windows Steam library (APFS clone)
                                        Download a Windows game: Steam Mobile QR sign-in once, then silent
   \(cli) crossover [status|bottles|launch <bottle> <appID>]     Use installed CrossOver.app (0 MB engine & 1-click bottles)
+  \(cli) crossover adopt <bottle> <appID>      Play a bottle's Steam game with GamePort's Wine (APFS clone, bottle untouched)
   \(cli) epic [status|install|login <code>|logout|list|download <app>|launch <app>]  Epic Games via native legendary
   \(cli) gog [status|install|login <code>|logout|list|download <id>|launch <id>]    GOG DRM-free via native gogdl
   \(cli) heroic                                                 Discover existing Heroic (Epic/GOG/Amazon) installs
@@ -734,6 +735,14 @@ do {
             let proc = try CrossOverSupport.launch(item: target)
             proc.waitUntilExit()
             exit(proc.terminationStatus)
+        case "adopt":
+            let bottleName = arg(1, "bottle")
+            guard let appID = SteamStore.parseAppID(arg(2, "Steam App ID")) else { fail("expected a numeric Steam App ID") }
+            guard let target = CrossOverSupport.discoverBottleGames().first(where: {
+                $0.bottleName == bottleName && $0.kind == .steam(appID: appID)
+            }) else { fail("Steam game \(appID) not found in CrossOver bottle '\(bottleName)'") }
+            let profile = try gameport.adoptCrossOverBottleGame(target) { print($0) }
+            print("Profile \(profile.id) on \(profile.engineID). Play it with: \(cli) play \(profile.id)")
         default:
             fail(usage)
         }

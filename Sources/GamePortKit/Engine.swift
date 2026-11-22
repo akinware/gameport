@@ -240,10 +240,18 @@ public struct EngineStore: Sendable {
         let root = paths.engine(id)
         let receipt = root.appendingPathComponent(Self.receiptName)
         guard FileManager.default.fileExists(atPath: receipt.path) else { throw GamePortError.missing("engine \(id) is not installed") }
-        let manifest = try EngineManifest.load(receipt)
+        var manifest = try EngineManifest.load(receipt)
         guard manifest.id == id else { throw GamePortError.invalid("engine receipt does not match \(id)") }
+        // Names and notes follow the shipped manifest, so wording fixed after the install still shows.
+        if let shipped = Self.shippedManifests.first(where: { $0.id == id }) {
+            manifest.displayName = shipped.displayName
+            manifest.notes = shipped.notes
+        }
         return InstalledEngine(manifest: manifest, root: root)
     }
+
+    /// Decoded once: `engine(_:)` runs often (every UI refresh).
+    private static let shippedManifests = bundledManifests()
 
     /// Bundled manifests shipped inside the app.
     public static func bundledManifests() -> [EngineManifest] {
