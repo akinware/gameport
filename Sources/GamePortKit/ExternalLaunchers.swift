@@ -11,19 +11,54 @@ public struct DiscoveredSteamGame: Sendable, Equatable, Identifiable {
 }
 
 /// A Steam game discovered from the signed-in native Mac Steam client's `userdata/*/config/localconfig.vdf`
-/// (owned/played games on the local Steam account, even when not yet downloaded).
+/// enriched with local `appcache/appinfo.vdf` metadata (title, OS support, type) — zero API keys or network needed.
 public struct OwnedSteamGame: Sendable, Equatable, Identifiable {
     public let appID: Int
+    public let title: String?
+    public let osList: [String]
+    public let appType: String?
     public let lastPlayed: Date?
     public let playtimeMinutes: Int
 
     public var id: Int { appID }
+    public var supportsMacOS: Bool { osList.contains("macos") }
+    public var supportsWindows: Bool { osList.isEmpty || osList.contains("windows") }
+    public var isGameType: Bool {
+        guard let t = appType?.lowercased(), !t.isEmpty else { return true }
+        return t == "game" || t == "demo"
+    }
 
-    public init(appID: Int, lastPlayed: Date?, playtimeMinutes: Int) {
+    public init(
+        appID: Int,
+        title: String? = nil,
+        osList: [String] = [],
+        appType: String? = nil,
+        lastPlayed: Date?,
+        playtimeMinutes: Int
+    ) {
         self.appID = appID
+        self.title = title
+        self.osList = osList
+        self.appType = appType
         self.lastPlayed = lastPlayed
         self.playtimeMinutes = playtimeMinutes
     }
+}
+
+/// Local Steam artwork files cached by native Mac Steam under `appcache/librarycache/<appID>/`.
+public struct LocalSteamArtwork: Sendable, Equatable {
+    public let poster: URL?
+    public let hero: URL?
+    public let logo: URL?
+    public let header: URL?
+}
+
+/// Basic game metadata extracted from Valve's local binary `appcache/appinfo.vdf`.
+public struct SteamAppInfoRecord: Sendable, Equatable {
+    public let appID: Int
+    public let name: String
+    public let appType: String
+    public let osList: [String]
 }
 
 /// An existing CrossOver bottle discovered under `~/Library/Application Support/CrossOver/Bottles`.
@@ -142,7 +177,11 @@ public enum ExternalDiscovery {
 
         let steamRoot = home.appendingPathComponent("Library/Application Support/Steam", isDirectory: true)
         let macSteamGames = scanSteamApps(in: steamRoot.appendingPathComponent("steamapps", isDirectory: true))
-        let macSteamOwnedGames = scanMacSteamOwnedGames(in: steamRoot.appendingPathComponent("userdata", isDirectory: true))
+        let appInfo = parseAppInfoVDF(at: steamRoot.appendingPathComponent("appcache/appinfo.vdf"))
+        let macSteamOwnedGames = scanMacSteamOwnedGames(
+            in: steamRoot.appendingPathComponent("userdata", isDirectory: true),
+            appInfo: appInfo
+        )
         let compatTools = steamRoot.appendingPathComponent("compatibilitytools.d", isDirectory: true)
         let notProton = ((try? fm.contentsOfDirectory(atPath: compatTools.path)) ?? [])
             .contains { $0.localizedCaseInsensitiveContains("notproton") || $0.localizedCaseInsensitiveContains("proton") || $0.localizedCaseInsensitiveContains("bridgeplay") }
@@ -171,20 +210,161 @@ public enum ExternalDiscovery {
         }
     }
 
+    /// Resolves locally cached Steam artwork (`library_600x900.jpg`, `library_hero.jpg`, `logo.png`, `header.jpg`)
+    /// from native Mac Steam's `appcache/librarycache/<appID>/` for instant 0 ms loading.
+    public static func localSteamArtwork(
+        appID: Int,
+        home: URL = FileManager.default.homeDirectoryForCurrentUser
+    ) -> LocalSteamArtwork {
+        let dir = home.appendingPathComponent("Library/Application Support/Steam/appcache/librarycache/\(appID)", isDirectory: true)
+        let fm = FileManager.default
+        func pick(_ names: [String]) -> URL? {
+            for name in names {
+                let u = dir.appendingPathComponent(name)
+                if fm.fileExists(atPath: u.path) { return u }
+            }
+            return nil
+        }
+        return LocalSteamArtwork(
+            poster: pick(["library_600x900.jpg", "library_capsule.jpg", "header.jpg"]),
+            hero: pick(["library_hero.jpg", "header.jpg"]),
+            logo: pick(["logo.png"]),
+            header: pick(["header.jpg", "library_600x900.jpg"])
+        )
+    }
+
+    /// Parses Valve's binary `appcache/appinfo.vdf` (v29 `0x07564429`) in pure Swift to extract
+    /// official game titles, `type` (Game/Tool/DLC), and `oslist` (windows/macos/linux).
+    public static func parseAppInfoVDF(at url: URL) -> [Int: SteamAppInfoRecord] {
+        guard let data = try? Data(contentsOf: url, options: .mappedIfSafe), data.count >= 16 else { return [:] }
+        return data.withUnsafeBytes { raw -> [Int: SteamAppInfoRecord] in
+            let bytes = raw.bindMemory(to: UInt8.self)
+            let count = bytes.count
+            func u32(_ off: Int) -> UInt32 {
+                UInt32(bytes[off]) | (UInt32(bytes[off + 1]) << 8) |
+                (UInt32(bytes[off + 2]) << 16) | (UInt32(bytes[off + 3]) << 24)
+            }
+            func u64(_ off: Int) -> UInt64 {
+                UInt64(u32(off)) | (UInt64(u32(off + 4)) << 32)
+            }
+            func readCStr(_ off: inout Int) -> String {
+                let start = off
+                while off < count && bytes[off] != 0 { off += 1 }
+                let str = String(decoding: UnsafeBufferPointer(start: bytes.baseAddress! + start, count: off - start), as: UTF8.self)
+                if off < count { off += 1 }
+                return str
+            }
+
+            let magic = u32(0)
+            guard magic == 0x0756_4429 else { return [:] }
+            let strTableOff = Int(u64(8))
+            guard strTableOff >= 16, strTableOff + 4 <= count else { return [:] }
+
+            var sp = strTableOff
+            let strCount = Int(u32(sp)); sp += 4
+            var strings: [String] = []
+            strings.reserveCapacity(min(strCount, 32_768))
+            for _ in 0..<strCount {
+                guard sp < count else { break }
+                strings.append(readCStr(&sp))
+            }
+
+            func parseCommon(from startOff: Int, end: Int) -> (name: String?, type: String?, oslist: String?) {
+                var off = startOff
+                var name: String?
+                var appType: String?
+                var oslist: String?
+
+                func walk(depth: Int, inCommon: Bool) {
+                    while off < end {
+                        let t = bytes[off]; off += 1
+                        if t == 8 { return }
+                        guard off + 4 <= end else { off = end; return }
+                        let idx = Int(u32(off)); off += 4
+                        let key = idx < strings.count ? strings[idx] : ""
+                        switch t {
+                        case 0:
+                            let nextCommon = inCommon || (depth == 1 && key == "common")
+                            walk(depth: depth + 1, inCommon: nextCommon)
+                        case 1:
+                            let val = readCStr(&off)
+                            if inCommon && depth == 2 {
+                                if key == "name" { name = val }
+                                else if key == "type" { appType = val }
+                                else if key == "oslist" { oslist = val }
+                            }
+                        case 2, 3, 5, 6:
+                            off += 4
+                        case 7, 10:
+                            off += 8
+                        default:
+                            off = end
+                            return
+                        }
+                    }
+                }
+                walk(depth: 0, inCommon: false)
+                return (name, appType, oslist)
+            }
+
+            var records: [Int: SteamAppInfoRecord] = [:]
+            var off = 16
+            while off + 8 <= strTableOff {
+                let appID = Int(u32(off)); off += 4
+                if appID == 0 { break }
+                let size = Int(u32(off)); off += 4
+                let entryEnd = off + size
+                guard size >= 60, entryEnd <= strTableOff else { break }
+                let common = parseCommon(from: off + 60, end: entryEnd)
+                if let name = common.name, !name.isEmpty {
+                    let os = (common.oslist ?? "")
+                        .lowercased()
+                        .split(separator: ",")
+                        .map { $0.trimmingCharacters(in: .whitespaces) }
+                        .filter { !$0.isEmpty }
+                    records[appID] = SteamAppInfoRecord(
+                        appID: appID,
+                        name: name,
+                        appType: common.type ?? "",
+                        osList: os
+                    )
+                }
+                off = entryEnd
+            }
+            return records
+        }
+    }
+
     /// Scans signed-in Mac Steam `userdata/*/config/localconfig.vdf` files for owned/played AppIDs
-    /// (read-only, zero Steam API key or credentials).
-    public static func scanMacSteamOwnedGames(in userdataDir: URL) -> [OwnedSteamGame] {
+    /// enriched with `appinfo.vdf` names and OS lists (read-only, zero Steam API key or credentials).
+    public static func scanMacSteamOwnedGames(
+        in userdataDir: URL,
+        appInfo: [Int: SteamAppInfoRecord] = [:]
+    ) -> [OwnedSteamGame] {
         let fm = FileManager.default
         guard let accounts = try? fm.contentsOfDirectory(atPath: userdataDir.path) else { return [] }
         var byAppID: [Int: OwnedSteamGame] = [:]
         for acct in accounts where acct.allSatisfy(\.isNumber) {
             let vdf = userdataDir.appendingPathComponent("\(acct)/config/localconfig.vdf")
             guard let text = try? String(contentsOf: vdf, encoding: .utf8) else { continue }
-            for game in parseLocalConfigApps(text) {
+            for raw in parseLocalConfigApps(text) {
+                let meta = appInfo[raw.appID]
+                let game = OwnedSteamGame(
+                    appID: raw.appID,
+                    title: meta?.name ?? raw.title,
+                    osList: meta?.osList ?? raw.osList,
+                    appType: meta?.appType ?? raw.appType,
+                    lastPlayed: raw.lastPlayed,
+                    playtimeMinutes: raw.playtimeMinutes
+                )
+                guard game.isGameType else { continue }
                 if let existing = byAppID[game.appID] {
                     let newerDate = max(existing.lastPlayed ?? .distantPast, game.lastPlayed ?? .distantPast)
                     byAppID[game.appID] = OwnedSteamGame(
                         appID: game.appID,
+                        title: game.title ?? existing.title,
+                        osList: game.osList.isEmpty ? existing.osList : game.osList,
+                        appType: game.appType ?? existing.appType,
                         lastPlayed: newerDate == .distantPast ? nil : newerDate,
                         playtimeMinutes: max(existing.playtimeMinutes, game.playtimeMinutes)
                     )
