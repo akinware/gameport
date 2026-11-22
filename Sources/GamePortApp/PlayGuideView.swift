@@ -250,6 +250,21 @@ struct LaunchStatusView: View {
                 ProgressView().controlSize(.small)
                 Text("Launching \(title) (first launch may compile shaders)…").font(.callout).foregroundStyle(.secondary)
             }.padding(.top, 4)
+        case .preparing(let id, let progress) where id == profile.id:
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 8) {
+                    ProgressView().controlSize(.small)
+                    Text("\(progress.stage.title)… (\(progress.seconds)s)").font(.callout).foregroundStyle(.secondary)
+                }
+                Text(progress.waitingForUser ?? progress.stage.hint).font(.caption)
+                    .foregroundStyle(progress.looksStuck ? .orange : .secondary)
+                if progress.looksStuck {
+                    HStack {
+                        Button("Show Steam") { model.job("Opening Steam") { k, p in _ = try k.openSteam(profile.id, progress: p); return "Steam opened" } }
+                        Button("Stop") { model.job("Stopping") { k, _ in try k.stop(profile.id); return "Stopped" } }
+                    }.controlSize(.small)
+                }
+            }.padding(.top, 4)
         case .running(let id, let seconds, let fps) where id == profile.id:
             HStack(spacing: 8) {
                 Image(systemName: "play.circle.fill").foregroundStyle(.green)

@@ -102,21 +102,22 @@ final class AppModel: ObservableObject {
         }
         let cefStart = fileSize(cefLog)
         let bootstrapStart = fileSize(bootstrapLog)
+        let marks = kit.steamLaunchLogMarks(profile.id)
 
         job("Starting \(recipe.title)") { kit, progress in
             _ = try kit.play(profile.id, progress: progress)
             await MainActor.run {
-                self.startLaunchWatcher(profile: profile, recipe: recipe, cefStart: cefStart, bootstrapStart: bootstrapStart)
+                self.startLaunchWatcher(profile: profile, recipe: recipe, cefStart: cefStart, bootstrapStart: bootstrapStart, marks: marks)
             }
             return "Launch requested"
         }
     }
 
-    private func startLaunchWatcher(profile: Profile, recipe: Recipe, cefStart: UInt64, bootstrapStart: UInt64) {
+    private func startLaunchWatcher(profile: Profile, recipe: Recipe, cefStart: UInt64, bootstrapStart: UInt64, marks: SteamLaunchLogMarks? = nil) {
         launchMonitorTask?.cancel()
         let kit = self.gameport
         launchMonitorTask = Task.detached(priority: .utility) {
-            await kit.monitorLaunch(profile: profile, recipe: recipe, cefStart: cefStart, bootstrapStart: bootstrapStart) { state in
+            await kit.monitorLaunch(profile: profile, recipe: recipe, cefStart: cefStart, bootstrapStart: bootstrapStart, marks: marks) { state in
                 Task { @MainActor in self.launchState = state }
             }
         }

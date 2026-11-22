@@ -182,3 +182,59 @@ final class SteamQRDownloaderTests: XCTestCase {
 private extension DepotDownloaderOutputParser.Failure {
     var isNeedsQR: Bool { if case .needsQRLogin = self { return true }; return false }
 }
+
+final class SteamLaunchProgressTests: XCTestCase {
+    private let consoleTF2 = """
+    [2026-11-22 16:33:51] Console Log Start
+    [2026-11-22 16:34:13] ExecCommandLine: ""C:\\Program Files (x86)\\Steam\\steam.exe" -silent -applaunch 440"
+    [2026-11-22 16:34:13] GameAction [AppID 440, ActionID 1] : LaunchApp changed task to UpdatingAppInfo with ""
+    [2026-11-22 16:34:13] GameAction [AppID 440, ActionID 1] : LaunchApp changed task to CheckShaderDepotManifest with ""
+    [2026-11-22 16:34:13] GameAction [AppID 440, ActionID 1] : LaunchApp changed task to RunningInstallScript with ""
+    """
+
+    func testStartsAtSteamThenFollowsSignIn() {
+        XCTAssertEqual(SteamLaunchProgress.parse(appID: 440, console: "", connection: "").stage, .startingSteam)
+        let conn = "[2026-11-22 16:34:10] [Connected, 4, 7] [U:1:1] Logging on [U:1:1]"
+        XCTAssertEqual(SteamLaunchProgress.parse(appID: 440, console: "", connection: conn).stage, .signingIn)
+        let done = conn + "\n[2026-11-22 16:34:11] [Logged On, 4, 7] [U:1:1] RecvMsgClientLogOnResponse() : processing complete"
+        XCTAssertEqual(SteamLaunchProgress.parse(appID: 440, console: "", connection: done).stage, .checkingForUpdates)
+    }
+
+    func testReadsLaunchTasksForThatAppOnly() {
+        let snap = SteamLaunchProgress.parse(appID: 440, console: consoleTF2, connection: "")
+        XCTAssertEqual(snap.stage, .preparingGame)
+        XCTAssertEqual(snap.steamTask, "RunningInstallScript")
+        XCTAssertNil(snap.waitingForUser)
+        XCTAssertEqual(SteamLaunchProgress.parse(appID: 730, console: consoleTF2, connection: "").stage, .startingSteam)
+
+        let started = consoleTF2 + """
+
+        [2026-11-22 16:34:19] GameAction [AppID 440, ActionID 1] : LaunchApp changed task to CreatingProcess with ""
+        [2026-11-22 16:34:19] GameAction [AppID 440, ActionID 1] : LaunchApp waiting for user response to CreatingProcess ""
+        [2026-11-22 16:34:19] GameAction [AppID 440, ActionID 1] : LaunchApp continues with user response "CreatingProcess"
+        [2026-11-22 16:34:19] GameAction [AppID 440, ActionID 1] : LaunchApp changed task to Completed with ""
+        """
+        let s2 = SteamLaunchProgress.parse(appID: 440, console: started, connection: "")
+        XCTAssertEqual(s2.stage, .startingGame)
+        XCTAssertNil(s2.waitingForUser, "CreatingProcess is answered by Steam itself")
+    }
+
+    func testFlagsHiddenPromptsAndFailures() {
+        let prompt = consoleTF2 + "\n[x] GameAction [AppID 440, ActionID 1] : LaunchApp waiting for user response to IgnorePendingCloudSessions \"\""
+        let snap = SteamLaunchProgress.parse(appID: 440, console: prompt, connection: "")
+        XCTAssertEqual(snap.waitingForUser, "IgnorePendingCloudSessions")
+        XCTAssertTrue(SteamLaunchProgress.describePrompt("IgnorePendingCloudSessions").contains("Cloud"))
+        let p = LaunchProgress(title: "TF2", stage: snap.stage, seconds: 10, secondsWithoutProgress: 2, waitingForUser: "x")
+        XCTAssertTrue(p.looksStuck)
+
+        let failed = "[x] GameAction [AppID 440, ActionID 1] : LaunchApp changed task to Failed with \"\""
+        XCTAssertTrue(SteamLaunchProgress.parse(appID: 440, console: failed, connection: "").failed)
+
+        XCTAssertFalse(LaunchProgress(title: "", stage: .preparingGame, seconds: 40, secondsWithoutProgress: 30).looksStuck)
+        XCTAssertTrue(LaunchProgress(title: "", stage: .preparingGame, seconds: 120, secondsWithoutProgress: 90).looksStuck)
+        XCTAssertFalse(LaunchProgress(title: "", stage: .updatingGame, seconds: 600, secondsWithoutProgress: 300).looksStuck,
+                       "updates may go quiet for a long time")
+        XCTAssertTrue(LaunchState.preparing(profileID: "a", progress: p).isLaunching)
+        XCTAssertEqual(LaunchState.running(profileID: "a", seconds: 1, fps: nil).profileID, "a")
+    }
+}

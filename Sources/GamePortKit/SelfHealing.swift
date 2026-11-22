@@ -5,8 +5,56 @@ public enum LaunchState: Equatable, Sendable {
     case idle
     case startingSteam(profileID: String)
     case waitingForGame(profileID: String, title: String)
+    /// Windows Steam is working towards starting the game (stage read from Steam's logs).
+    case preparing(profileID: String, progress: LaunchProgress)
     case running(profileID: String, seconds: Int, fps: Double?)
     case needsAttention(profileID: String, diagnosis: LaunchDiagnosis)
+}
+
+extension LaunchState {
+    /// The profile this state belongs to, if any.
+    public var profileID: String? {
+        switch self {
+        case .idle: return nil
+        case .startingSteam(let id), .waitingForGame(let id, _), .preparing(let id, _),
+             .running(let id, _, _), .needsAttention(let id, _):
+            return id
+        }
+    }
+
+    /// True while a launch is under way but the game is not running yet.
+    public var isLaunching: Bool {
+        switch self {
+        case .startingSteam, .waitingForGame, .preparing: return true
+        default: return false
+        }
+    }
+}
+
+/// A Play launch on its way through Windows Steam.
+public struct LaunchProgress: Equatable, Sendable {
+    public var title: String
+    public var stage: SteamLaunchStage
+    /// Seconds since Play was pressed.
+    public var seconds: Int
+    /// Seconds without any new step from Steam.
+    public var secondsWithoutProgress: Int
+    /// Steam is waiting for an answer in its hidden window (readable description).
+    public var waitingForUser: String?
+    /// Steam reported the launch failed.
+    public var steamFailed: Bool
+
+    /// Long enough without a new step that the user should be offered to look at Steam.
+    public var looksStuck: Bool { waitingForUser != nil || steamFailed || (stage != .updatingGame && secondsWithoutProgress >= 75) }
+
+    public init(title: String, stage: SteamLaunchStage, seconds: Int, secondsWithoutProgress: Int, waitingForUser: String? = nil, steamFailed: Bool = false) {
+        self.title = title
+        self.stage = stage
+        self.seconds = seconds
+        self.secondsWithoutProgress = secondsWithoutProgress
+        self.waitingForUser = waitingForUser
+        self.steamFailed = steamFailed
+    }
 }
 
 /// Safe, 1-click recovery actions derived deterministically from crash/launch logs.
@@ -132,26 +180,43 @@ public enum SelfHealing {
 }
 
 extension GamePort {
-    /// Watches a live Play launch, emitting stage updates and returning a Self-Healing diagnosis on crash/failure.
+    /// Watches a live Play launch: reports Windows Steam's launch steps (from its logs) with timings,
+    /// flags a launch that waits on a hidden Steam prompt or stops progressing, follows the running
+    /// game until it exits, and returns a Self-Healing diagnosis on an early crash.
     public func monitorLaunch(
         profile: Profile,
         recipe: Recipe,
         cefStart: UInt64,
         bootstrapStart: UInt64,
+        marks: SteamLaunchLogMarks? = nil,
         onState: @escaping @Sendable (LaunchState) -> Void
     ) async {
-        onState(.waitingForGame(profileID: profile.id, title: recipe.title))
         let gameLog = profiles.logs(profile.id).appendingPathComponent("game.log")
         let fpsLog = profiles.logs(profile.id).appendingPathComponent("play-fps.log")
         let steamLogs = (try? steam(for: profile.id).logs)
         let cefLog = steamLogs?.appendingPathComponent("cef_log.txt")
         let bootstrapLog = steamLogs?.appendingPathComponent("bootstrap_log.txt")
+        let consoleLog = steamLogs?.appendingPathComponent("console_log.txt")
+        let connectionLog = steamLogs?.appendingPathComponent("connection_log.txt")
+        let contentLog = steamLogs?.appendingPathComponent("content_log.txt")
+        // Without marks taken before Play, start from the logs' current ends (never from old launches).
+        let marks: SteamLaunchLogMarks = marks ?? {
+            var m = steamLaunchLogMarks(profile.id)
+            m.cef = cefStart
+            m.bootstrap = bootstrapStart
+            return m
+        }()
+        let appID = recipe.steamAppID ?? -1
         let hasGPTK = licenses.isAccepted("apple-gptk")
         let startedAt = Date()
+        var lastProgressAt = startedAt
+        var lastSnapshot = SteamLaunchSnapshot()
         var gameStart: Date?
 
+        onState(.preparing(profileID: profile.id, progress: LaunchProgress(title: recipe.title, stage: .startingSteam, seconds: 0, secondsWithoutProgress: 0)))
+
         while !Task.isCancelled {
-            try? await Task.sleep(for: .seconds(3))
+            try? await Task.sleep(for: .seconds(gameStart == nil ? 1 : 3))
             if Task.isCancelled { return }
             let ps = (try? Shell.run("/bin/ps", ["-axo", "pid=,command="], check: false).output) ?? ""
             let active = LabResult.gameProcessIDs(inProcessList: ps)
@@ -163,12 +228,11 @@ extension GamePort {
                 let liveFPS = (try? String(contentsOf: fpsLog, encoding: .utf8))
                     .flatMap { TelemetryStore.parsePlayFPSLog($0, steadyAfter: 5)?.avgFPS }
                 onState(.running(profileID: profile.id, seconds: secs, fps: liveFPS))
-                if secs >= 120 { return }
             } else if let start = gameStart {
                 let played = now.timeIntervalSince(start)
                 let logText = (try? String(contentsOf: gameLog, encoding: .utf8)) ?? ""
-                let cefText = cefLog.map { GamePort.tail(of: $0, from: cefStart) } ?? ""
-                let bootText = bootstrapLog.map { GamePort.tail(of: $0, from: bootstrapStart) } ?? ""
+                let cefText = cefLog.map { GamePort.tail(of: $0, from: marks.cef) } ?? ""
+                let bootText = bootstrapLog.map { GamePort.tail(of: $0, from: marks.bootstrap) } ?? ""
                 let signs = LabTriage.findings(game: logText, cef: cefText, bootstrap: bootText, gameExited: true)
                 if played < 60 && !signs.isEmpty {
                     let snaps = profiles.listSnapshots(profile.id)
@@ -178,19 +242,46 @@ extension GamePort {
                     onState(.idle)
                 }
                 return
-            } else if now.timeIntervalSince(startedAt) >= 120 {
-                let logText = (try? String(contentsOf: gameLog, encoding: .utf8)) ?? ""
-                let cefText = cefLog.map { GamePort.tail(of: $0, from: cefStart) } ?? ""
-                let bootText = bootstrapLog.map { GamePort.tail(of: $0, from: bootstrapStart) } ?? ""
-                let signs = LabTriage.findings(game: logText, cef: cefText, bootstrap: bootText, gameExited: false)
-                let snaps = profiles.listSnapshots(profile.id)
-                let diag = SelfHealing.diagnose(
-                    profile: profile, recipe: recipe,
-                    crashSigns: signs.isEmpty ? ["The game process never started within 2 minutes"] : signs,
-                    logText: logText, snapshots: snaps, hasD3DMetalLicense: hasGPTK
+            } else {
+                let snapshot = SteamLaunchProgress.parse(
+                    appID: appID,
+                    console: consoleLog.map { GamePort.tail(of: $0, from: marks.console) } ?? "",
+                    connection: connectionLog.map { GamePort.tail(of: $0, from: marks.connection) } ?? "",
+                    content: contentLog.map { GamePort.tail(of: $0, from: marks.content) } ?? ""
                 )
-                onState(.needsAttention(profileID: profile.id, diagnosis: diag))
-                return
+                if snapshot != lastSnapshot {
+                    lastSnapshot = snapshot
+                    lastProgressAt = now
+                }
+                let stalled = now.timeIntervalSince(lastProgressAt)
+                let progress = LaunchProgress(
+                    title: recipe.title,
+                    stage: snapshot.stage,
+                    seconds: Int(now.timeIntervalSince(startedAt)),
+                    secondsWithoutProgress: Int(stalled),
+                    waitingForUser: snapshot.waitingForUser.map(SteamLaunchProgress.describePrompt),
+                    steamFailed: snapshot.failed
+                )
+                // Give up only when Steam itself has stopped moving for a long time (updates can run for ages).
+                let giveUp = snapshot.failed ? stalled >= 20
+                    : (snapshot.waitingForUser == nil && snapshot.stage != SteamLaunchStage.updatingGame && stalled >= 180)
+                if giveUp {
+                    let logText = (try? String(contentsOf: gameLog, encoding: .utf8)) ?? ""
+                    let cefText = cefLog.map { GamePort.tail(of: $0, from: marks.cef) } ?? ""
+                    let bootText = bootstrapLog.map { GamePort.tail(of: $0, from: marks.bootstrap) } ?? ""
+                    let signs = LabTriage.findings(game: logText, cef: cefText, bootstrap: bootText, gameExited: false)
+                    let reason = snapshot.failed
+                        ? "Windows Steam reported that the launch failed"
+                        : "Windows Steam stopped at \"\(snapshot.stage.title)\" and the game never started"
+                    let diag = SelfHealing.diagnose(
+                        profile: profile, recipe: recipe,
+                        crashSigns: signs.isEmpty ? [reason] : signs,
+                        logText: logText, snapshots: profiles.listSnapshots(profile.id), hasD3DMetalLicense: hasGPTK
+                    )
+                    onState(.needsAttention(profileID: profile.id, diagnosis: diag))
+                    return
+                }
+                onState(.preparing(profileID: profile.id, progress: progress))
             }
         }
     }
