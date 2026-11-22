@@ -1,4 +1,5 @@
 #if os(macOS)
+import AppKit
 import SwiftUI
 import GamePortKit
 
@@ -64,6 +65,7 @@ struct PlayGuideView: View {
                 if let profile {
                     LaunchStatusView(profile: profile, recipe: recipe)
                 }
+                ExternalLauncherBar(recipe: recipe)
             }
         }
         .task(id: Observation(revision: model.revision, phase: scenePhase)) {
@@ -158,6 +160,12 @@ struct LaunchStatusView: View {
                         }
                     }
                     HStack {
+                        Button("Copy Diagnostic Report") {
+                            let report = model.gameport.diagnosticReport(profileID: profile.id, diagnosis: diagnosis)
+                            NSPasteboard.general.clearContents()
+                            NSPasteboard.general.setString(report, forType: .string)
+                            model.say("✓ Copied privacy-redacted diagnostic report to clipboard")
+                        }.controlSize(.small)
                         Spacer()
                         Button("Dismiss") { model.launchState = .idle }.controlSize(.small)
                     }
@@ -165,6 +173,62 @@ struct LaunchStatusView: View {
             }.padding(.top, 6)
         default:
             EmptyView()
+        }
+    }
+}
+
+struct ExternalLauncherBar: View {
+    @EnvironmentObject var model: AppModel
+    let recipe: Recipe
+
+    var body: some View {
+        let ac = AntiCheatDB.bundled.entry(for: recipe)
+        let suggestObelisk = ExternalEnvironment.suggestsObelisk(for: ac)
+        let macGame = recipe.steamAppID.flatMap { model.externalEnv.macSteamGame(appID: $0) }
+        let cxBottle = recipe.steamAppID.flatMap { model.externalEnv.crossoverBottle(containingAppID: $0) }
+
+        if suggestObelisk || macGame != nil || cxBottle != nil {
+            VStack(alignment: .leading, spacing: 6) {
+                if suggestObelisk {
+                    HStack(spacing: 8) {
+                        Image(systemName: "shield.lefthalf.filled")
+                            .foregroundStyle(.blue)
+                        Text("Linux-supported anti-cheat (\(ac?.antiCheats.joined(separator: ", ") ?? "EAC/BattlEye")): can also run via Obelisk's Linux runtime.")
+                            .font(.caption).foregroundStyle(.secondary)
+                        Spacer()
+                        if let obelisk = model.externalEnv.obeliskApp {
+                            Button("Run with Obelisk") { NSWorkspace.shared.open(obelisk) }
+                                .controlSize(.small)
+                        } else if let url = URL(string: ExternalEnvironment.obeliskWebsite) {
+                            Link("Get Obelisk…", destination: url)
+                                .font(.caption.weight(.semibold))
+                        }
+                    }
+                }
+                if let macGame, let steamURL = URL(string: "steam://rungameid/\(macGame.appID)") {
+                    HStack(spacing: 8) {
+                        Image(systemName: "desktopcomputer").foregroundStyle(.green)
+                        Text("Also installed in Mac Steam\(model.externalEnv.notProtonInstalled ? " (NotProton available)" : "").")
+                            .font(.caption).foregroundStyle(.secondary)
+                        Spacer()
+                        Button("Play in Mac Steam") { NSWorkspace.shared.open(steamURL) }
+                            .controlSize(.small)
+                    }
+                }
+                if let cxBottle, let cxApp = model.externalEnv.crossoverApp {
+                    HStack(spacing: 8) {
+                        Image(systemName: "shippingbox").foregroundStyle(.orange)
+                        Text("Also installed in CrossOver bottle \"\(cxBottle.name)\".")
+                            .font(.caption).foregroundStyle(.secondary)
+                        Spacer()
+                        Button("Open CrossOver") { NSWorkspace.shared.open(cxApp) }
+                            .controlSize(.small)
+                    }
+                }
+            }
+            .padding(8)
+            .background(.quaternary.opacity(0.35), in: RoundedRectangle(cornerRadius: 8))
+            .padding(.top, 4)
         }
     }
 }

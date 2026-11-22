@@ -13,6 +13,27 @@ struct SetupView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
                 Text("Setup").font(.largeTitle.bold())
+                if model.engines.isEmpty || model.steamBase == nil {
+                    GroupBox {
+                        HStack(alignment: .center, spacing: 16) {
+                            Image(systemName: "sparkles")
+                                .font(.title).foregroundStyle(.blue)
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Get Ready in 1 Click").font(.headline)
+                                Text("Automatically installs the recommended engine and prepares the shared Steam base — no Wine tinkering required.")
+                                    .font(.callout).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Button {
+                                model.job("Guided setup") { k, p in try await k.guidedSetup(progress: p) }
+                            } label: {
+                                Label("Set up GamePort", systemImage: "arrow.down.circle.fill")
+                            }
+                            .buttonStyle(.borderedProminent).controlSize(.large)
+                            .disabled(model.busy != nil)
+                        }.padding(6)
+                    }
+                }
                 GroupBox("System") {
                     VStack(alignment: .leading, spacing: 6) {
                         ForEach(model.checks, id: \.name) { c in
@@ -174,6 +195,82 @@ struct SetupView: View {
                             if model.gptkAccepted {
                                 Label("Accepted", systemImage: "checkmark.seal.fill").foregroundStyle(.green)
                                 Button("Revoke") { try? model.gameport.licenses.revoke("apple-gptk"); model.refresh() }
+                            }
+                        }
+                    }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
+                }
+                GroupBox("External Launchers & Experimental Runners") {
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                HStack(spacing: 6) {
+                                    Text("AArchX (No-Rosetta Experimental Runner)").font(.headline)
+                                    Text("LGPL-2.1 · 7.7 MB").font(.caption).foregroundStyle(.secondary)
+                                }
+                                Text("Optional x86-64 → arm64 JIT translator (ocerz / -fex) for macOS 26+ testing without Rosetta.")
+                                    .font(.caption).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            if model.aarchxInstalled {
+                                Label(model.aarchxVersion ?? "Installed", systemImage: "checkmark.seal.fill")
+                                    .font(.caption.weight(.semibold)).foregroundStyle(.green)
+                                Button("Remove", role: .destructive) {
+                                    try? model.gameport.aarchx.remove()
+                                    model.refresh()
+                                    model.say("✓ Removed AArchX")
+                                }.disabled(model.busy != nil)
+                            } else {
+                                Button("Install AArchX") {
+                                    model.job("Installing AArchX") { k, p in
+                                        _ = try await k.aarchx.install(progress: p)
+                                        return "AArchX installed"
+                                    }
+                                }.disabled(model.busy != nil)
+                            }
+                        }
+                        Divider()
+                        HStack {
+                            Label(
+                                model.externalEnv.hasObelisk
+                                    ? "Obelisk: installed (available for Linux anti-cheat games like Rocket League)"
+                                    : "Obelisk: not installed (optional for Linux-EAC games)",
+                                systemImage: model.externalEnv.hasObelisk ? "checkmark.circle.fill" : "arrow.up.right.square"
+                            )
+                            .foregroundStyle(model.externalEnv.hasObelisk ? Color.primary : Color.secondary)
+                            Spacer()
+                            if let app = model.externalEnv.obeliskApp {
+                                Button("Open Obelisk") { NSWorkspace.shared.open(app) }
+                            } else if let url = URL(string: ExternalEnvironment.obeliskWebsite) {
+                                Link("Get Obelisk…", destination: url)
+                            }
+                        }
+                        HStack {
+                            let bottles = model.externalEnv.crossoverBottles.count
+                            Label(
+                                model.externalEnv.hasCrossOver
+                                    ? "CrossOver: installed (\(bottles) \(bottles == 1 ? "bottle" : "bottles") detected)"
+                                    : "CrossOver: not detected",
+                                systemImage: model.externalEnv.hasCrossOver ? "checkmark.circle.fill" : "circle"
+                            )
+                            .foregroundStyle(model.externalEnv.hasCrossOver ? Color.primary : Color.secondary)
+                            Spacer()
+                            if let app = model.externalEnv.crossoverApp {
+                                Button("Open CrossOver") { NSWorkspace.shared.open(app) }
+                            }
+                        }
+                        HStack {
+                            let games = model.externalEnv.macSteamGames.count
+                            let np = model.externalEnv.notProtonInstalled ? " · NotProton detected" : ""
+                            Label(
+                                model.externalEnv.hasMacSteam
+                                    ? "Mac Steam: installed (\(games) \(games == 1 ? "game" : "games") detected\(np))"
+                                    : "Mac Steam: not detected",
+                                systemImage: model.externalEnv.hasMacSteam ? "checkmark.circle.fill" : "circle"
+                            )
+                            .foregroundStyle(model.externalEnv.hasMacSteam ? Color.primary : Color.secondary)
+                            Spacer()
+                            if let app = model.externalEnv.macSteamApp {
+                                Button("Open Mac Steam") { NSWorkspace.shared.open(app) }
                             }
                         }
                     }.frame(maxWidth: .infinity, alignment: .leading).padding(4)

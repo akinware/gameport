@@ -22,6 +22,9 @@ final class AppModel: ObservableObject {
     @Published var storageInfo: StorageInfo = StorageInfo.inspect(Paths.default().root, isCustom: StoragePreference.load().customRoot != nil)
     @Published var launchState: LaunchState = .idle
     @Published var communityVerdicts: [Int: [CommunityVerdict]] = [:]
+    @Published var externalEnv: ExternalEnvironment = .empty
+    @Published var aarchxInstalled = false
+    @Published var aarchxVersion: String?
     private(set) var engineProfiles: [String: [Profile]] = [:]
     private var launchMonitorTask: Task<Void, Never>?
 
@@ -61,6 +64,9 @@ final class AppModel: ObservableObject {
         gptkAccepted = gameport.licenses.isAccepted("apple-gptk")
         telemetryEnabled = gameport.telemetry.load().enabled
         steamBase = (try? gameport.steamBase()).flatMap { $0.isReady ? $0.stamp : nil }
+        aarchxInstalled = gameport.aarchx.isInstalled
+        aarchxVersion = gameport.aarchx.versionString()
+        externalEnv = ExternalDiscovery.scan()
         engineProfiles = profiles.reduce(into: [:]) { groups, profile in
             if let id = profile.recipeID { groups[id, default: []].append(profile) }
         }
@@ -109,6 +115,17 @@ final class AppModel: ObservableObject {
                 await MainActor.run { self.launchGame(profile: updated, recipe: recipe) }
             }
             return msg
+        }
+    }
+
+    func updateProfile(_ profileID: String, mutate: (inout Profile) -> Void) {
+        do {
+            var p = try gameport.profiles.load(profileID)
+            mutate(&p)
+            try gameport.profiles.save(p)
+            refresh()
+        } catch {
+            say("✗ \(error)")
         }
     }
 

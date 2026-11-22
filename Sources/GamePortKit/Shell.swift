@@ -57,6 +57,7 @@ public enum Shell {
         process.executableURL = URL(fileURLWithPath: executable)
         process.arguments = arguments
         process.environment = environment
+        process.qualityOfService = .userInteractive
         if let currentDirectory { process.currentDirectoryURL = currentDirectory }
         try FileManager.default.createDirectory(at: log.deletingLastPathComponent(), withIntermediateDirectories: true)
         FileManager.default.createFile(atPath: log.path, contents: nil)

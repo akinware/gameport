@@ -9,6 +9,7 @@ public struct GamePort: Sendable {
     public var profiles: ProfileStore { ProfileStore(paths: paths) }
     public var licenses: LicenseStore { LicenseStore(paths: paths) }
     public var telemetry: TelemetryStore { TelemetryStore(paths: paths) }
+    public var aarchx: AArchXStore { AArchXStore(paths: paths) }
     public var catalog: RecipeCatalog { RecipeCatalog.load(paths: paths) }
 
     /// The engine new profiles use: the first bundled manifest.
@@ -45,6 +46,25 @@ public struct GamePort: Sendable {
     public func installDefaultEngine(progress: ProgressHandler? = nil) async throws -> InstalledEngine {
         guard let manifest = defaultManifest else { throw GamePortError.missing("bundled engine manifest") }
         return try await engines.install(manifest, progress: progress)
+    }
+
+    /// One-click guided setup: installs the default engine (if none installed) and builds the Steam base (if not ready).
+    @discardableResult
+    public func guidedSetup(progress: ProgressHandler? = nil) async throws -> String {
+        if engines.installed().isEmpty {
+            progress?("Step 1/2: Installing engine…")
+            _ = try await installDefaultEngine(progress: progress)
+        } else {
+            progress?("Step 1/2: Engine already installed")
+        }
+        let base = try steamBase()
+        if !base.isReady {
+            progress?("Step 2/2: Preparing shared Steam base (first-time download & update)…")
+            try await base.build(progress: progress)
+        } else {
+            progress?("Step 2/2: Steam base already ready")
+        }
+        return "GamePort is ready — pick any game to play!"
     }
 
     /// Unified catalog of bundled engines + any installed custom/community engines.

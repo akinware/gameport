@@ -34,6 +34,48 @@ struct AdvancedView: View {
                         model.job("Stopping") { k, _ in try k.stop(profile.id); return "Stopped" }
                     }.disabled(model.busy != nil)
                     Button("Show logs") { NSWorkspace.shared.open(model.gameport.profiles.logs(profile.id)) }
+                    Button("Copy diagnostic report") {
+                        let report = model.gameport.diagnosticReport(profileID: profile.id)
+                        NSPasteboard.general.clearContents()
+                        NSPasteboard.general.setString(report, forType: .string)
+                        model.say("✓ Copied diagnostic report to clipboard")
+                    }
+                }
+                GroupBox("Apple Silicon Performance Pack") {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Toggle("Schedule on Performance cores (P-cores)", isOn: Binding(
+                            get: { profile.performanceCores ?? true },
+                            set: { on in model.updateProfile(profile.id) { $0.performanceCores = on } }
+                        ))
+                        Picker("Display scaling", selection: Binding<Int>(
+                            get: { profile.retinaMode == nil ? 0 : (profile.retinaMode == true ? 2 : 1) },
+                            set: { v in
+                                model.updateProfile(profile.id) {
+                                    $0.retinaMode = v == 0 ? nil : (v == 2)
+                                }
+                            }
+                        )) {
+                            Text("Auto (game default)").tag(0)
+                            Text("1× Native (faster on Retina displays)").tag(1)
+                            Text("Retina HiDPI (sharper)").tag(2)
+                        }
+                        Toggle("MetalFX Upscaling (DXMT / D3DMetal)", isOn: Binding(
+                            get: { profile.metalFX == true },
+                            set: { on in model.updateProfile(profile.id) { $0.metalFX = on ? true : nil } }
+                        ))
+                        Picker("Execution runner", selection: Binding<ExecutionRunner>(
+                            get: { profile.executionRunner ?? .rosetta },
+                            set: { r in model.updateProfile(profile.id) { $0.executionRunner = r == .rosetta ? nil : r } }
+                        )) {
+                            ForEach(ExecutionRunner.allCases, id: \.self) { r in
+                                Text(r.displayName).tag(r)
+                            }
+                        }
+                        if (profile.executionRunner ?? .rosetta) != .rosetta && !model.aarchxInstalled {
+                            Text("AArchX is not installed yet — install it under Setup → External Launchers & Experimental Runners.")
+                                .font(.caption).foregroundStyle(.orange)
+                        }
+                    }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
                 }
                 if recipe.configDefaults != nil {
                     Button("Apply missing recipe settings") {

@@ -19,6 +19,15 @@ public struct Profile: Codable, Sendable, Equatable, Identifiable {
     public var vulkanDriver: VulkanDriver?
     /// Daily snapshot before Steam starts (nil = on). Optional so older profile.json files still decode.
     public var autoSnapshots: Bool?
+    /// Apple Silicon Performance Pack overrides (all optional for backwards compatibility).
+    /// nil = on (schedule game processes on Performance cores via `taskpolicy`).
+    public var performanceCores: Bool?
+    /// nil = unchanged; false = force 1x Native (faster on Retina MacBooks); true = HiDPI Retina.
+    public var retinaMode: Bool?
+    /// nil = off; true = enable MetalFX upscaling (DXMT spatial + D3DMetal MetalFX).
+    public var metalFX: Bool?
+    /// nil = Rosetta 2 (default). Optional experimental AArchX (`ocerz` / `ocerz -fex`) runner.
+    public var executionRunner: ExecutionRunner?
     public var environment: [String: String] = [:]
     public var createdAt: Date = Date()
 

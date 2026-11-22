@@ -225,4 +225,36 @@ extension GamePort {
             return "Restored snapshot \(name)"
         }
     }
+
+    /// Builds a privacy-redacted diagnostic report suitable for pasting into GitHub issues or sharing.
+    public func diagnosticReport(profileID: String, diagnosis: LaunchDiagnosis? = nil) -> String {
+        let profile = try? profiles.load(profileID)
+        let recipe = profile?.recipeID.flatMap { catalog[$0] }
+        let userHome = FileManager.default.homeDirectoryForCurrentUser.path
+        let userName = NSUserName()
+        func redact(_ s: String) -> String {
+            var out = s.replacingOccurrences(of: userHome, with: "~")
+            if !userName.isEmpty { out = out.replacingOccurrences(of: "/Users/\(userName)", with: "/Users/<redacted>") }
+            return out
+        }
+
+        var lines: [String] = [
+            "### \(Brand.displayName) Diagnostic Report",
+            "- **Hardware:** \(Shell.machineDescription) (\(TelemetryReport.currentRAMGB()) GB RAM)",
+            "- **macOS:** \(Shell.macOSVersionString)",
+            "- **Game:** \(recipe?.title ?? profile?.title ?? profileID) (Steam AppID: \(recipe?.steamAppID.map(String.init) ?? "n/a"))",
+            "- **Engine:** \(profile?.engineID ?? "unknown")",
+            "- **Renderer / Sync:** \((profile?.renderer ?? recipe?.renderer ?? .dxmt).rawValue) / \((profile?.sync ?? recipe?.sync ?? .msync).rawValue)",
+            "- **Performance Pack:** P-cores=\((profile?.performanceCores ?? true) ? "on" : "off"), Retina=\(profile?.retinaMode.map { $0 ? "HiDPI" : "1x" } ?? "auto"), MetalFX=\(profile?.metalFX == true ? "on" : "off"), Runner=\((profile?.executionRunner ?? .rosetta).rawValue)",
+        ]
+        if let diagnosis {
+            lines.append("- **Diagnosis:** \(diagnosis.headline) — \(diagnosis.explanation)")
+        }
+        let gameLog = profiles.logs(profileID).appendingPathComponent("game.log")
+        if let raw = try? String(contentsOf: gameLog, encoding: .utf8), !raw.isEmpty {
+            let tail = raw.split(whereSeparator: \.isNewline).suffix(50).joined(separator: "\n")
+            lines.append("\n#### Last 50 lines of game.log\n```text\n\(redact(tail))\n```")
+        }
+        return lines.joined(separator: "\n")
+    }
 }

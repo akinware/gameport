@@ -6,6 +6,7 @@ let usage = """
 \(Brand.displayName): runs Windows games on Apple Silicon Macs.
 
 Usage:
+  \(cli) setup                          One-click guided setup (default engine + Steam base)
   \(cli) doctor                         Check system requirements
   \(cli) engine available               List bundled and installed engines
   \(cli) engine install [id|manifest]   Install the default engine, a bundled engine id, or a manifest.json
@@ -40,6 +41,9 @@ Usage:
   \(cli) vulkan <profile> [driver]      Vulkan driver for the game: moltenvk (default) or kosmickrisp (experimental)
   \(cli) telemetry [status|on|off|preview|reset-id]  Anonymous FPS & compatibility sharing (default: on)
   \(cli) storage [status|set <folder>|reset]  Choose an External APFS SSD or custom data folder
+  \(cli) perf <profile> [pcores|retina|metalfx|runner] [value]  Apple Silicon performance settings
+  \(cli) aarchx [status|install|remove] Experimental No-Rosetta x86-64 runner (LGPL-2.1)
+  \(cli) external                       Detect Obelisk, CrossOver bottles, Mac Steam & NotProton
   \(cli) env <profile>                  Show the game's environment variables
   \(cli) run <profile> <windows command…>  Run a Windows program in a profile
 
@@ -70,6 +74,10 @@ func arg(_ i: Int, _ name: String) -> String {
 
 do {
     switch command {
+    case "setup":
+        let msg = try await gameport.guidedSetup(progress: progress)
+        print("✓ \(msg)")
+
     case "doctor":
         var allOK = true
         for c in gameport.doctor() {
@@ -416,6 +424,73 @@ do {
             let info = try StorageInfo.resetToDefault()
             print("✓ Storage reset to default: \(info.root.path)")
         default: fail(usage)
+        }
+
+    case "perf":
+        let id = arg(0, "profile")
+        var profile = try gameport.profiles.load(id)
+        if args.count == 1 {
+            print("Profile:   \(id)")
+            print("P-cores:   \((profile.performanceCores ?? true) ? "on" : "off")")
+            print("Retina:    \(profile.retinaMode.map { $0 ? "hidpi" : "1x" } ?? "auto")")
+            print("MetalFX:   \(profile.metalFX == true ? "on" : "off")")
+            print("Runner:    \((profile.executionRunner ?? .rosetta).rawValue)")
+        } else {
+            let key = arg(1, "pcores|retina|metalfx|runner").lowercased()
+            let val = arg(2, "value").lowercased()
+            switch key {
+            case "pcores":
+                guard ["on", "off"].contains(val) else { fail("pcores expects on|off") }
+                profile.performanceCores = (val == "on")
+            case "retina":
+                switch val {
+                case "auto": profile.retinaMode = nil
+                case "1x", "off": profile.retinaMode = false
+                case "hidpi", "on": profile.retinaMode = true
+                default: fail("retina expects auto|1x|hidpi")
+                }
+            case "metalfx":
+                guard ["on", "off"].contains(val) else { fail("metalfx expects on|off") }
+                profile.metalFX = val == "on" ? true : nil
+            case "runner":
+                guard let runner = ExecutionRunner(rawValue: val) else {
+                    fail("runner expects one of " + ExecutionRunner.allCases.map(\.rawValue).joined(separator: ", "))
+                }
+                profile.executionRunner = runner == .rosetta ? nil : runner
+            default: fail(usage)
+            }
+            try gameport.profiles.save(profile)
+            print("✓ Updated \(id): \(key)=\(val)")
+        }
+
+    case "aarchx":
+        let action = args.first ?? "status"
+        switch action {
+        case "status":
+            if let bin = gameport.aarchx.binaryURL() {
+                print("AArchX: installed (\(gameport.aarchx.versionString() ?? "unknown")) at \(bin.path)")
+            } else {
+                print("AArchX: not installed. Run `\(cli) aarchx install` (7.7 MB, SHA-256 verified, LGPL-2.1).")
+            }
+        case "install":
+            let bin = try await gameport.aarchx.install(progress: progress)
+            print("✓ Installed AArchX at \(bin.path)")
+        case "remove":
+            try gameport.aarchx.remove()
+            print("✓ Removed AArchX")
+        default: fail(usage)
+        }
+
+    case "external":
+        let env = ExternalDiscovery.scan()
+        print("Obelisk:   \(env.obeliskApp?.path ?? "not installed (\(ExternalEnvironment.obeliskWebsite))")")
+        print("CrossOver: \(env.crossoverApp?.path ?? "not installed") (\(env.crossoverBottles.count) bottles)")
+        for b in env.crossoverBottles {
+            print("  • bottle \(b.name): \(b.steamGames.count) Steam games")
+        }
+        print("Mac Steam: \(env.macSteamApp?.path ?? "not installed") (\(env.macSteamGames.count) games\(env.notProtonInstalled ? ", NotProton detected" : ""))")
+        for g in env.macSteamGames.prefix(15) {
+            print("  • \(g.name) (\(g.appID))")
         }
 
     case "env":

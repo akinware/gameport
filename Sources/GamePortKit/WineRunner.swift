@@ -21,6 +21,8 @@ public struct WineRunner: Sendable {
     public var effectiveRenderer: Renderer { profile.renderer ?? recipe?.renderer ?? .dxmt }
     public var effectiveSync: SyncMode { profile.sync ?? recipe?.sync ?? .msync }
     public var effectiveVulkanDriver: VulkanDriver { profile.vulkanDriver ?? .moltenvk }
+    public var effectivePerformanceCores: Bool { profile.performanceCores ?? true }
+    public var effectiveExecutionRunner: ExecutionRunner { profile.executionRunner ?? .rosetta }
 
     /// Layers, later wins: engine base → isolation → sync → renderer → recipe → player.
     public func environment(sync overrideSync: SyncMode? = nil, extra: [String: String] = [:]) throws -> [String: String] {
@@ -28,13 +30,17 @@ public struct WineRunner: Sendable {
         if let license = renderer.gatingLicense(in: engine.manifest), !LicenseStore(paths: paths).isAccepted(license) {
             throw GamePortError.licenseNotAccepted(license)
         }
+        let cacheRoot = home.appendingPathComponent("cache", isDirectory: true)
         var env: [String: String] = [
             "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
             "LANG": ProcessInfo.processInfo.environment["LANG"] ?? "en_US.UTF-8",
             "USER": ProcessInfo.processInfo.environment["USER"] ?? NSUserName(),
             "HOME": home.path,
             "TMPDIR": home.appendingPathComponent("tmp").path,
-            "XDG_CACHE_HOME": home.appendingPathComponent("cache").path,
+            "XDG_CACHE_HOME": cacheRoot.path,
+            // Persistent per-profile shader caches so compiled Metal/Vulkan pipelines survive restarts.
+            "DXVK_STATE_CACHE_PATH": cacheRoot.appendingPathComponent("dxvk").path,
+            "DXMT_SHADER_CACHE_PATH": cacheRoot.appendingPathComponent("dxmt").path,
             "WINEPREFIX": prefix.path,
             "WINEDEBUG": "fixme-all",
             // Never let Wine scatter .desktop/menu entries into the user's system.
@@ -53,6 +59,11 @@ public struct WineRunner: Sendable {
         if (profile.advertiseAVX ?? recipe?.advertiseAVX ?? false), engine.manifest.requiresRosetta {
             env["ROSETTA_ADVERTISE_AVX"] = "1"
         }
+        if profile.metalFX == true {
+            env["DXMT_METALFX_SPATIAL_SWAPCHAIN"] = "1"
+            env["DXMT_ENABLE_NVEXT"] = "1"
+            env["D3DM_ENABLE_METALFX"] = "1"
+        }
         if profile.metalHUD { env["MTL_HUD_ENABLED"] = "1" }
         if effectiveVulkanDriver == .kosmickrisp {
             guard let shim = engine.kosmicKrispShim else {
@@ -70,25 +81,46 @@ public struct WineRunner: Sendable {
         return env
     }
 
+    /// Resolves the final executable and argument list, applying optional AArchX translation and
+    /// macOS Performance-core QoS scheduling (`taskpolicy -a -t 5 -l 5`) when requested.
+    public func resolvedCommand(arguments: [String], applyPerformanceCores: Bool) throws -> (executable: String, arguments: [String]) {
+        var exec = engine.wine.path
+        var args = arguments
+        if engine.manifest.requiresRosetta, effectiveExecutionRunner != .rosetta {
+            let wrapped = try AArchXStore(paths: paths).wrap(executable: exec, arguments: args, runner: effectiveExecutionRunner)
+            exec = wrapped.executable
+            args = wrapped.arguments
+        }
+        #if os(macOS)
+        if applyPerformanceCores && effectivePerformanceCores && FileManager.default.isExecutableFile(atPath: "/usr/sbin/taskpolicy") {
+            return ("/usr/sbin/taskpolicy", ["-a", "-t", "5", "-l", "5", exec] + args)
+        }
+        #endif
+        return (exec, args)
+    }
+
     /// Runs a Wine command to completion (wineboot, reg, installers).
     @discardableResult
     public func run(_ arguments: [String], sync: SyncMode? = nil, extra: [String: String] = [:], check: Bool = true) throws -> Shell.Result {
         try prepareDirectories()
-        return try Shell.run(engine.wine.path, arguments, environment: try environment(sync: sync, extra: extra), check: check)
+        let cmd = try resolvedCommand(arguments: arguments, applyPerformanceCores: false)
+        return try Shell.run(cmd.executable, cmd.arguments, environment: try environment(sync: sync, extra: extra), check: check)
     }
 
     /// Runs a Wine command to completion with its output streamed live to the terminal (`gameport run`).
     @discardableResult
     public func runAttached(_ arguments: [String], sync: SyncMode? = nil, extra: [String: String] = [:]) throws -> Int32 {
         try prepareDirectories()
-        return try Shell.runAttached(engine.wine.path, arguments, environment: try environment(sync: sync, extra: extra))
+        let cmd = try resolvedCommand(arguments: arguments, applyPerformanceCores: true)
+        return try Shell.runAttached(cmd.executable, cmd.arguments, environment: try environment(sync: sync, extra: extra))
     }
 
     /// Starts a Wine program and returns at once; output goes to the profile's log.
     public func spawn(_ arguments: [String], sync: SyncMode? = nil, extra: [String: String] = [:], logName: String) throws -> Process {
         try prepareDirectories()
         let log = logs.appendingPathComponent(logName)
-        return try Shell.spawn(engine.wine.path, arguments, environment: try environment(sync: sync, extra: extra), log: log)
+        let cmd = try resolvedCommand(arguments: arguments, applyPerformanceCores: true)
+        return try Shell.spawn(cmd.executable, cmd.arguments, environment: try environment(sync: sync, extra: extra), log: log)
     }
 
     func prepareDirectories() throws {
@@ -96,8 +128,44 @@ public struct WineRunner: Sendable {
             try engine.checkHost()
             try engine.checkFiles()
         }
-        try paths.ensure(home, home.appendingPathComponent("tmp"), home.appendingPathComponent("cache"), logs)
+        let cacheRoot = home.appendingPathComponent("cache", isDirectory: true)
+        try paths.ensure(
+            home,
+            home.appendingPathComponent("tmp"),
+            cacheRoot,
+            cacheRoot.appendingPathComponent("dxvk"),
+            cacheRoot.appendingPathComponent("dxmt"),
+            logs
+        )
         try RendererStager.sync(renderer: effectiveRenderer, engine: engine, prefix: prefix)
+        applyRetinaModeIfConfigured()
+    }
+
+    /// Writes `HKCU\Software\Wine\Mac Driver` `"RetinaMode"="Y"|"N"` directly in `user.reg` when configured.
+    func applyRetinaModeIfConfigured() {
+        guard let retina = profile.retinaMode else { return }
+        let userReg = prefix.appendingPathComponent("user.reg")
+        guard var content = try? String(contentsOf: userReg, encoding: .utf8) else { return }
+        let desired = retina ? "\"RetinaMode\"=\"Y\"" : "\"RetinaMode\"=\"N\""
+        let header = "[Software\\\\Wine\\\\Mac Driver]"
+        if let range = content.range(of: header) {
+            let sectionStart = range.lowerBound
+            let rest = content[range.upperBound...]
+            let sectionEnd = rest.range(of: "\n[")?.lowerBound ?? content.endIndex
+            var section = String(content[sectionStart..<sectionEnd])
+            if let existing = section.range(of: #""RetinaMode"="[^"]*""#, options: .regularExpression) {
+                guard String(section[existing]) != desired else { return }
+                section.replaceSubrange(existing, with: desired)
+            } else {
+                if !section.hasSuffix("\n") { section.append("\n") }
+                section.append(desired + "\n")
+            }
+            content.replaceSubrange(sectionStart..<sectionEnd, with: section)
+        } else {
+            if !content.hasSuffix("\n") { content.append("\n") }
+            content.append("\n\(header)\n\(desired)\n")
+        }
+        try? content.write(to: userReg, atomically: true, encoding: .utf8)
     }
 
     /// Creates or updates the prefix.

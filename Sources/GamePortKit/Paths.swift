@@ -42,6 +42,7 @@ public struct Paths: Sendable {
     public var bases: URL { root.appendingPathComponent("bases", isDirectory: true) }
     public var licenses: URL { root.appendingPathComponent("licenses", isDirectory: true) }
     public var db: URL { root.appendingPathComponent("db", isDirectory: true) }
+    public var tools: URL { root.appendingPathComponent("tools", isDirectory: true) }
     public var temp: URL { root.appendingPathComponent("tmp", isDirectory: true) }
 
     public func engine(_ id: String) -> URL { engines.appendingPathComponent(id, isDirectory: true) }
