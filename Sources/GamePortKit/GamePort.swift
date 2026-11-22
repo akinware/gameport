@@ -11,6 +11,8 @@ public struct GamePort: Sendable {
     public var telemetry: TelemetryStore { TelemetryStore(paths: paths) }
     public var aarchx: AArchXStore { AArchXStore(paths: paths) }
     public var x87sidecar: X87SidecarStore { X87SidecarStore(paths: paths) }
+    public var steamBridge: SteamBridge { SteamBridge(paths: paths) }
+    public var steamDepot: SteamDepotManager { SteamDepotManager(paths: paths) }
     public var catalog: RecipeCatalog { RecipeCatalog.load(paths: paths) }
 
     /// The engine new profiles use: the first bundled manifest.
@@ -333,5 +335,44 @@ public struct GamePort: Sendable {
 
     public func steam(for profileID: String) throws -> SteamClient {
         SteamClient(runner: try runner(for: profileID))
+    }
+
+    /// Launches a Windows Steam game directly through GamePort's clean-room Steamworks Bridge
+    /// (zero Windows Steam running in RAM), forwarding Steamworks calls to untouched native Mac Steam.
+    public func launchWithSteamBridge(
+        _ profileID: String,
+        executable: URL? = nil,
+        depotDirectory: URL? = nil,
+        allowVACOverride: Bool = false,
+        verboseLog: Bool = false,
+        progress: ProgressHandler? = nil
+    ) throws -> Process {
+        let r = try runner(for: profileID)
+        guard let appID = r.recipe?.steamAppID else {
+            throw GamePortError.invalid("profile \(profileID) has no Steam AppID recipe")
+        }
+        let ac = r.recipe.flatMap { AntiCheatDB.bundled.entry(for: $0) } ?? AntiCheatDB.bundled.entry(steamAppID: appID)
+        let targetExe: URL
+        if let executable {
+            targetExe = executable
+        } else {
+            let searchRoot = depotDirectory ?? paths.tools.appendingPathComponent("depots/\(appID)", isDirectory: true)
+            guard let found = SteamDepotManager.discoverMainExecutable(in: searchRoot, preferredName: r.recipe?.title) else {
+                throw GamePortError.missing("could not find a Windows .exe in \(searchRoot.path); pass --exe or download the depot first")
+            }
+            targetExe = found
+        }
+        if let s = autoSnapshot(profileID) { progress?("Automatic snapshot: \(s.name)") }
+        progress?("Launching \(targetExe.lastPathComponent) via GamePort Steam Bridge (zero Windows Steam) on \(r.engine.id)…")
+        let proc = try steamBridge.launch(
+            runner: r,
+            executable: targetExe,
+            appID: appID,
+            antiCheat: ac,
+            allowVACOverride: allowVACOverride,
+            verboseLog: verboseLog
+        )
+        recordLaunch(requested: profileID, actual: profileID)
+        return proc
     }
 }

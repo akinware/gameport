@@ -27,6 +27,7 @@ final class AppModel: ObservableObject {
     @Published var aarchxVersion: String?
     @Published var x87Installed = false
     @Published var x87Version: String?
+    @Published var bridgeStatus: SteamBridgeStatus = SteamBridge(paths: Paths.default()).status()
     private(set) var engineProfiles: [String: [Profile]] = [:]
     private var launchMonitorTask: Task<Void, Never>?
 
@@ -70,6 +71,7 @@ final class AppModel: ObservableObject {
         aarchxVersion = gameport.aarchx.versionString()
         x87Installed = gameport.x87sidecar.isInstalled
         x87Version = gameport.x87sidecar.versionString()
+        bridgeStatus = gameport.steamBridge.status()
         externalEnv = ExternalDiscovery.scan()
         engineProfiles = profiles.reduce(into: [:]) { groups, profile in
             if let id = profile.recipeID { groups[id, default: []].append(profile) }

@@ -186,6 +186,55 @@ struct SetupView: View {
                         }
                     }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
                 }
+                GroupBox("GamePort Steam Bridge (Zero Windows Steam · Clean-Room)") {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Forwards Windows Steamworks calls (`steamclient64.dll` → `steamclient64.so`) directly to your untouched native Mac Steam (`steamclient.dylib`), without patching Steam.app or running Windows Steam in RAM. VAC multiplayer games automatically stay on isolated Windows Steam.")
+                            .foregroundStyle(.secondary)
+                        Label(
+                            model.bridgeStatus.readinessSummary,
+                            systemImage: model.bridgeStatus.isReadyToLaunch ? "checkmark.seal.fill" : "bolt.horizontal.circle"
+                        )
+                        .foregroundStyle(model.bridgeStatus.isReadyToLaunch ? .green : .secondary)
+                        HStack(spacing: 10) {
+                            Label(
+                                model.bridgeStatus.overlayInstalled ? "Bridge DLL/SO built" : "Overlay not built",
+                                systemImage: model.bridgeStatus.overlayInstalled ? "checkmark.circle.fill" : "circle"
+                            ).font(.caption).foregroundStyle(model.bridgeStatus.overlayInstalled ? .green : .secondary)
+                            Label(
+                                model.bridgeStatus.steamClientDylib != nil
+                                    ? (model.bridgeStatus.steamClientHasX86_64 ? "Mac steamclient.dylib (x86_64)" : "Mac steamclient.dylib (no x86_64)")
+                                    : "Mac Steam not found",
+                                systemImage: model.bridgeStatus.steamClientHasX86_64 ? "checkmark.circle.fill" : "exclamationmark.triangle"
+                            ).font(.caption).foregroundStyle(model.bridgeStatus.steamClientHasX86_64 ? .green : .orange)
+                            Label(
+                                model.bridgeStatus.steamCmdInstalled ? "steamcmd ready" : "steamcmd not installed",
+                                systemImage: model.bridgeStatus.steamCmdInstalled ? "checkmark.circle.fill" : "arrow.down.circle"
+                            ).font(.caption).foregroundStyle(model.bridgeStatus.steamCmdInstalled ? .green : .secondary)
+                        }
+                        HStack {
+                            if !model.bridgeStatus.steamCmdInstalled {
+                                Button("Install Valve steamcmd") {
+                                    model.job("Installing steamcmd") { k, p in
+                                        try await k.steamDepot.install(progress: p)
+                                        return "Valve steamcmd installed"
+                                    }
+                                }.disabled(model.busy != nil)
+                            }
+                            if model.bridgeStatus.overlayInstalled, let defaultEngine = model.installedEngines.first {
+                                Button("Run Bridge Self-Test") {
+                                    model.job("Probing Steam Bridge") { k, _ in
+                                        let useMock = k.steamBridge.status().steamClientDylib == nil
+                                        let res = try k.steamBridge.probe(engine: defaultEngine, mockMode: useMock)
+                                        if res.success {
+                                            return "Bridge OK on \(res.engineID) (\(useMock ? "mock" : "native Mac Steam"))"
+                                        }
+                                        throw GamePortError.process("Bridge probe", res.exitCode)
+                                    }
+                                }.disabled(model.busy != nil)
+                            }
+                        }
+                    }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
+                }
                 GroupBox("D3DMetal (Apple Game Porting Toolkit)") {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Most DirectX 12 games need D3DMetal. D3DMetal belongs to Apple and comes with its own licence, which you need to accept before it is used.")

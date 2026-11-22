@@ -35,6 +35,7 @@ Usage:
   \(cli) steam open <profile>           Open Steam (sign in, store, downloads)
   \(cli) battlenet install <profile>    Download & run Blizzard's Battle.net installer in a profile
   \(cli) battlenet open <profile>       Open Battle.net in a profile (Overwatch 2, Diablo IV, etc.)
+  \(cli) bridge [status|probe|install-steamcmd|download|launch]  Clean-room Mac Steam bridge (zero Windows Steam)
   \(cli) play <profile>                 Start the game
   \(cli) stop <profile>                 Stop everything in a profile
   \(cli) lab <profile> [renderer,…] [s] Start the game, measure FPS and record whether it works
@@ -521,6 +522,92 @@ do {
             try gameport.aarchx.remove()
             print("✓ Removed AArchX")
         default: fail(usage)
+        }
+
+    case "bridge":
+        let action = args.first ?? "status"
+        switch action {
+        case "status":
+            let st = gameport.steamBridge.status()
+            print("GamePort Steam Bridge: \(st.readinessSummary)")
+            print("  Overlay built:    \(st.overlayInstalled ? "yes (\(st.overlayDir.path))" : "no (run Scripts/build-steam-bridge.sh)")")
+            print("  Native Mac Steam: \(st.macSteamInstalled ? (st.macSteamRunning ? "installed & running" : "installed (not running)") : "not installed")")
+            if let dylib = st.steamClientDylib {
+                print("  steamclient.dylib: \(dylib.path) (x86_64 slice: \(st.steamClientHasX86_64 ? "yes" : "no"))")
+            } else {
+                print("  steamclient.dylib: not found")
+            }
+            print("  Valve steamcmd:   \(st.steamCmdInstalled ? "installed (\(gameport.steamDepot.installDir.path))" : "not installed (`\(cli) bridge install-steamcmd`)")")
+        case "probe":
+            var engineID: String? = nil
+            var mock = false
+            var it = args.dropFirst().makeIterator()
+            while let tok = it.next() {
+                if tok == "--engine" { engineID = it.next() }
+                else if tok == "--mock" { mock = true }
+                else { fail("unknown flag \(tok)") }
+            }
+            let engine: InstalledEngine
+            if let engineID {
+                engine = try gameport.engines.engine(engineID)
+            } else if let defID = gameport.engines.defaultEngineID(), let def = try? gameport.engines.engine(defID) {
+                engine = def
+            } else if let first = gameport.engines.installed().first {
+                engine = first
+            } else {
+                fail("no engine installed")
+            }
+            let res = try gameport.steamBridge.probe(engine: engine, mockMode: mock)
+            print("\(res.success ? "✓" : "✗") Bridge probe on \(res.engineID) (\(res.mockMode ? "mock" : "native Mac Steam"), exit \(res.exitCode))")
+            if !res.output.isEmpty { print(res.output) }
+            exit(res.success ? 0 : 1)
+        case "install-steamcmd":
+            try await gameport.steamDepot.install(progress: progress)
+            print("✓ Installed Valve steamcmd.")
+        case "download":
+            let rawID = arg(1, "Steam App ID")
+            guard let appID = SteamStore.parseAppID(rawID) else { fail("expected a numeric Steam App ID") }
+            var user = "anonymous"
+            var customDir: URL? = nil
+            var it = args.dropFirst(2).makeIterator()
+            while let tok = it.next() {
+                if tok == "--user" { user = it.next() ?? "anonymous" }
+                else if tok == "--dir" { if let d = it.next() { customDir = URL(fileURLWithPath: d, isDirectory: true) } }
+                else { fail("unknown flag \(tok)") }
+            }
+            let targetDir = customDir ?? gameport.paths.tools.appendingPathComponent("depots/\(appID)", isDirectory: true)
+            let code = try gameport.steamDepot.downloadAttached(appID: appID, installDir: targetDir, username: user)
+            if code == 0, let exe = SteamDepotManager.discoverMainExecutable(in: targetDir) {
+                print("✓ Downloaded AppID \(appID) -> \(targetDir.path)")
+                print("  Detected main executable: \(exe.path)")
+            }
+            exit(code)
+        case "launch":
+            let id = arg(1, "profile")
+            var exe: URL? = nil
+            var dir: URL? = nil
+            var forceVAC = false
+            var verbose = false
+            var it = args.dropFirst(2).makeIterator()
+            while let tok = it.next() {
+                if tok == "--exe" { if let p = it.next() { exe = URL(fileURLWithPath: p) } }
+                else if tok == "--dir" { if let d = it.next() { dir = URL(fileURLWithPath: d, isDirectory: true) } }
+                else if tok == "--force-vac" { forceVAC = true }
+                else if tok == "--verbose" { verbose = true }
+                else { fail("unknown flag \(tok)") }
+            }
+            let proc = try gameport.launchWithSteamBridge(
+                id,
+                executable: exe,
+                depotDirectory: dir,
+                allowVACOverride: forceVAC,
+                verboseLog: verbose,
+                progress: progress
+            )
+            proc.waitUntilExit()
+            exit(proc.terminationStatus)
+        default:
+            fail(usage)
         }
 
     case "external":
