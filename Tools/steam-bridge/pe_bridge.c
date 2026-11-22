@@ -183,6 +183,48 @@ static void gp_unix_path_to_dos(char *buf, uint32_t cap) {
     if (n > 0 && (uint32_t)n <= cap) memcpy(buf, out, (size_t)n);
 }
 
+/* ISteamUGC016 call on `self` with plain-value arguments. */
+static uint64_t gp_ugc_call(struct gp_proxy *self, uint32_t slot, uint64_t a0, uint64_t a1) {
+    struct gp_vtable_call_args c;
+    memset(&c, 0, sizeof(c));
+    c.native_obj = self->native_obj;
+    c.slot = slot;
+    c.args[0] = a0;
+    c.args[1] = a1;
+    if (gp_unix_call(GP_BRIDGE_OP_VTABLE_CALL, &c) != 0) return 0;
+    return c.ret_u64;
+}
+
+/* EItemState flags (ISteamUGC::GetItemState). */
+#define GP_UGC_INSTALLED        4u
+#define GP_UGC_DOWNLOADING     16u
+#define GP_UGC_DOWNLOAD_PENDING 32u
+
+/* Asks Mac Steam to download a Workshop item (DownloadItem, slot 72, high priority) and waits until
+ * GetItemState (slot 69) reports it installed. Each item is asked for once per process, and all
+ * waiting together is capped (GP_UGC_WAIT_BUDGET_MS) so a huge mod cannot hold the game's start
+ * forever: it is then ready at the next start. Returns true when the item got installed. */
+#define GP_UGC_WAIT_BUDGET_MS 180000u
+static int gp_ugc_download_and_wait(struct gp_proxy *self, uint64_t item) {
+    static uint64_t asked[64];
+    static unsigned n_asked;
+    static DWORD waited_ms;
+    for (unsigned i = 0; i < n_asked; i++) if (asked[i] == item) return 0;
+    if (n_asked < 64) asked[n_asked++] = item;
+    if (!(gp_ugc_call(self, 72, item, 1) & 0xff)) return 0;
+    DWORD idle_ms = 0;
+    while (waited_ms < GP_UGC_WAIT_BUDGET_MS) {
+        Sleep(500);
+        waited_ms += 500;
+        uint32_t state = (uint32_t)gp_ugc_call(self, 69, item, 0);
+        if ((state & GP_UGC_INSTALLED) && !(state & (GP_UGC_DOWNLOADING | GP_UGC_DOWNLOAD_PENDING))) return 1;
+        /* Neither queued nor downloading for a while: Steam gave up on it. */
+        idle_ms = (state & (GP_UGC_DOWNLOADING | GP_UGC_DOWNLOAD_PENDING)) ? 0 : idle_ms + 500;
+        if (idle_ms >= 10000) return 0;
+    }
+    return 0;
+}
+
 /* --------------------------------------------------------------------------
  * Windows x64 ABI -> Wine UnixLib -> macOS SysV ABI Virtual Method Dispatcher
  * -------------------------------------------------------------------------- */
@@ -654,6 +696,11 @@ static uint64_t gp_dispatch_slot(
             if (folder) GP_OUT(1, 3, a3);
             if (GP_PTR(a4)) GP_OUT(2, 5, 4);
             if (gp_unix_call(GP_BRIDGE_OP_VTABLE_CALL, &call) != 0) return 0;
+            /* Not installed: Mac Steam does not download Workshop items by itself for a game it
+             * cannot install, so ask for it and wait (games usually ask only once, at start). */
+            if (!(call.ret_u64 & 0xff) && gp_ugc_download_and_wait(self, a0)) {
+                if (gp_unix_call(GP_BRIDGE_OP_VTABLE_CALL, &call) != 0) return 0;
+            }
             if ((call.ret_u64 & 0xff) && folder) gp_unix_path_to_dos((char *)(uintptr_t)a2, (uint32_t)a3);
             return call.ret_u64;
         } else if (slot == 71) {
