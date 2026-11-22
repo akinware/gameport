@@ -171,3 +171,56 @@ final class SteamBridgeTests: XCTestCase {
         XCTAssertEqual(ExternalDiscovery.parseLoginUsersAccountName(fallbackOnly), "solo_player")
     }
 }
+
+final class BridgeExitTests: XCTestCase {
+    func testQuittingQuicklyIsNotAFailure() {
+        XCTAssertFalse(GamePort.bridgeExitNeedsAttention(seconds: 24, exitStatus: 0, crashSigns: [], macSteamRunning: true),
+                       "closing the game yourself after 24 s is a normal quit")
+        XCTAssertTrue(GamePort.bridgeExitNeedsAttention(seconds: 5, exitStatus: 1, crashSigns: [], macSteamRunning: true))
+        XCTAssertTrue(GamePort.bridgeExitNeedsAttention(seconds: 5, exitStatus: 0, crashSigns: ["page fault"], macSteamRunning: true))
+        XCTAssertTrue(GamePort.bridgeExitNeedsAttention(seconds: 5, exitStatus: 0, crashSigns: [], macSteamRunning: false))
+        XCTAssertFalse(GamePort.bridgeExitNeedsAttention(seconds: 300, exitStatus: 1, crashSigns: [], macSteamRunning: true))
+    }
+
+    func testABridgeGameLogNeverClaimsWindowsSteamDidNotStart() {
+        // Bridge games have no Windows Steam logs; the game's own log alone must not produce Steam findings.
+        XCTAssertEqual(LabTriage.crashSigns(inLog: "msync: up and running.\n[UnityMemory] ok\n"), [])
+    }
+}
+
+final class BridgeRegistryTests: XCTestCase {
+    private let filled = #"""
+    [Software\\Valve\\Steam] 1700000000
+    "Language"="english"
+
+    [Software\\Valve\\Steam\\ActiveProcess] 1700000000
+    #time=1dd7ad7991497ac
+    "ActiveUser"=dword:00000001
+    "pid"=dword:00000001
+    "SteamClientDll"="C:\\windows\\syswow64\\steamclient.dll"
+    "SteamClientDll64"="C:\\windows\\system32\\steamclient64.dll"
+    "Universe"="Public"
+
+    [Software\\Wine] 1700000000
+    """#
+
+    func testValuesAlreadyThereSkipWine() {
+        XCTAssertTrue(SteamBridge.hasBridgeRegistry(userReg: filled))
+    }
+
+    func testMissingOrChangedValuesAreWrittenAgain() {
+        XCTAssertFalse(SteamBridge.hasBridgeRegistry(userReg: ""))
+        // Windows Steam ran in this prefix and left its own pid behind.
+        XCTAssertFalse(SteamBridge.hasBridgeRegistry(userReg: filled.replacingOccurrences(of: #""pid"=dword:00000001"#, with: #""pid"=dword:00001a2c"#)))
+        // A value in another key does not count.
+        let elsewhere = filled.replacingOccurrences(of: #""Universe"="Public""#, with: "") + #""Universe"="Public""# + "\n"
+        XCTAssertFalse(SteamBridge.hasBridgeRegistry(userReg: elsewhere))
+    }
+
+    func testRegFileHoldsEveryValue() {
+        let file = SteamBridge.bridgeRegistryFile
+        XCTAssertTrue(file.hasPrefix("REGEDIT4\r\n"))
+        XCTAssertTrue(file.contains(#"[HKEY_CURRENT_USER\Software\Valve\Steam\ActiveProcess]"#))
+        for value in SteamBridge.bridgeRegistryValues { XCTAssertTrue(file.contains(value)) }
+    }
+}

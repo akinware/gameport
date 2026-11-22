@@ -172,6 +172,13 @@ extension GamePort {
     /// A game that fails (non-zero exit) within this many seconds of a Bridge launch is treated as a failed start.
     public static let bridgeQuickExitSeconds: TimeInterval = 90
 
+    /// A Bridge game that closed within `bridgeQuickExitSeconds` failed to start only when something says so:
+    /// a non-zero exit, a crash in its log, or Mac Steam gone. Quitting quickly yourself exits with status 0.
+    public static func bridgeExitNeedsAttention(seconds: TimeInterval, exitStatus: Int32,
+                                                crashSigns: [String], macSteamRunning: Bool) -> Bool {
+        seconds < bridgeQuickExitSeconds && (exitStatus != 0 || !crashSigns.isEmpty || !macSteamRunning)
+    }
+
     /// Explains a Bridge launch whose game closed right after starting.
     public static func bridgeExitDiagnosis(
         seconds: Int,
@@ -227,11 +234,11 @@ extension GamePort {
         // Stop what the game left behind in its prefix (wineserver, services).
         if let runner = try? runner(for: profileID) { try? runner.killAll() }
         let text = Self.tail(of: gameLog, from: gameLogStart)
-        let signs = LabTriage.findings(game: text, cef: "", bootstrap: "", gameExited: false)
+        // Only the game's own log: a Bridge launch has no Windows Steam, so Windows Steam's logs say nothing.
+        let signs = LabTriage.crashSigns(inLog: text)
         let macSteamRunning = SteamBridge.isMacSteamRunning()
-        // Quitting a game quickly yourself exits cleanly (status 0); a failed start does not.
-        if played < Self.bridgeQuickExitSeconds,
-           process.terminationStatus != 0 || !signs.isEmpty || !macSteamRunning {
+        if Self.bridgeExitNeedsAttention(seconds: played, exitStatus: process.terminationStatus,
+                                         crashSigns: signs, macSteamRunning: macSteamRunning) {
             onState(.needsAttention(profileID: profileID, diagnosis: Self.bridgeExitDiagnosis(
                 seconds: Int(played),
                 exitStatus: process.terminationStatus,

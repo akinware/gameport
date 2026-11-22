@@ -313,22 +313,43 @@ public struct SteamBridge: Sendable {
             try fm.createSymbolicLink(at: stagedDLL32, withDestinationURL: peDLL32)
         }
 
-        let regKey = #"HKCU\Software\Valve\Steam\ActiveProcess"#
-        let entries: [(String, String, String)] = [
-            ("SteamClientDll64", "REG_SZ", #"C:\windows\system32\steamclient64.dll"#),
-            ("SteamClientDll", "REG_SZ", #"C:\windows\syswow64\steamclient.dll"#),
-            ("pid", "REG_DWORD", "1"),
-            ("ActiveUser", "REG_DWORD", "1"),
-            ("Universe", "REG_SZ", "Public"),
-        ]
-        for (name, type, value) in entries {
-            try runner.run(
-                ["reg", "add", regKey, "/v", name, "/t", type, "/d", value, "/f"],
-                sync: SyncMode.none,
-                check: false
-            )
+        // Steamworks reads these to find the client DLL. They never change, so after the first launch
+        // they are already in user.reg and no Wine process is started for them (each start costs seconds).
+        let userReg = runner.prefix.appendingPathComponent("user.reg")
+        let current = (try? String(contentsOf: userReg, encoding: .utf8)) ?? ""
+        if !Self.hasBridgeRegistry(userReg: current) {
+            let temp = runner.prefix.appendingPathComponent("drive_c/windows/temp", isDirectory: true)
+            try fm.createDirectory(at: temp, withIntermediateDirectories: true)
+            let file = temp.appendingPathComponent("gameport-bridge.reg")
+            try Self.bridgeRegistryFile.write(to: file, atomically: true, encoding: .utf8)
+            defer { try? fm.removeItem(at: file) }
+            try runner.run(["regedit", "/S", #"C:\windows\temp\gameport-bridge.reg"#], sync: SyncMode.none, check: false)
         }
         _ = appID
+    }
+
+    /// The values under `HKCU\Software\Valve\Steam\ActiveProcess`, as they appear in a .reg file and in user.reg.
+    static let bridgeRegistryValues = [
+        #""SteamClientDll64"="C:\\windows\\system32\\steamclient64.dll""#,
+        #""SteamClientDll"="C:\\windows\\syswow64\\steamclient.dll""#,
+        #""pid"=dword:00000001"#,
+        #""ActiveUser"=dword:00000001"#,
+        #""Universe"="Public""#,
+    ]
+
+    static var bridgeRegistryFile: String {
+        (["REGEDIT4", "", #"[HKEY_CURRENT_USER\Software\Valve\Steam\ActiveProcess]"#] + bridgeRegistryValues)
+            .joined(separator: "\r\n") + "\r\n"
+    }
+
+    /// True when the prefix's user.reg already holds every Bridge value.
+    static func hasBridgeRegistry(userReg: String) -> Bool {
+        let text = userReg.lowercased()
+        guard let header = text.range(of: #"[software\\valve\\steam\\activeprocess]"#) else { return false }
+        let rest = text[header.upperBound...]
+        let section = rest[..<(rest.range(of: "\n[")?.lowerBound ?? rest.endIndex)]
+        let lines = Set(section.split(separator: "\n").map { $0.trimmingCharacters(in: .whitespaces) })
+        return bridgeRegistryValues.allSatisfy { lines.contains($0.lowercased()) }
     }
 
     /// Where Mac Steam keeps Workshop items for `appID`.
