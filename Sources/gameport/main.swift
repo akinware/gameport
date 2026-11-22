@@ -1,6 +1,9 @@
 import Foundation
 import GamePortKit
 
+// Line-buffer stdout so progress (and the sign-in QR code) appear immediately when piped.
+setvbuf(stdout, nil, _IOLBF, 0)
+
 let cli = Brand.cliName
 let usage = """
 \(Brand.displayName): runs Windows games on Apple Silicon Macs.
@@ -35,7 +38,9 @@ Usage:
   \(cli) steam open <profile>           Open Steam (sign in, store, downloads)
   \(cli) battlenet install <profile>    Download & run Blizzard's Battle.net installer in a profile
   \(cli) battlenet open <profile>       Open Battle.net in a profile (Overwatch 2, Diablo IV, etc.)
-  \(cli) bridge [status|probe|install-steamcmd|download|launch]  Clean-room Mac Steam bridge (zero Windows Steam)
+  \(cli) bridge [status|probe|install-steamcmd|install-depotdownloader|download|signout|launch]  Clean-room Mac Steam bridge (zero Windows Steam)
+  \(cli) bridge download <appID> [--user <acct>] [--anonymous] [--validate] [--dir <d>] [--steamcmd]
+                                       Download a Windows game: Steam Mobile QR sign-in once, then silent
   \(cli) crossover [status|bottles|launch <bottle> <appID>]     Use installed CrossOver.app (0 MB engine & 1-click bottles)
   \(cli) epic [status|install|login <code>|logout|list|download <app>|launch <app>]  Epic Games via native legendary
   \(cli) gog [status|install|login <code>|logout|list|download <id>|launch <id>]    GOG DRM-free via native gogdl
@@ -543,6 +548,10 @@ do {
                 print("  steamclient.dylib: not found")
             }
             print("  Valve steamcmd:   \(st.steamCmdInstalled ? "installed (\(gameport.steamDepot.installDir.path))" : "not installed (`\(cli) bridge install-steamcmd`)")")
+            let dd = gameport.steamQRDownloader.tool
+            print("  DepotDownloader:  \(dd.isInstalled ? "\(DepotDownloaderTool.version) installed (\(dd.toolDir.path))" : "not installed (installed on first download)")")
+            let remembered = dd.rememberedAccounts()
+            print("  QR sign-in:       \(remembered.isEmpty ? "not signed in (a QR code is shown on first download)" : "remembered for \(remembered.joined(separator: ", "))")")
         case "probe":
             var engineID: String? = nil
             var mock = false
@@ -571,24 +580,68 @@ do {
         case "install-steamcmd":
             try await gameport.steamDepot.install(progress: progress)
             print("✓ Installed Valve steamcmd.")
+        case "install-depotdownloader":
+            try await gameport.steamQRDownloader.tool.install(progress: progress)
+            print("✓ Installed DepotDownloader \(DepotDownloaderTool.version).")
+        case "signout":
+            gameport.steamQRDownloader.tool.signOutAll()
+            print("✓ Forgot every remembered QR sign-in.")
         case "download":
             let rawID = arg(1, "Steam App ID")
             guard let appID = SteamStore.parseAppID(rawID) else { fail("expected a numeric Steam App ID") }
-            var user = "anonymous"
+            var user: String? = nil
             var customDir: URL? = nil
+            var useSteamCmd = false
+            var anonymous = false
+            var validate = false
             var it = args.dropFirst(2).makeIterator()
             while let tok = it.next() {
-                if tok == "--user" { user = it.next() ?? "anonymous" }
+                if tok == "--user" { user = it.next() }
                 else if tok == "--dir" { if let d = it.next() { customDir = URL(fileURLWithPath: d, isDirectory: true) } }
+                else if tok == "--steamcmd" { useSteamCmd = true }
+                else if tok == "--anonymous" { anonymous = true }
+                else if tok == "--validate" { validate = true }
                 else { fail("unknown flag \(tok)") }
             }
-            let targetDir = customDir ?? gameport.paths.tools.appendingPathComponent("depots/\(appID)", isDirectory: true)
-            let code = try gameport.steamDepot.downloadAttached(appID: appID, installDir: targetDir, username: user)
-            if code == 0, let exe = SteamDepotManager.discoverMainExecutable(in: targetDir) {
-                print("✓ Downloaded AppID \(appID) -> \(targetDir.path)")
-                print("  Detected main executable: \(exe.path)")
+            let targetDir = customDir ?? gameport.steamDepot.depotDirectory(appID: appID)
+            if useSteamCmd {
+                let code = try gameport.steamDepot.downloadAttached(appID: appID, installDir: targetDir, username: user ?? "anonymous")
+                if code == 0, let exe = SteamDepotManager.discoverMainExecutable(in: targetDir) {
+                    print("✓ Downloaded AppID \(appID) -> \(targetDir.path)")
+                    print("  Detected main executable: \(exe.path)")
+                }
+                exit(code)
             }
-            exit(code)
+            let stream = gameport.steamQRDownloader.download(
+                appID: appID,
+                installDir: targetDir,
+                preferredAccount: user ?? ExternalDiscovery.macSteamAccountName(),
+                anonymous: anonymous,
+                validate: validate
+            )
+            var lastPrinted = -1.0
+            for try await event in stream {
+                switch event {
+                case .installingTool(let msg), .status(let msg):
+                    print(msg)
+                case .qrCode(let code):
+                    print("\nScan with the Steam Mobile App to sign in once (no password needed):")
+                    print(code.terminalArt())
+                    if let url = code.url { print("  \(url)") }
+                case .waitingForMobileApproval:
+                    print("Waiting for approval in the Steam Mobile App…")
+                case .signedIn(let account):
+                    print("✓ Signed in as \(account)")
+                case .downloading(let pct, let detail):
+                    if pct - lastPrinted >= 1 || pct >= 100 || pct < lastPrinted {
+                        lastPrinted = pct
+                        print(String(format: "%6.2f%% %@", pct, detail))
+                    }
+                case .completed(let dir, let exe):
+                    print("✓ Downloaded AppID \(appID) -> \(dir.path)")
+                    if let exe { print("  Detected main executable: \(exe.path)") }
+                }
+            }
         case "launch":
             let id = arg(1, "profile")
             var exe: URL? = nil

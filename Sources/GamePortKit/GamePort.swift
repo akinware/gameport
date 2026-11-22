@@ -13,6 +13,7 @@ public struct GamePort: Sendable {
     public var x87sidecar: X87SidecarStore { X87SidecarStore(paths: paths) }
     public var steamBridge: SteamBridge { SteamBridge(paths: paths) }
     public var steamDepot: SteamDepotManager { SteamDepotManager(paths: paths) }
+    public var steamQRDownloader: SteamQRDownloader { SteamQRDownloader(paths: paths) }
     public var epic: EpicStorefront { EpicStorefront(paths: paths) }
     public var gog: GOGStorefront { GOGStorefront(paths: paths) }
     public var catalog: RecipeCatalog { RecipeCatalog.load(paths: paths) }

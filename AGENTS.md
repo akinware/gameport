@@ -15,7 +15,7 @@ GamePort is a native macOS app + CLI for running Windows games smoothly on Apple
 
 | Path | Role |
 | --- | --- |
-| `Sources/GamePortKit/` | Core library shared by CLI and SwiftUI app (`GamePort.swift`, `Engine.swift`, `Profile.swift`, `Renderer.swift`, `WineRunner.swift`, `Steam.swift`, `SteamBase.swift`, `Snapshots.swift`, `Lab.swift`, `AntiCheat.swift`, `Recipe.swift`, `Brand.swift`) |
+| `Sources/GamePortKit/` | Core library shared by CLI and SwiftUI app (`GamePort.swift`, `Engine.swift`, `Profile.swift`, `Renderer.swift`, `WineRunner.swift`, `Steam.swift`, `SteamBase.swift`, `SteamDepot.swift`, `SteamQRDownloader.swift`, `Snapshots.swift`, `Lab.swift`, `AntiCheat.swift`, `Recipe.swift`, `Brand.swift`) |
 | `Sources/gameport/` | Command-line interface (`main.swift`) |
 | `Sources/GamePortApp/` | SwiftUI macOS app (`App.swift`) |
 | `Data/engines/` | Engine manifests (every component pinned by URL + SHA-256) |
@@ -68,6 +68,7 @@ Runtime data lives in `~/Library/Application Support/GamePort` (override with `G
   - GamePort's own code is licensed under **PolyForm Noncommercial 1.0.0** (`LICENSE`), and contributions follow [CONTRIBUTING.md](CONTRIBUTING.md).
   - Do **not** copy code from Highball (GPL-3.0) or closed-source tools.
   - Wine, DXMT, and winetricks (LGPL) are downloaded and executed as separate processes, never linked.
+  - Storefront/download tools (`legendary`, `gogdl`, SteamRE `DepotDownloader` (GPL-2.0), Valve `steamcmd`) are downloaded on demand (HTTPS, SHA-256 pinned where the vendor publishes a fixed build) and run only as separate child processes.
   - Never bundle, host, or mirror Apple's D3DMetal or the Windows Steam client. D3DMetal stays behind the in-app Apple license gate.
   - Never add anti-cheat workarounds or bypasses; anti-cheat data is informational only.
   - Only import CC0 recipe paths (plus the MIT anti-cheat map with notice) from `highball-db`.

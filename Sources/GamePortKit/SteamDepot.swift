@@ -77,11 +77,42 @@ public struct SteamDepotManager: Sendable {
         paths.tools.appendingPathComponent("depots/\(appID)", isDirectory: true)
     }
 
-    /// True if a depot folder for `appID` already contains a discoverable Windows game `.exe`.
+    /// The main Windows game `.exe` of a *finished* depot download for `appID`, if any.
+    /// Partially downloaded depots (DepotDownloader pre-allocates every file up front) are ignored.
     public func downloadedExecutable(appID: Int, preferredName: String? = nil) -> URL? {
         let dir = depotDirectory(appID: appID)
-        guard FileManager.default.fileExists(atPath: dir.path) else { return nil }
+        guard FileManager.default.fileExists(atPath: dir.path),
+              Self.isDownloadComplete(appID: appID, in: dir) else { return nil }
         return Self.discoverMainExecutable(in: dir, preferredName: preferredName)
+    }
+
+    /// `<dir>/steamapps/appmanifest_<appID>.acf`, written by steamcmd and by GamePort's QR downloader.
+    public static func appManifestURL(appID: Int, in dir: URL) -> URL {
+        dir.appendingPathComponent("steamapps/appmanifest_\(appID).acf")
+    }
+
+    /// Whether a depot folder holds a finished download:
+    /// - an app manifest exists: finished only when it reports `StateFlags` 4 (fully installed);
+    /// - a DepotDownloader work folder exists without a manifest: still downloading (or interrupted);
+    /// - neither: a legacy folder, treated as finished.
+    public static func isDownloadComplete(appID: Int, in dir: URL) -> Bool {
+        let fm = FileManager.default
+        let manifest = appManifestURL(appID: appID, in: dir)
+        if let text = try? String(contentsOf: manifest, encoding: .utf8) {
+            return text.range(of: #""StateFlags"\s+"4""#, options: .regularExpression) != nil
+        }
+        return !fm.fileExists(atPath: dir.appendingPathComponent(".DepotDownloader").path)
+    }
+
+    /// Marks a DepotDownloader download as finished by writing a standard `appmanifest_<appID>.acf`
+    /// (`StateFlags` 4) into `<dir>/steamapps/`.
+    public static func markDownloadComplete(appID: Int, name: String, in dir: URL) throws {
+        try writeAppManifest(
+            appID: appID,
+            name: name,
+            installDirName: dir.lastPathComponent,
+            into: dir.appendingPathComponent("steamapps", isDirectory: true)
+        )
     }
 
     /// Runs `steamcmd` asynchronously with streamed line-by-line progress (suitable for SwiftUI apps).
