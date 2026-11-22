@@ -133,4 +133,34 @@ final class SteamBridgeTests: XCTestCase {
         XCTAssertEqual(w11Env["WINEDLLPATH+"], bridge.overlayDir.path)
         XCTAssertNil(w11Env["WINEDLLPATH_PREPEND+"])
     }
+
+    func testParseLoginUsersAccountNamePrefersMostRecent() {
+        let vdf = """
+        "users"
+        {
+            "76561198000000001"
+            {
+                "AccountName"       "older_user"
+                "MostRecent"        "0"
+            }
+            "76561198000000002"
+            {
+                "AccountName"       "active_player"
+                "MostRecent"        "1"
+            }
+        }
+        """
+        XCTAssertEqual(ExternalDiscovery.parseLoginUsersAccountName(vdf), "active_player")
+
+        let fallbackOnly = """
+        "users"
+        {
+            "76561198000000001"
+            {
+                "AccountName"       "solo_player"
+            }
+        }
+        """
+        XCTAssertEqual(ExternalDiscovery.parseLoginUsersAccountName(fallbackOnly), "solo_player")
+    }
 }

@@ -465,6 +465,52 @@ public enum ExternalDiscovery {
         return DiscoveredSteamGame(appID: appID, name: name, installDir: installDir, sizeOnDisk: size)
     }
 
+    /// Reads the active Mac Steam login account name (`"AccountName"`) from `loginusers.vdf`
+    /// so native `steamcmd` downloads can pre-fill the username automatically.
+    public static func macSteamAccountName(home: URL = FileManager.default.homeDirectoryForCurrentUser) -> String? {
+        let vdf = home.appendingPathComponent("Library/Application Support/Steam/config/loginusers.vdf")
+        guard let text = try? String(contentsOf: vdf, encoding: .utf8) else { return nil }
+        return parseLoginUsersAccountName(text)
+    }
+
+    /// Parses Valve's `loginusers.vdf`, preferring the entry with `"MostRecent" "1"`.
+    public static func parseLoginUsersAccountName(_ text: String) -> String? {
+        var depth = 0
+        var firstAccount: String?
+        var currentAccount: String?
+        var currentMostRecent = false
+
+        for rawLine in text.split(whereSeparator: \.isNewline) {
+            let line = rawLine.trimmingCharacters(in: .whitespaces)
+            if line == "{" {
+                depth += 1
+                if depth == 2 {
+                    currentAccount = nil
+                    currentMostRecent = false
+                }
+                continue
+            }
+            if line == "}" {
+                if depth == 2, let acct = currentAccount, !acct.isEmpty {
+                    if firstAccount == nil { firstAccount = acct }
+                    if currentMostRecent { return acct }
+                }
+                depth = max(0, depth - 1)
+                continue
+            }
+            guard depth == 2 else { continue }
+            let tokens = extractQuotedTokens(line)
+            guard tokens.count >= 2 else { continue }
+            let key = tokens[0].lowercased()
+            if key == "accountname" {
+                currentAccount = tokens[1]
+            } else if key == "mostrecent" {
+                currentMostRecent = (tokens[1] == "1")
+            }
+        }
+        return firstAccount
+    }
+
     private static func extractQuotedTokens(_ line: String) -> [String] {
         var tokens: [String] = []
         var current = ""
