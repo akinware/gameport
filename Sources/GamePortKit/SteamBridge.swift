@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(Darwin)
+import Darwin
+#endif
 
 /// Pure-Swift Mach-O header reader (thin and universal/FAT) used to verify whether
 /// native macOS `steamclient.dylib` contains an `x86_64` slice loadable by Wine under Rosetta.
@@ -79,6 +82,26 @@ public struct SteamBridgeStatus: Sendable, Equatable {
     public let overlayInstalled: Bool
     public let probeExecutable: URL
     public let steamCmdInstalled: Bool
+
+    public init(
+        macSteamInstalled: Bool,
+        macSteamRunning: Bool,
+        steamClientDylib: URL?,
+        steamClientHasX86_64: Bool,
+        overlayDir: URL,
+        overlayInstalled: Bool,
+        probeExecutable: URL,
+        steamCmdInstalled: Bool
+    ) {
+        self.macSteamInstalled = macSteamInstalled
+        self.macSteamRunning = macSteamRunning
+        self.steamClientDylib = steamClientDylib
+        self.steamClientHasX86_64 = steamClientHasX86_64
+        self.overlayDir = overlayDir
+        self.overlayInstalled = overlayInstalled
+        self.probeExecutable = probeExecutable
+        self.steamCmdInstalled = steamCmdInstalled
+    }
 
     public var isReadyToLaunch: Bool {
         overlayInstalled && steamClientDylib != nil && steamClientHasX86_64
@@ -161,9 +184,29 @@ public struct SteamBridge: Sendable {
         return candidates.first { fm.fileExists(atPath: $0.path) }
     }
 
+    /// Checks whether native Mac Steam (`steam_osx`) is running using Darwin `proc_listpids` + `proc_name`
+    /// directly in-process — zero subprocesses and never pumps the main thread's CFRunLoop.
     public static func isMacSteamRunning() -> Bool {
-        let result = try? Shell.run("/usr/bin/pgrep", ["-x", "steam_osx"], check: false)
-        return result?.status == 0
+        #if canImport(Darwin)
+        let byteCount = proc_listpids(UInt32(PROC_ALL_PIDS), 0, nil, 0)
+        guard byteCount > 0 else { return false }
+        let count = Int(byteCount) / MemoryLayout<pid_t>.stride + 16
+        var pids = [pid_t](repeating: 0, count: count)
+        let actualBytes = proc_listpids(UInt32(PROC_ALL_PIDS), 0, &pids, Int32(pids.count * MemoryLayout<pid_t>.stride))
+        guard actualBytes > 0 else { return false }
+        let n = Int(actualBytes) / MemoryLayout<pid_t>.stride
+        var nameBuf = [CChar](repeating: 0, count: 256)
+        for i in 0..<n where pids[i] > 0 {
+            let len = proc_name(pids[i], &nameBuf, UInt32(nameBuf.count))
+            if len > 0 {
+                let name = String(cString: nameBuf)
+                if name == "steam_osx" { return true }
+            }
+        }
+        return false
+        #else
+        return false
+        #endif
     }
 
     public func status(
