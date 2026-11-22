@@ -67,7 +67,8 @@ enum gp_iface_kind {
     GP_IFACE_STEAMUSERSTATS   = 12,
     GP_IFACE_STEAMGC          = 13,
     GP_IFACE_STEAMNETUTILS    = 14,
-    GP_IFACE_STEAMGAMESERVER  = 15
+    GP_IFACE_STEAMGAMESERVER  = 15,
+    GP_IFACE_STEAMGAMESERVERSTATS = 16
 };
 
 #pragma pack(push, 8)

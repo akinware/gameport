@@ -53,12 +53,23 @@ struct gp_proxy {
     void     **vtable;
     uint64_t   native_obj;
     int        kind;
+    int        version;      /* trailing number of the interface version string, -1 if unknown */
     char       iface_name[GP_BRIDGE_MAX_IFACE_NAME];
 };
 
 static struct gp_proxy g_proxies[GP_MAX_PROXIES];
 static int             g_proxy_count = 0;
 static void           *g_proxy_vtable[GP_BRIDGE_VTABLE_SLOTS];
+
+/* Trailing number of an interface version string: "SteamUser023" -> 23,
+ * "STEAMINVENTORY_INTERFACE_V003" -> 3; -1 when there is none. */
+static int interface_version(const char *name) {
+    if (!name) return -1;
+    size_t n = strlen(name), i = n;
+    while (i > 0 && name[i - 1] >= '0' && name[i - 1] <= '9') i--;
+    if (i == n || n - i > 4) return -1;
+    return atoi(name + i);
+}
 
 static int classify_interface(const char *name) {
     if (!name) return GP_IFACE_GENERIC;
@@ -77,6 +88,7 @@ static int classify_interface(const char *name) {
     if (strncmp(name, "STEAMUSERSTATS_", 15) == 0) return GP_IFACE_STEAMUSERSTATS;
     if (strncmp(name, "SteamGameCoordinator", 20) == 0) return GP_IFACE_STEAMGC;
     if (strncmp(name, "SteamNetworkingUtils", 20) == 0) return GP_IFACE_STEAMNETUTILS;
+    if (strncmp(name, "SteamGameServerStats", 20) == 0) return GP_IFACE_STEAMGAMESERVERSTATS;
     /* "SteamGameServer015" (not "SteamGameServerStats001") */
     if (strncmp(name, "SteamGameServer0", 16) == 0) return GP_IFACE_STEAMGAMESERVER;
     return GP_IFACE_GENERIC;
@@ -118,6 +130,9 @@ static struct gp_proxy *wrap_native_object(uint64_t native_obj, const char *ifac
         if (g_proxies[i].native_obj == native_obj) {
             if (g_proxies[i].kind == GP_IFACE_GENERIC && kind != GP_IFACE_GENERIC) {
                 g_proxies[i].kind = kind;
+                g_proxies[i].version = interface_version(iface_name);
+                strncpy(g_proxies[i].iface_name, iface_name, sizeof(g_proxies[i].iface_name) - 1);
+                g_proxies[i].iface_name[sizeof(g_proxies[i].iface_name) - 1] = '\0';
             }
             struct gp_proxy *found = &g_proxies[i];
             LeaveCriticalSection(&g_proxy_lock);
@@ -132,6 +147,7 @@ static struct gp_proxy *wrap_native_object(uint64_t native_obj, const char *ifac
     p->vtable = g_proxy_vtable;
     p->native_obj = native_obj;
     p->kind = kind;
+    p->version = interface_version(iface_name);
     if (iface_name) {
         strncpy(p->iface_name, iface_name, sizeof(p->iface_name) - 1);
         p->iface_name[sizeof(p->iface_name) - 1] = '\0';
@@ -166,28 +182,62 @@ static uint64_t gp_dispatch_slot(
     call.native_obj = self->native_obj;
     call.slot = slot;
 
-    /* MSVC x64 CSteamID sret adaptation:
-     * On Windows MSVC x64, non-trivial CSteamID returns pass a hidden pointer in RDX (a0).
-     * On macOS SysV x86_64, CSteamID is returned directly in RAX with no hidden pointer.
-     */
-    bool is_msvc_sret8 = false;
-    if (self->kind == GP_IFACE_STEAMUSER && slot == 2) {
-        /* ISteamUser::GetSteamID() */
-        is_msvc_sret8 = (a0 >= 0x10000ULL);
-    } else if (self->kind == GP_IFACE_STEAMFRIENDS && (slot == 4 || slot == 19)) {
-        /* ISteamFriends017::GetFriendByIndex (4) / GetClanByIndex (19).
-         * Slot 8 is GetFriendGamePlayed(CSteamID, FriendGameInfo_t *): its first argument is a
-         * SteamID value, not a return pointer (see the out-struct marshaling below). */
-        is_msvc_sret8 = (a0 >= 0x10000ULL);
-    } else if (self->kind == GP_IFACE_STEAMGAMESERVER && (slot == 10 || slot == 39)) {
-        /* ISteamGameServer015::GetSteamID (10) / CreateUnauthenticatedUserConnection (39) */
-        is_msvc_sret8 = (a0 >= 0x10000ULL);
+    /* MSVC lays out overloaded virtual methods in REVERSE declaration order, while the native
+     * (Itanium) vtable keeps declaration order. Swap each overload pair so e.g. the game's
+     * SetStat(int32) reaches native SetStat(int32), not SetStat(float). */
+    if (self->kind == GP_IFACE_STEAMUSERSTATS && self->version >= 11 && self->version <= 13) {
+        static const uint8_t pairs[][2] = { {1, 2}, {3, 4}, {17, 18}, {39, 40}, {41, 42}, {43, 44} };
+        uint32_t n = (self->version == 13) ? slot + 1 : slot;   /* 012 numbering */
+        for (size_t i = 0; i < sizeof(pairs) / sizeof(pairs[0]); i++) {
+            if (n == pairs[i][0]) { n = pairs[i][1]; break; }
+            if (n == pairs[i][1]) { n = pairs[i][0]; break; }
+        }
+        call.slot = (self->version == 13) ? n - 1 : n;
+    } else if (self->kind == GP_IFACE_STEAMGAMESERVERSTATS && self->version == 1) {
+        /* GetUserStat (1/2) and SetUserStat (4/5) overload pairs. */
+        if (slot == 1 || slot == 2) call.slot = 3 - slot;
+        else if (slot == 4 || slot == 5) call.slot = 9 - slot;
     }
 
-    /* Never write a return value through something that is not writable memory in this process. */
-    if (is_msvc_sret8 && !gp_is_writable(a0, sizeof(uint64_t))) {
-        is_msvc_sret8 = false;
+    /* ------------------------------------------------------------------------------------------
+     * Per-interface marshaling tables.
+     *
+     * Vtable slot order changes between Steamworks interface versions, so every table below names
+     * the exact versions it was written for (Steamworks SDK declaration order). Any other version
+     * gets only the generic handling — strings copied across, returned steamclient objects wrapped
+     * in proxies — never a table meant for another layout.
+     * ------------------------------------------------------------------------------------------ */
+    const int ver = self->version;
+#define GP_OUT(k, argi, len)  do { call.out_arg_idx[k] = (uint8_t)(argi); call.out_arg_len[k] = (uint32_t)(len); } while (0)
+#define GP_IN(argi, len)      do { call.in_buf_arg_idx = (uint8_t)(argi); call.in_buf_len = (uint32_t)(len); } while (0)
+#define GP_PTR(x)             ((x) >= 0x10000ULL)
+
+    /* MSVC x64 returns CSteamID (and other small classes) through a hidden pointer passed after
+     * `this` (a0); the native ABI returns it in a register. */
+    bool is_msvc_sret8 = false;
+    switch (self->kind) {
+    case GP_IFACE_STEAMUSER:
+        /* GetSteamID() — slot 2 in every ISteamUser version since 009. */
+        is_msvc_sret8 = (slot == 2 && ver >= 9);
+        break;
+    case GP_IFACE_STEAMFRIENDS:
+        /* GetFriendByIndex (4): SteamFriends011-017. GetClanByIndex (19): SteamFriends015-017. */
+        is_msvc_sret8 = (slot == 4 && ver >= 11 && ver <= 17) || (slot == 19 && ver >= 15 && ver <= 17);
+        break;
+    case GP_IFACE_STEAMGAMESERVER:
+        /* GetSteamID (10) / CreateUnauthenticatedUserConnection (39): SteamGameServer015. */
+        is_msvc_sret8 = (ver == 15 && (slot == 10 || slot == 39));
+        break;
+    case GP_IFACE_STEAMAPPS:
+        /* GetAppOwner (20): STEAMAPPS_INTERFACE_VERSION008. */
+        is_msvc_sret8 = (ver == 8 && slot == 20);
+        break;
+    default:
+        break;
     }
+    if (is_msvc_sret8 && !GP_PTR(a0)) is_msvc_sret8 = false;
+    /* Never write a return value through something that is not writable memory in this process. */
+    if (is_msvc_sret8 && !gp_is_writable(a0, sizeof(uint64_t))) is_msvc_sret8 = false;
 
     if (is_msvc_sret8) {
         call.flags = GP_CALL_FLAG_MSVC_SRET8;
@@ -215,12 +265,12 @@ static uint64_t gp_dispatch_slot(
 
     /* Do not pass Windows x64 function pointers into native macOS Steam callbacks/hooks. */
     if ((self->kind == GP_IFACE_STEAMCLIENT && slot == 22) ||
-        (self->kind == GP_IFACE_STEAMUTILS && slot == 16) ||
-        (self->kind == GP_IFACE_STEAMNETUTILS && slot == 13)) {
+        (self->kind == GP_IFACE_STEAMUTILS && slot == 16 && ver >= 7 && ver <= 10) ||
+        (self->kind == GP_IFACE_STEAMNETUTILS && slot == 13 && ver == 4)) {
         return 0;
     }
 
-    /* Known C-string-returning methods (marshaled cleanly across the host daemon socket) */
+    /* Known C-string-returning methods (stable slots in every version). */
     if ((self->kind == GP_IFACE_STEAMAPPS && (slot == 4 || slot == 5)) ||
         (self->kind == GP_IFACE_STEAMFRIENDS && slot == 0) ||
         (self->kind == GP_IFACE_STEAMUTILS && slot == 4)) {
@@ -231,202 +281,345 @@ static uint64_t gp_dispatch_slot(
         call.flags |= GP_CALL_FLAG_NO_AUTO_CSTR;
     }
 
-    /* Out-pointer / buffer marshaling across host daemon socket (out_arg_idx uses 1..8, 0=unused) */
-    if (self->kind == GP_IFACE_STEAMCLIENT) {
+    switch (self->kind) {
+    case GP_IFACE_STEAMCLIENT:
         if (slot == 3) {
-            /* CreateLocalUser(HSteamPipe *phSteamPipe, EAccountType): used by SteamGameServer_Init
-             * (listen servers, e.g. TF2 training / offline practice). The pipe is written back;
-             * 0 going in asks Steam for a new pipe, which is what the game passes. */
-            if (a0 >= 0x10000ULL) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = 4; }
+            /* CreateLocalUser(HSteamPipe *phSteamPipe, EAccountType) — SteamClient012+. Used by
+             * SteamGameServer_Init (listen servers). 0 going in asks for a new pipe. */
+            if (ver >= 12 && GP_PTR(a0)) GP_OUT(0, 1, 4);
         } else if (slot == 7) {
-            /* SetLocalIPBinding(const SteamIPAddress_t &unIP, uint16 usPort):
-             * 16-byte IPv6 + 4-byte ESteamIPType = 20 bytes, read from the game's memory. */
-            if (a0 >= 0x10000ULL) { call.in_buf_arg_idx = 1; call.in_buf_len = 20; }
+            /* SetLocalIPBinding(const SteamIPAddress_t &, uint16) — SteamClient020+ (older
+             * versions take a uint32 by value): 16-byte IPv6 + 4-byte type. */
+            if (ver >= 20 && GP_PTR(a0)) GP_IN(1, 20);
         }
-    } else if (self->kind == GP_IFACE_STEAMGAMESERVER) {
-        /* ISteamGameServer015 — used by listen servers (TF2 training, offline practice, local servers). */
+        break;
+
+    case GP_IFACE_STEAMUSER:
+        /* ISteamUser016-023 share slots 0-13; 022+ add a SteamNetworkingIdentity to
+         * GetAuthSessionTicket; 023 inserts GetAuthTicketForWebApi at 14 (later slots shift +1). */
+        if (ver < 16 || ver > 23) break;
+        if (slot == 3) {
+            /* InitiateGameConnection(_DEPRECATED)(void *pAuthBlob, int cbMaxAuthBlob, CSteamID, uint32, uint16, bool) */
+            if (GP_PTR(a0) && a1 > 0 && a1 <= 16384) GP_OUT(0, 1, a1);
+        } else if (slot == 6) {
+            /* GetUserDataFolder(char *pchBuffer, int cubBuffer) */
+            if (GP_PTR(a0) && a1 > 0 && a1 <= 4096) GP_OUT(0, 1, a1);
+        } else if (slot == 9) {
+            /* GetAvailableVoice(uint32 *pcbCompressed, uint32 *pcbUncompressed_Deprecated, uint32) */
+            if (GP_PTR(a0)) GP_OUT(0, 1, 4);
+            if (GP_PTR(a1)) GP_OUT(1, 2, 4);
+        } else if (slot == 10) {
+            /* GetVoice(bool bWantCompressed, void *pDest, uint32 cbDest, uint32 *nBytesWritten, ...) */
+            if (GP_PTR(a1) && a2 > 0) GP_OUT(0, 2, a2);
+            if (GP_PTR(a3)) GP_OUT(1, 4, 4);
+        } else if (slot == 11) {
+            /* DecompressVoice(const void *pCompressed, uint32 cb, void *pDest, uint32 cbDest, uint32 *nBytesWritten, uint32) */
+            if (GP_PTR(a0) && a1 > 0) GP_IN(1, a1);
+            if (GP_PTR(a2) && a3 > 0) GP_OUT(0, 3, a3);
+            if (GP_PTR(a4)) GP_OUT(1, 5, 4);
+        } else if (slot == 13) {
+            /* GetAuthSessionTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket[, const SteamNetworkingIdentity *]) */
+            if (GP_PTR(a0) && a1 > 0 && a1 <= 16384) GP_OUT(0, 1, a1);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 4);
+            if (ver >= 22 && GP_PTR(a3)) GP_IN(4, 136);
+        } else if (slot == (ver >= 23 ? 15 : 14)) {
+            /* BeginAuthSession(const void *pAuthTicket, int cbAuthTicket, CSteamID) */
+            if (GP_PTR(a0) && a1 > 0) GP_IN(1, a1);
+        } else if (slot == (ver >= 23 ? 21 : 20)) {
+            /* RequestEncryptedAppTicket(void *pDataToInclude, int cbDataToInclude) */
+            if (GP_PTR(a0) && a1 > 0) GP_IN(1, a1);
+        } else if (slot == (ver >= 23 ? 22 : 21)) {
+            /* GetEncryptedAppTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket) */
+            if (GP_PTR(a0) && a1 > 0 && a1 <= 16384) GP_OUT(0, 1, a1);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 4);
+        }
+        break;
+
+    case GP_IFACE_STEAMFRIENDS:
+        if (slot == 8 && ver >= 11 && ver <= 17) {
+            /* GetFriendGamePlayed(CSteamID, FriendGameInfo_t *): CGameID(8) + IP(4) + ports(2+2)
+             * + lobby CSteamID(8) = 24 bytes, same layout on both sides. */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 24);
+        }
+        break;
+
+    case GP_IFACE_STEAMUTILS:
+        if (ver < 7 || ver > 10) break;
+        if (slot == 5) {
+            /* GetImageSize(iImage, uint32 *pnWidth, uint32 *pnHeight) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 4);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 4);
+        } else if (slot == 6) {
+            /* GetImageRGBA(iImage, uint8 *pubDest, int nDestBufferSize) */
+            if (GP_PTR(a1) && a2 > 0) GP_OUT(0, 2, a2);
+        } else if (slot == 11) {
+            /* IsAPICallCompleted(hSteamAPICall, bool *pbFailed) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 1);
+        } else if (slot == 13) {
+            /* GetAPICallResult(hSteamAPICall, void *pCallback, int cubCallback, int expected, bool *pbFailed) */
+            if (GP_PTR(a1) && a2 > 0) GP_OUT(0, 2, a2);
+            if (GP_PTR(a4)) GP_OUT(1, 5, 1);
+        } else if (slot == 22) {
+            /* GetEnteredGamepadTextInput(char *pchText, uint32 cchText) */
+            if (GP_PTR(a0) && a1 > 0 && a1 <= 65536) GP_OUT(0, 1, a1);
+        } else if (slot == 32 && ver == 10) {
+            /* FilterText(ETextFilteringContext, CSteamID source, const char *pchIn, char *pchOut, uint32 cbOut) */
+            if (a1 == 0) {
+                /* No source user (server/system text): native Steam crashes on this, and there is
+                 * nothing to filter, so hand the text back unchanged. */
+                if (!gp_is_writable(a3, 1) || a4 == 0) return 0;
+                const char *in = GP_PTR(a2) ? (const char *)(uintptr_t)a2 : "";
+                size_t n = strnlen(in, (size_t)a4 - 1);
+                memcpy((void *)(uintptr_t)a3, in, n);
+                ((char *)(uintptr_t)a3)[n] = '\0';
+                return (uint64_t)n;
+            }
+            if (GP_PTR(a3) && a4 > 0 && a4 <= 65536) GP_OUT(0, 4, a4);
+        }
+        break;
+
+    case GP_IFACE_STEAMAPPS:
+        if (ver != 8) break;
+        if (slot == 11) {
+            /* BGetDLCDataByIndex(int iDLC, AppId_t *pAppID, bool *pbAvailable, char *pchName, int cchName) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 4);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 1);
+            if (GP_PTR(a3) && a4 > 0 && a4 <= 4096) GP_OUT(2, 4, a4);
+        } else if (slot == 15) {
+            /* GetCurrentBetaName(char *pchName, int cchNameBufferSize) */
+            if (GP_PTR(a0) && a1 > 0 && a1 <= 4096) GP_OUT(0, 1, a1);
+        } else if (slot == 17) {
+            /* GetInstalledDepots(AppId_t, DepotId_t *pvecDepots, uint32 cMaxDepots) */
+            if (GP_PTR(a1) && a2 > 0 && a2 <= 4096) GP_OUT(0, 2, a2 * 4);
+        } else if (slot == 18) {
+            /* GetAppInstallDir(AppId_t, char *pchFolder, uint32 cchFolderBufferSize) */
+            if (GP_PTR(a1) && a2 > 0) GP_OUT(0, 2, a2);
+        } else if (slot == 22) {
+            /* GetDlcDownloadProgress(AppId_t, uint64 *punBytesDownloaded, uint64 *punBytesTotal) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 8);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 8);
+        } else if (slot == 26) {
+            /* GetLaunchCommandLine(char *pszCommandLine, int cubCommandLine) */
+            if (GP_PTR(a0) && a1 > 0 && a1 <= 65536) GP_OUT(0, 1, a1);
+        } else if (slot == 28) {
+            /* BIsTimedTrial(uint32 *punSecondsAllowed, uint32 *punSecondsPlayed) */
+            if (GP_PTR(a0)) GP_OUT(0, 1, 4);
+            if (GP_PTR(a1)) GP_OUT(1, 2, 4);
+        }
+        break;
+
+    case GP_IFACE_STEAMHTTP:
+        if (ver < 2 || ver > 3) break;
+        if (slot == 5 || slot == 6) {
+            /* SendHTTPRequest / SendHTTPRequestAndStreamResponse(hReq, SteamAPICall_t *pCallHandle) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 8);
+        } else if (slot == 9) {
+            /* GetHTTPResponseHeaderSize(hReq, name, uint32 *outSize) */
+            if (GP_PTR(a2)) GP_OUT(0, 3, 4);
+        } else if (slot == 10) {
+            /* GetHTTPResponseHeaderValue(hReq, name, uint8 *buf, uint32 bufSize) */
+            if (GP_PTR(a2) && a3 > 0) GP_OUT(0, 3, a3);
+        } else if (slot == 11 || slot == 15) {
+            /* GetHTTPResponseBodySize / GetHTTPDownloadProgressPct(hReq, uint32/float *out) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 4);
+        } else if (slot == 12) {
+            /* GetHTTPResponseBodyData(hReq, uint8 *buf, uint32 bufSize) */
+            if (GP_PTR(a1) && a2 > 0) GP_OUT(0, 2, a2);
+        } else if (slot == 13) {
+            /* GetHTTPStreamingResponseBodyData(hReq, offset, uint8 *buf, uint32 bufSize) */
+            if (GP_PTR(a2) && a3 > 0) GP_OUT(0, 3, a3);
+        }
+        break;
+
+    case GP_IFACE_STEAMREMOTESTORAGE:
+        /* FileWrite (0) / FileRead (1) are the same in every version. */
+        if (slot == 0) {
+            /* FileWrite(pchFile, const void *pvData, int32 cubData) */
+            if (GP_PTR(a1) && a2 > 0) GP_IN(2, a2);
+            break;
+        }
+        if (slot == 1) {
+            /* FileRead(pchFile, void *pvData, int32 cubDataToRead) */
+            if (GP_PTR(a1) && a2 > 0) GP_OUT(0, 2, a2);
+            break;
+        }
+        if (ver != 14 && ver != 16) break;
+        if (slot == 2) {
+            /* FileWriteAsync(pchFile, const void *pvData, uint32 cubData) */
+            if (GP_PTR(a1) && a2 > 0) GP_IN(2, a2);
+        } else if (slot == 4) {
+            /* FileReadAsyncComplete(SteamAPICall_t, void *pvBuffer, uint32 cubToRead) */
+            if (GP_PTR(a1) && a2 > 0) GP_OUT(0, 2, a2);
+        } else if (slot == 10) {
+            /* FileWriteStreamWriteChunk(handle, const void *pvData, int32 cubData) */
+            if (GP_PTR(a1) && a2 > 0) GP_IN(2, a2);
+        } else if (slot == 19) {
+            /* GetFileNameAndSize(int iFile, int32 *pnFileSizeInBytes) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 4);
+        } else if (slot == 20) {
+            /* GetQuota(uint64 *pnTotalBytes, uint64 *puAvailableBytes) */
+            if (GP_PTR(a0)) GP_OUT(0, 1, 8);
+            if (GP_PTR(a1)) GP_OUT(1, 2, 8);
+        }
+        break;
+
+    case GP_IFACE_STEAMINVENTORY:
+        if (ver != 3) break;
+        if (slot == 6 || slot == 7 || slot == 9 || slot == 10 || slot == 11 || slot == 12 ||
+            slot == 13 || slot == 14 || slot == 15 || slot == 16 || slot == 18) {
+            /* GetAllItems, GetItemsByID, DeserializeResult, GenerateItems, GrantPromoItems,
+             * AddPromoItem(s), ConsumeItem, ExchangeItems, TransferItemQuantity, TriggerItemDrop:
+             * SteamInventoryResult_t *pResultHandle as arg 0. */
+            if (GP_PTR(a0)) GP_OUT(0, 1, 4);
+            if (slot == 9 && GP_PTR(a1) && a2 > 0) GP_IN(2, a2);   /* DeserializeResult(.., const void *pBuffer, uint32) */
+        } else if (slot == 8) {
+            /* SerializeResult(handle, void *pOutBuffer, uint32 *punOutBufferSize) */
+            if (GP_PTR(a2)) {
+                uint32_t cap = *(volatile uint32_t *)(uintptr_t)a2;
+                if (GP_PTR(a1) && cap > 0 && cap <= 65536) GP_OUT(0, 2, cap);
+                GP_OUT(1, 3, 4);
+            }
+        }
+        break;
+
+    case GP_IFACE_STEAMCONTROLLER:
+    case GP_IFACE_STEAMINPUT:
+        /* GetConnectedControllers(handlesOut[16]) is slot 3 in SteamController005-008 and SteamInput001. */
+        if (slot == 3 && ((self->kind == GP_IFACE_STEAMCONTROLLER && ver >= 5 && ver <= 8) ||
+                          (self->kind == GP_IFACE_STEAMINPUT && ver == 1))) {
+            if (GP_PTR(a0)) GP_OUT(0, 1, 128);
+        }
+        break;
+
+    case GP_IFACE_STEAMUSERSTATS: {
+        /* STEAMUSERSTATS_INTERFACE_VERSION011/012; 013 dropped RequestCurrentStats (slot 0), so
+         * its slots are one lower. `n` is the slot in 012 numbering. */
+        if (ver < 11 || ver > 13) break;
+        const uint32_t n = (ver == 13) ? slot + 1 : slot;
+        if (n == 1 || n == 2) {
+            /* GetStat(pchName, int32 / float *pData) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 4);
+        } else if (n == 6) {
+            /* GetAchievement(pchName, bool *pbAchieved) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 1);
+        } else if (n == 9) {
+            /* GetAchievementAndUnlockTime(pchName, bool *pbAchieved, uint32 *punUnlockTime) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 1);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 4);
+        } else if (n == 17 || n == 18) {
+            /* GetUserStat(CSteamID, pchName, int32 / float *pData) */
+            if (GP_PTR(a2)) GP_OUT(0, 3, 4);
+        } else if (n == 19) {
+            /* GetUserAchievement(CSteamID, pchName, bool *pbAchieved) */
+            if (GP_PTR(a2)) GP_OUT(0, 3, 1);
+        } else if (n == 20) {
+            /* GetUserAchievementAndUnlockTime(CSteamID, pchName, bool *, uint32 *) */
+            if (GP_PTR(a2)) GP_OUT(0, 3, 1);
+            if (GP_PTR(a3)) GP_OUT(1, 4, 4);
+        } else if (n == 31) {
+            /* UploadLeaderboardScore(hLeaderboard, method, int32 nScore, const int32 *pScoreDetails, int cScoreDetailsCount) */
+            if (GP_PTR(a3) && a4 > 0 && a4 <= 64) GP_IN(4, a4 * 4);
+        } else if (n == 35) {
+            /* GetMostAchievedAchievementInfo(char *pchName, uint32 unNameBufLen, float *pflPercent, bool *pbAchieved) */
+            if (GP_PTR(a0) && a1 > 0 && a1 <= 4096) GP_OUT(0, 1, a1);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 4);
+            if (GP_PTR(a3)) GP_OUT(2, 4, 1);
+        } else if (n == 36) {
+            /* GetNextMostAchievedAchievementInfo(int iIteratorPrevious, char *, uint32, float *, bool *) */
+            if (GP_PTR(a1) && a2 > 0 && a2 <= 4096) GP_OUT(0, 2, a2);
+            if (GP_PTR(a3)) GP_OUT(1, 4, 4);
+            if (GP_PTR(a4)) GP_OUT(2, 5, 1);
+        } else if (n == 37) {
+            /* GetAchievementAchievedPercent(pchName, float *pflPercent) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 4);
+        } else if (n == 39 || n == 40) {
+            /* GetGlobalStat(pchStatName, int64 / double *pData) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 8);
+        } else if (n == 41 || n == 42) {
+            /* GetGlobalStatHistory(pchStatName, int64 / double *pData, uint32 cubData) */
+            if (GP_PTR(a1) && a2 > 0) GP_OUT(0, 2, a2);
+        } else if (n == 43 || n == 44) {
+            /* GetAchievementProgressLimits(pchName, int32 / float *pnMin, *pnMax) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 4);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 4);
+        }
+        break;
+    }
+
+    case GP_IFACE_STEAMGAMESERVERSTATS:
+        if (ver != 1) break;
+        if (slot == 1 || slot == 2) {
+            /* GetUserStat(CSteamID, pchName, int32 / float *pData) */
+            if (GP_PTR(a2)) GP_OUT(0, 3, 4);
+        } else if (slot == 3) {
+            /* GetUserAchievement(CSteamID, pchName, bool *pbAchieved) */
+            if (GP_PTR(a2)) GP_OUT(0, 3, 1);
+        }
+        break;
+
+    case GP_IFACE_STEAMGC:
+        if (ver != 1) break;
+        if (slot == 0) {
+            /* SendMessage(uint32 unMsgType, const void *pubData, uint32 cubData) */
+            if (GP_PTR(a1) && a2 > 0) GP_IN(2, a2);
+        } else if (slot == 1) {
+            /* IsMessageAvailable(uint32 *pcubMsgSize) */
+            if (GP_PTR(a0)) GP_OUT(0, 1, 4);
+        } else if (slot == 2) {
+            /* RetrieveMessage(uint32 *punMsgType, void *pubDest, uint32 cubDest, uint32 *pcubMsgSize) */
+            if (GP_PTR(a0)) GP_OUT(0, 1, 4);
+            if (GP_PTR(a1) && a2 > 0) GP_OUT(1, 2, a2);
+            if (GP_PTR(a3)) GP_OUT(2, 4, 4);
+        }
+        break;
+
+    case GP_IFACE_STEAMNETUTILS:
+        if (ver != 4) break;
+        if (slot == 1) {
+            /* GetRelayNetworkStatus(SteamRelayNetworkStatus_t *pDetails) */
+            if (GP_PTR(a0)) GP_OUT(0, 1, 280);
+        }
+        break;
+
+    case GP_IFACE_STEAMGAMESERVER:
+        /* ISteamGameServer015 — listen servers (TF2 training, offline practice, local servers). */
+        if (ver != 15) break;
         if (slot == 25) {
             /* GetAuthSessionTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket, const SteamNetworkingIdentity *pSnid) */
-            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 16384) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
-            if (a2 >= 0x10000ULL) { call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4; }
-            if (a3 >= 0x10000ULL) { call.in_buf_arg_idx = 4; call.in_buf_len = 136; }
+            if (GP_PTR(a0) && a1 > 0 && a1 <= 16384) GP_OUT(0, 1, a1);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 4);
+            if (GP_PTR(a3)) GP_IN(4, 136);
         } else if (slot == 26 || slot == 34) {
             /* BeginAuthSession(const void *pAuthTicket, int cbAuthTicket, CSteamID) /
              * HandleIncomingPacket(const void *pData, int cbData, uint32 srcIP, uint16 srcPort) */
-            if (a0 >= 0x10000ULL && a1 > 0) { call.in_buf_arg_idx = 1; call.in_buf_len = (uint32_t)a1; }
+            if (GP_PTR(a0) && a1 > 0) GP_IN(1, a1);
         } else if (slot == 33) {
             /* SteamIPAddress_t GetPublicIP(): 20-byte struct returned through a hidden pointer (a0). */
             if (gp_is_writable(a0, 20)) {
                 call.flags |= GP_CALL_FLAG_RET_BLOB20;
-                call.out_arg_idx[0] = 1; call.out_arg_len[0] = 20;
+                GP_OUT(0, 1, 20);
                 if (gp_unix_call(GP_BRIDGE_OP_VTABLE_CALL, &call) != 0) memset((void *)(uintptr_t)a0, 0, 20);
                 return a0;
             }
             return 0;
         } else if (slot == 35) {
             /* GetNextOutgoingPacket(void *pOut, int cbMaxOut, uint32 *pNetAdr, uint16 *pPort) */
-            if (a0 >= 0x10000ULL && a1 > 0) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
-            if (a2 >= 0x10000ULL) { call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4; }
-            if (a3 >= 0x10000ULL) { call.out_arg_idx[2] = 4; call.out_arg_len[2] = 2; }
+            if (GP_PTR(a0) && a1 > 0) GP_OUT(0, 1, a1);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 4);
+            if (GP_PTR(a3)) GP_OUT(2, 4, 2);
         } else if (slot == 38) {
             /* SendUserConnectAndAuthenticate_DEPRECATED(uint32 ip, const void *pvAuthBlob, uint32 cub, CSteamID *pSteamIDUser) */
-            if (a1 >= 0x10000ULL && a2 > 0) { call.in_buf_arg_idx = 2; call.in_buf_len = (uint32_t)a2; }
-            if (a3 >= 0x10000ULL) { call.out_arg_idx[0] = 4; call.out_arg_len[0] = 8; }
+            if (GP_PTR(a1) && a2 > 0) GP_IN(2, a2);
+            if (GP_PTR(a3)) GP_OUT(0, 4, 8);
         }
-    } else if (self->kind == GP_IFACE_STEAMHTTP) {
-        if (slot == 5 || slot == 6) {
-            /* SendHTTPRequest / SendHTTPRequestAndStreamResponse(hReq, SteamAPICall_t *pCallHandle) */
-            if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 8; }
-        } else if (slot == 9) {
-            /* GetHTTPResponseHeaderSize(hReq, name, uint32 *outSize) */
-            if (a2 >= 0x10000ULL) { call.out_arg_idx[0] = 3; call.out_arg_len[0] = 4; }
-        } else if (slot == 10) {
-            /* GetHTTPResponseHeaderValue(hReq, name, uint8 *buf, uint32 bufSize) */
-            if (a2 >= 0x10000ULL && a3 > 0) { call.out_arg_idx[0] = 3; call.out_arg_len[0] = (uint32_t)a3; }
-        } else if (slot == 11 || slot == 15) {
-            /* GetHTTPResponseBodySize / GetHTTPDownloadProgressPct(hReq, uint32/float *out) */
-            if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 4; }
-        } else if (slot == 12) {
-            /* GetHTTPResponseBodyData(hReq, uint8 *buf, uint32 bufSize) */
-            if (a1 >= 0x10000ULL && a2 > 0) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = (uint32_t)a2; }
-        } else if (slot == 13) {
-            /* GetHTTPStreamingResponseBodyData(hReq, offset, uint8 *buf, uint32 bufSize) */
-            if (a2 >= 0x10000ULL && a3 > 0) { call.out_arg_idx[0] = 3; call.out_arg_len[0] = (uint32_t)a3; }
-        }
-    } else if (self->kind == GP_IFACE_STEAMUTILS) {
-        if (slot == 5) {
-            /* GetImageSize(iImage, uint32 *pnWidth, uint32 *pnHeight) */
-            if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 4; }
-            if (a2 >= 0x10000ULL) { call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4; }
-        } else if (slot == 6) {
-            /* GetImageRGBA(iImage, uint8 *pubDest, int nDestBufferSize) */
-            if (a1 >= 0x10000ULL && a2 > 0) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = (uint32_t)a2; }
-        } else if (slot == 11) {
-            /* IsAPICallCompleted(hSteamAPICall, bool *pbFailed) */
-            if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 1; }
-        } else if (slot == 22) {
-            /* GetEnteredGamepadTextInput(char *pchText, uint32 cchText) */
-            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 65536) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
-        } else if (slot == 32) {
-            /* FilterText(ETextFilteringContext, CSteamID source, const char *pchIn, char *pchOut, uint32 cbOut) */
-            if (a1 == 0) {
-                /* No source user (server/system text): native Steam crashes on this, and there is
-                 * nothing to filter, so hand the text back unchanged. */
-                if (!gp_is_writable(a3, 1) || a4 == 0) return 0;
-                const char *in = (a2 >= 0x10000ULL) ? (const char *)(uintptr_t)a2 : "";
-                size_t n = strnlen(in, (size_t)a4 - 1);
-                memcpy((void *)(uintptr_t)a3, in, n);
-                ((char *)(uintptr_t)a3)[n] = '\0';
-                return (uint64_t)n;
-            }
-            if (a3 >= 0x10000ULL && a4 > 0 && a4 <= 65536) { call.out_arg_idx[0] = 4; call.out_arg_len[0] = (uint32_t)a4; }
-        } else if (slot == 13) {
-            /* GetAPICallResult(hSteamAPICall, void *pCallback, int cubCallback, int expected, bool *pbFailed) */
-            if (a1 >= 0x10000ULL && a2 > 0) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = (uint32_t)a2; }
-            if (a4 >= 0x10000ULL) { call.out_arg_idx[1] = 5; call.out_arg_len[1] = 1; }
-        }
-    } else if (self->kind == GP_IFACE_STEAMUSER) {
-        /* ISteamUser023 slots (Steamworks SDK order). */
-        if (slot == 3) {
-            /* InitiateGameConnection_DEPRECATED(void *pAuthBlob, int cbMaxAuthBlob, CSteamID, uint32 ip, uint16 port, bool) */
-            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 16384) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
-        } else if (slot == 6) {
-            /* GetUserDataFolder(char *pchBuffer, int cubBuffer) */
-            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 4096) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
-        } else if (slot == 9) {
-            /* GetAvailableVoice(uint32 *pcbCompressed, uint32 *pcbUncompressed_Deprecated, uint32 rate) */
-            if (a0 >= 0x10000ULL) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = 4; }
-            if (a1 >= 0x10000ULL) { call.out_arg_idx[1] = 2; call.out_arg_len[1] = 4; }
-        } else if (slot == 10) {
-            /* GetVoice(bool bWantCompressed, void *pDest, uint32 cbDest, uint32 *nBytesWritten, ...deprecated) */
-            if (a1 >= 0x10000ULL && a2 > 0) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = (uint32_t)a2; }
-            if (a3 >= 0x10000ULL) { call.out_arg_idx[1] = 4; call.out_arg_len[1] = 4; }
-        } else if (slot == 11) {
-            /* DecompressVoice(const void *pCompressed, uint32 cbCompressed, void *pDest, uint32 cbDest, uint32 *nBytesWritten, uint32 rate) */
-            if (a0 >= 0x10000ULL && a1 > 0) { call.in_buf_arg_idx = 1; call.in_buf_len = (uint32_t)a1; }
-            if (a2 >= 0x10000ULL && a3 > 0) { call.out_arg_idx[0] = 3; call.out_arg_len[0] = (uint32_t)a3; }
-            if (a4 >= 0x10000ULL) { call.out_arg_idx[1] = 5; call.out_arg_len[1] = 4; }
-        } else if (slot == 13) {
-            /* GetAuthSessionTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket, const SteamNetworkingIdentity *pSnid) */
-            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 16384) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
-            if (a2 >= 0x10000ULL) { call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4; }
-            if (a3 >= 0x10000ULL) { call.in_buf_arg_idx = 4; call.in_buf_len = 136; }
-        } else if (slot == 15) {
-            /* BeginAuthSession(const void *pAuthTicket, int cbAuthTicket, CSteamID) */
-            if (a0 >= 0x10000ULL && a1 > 0) { call.in_buf_arg_idx = 1; call.in_buf_len = (uint32_t)a1; }
-        } else if (slot == 21) {
-            /* RequestEncryptedAppTicket(void *pDataToInclude, int cbDataToInclude) */
-            if (a0 >= 0x10000ULL && a1 > 0) { call.in_buf_arg_idx = 1; call.in_buf_len = (uint32_t)a1; }
-        } else if (slot == 22) {
-            /* GetEncryptedAppTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket) */
-            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 16384) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
-            if (a2 >= 0x10000ULL) { call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4; }
-        }
-    } else if (self->kind == GP_IFACE_STEAMFRIENDS) {
-        if (slot == 8) {
-            /* GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo):
-             * CGameID(8) + IP(4) + game port(2) + query port(2) + lobby CSteamID(8) = 24 bytes,
-             * identical layout on Windows x64 and macOS x86_64. */
-            if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 24; }
-        }
-    } else if (self->kind == GP_IFACE_STEAMAPPS) {
-        if (slot == 18) {
-            /* GetAppInstallDir(appID, char *pchFolder, uint32 cchFolderBufferSize) */
-            if (a1 >= 0x10000ULL && a2 > 0) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = (uint32_t)a2; }
-        }
-    } else if (self->kind == GP_IFACE_STEAMREMOTESTORAGE) {
-        if (slot == 0) {
-            /* FileWrite(pchFile, const void *pvData, int32 cubData) */
-            if (a1 >= 0x10000ULL && a2 > 0) { call.in_buf_arg_idx = 2; call.in_buf_len = (uint32_t)a2; }
-        } else if (slot == 1) {
-            /* FileRead(pchFile, void *pvData, int32 cubDataToRead) */
-            if (a1 >= 0x10000ULL && a2 > 0) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = (uint32_t)a2; }
-        } else if (slot == 16) {
-            /* GetQuota(uint64 *pnTotalBytes, uint64 *puAvailableBytes) */
-            if (a0 >= 0x10000ULL) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = 8; }
-            if (a1 >= 0x10000ULL) { call.out_arg_idx[1] = 2; call.out_arg_len[1] = 8; }
-        }
-    } else if (self->kind == GP_IFACE_STEAMINVENTORY) {
-        if (slot == 0 || slot == 7 || slot == 8 || slot == 10) {
-            /* Methods taking SteamInventoryResult_t *pResultHandle as arg 0 */
-            if (a0 >= 0x10000ULL) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = 4; }
-        }
-    } else if (self->kind == GP_IFACE_STEAMCONTROLLER || self->kind == GP_IFACE_STEAMINPUT) {
-        if (slot == 3) {
-            /* GetConnectedControllers(ControllerHandle_t *handlesOut) — 16 * 8 = 128 bytes */
-            if (a0 >= 0x10000ULL) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = 128; }
-        }
-    } else if (self->kind == GP_IFACE_STEAMUSERSTATS) {
-        if (slot == 1 || slot == 2) {
-            /* GetStat(const char *pchName, int32/float *pData) */
-            if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 4; }
-        } else if (slot == 6) {
-            /* GetAchievement(const char *pchName, bool *pbAchieved) */
-            if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 1; }
-        } else if (slot == 9) {
-            /* GetAchievementAndUnlockTime(pchName, bool *pbAchieved, uint32 *punUnlockTime) */
-            if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 1; }
-            if (a2 >= 0x10000ULL) { call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4; }
-        }
-    } else if (self->kind == GP_IFACE_STEAMGC) {
-        if (slot == 0) {
-            /* SendMessage(uint32 unMsgType, const void *pubData, uint32 cubData) */
-            if (a1 >= 0x10000ULL && a2 > 0) { call.in_buf_arg_idx = 2; call.in_buf_len = (uint32_t)a2; }
-        } else if (slot == 1) {
-            /* IsMessageAvailable(uint32 *pcubMsgSize) */
-            if (a0 >= 0x10000ULL) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = 4; }
-        } else if (slot == 2) {
-            /* RetrieveMessage(uint32 *punMsgType, void *pubDest, uint32 cubDest, uint32 *pcubMsgSize) */
-            if (a0 >= 0x10000ULL) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = 4; }
-            if (a1 >= 0x10000ULL && a2 > 0) { call.out_arg_idx[1] = 2; call.out_arg_len[1] = (uint32_t)a2; }
-            if (a3 >= 0x10000ULL) { call.out_arg_idx[2] = 4; call.out_arg_len[2] = 4; }
-        }
-    } else if (self->kind == GP_IFACE_STEAMNETUTILS) {
-        if (slot == 1) {
-            /* GetRelayNetworkStatus(SteamRelayNetworkStatus_t *pDetails) */
-            if (a0 >= 0x10000ULL) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = 280; }
-        }
+        break;
+
+    default:
+        break;
     }
+#undef GP_OUT
+#undef GP_IN
+#undef GP_PTR
 
     if (gp_unix_call(GP_BRIDGE_OP_VTABLE_CALL, &call) != 0) {
         return 0;
