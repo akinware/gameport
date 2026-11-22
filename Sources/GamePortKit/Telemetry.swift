@@ -357,9 +357,11 @@ public struct TelemetryStore: Sendable {
 
         Task.detached(priority: .utility) {
             var gameStart: Date?
+            var sentInitial = false
             var thermalSamples: [LabThermalState] = [LabThermalState.current()].compactMap { $0 }
             let maxWaitWithoutGame: TimeInterval = 180
             let healthyThreshold: TimeInterval = 90
+            let maxMonitorDuration: TimeInterval = 6 * 3600
 
             func readFPS() -> PlayFPSStats? {
                 guard let fpsLog, let text = try? String(contentsOf: fpsLog, encoding: .utf8) else { return nil }
@@ -367,7 +369,7 @@ public struct TelemetryStore: Sendable {
             }
 
             while true {
-                try? await Task.sleep(for: .seconds(5))
+                try? await Task.sleep(for: .seconds(sentInitial ? 15 : 5))
                 if let t = LabThermalState.current() { thermalSamples.append(t) }
                 let ps = (try? Shell.run("/bin/ps", ["-axo", "pid=,command="], check: false).output) ?? ""
                 let activePIDs = LabResult.gameProcessIDs(inProcessList: ps)
@@ -376,7 +378,8 @@ public struct TelemetryStore: Sendable {
                 if !activePIDs.isEmpty {
                     if gameStart == nil { gameStart = now }
                     let played = now.timeIntervalSince(gameStart!)
-                    if played >= healthyThreshold {
+                    if !sentInitial && played >= healthyThreshold {
+                        sentInitial = true
                         let logText = (try? String(contentsOf: gameLog, encoding: .utf8)) ?? ""
                         let signs = LabTriage.findings(
                             game: logText,
@@ -395,6 +398,7 @@ public struct TelemetryStore: Sendable {
                         ) {
                             _ = await self.post(report, to: url)
                         }
+                    } else if now.timeIntervalSince(startedAt) >= maxMonitorDuration {
                         return
                     }
                 } else if let start = gameStart {

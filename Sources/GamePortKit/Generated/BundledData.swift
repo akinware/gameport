@@ -19593,10 +19593,12 @@ PFN_void vkGetDeviceProcAddr(VkDevice device, const char *name) {
 #include <unistd.h>
 
 #define MAX_BUCKET_FRAMES 240
+#define MAX_FLUSHES 1200 // ~20 minutes (~1 MB max log size, never grows unbounded)
 
 static os_unfair_lock g_lock = OS_UNFAIR_LOCK_INIT;
 static int g_state = 0; // 0 = unchecked, 1 = active game, -1 = ignored process
 static int g_fd = -1;
+static uint32_t g_flushes = 0;
 static double g_ticks_to_ms = 0.0;
 static uint64_t g_last_tick = 0;
 static uint64_t g_window_start_tick = 0;
@@ -19640,6 +19642,12 @@ static void flush_bucket_locked(uint64_t now_tick) {
     g_window_start_tick = now_tick;
     g_window_frames = 0;
     g_interval_count = 0;
+    g_flushes++;
+    if (g_flushes >= MAX_FLUSHES) {
+        close(g_fd);
+        g_fd = -1;
+        g_state = -1;
+    }
 }
 
 static id gp_nextDrawable(id self, SEL _cmd) {
