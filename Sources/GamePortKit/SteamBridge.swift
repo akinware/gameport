@@ -147,6 +147,7 @@ public struct SteamBridge: Sendable {
     public init(paths: Paths) { self.paths = paths }
 
     public var overlayDir: URL { paths.tools.appendingPathComponent("steam-bridge", isDirectory: true) }
+    public var hostDaemon: URL { overlayDir.appendingPathComponent("gpsteambridge-host") }
     public var peDLL: URL { overlayDir.appendingPathComponent("x86_64-windows/steamclient64.dll") }
     public var peDLL32: URL { overlayDir.appendingPathComponent("i386-windows/steamclient.dll") }
     public var unixSO: URL { overlayDir.appendingPathComponent("x86_64-unix/steamclient64.so") }
@@ -258,6 +259,8 @@ public struct SteamBridge: Sendable {
         var env: [String: String] = [
             "SteamAppId": String(appID),
             "SteamGameId": String(appID),
+            "GAMEPORT_REAL_HOME": home.path,
+            "GAMEPORT_BRIDGE_HOST": hostDaemon.path,
             "STEAM_COMPAT_CLIENT_INSTALL_PATH": home.appendingPathComponent("Library/Application Support/Steam").path,
             "WINEDLLOVERRIDES": "steamclient64,steamclient=b",
         ]
@@ -326,6 +329,7 @@ public struct SteamBridge: Sendable {
     public func launch(
         runner: WineRunner,
         executable: URL,
+        arguments: [String] = [],
         appID: Int,
         antiCheat: AntiCheatEntry? = nil,
         allowVACOverride: Bool = false,
@@ -365,7 +369,12 @@ public struct SteamBridge: Sendable {
             mockMode: false,
             verboseLog: verboseLog
         )
-        return try runner.spawn([executable.path], extra: extra, logName: "bridge-game.log")
+        return try runner.spawn(
+            [executable.path] + arguments,
+            extra: extra,
+            logName: "bridge-game.log",
+            currentDirectory: executable.deletingLastPathComponent()
+        )
     }
 
     /// Runs `bridge_probe.exe` (or 32-bit WoW64 `bridge_probe32.exe`) in a clean temporary prefix

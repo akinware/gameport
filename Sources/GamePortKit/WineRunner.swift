@@ -122,11 +122,11 @@ public struct WineRunner: Sendable {
     }
 
     /// Starts a Wine program and returns at once; output goes to the profile's log.
-    public func spawn(_ arguments: [String], sync: SyncMode? = nil, extra: [String: String] = [:], logName: String) throws -> Process {
+    public func spawn(_ arguments: [String], sync: SyncMode? = nil, extra: [String: String] = [:], logName: String, currentDirectory: URL? = nil) throws -> Process {
         try prepareDirectories()
         let log = logs.appendingPathComponent(logName)
         let cmd = try resolvedCommand(arguments: arguments, applyPerformanceCores: true)
-        return try Shell.spawn(cmd.executable, cmd.arguments, environment: try environment(sync: sync, extra: extra), log: log)
+        return try Shell.spawn(cmd.executable, cmd.arguments, environment: try environment(sync: sync, extra: extra), log: log, currentDirectory: currentDirectory)
     }
 
     func prepareDirectories() throws {

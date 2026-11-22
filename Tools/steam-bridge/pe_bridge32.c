@@ -258,16 +258,16 @@ static bool __attribute__((thiscall)) tc_apps_b_is_vac_banned(struct gp_proxy32 
     return call_native_u64(self, 3, 0, 0, 0, 0, 0) != 0;
 }
 static const char *__attribute__((thiscall)) tc_apps_get_lang(struct gp_proxy32 *self) {
-    return (const char *)(uintptr_t)call_native_u64(self, 6, GP_CALL_FLAG_RET_CSTR, 0, 0, 0, 0);
+    return (const char *)(uintptr_t)call_native_u64(self, 4, GP_CALL_FLAG_RET_CSTR, 0, 0, 0, 0);
 }
 static const char *__attribute__((thiscall)) tc_apps_get_avail_langs(struct gp_proxy32 *self) {
-    return (const char *)(uintptr_t)call_native_u64(self, 7, GP_CALL_FLAG_RET_CSTR, 0, 0, 0, 0);
+    return (const char *)(uintptr_t)call_native_u64(self, 5, GP_CALL_FLAG_RET_CSTR, 0, 0, 0, 0);
 }
 static bool __attribute__((thiscall)) tc_apps_b_is_subscribed_app(struct gp_proxy32 *self, uint32_t app_id) {
-    return call_native_u64(self, 8, 0, app_id, 0, 0, 0) != 0;
+    return call_native_u64(self, 6, 0, app_id, 0, 0, 0) != 0;
 }
 static bool __attribute__((thiscall)) tc_apps_b_is_dlc_installed(struct gp_proxy32 *self, uint32_t app_id) {
-    return call_native_u64(self, 9, 0, app_id, 0, 0, 0) != 0;
+    return call_native_u64(self, 7, 0, app_id, 0, 0, 0) != 0;
 }
 
 /* ISteamUtils core slots */
@@ -275,7 +275,7 @@ static uint32_t __attribute__((thiscall)) tc_utils_seconds_active(struct gp_prox
     return (uint32_t)call_native_u64(self, 0, 0, 0, 0, 0, 0);
 }
 static const char *__attribute__((thiscall)) tc_utils_ip_country(struct gp_proxy32 *self) {
-    return (const char *)(uintptr_t)call_native_u64(self, 2, GP_CALL_FLAG_RET_CSTR, 0, 0, 0, 0);
+    return (const char *)(uintptr_t)call_native_u64(self, 4, GP_CALL_FLAG_RET_CSTR, 0, 0, 0, 0);
 }
 static uint32_t __attribute__((thiscall)) tc_utils_get_appid(struct gp_proxy32 *self) {
     return (uint32_t)call_native_u64(self, 9, 0, 0, 0, 0, 0);
@@ -333,13 +333,13 @@ static void init_vtables(void) {
     g_vt_apps[1] = (void *)tc_apps_b_is_low_violence;
     g_vt_apps[2] = (void *)tc_apps_b_is_cybercafe;
     g_vt_apps[3] = (void *)tc_apps_b_is_vac_banned;
-    g_vt_apps[6] = (void *)tc_apps_get_lang;
-    g_vt_apps[7] = (void *)tc_apps_get_avail_langs;
-    g_vt_apps[8] = (void *)tc_apps_b_is_subscribed_app;
-    g_vt_apps[9] = (void *)tc_apps_b_is_dlc_installed;
+    g_vt_apps[4] = (void *)tc_apps_get_lang;
+    g_vt_apps[5] = (void *)tc_apps_get_avail_langs;
+    g_vt_apps[6] = (void *)tc_apps_b_is_subscribed_app;
+    g_vt_apps[7] = (void *)tc_apps_b_is_dlc_installed;
 
     g_vt_utils[0] = (void *)tc_utils_seconds_active;
-    g_vt_utils[2] = (void *)tc_utils_ip_country;
+    g_vt_utils[4] = (void *)tc_utils_ip_country;
     g_vt_utils[9] = (void *)tc_utils_get_appid;
 
     g_vt_friends[0] = (void *)tc_friends_persona_name;

@@ -84,7 +84,7 @@ int main(void) {
     if (steam_apps) {
         void **avt = *(void ***)steam_apps;
         subscribed = ((fn_BIsSubscribed_t)avt[0])(steam_apps) ? 1 : 0;
-        const char *l = ((fn_GetCurrentGameLanguage_t)avt[6])(steam_apps);
+        const char *l = ((fn_GetCurrentGameLanguage_t)avt[4])(steam_apps);
         if (l) lang = l;
     }
 

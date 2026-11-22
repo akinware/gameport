@@ -1,22 +1,31 @@
 /*
- * GamePort Steam Bridge — macOS x86_64 Wine UnixLib (steamclient64.so)
+ * GamePort Steam Bridge — macOS x86_64 Wine UnixLib (steamclient64.so / steamclient.so)
  * License: PolyForm Noncommercial 1.0.0 (see LICENSE)
  *
- * Loaded inside Wine's Unix side when steamclient64.dll invokes NtQueryVirtualMemory
- * (MemoryWineUnixFuncs). Dynamically opens the user's untouched native macOS
- * steamclient.dylib and bridges C exports + C++ vtable calls across System V ABI.
+ * Bridges Wine PE steamclient64.dll / steamclient.dll calls to the native macOS
+ * gpsteambridge-host helper over a private AF_UNIX socketpair, keeping Valve's
+ * native steamclient.dylib completely outside Wine's Win32 address space.
  */
 
 #include "bridge_protocol.h"
 
 #include <dlfcn.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <libgen.h>
+#include <mach/mach.h>
+#include <mach/mach_vm.h>
 #include <pthread.h>
+#include <spawn.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/socket.h>
 #include <unistd.h>
+
+extern char **environ;
 
 typedef uint32_t NTSTATUS;
 #define STATUS_SUCCESS            ((NTSTATUS)0x00000000u)
@@ -25,144 +34,186 @@ typedef uint32_t NTSTATUS;
 
 typedef NTSTATUS (*unixlib_entry_t)(void *args);
 
-/* Native macOS steamclient.dylib C entry signatures */
-typedef void *(*fn_CreateInterface_t)(const char *pName, int *pReturnCode);
+/* Must stay byte-identical with host_daemon.c */
+#define GP_IPC_MAX_STR      256
+#define GP_IPC_MAX_PAYLOAD  524288
 
-#pragma pack(push, 4)
-struct native_callback_msg {
-    int32_t  m_hSteamUser;
-    int32_t  m_iCallback;
-    uint8_t *m_pubParam;
-    int32_t  m_cubParam;
+#pragma pack(push, 8)
+struct gp_ipc_request {
+    uint32_t op;
+    uint32_t flags;
+    uint32_t slot;
+    int32_t  pipe;
+    int32_t  expected_callback;
+    int32_t  cub_buf;
+    uint64_t native_obj;
+    uint64_t api_call;
+    uint64_t args[8];
+    uint8_t  arg_is_str[8];
+    uint8_t  out_arg_idx[3];   /* 1..8 = arg index + 1; 0 = unused */
+    uint8_t  in_buf_arg_idx;   /* 1..8 = arg index + 1; 0 = unused */
+    uint32_t out_arg_len[3];
+    uint32_t in_buf_len;
+    char     str_args[8][GP_IPC_MAX_STR];
+    char     iface_name[GP_BRIDGE_MAX_IFACE_NAME];
+    uint8_t  in_payload[GP_IPC_MAX_PAYLOAD];
+};
+
+struct gp_ipc_response {
+    int32_t  status;
+    int32_t  return_code;
+    uint32_t loaded;
+    uint32_t exports_mask;
+    uint64_t ret_u64;
+    double   ret_f64;
+    int32_t  has_callback;
+    int32_t  steam_user;
+    int32_t  callback_id;
+    int32_t  cub_param;
+    int32_t  failed;
+    int32_t  ok;
+    uint32_t ret_is_str;
+    uint32_t payload_len;
+    uint32_t out_len[3];
+    uint32_t reserved0;
+    char     ret_str[GP_IPC_MAX_STR];
+    char     dylib_path[GP_BRIDGE_MAX_PATH];
+    char     error_msg[256];
+    uint8_t  payload[GP_IPC_MAX_PAYLOAD];
 };
 #pragma pack(pop)
 
-typedef bool (*fn_Steam_BGetCallback_t)(int32_t hSteamPipe, struct native_callback_msg *pCallbackMsg);
-typedef void (*fn_Steam_FreeLastCallback_t)(int32_t hSteamPipe);
-typedef bool (*fn_Steam_GetAPICallResult_t)(int32_t hSteamPipe, uint64_t hSteamAPICall,
-                                            void *pCallback, int32_t cubCallback,
-                                            int32_t iCallbackExpected, bool *pbFailed);
-typedef void (*fn_Steam_ReleaseThreadLocalMemory_t)(int32_t bThreadExit);
+/* Global state */
+static pthread_once_t  g_init_once = PTHREAD_ONCE_INIT;
+static pthread_mutex_t g_ipc_lock  = PTHREAD_MUTEX_INITIALIZER;
+static int             g_sock_fd   = -1;
+static int             g_mock_mode = 0;
+static int             g_verbose   = 0;
+static char            g_init_error[256];
 
-/* Global bridge state initialized once per process */
-static pthread_once_t g_init_once = PTHREAD_ONCE_INIT;
-static void *g_dylib = NULL;
-static int   g_mock_mode = 0;
-static int   g_verbose = 0;
-static uint32_t g_exports_mask = 0;
-static char  g_dylib_path[GP_BRIDGE_MAX_PATH];
-static char  g_error_msg[256];
+/* Wine-address-space storage for marshaled callbacks and C strings (64-bit callers) */
+static uint8_t g_cb_buf[GP_IPC_MAX_PAYLOAD];
+#define GP_UNIX_STR_SLOTS 64
+static char    g_unix_str_ring[GP_UNIX_STR_SLOTS][GP_IPC_MAX_STR];
+static uint32_t g_unix_str_idx = 0;
 
-static fn_CreateInterface_t               p_CreateInterface = NULL;
-static fn_Steam_BGetCallback_t            p_Steam_BGetCallback = NULL;
-static fn_Steam_FreeLastCallback_t        p_Steam_FreeLastCallback = NULL;
-static fn_Steam_GetAPICallResult_t        p_Steam_GetAPICallResult = NULL;
-static fn_Steam_ReleaseThreadLocalMemory_t p_Steam_ReleaseThreadLocalMemory = NULL;
+static struct gp_ipc_request  g_req;
+static struct gp_ipc_response g_resp;
 
 #define GP_LOG(fmt, ...) \
     do { if (g_verbose) fprintf(stderr, "[gameport-steam-bridge] " fmt "\n", ##__VA_ARGS__); } while (0)
 
 /* --------------------------------------------------------------------------
- * Deterministic Mock SteamClient (activated ONLY via GP_STEAM_BRIDGE_MOCK=1)
- * Used by automated CI/unit smoke tests when native Steam.app isn't running.
+ * Deterministic Mock Mode (GP_STEAM_BRIDGE_MOCK=1) for CI / unit tests
  * -------------------------------------------------------------------------- */
-struct mock_object {
-    void **vtable;
-    int    tag;
-};
+struct mock_object { void **vtable; int tag; };
+static uint64_t mock_zero(void *s) { (void)s; return 0; }
+static uint64_t mock_one(void *s)  { (void)s; return 1; }
+static uint64_t mock_pipe(void *s) { (void)s; return 101; }
+static uint64_t mock_user(void *s, int32_t p) { (void)s; (void)p; return 202; }
+static uint64_t mock_sid(void *s)  { (void)s; return 76561198000000001ULL; }
+static uint64_t mock_lang(void *s) { (void)s; return (uint64_t)(uintptr_t)"english"; }
 
-static uint64_t mock_return_zero(void *self) { (void)self; return 0; }
-static uint64_t mock_return_one(void *self)  { (void)self; return 1; }
-static uint64_t mock_create_pipe(void *self) { (void)self; return 101; }
-static uint64_t mock_connect_user(void *self, int32_t pipe) { (void)self; (void)pipe; return 202; }
-static uint64_t mock_get_steam_id(void *self) { (void)self; return 76561198000000001ULL; }
-static uint64_t mock_get_app_lang(void *self) { (void)self; return (uint64_t)(uintptr_t)"english"; }
+static void *g_mock_user_vt[GP_BRIDGE_VTABLE_SLOTS];
+static void *g_mock_apps_vt[GP_BRIDGE_VTABLE_SLOTS];
+static void *g_mock_client_vt[GP_BRIDGE_VTABLE_SLOTS];
+static struct mock_object g_mock_user   = { g_mock_user_vt, 2 };
+static struct mock_object g_mock_apps   = { g_mock_apps_vt, 4 };
+static struct mock_object g_mock_client = { g_mock_client_vt, 1 };
 
-static void *g_mock_user_vtable[GP_BRIDGE_VTABLE_SLOTS];
-static void *g_mock_apps_vtable[GP_BRIDGE_VTABLE_SLOTS];
-static void *g_mock_client_vtable[GP_BRIDGE_VTABLE_SLOTS];
-static struct mock_object g_mock_user   = { g_mock_user_vtable,   2 };
-static struct mock_object g_mock_apps   = { g_mock_apps_vtable,   4 };
-static struct mock_object g_mock_client = { g_mock_client_vtable, 1 };
+static uint64_t mock_get_user(void *s, int32_t u, int32_t p, const char *v) { (void)s;(void)u;(void)p;(void)v; return (uint64_t)(uintptr_t)&g_mock_user; }
+static uint64_t mock_get_apps(void *s, int32_t u, int32_t p, const char *v) { (void)s;(void)u;(void)p;(void)v; return (uint64_t)(uintptr_t)&g_mock_apps; }
 
-static uint64_t mock_get_isteam_user(void *self, int32_t user, int32_t pipe, const char *ver) {
-    (void)self; (void)user; (void)pipe; (void)ver;
-    return (uint64_t)(uintptr_t)&g_mock_user;
-}
-
-static uint64_t mock_get_isteam_apps(void *self, int32_t user, int32_t pipe, const char *ver) {
-    (void)self; (void)user; (void)pipe; (void)ver;
-    return (uint64_t)(uintptr_t)&g_mock_apps;
-}
-
-static void init_mock_vtables(void) {
+static void init_mock(void) {
     for (int i = 0; i < GP_BRIDGE_VTABLE_SLOTS; i++) {
-        g_mock_user_vtable[i]   = (void *)mock_return_zero;
-        g_mock_apps_vtable[i]   = (void *)mock_return_zero;
-        g_mock_client_vtable[i] = (void *)mock_return_zero;
+        g_mock_user_vt[i] = (void *)mock_zero;
+        g_mock_apps_vt[i] = (void *)mock_zero;
+        g_mock_client_vt[i] = (void *)mock_zero;
     }
-    /* ISteamUser standard layout */
-    g_mock_user_vtable[0] = (void *)mock_create_pipe;   /* GetHSteamUser */
-    g_mock_user_vtable[1] = (void *)mock_return_one;    /* BLoggedOn */
-    g_mock_user_vtable[2] = (void *)mock_get_steam_id;  /* GetSteamID -> CSteamID */
-
-    /* ISteamApps standard layout */
-    g_mock_apps_vtable[0] = (void *)mock_return_one;    /* BIsSubscribed */
-    g_mock_apps_vtable[6] = (void *)mock_get_app_lang;  /* GetCurrentGameLanguage */
-
-    /* ISteamClient020 standard layout */
-    g_mock_client_vtable[0]  = (void *)mock_create_pipe;     /* CreateSteamPipe */
-    g_mock_client_vtable[1]  = (void *)mock_return_one;      /* BReleaseSteamPipe */
-    g_mock_client_vtable[2]  = (void *)mock_connect_user;    /* ConnectToGlobalUser */
-    g_mock_client_vtable[5]  = (void *)mock_get_isteam_user; /* GetISteamUser */
-    g_mock_client_vtable[15] = (void *)mock_get_isteam_apps; /* GetISteamApps */
-    g_mock_client_vtable[12] = (void *)mock_get_isteam_user; /* GetISteamGenericInterface */
+    g_mock_user_vt[0] = (void *)mock_pipe;
+    g_mock_user_vt[1] = (void *)mock_one;
+    g_mock_user_vt[2] = (void *)mock_sid;
+    g_mock_apps_vt[0] = (void *)mock_one;
+    g_mock_apps_vt[4] = (void *)mock_lang;
+    g_mock_client_vt[0]  = (void *)mock_pipe;
+    g_mock_client_vt[1]  = (void *)mock_one;
+    g_mock_client_vt[2]  = (void *)mock_user;
+    g_mock_client_vt[5]  = (void *)mock_get_user;
+    g_mock_client_vt[12] = (void *)mock_get_user;
+    g_mock_client_vt[15] = (void *)mock_get_apps;
 }
-
-static void *mock_create_interface(const char *name, int *rc) {
-    if (name && strncmp(name, "SteamClient", 11) == 0) {
-        if (rc) *rc = 0;
-        return &g_mock_client;
-    }
-    if (rc) *rc = 1;
-    return NULL;
-}
-
-static bool mock_get_callback(int32_t pipe, struct native_callback_msg *msg) {
-    (void)pipe;
-    if (msg) memset(msg, 0, sizeof(*msg));
-    return false;
-}
-
-static void mock_free_callback(int32_t pipe) { (void)pipe; }
-
-static bool mock_get_apicall_result(int32_t pipe, uint64_t call, void *buf, int32_t cub,
-                                    int32_t expected, bool *failed) {
-    (void)pipe; (void)call; (void)buf; (void)cub; (void)expected;
-    if (failed) *failed = false;
-    return false;
-}
-
-static void mock_release_tls(int32_t all_threads) { (void)all_threads; }
 
 /* --------------------------------------------------------------------------
- * Initialization: discover and dlopen native macOS steamclient.dylib
+ * Socketpair + Host Daemon Helpers
  * -------------------------------------------------------------------------- */
-static void try_open_dylib(const char *path) {
-    if (!path || !*path || g_dylib) return;
-    if (access(path, R_OK) != 0) return;
+static int read_exact(int fd, void *buf, size_t len) {
+    uint8_t *p = (uint8_t *)buf;
+    size_t got = 0;
+    while (got < len) {
+        ssize_t n = read(fd, p + got, len - got);
+        if (n == 0) return 0;
+        if (n < 0) { if (errno == EINTR) continue; return -1; }
+        got += (size_t)n;
+    }
+    return 1;
+}
 
-    void *h = dlopen(path, RTLD_NOW | RTLD_LOCAL);
-    if (!h) {
-        const char *err = dlerror();
-        snprintf(g_error_msg, sizeof(g_error_msg), "dlopen(%s): %s", path, err ? err : "unknown error");
-        GP_LOG("%s", g_error_msg);
+static int write_exact(int fd, const void *buf, size_t len) {
+    const uint8_t *p = (const uint8_t *)buf;
+    size_t sent = 0;
+    while (sent < len) {
+        ssize_t n = write(fd, p + sent, len - sent);
+        if (n <= 0) { if (n < 0 && errno == EINTR) continue; return -1; }
+        sent += (size_t)n;
+    }
+    return 1;
+}
+
+/* Safely probe whether a Wine-side argument points to a printable ASCII C string */
+static bool try_probe_wine_cstr(uint64_t addr, char *out, size_t cap) {
+    if (addr < 0x10000ULL || cap < 2) return false;
+    char tmp[GP_IPC_MAX_STR];
+    size_t len = cap < sizeof(tmp) ? cap : sizeof(tmp);
+    mach_vm_size_t got = 0;
+    kern_return_t kr = mach_vm_read_overwrite(
+        mach_task_self(), (mach_vm_address_t)addr, (mach_vm_size_t)len,
+        (mach_vm_address_t)tmp, &got
+    );
+    if (kr != KERN_SUCCESS || got == 0) {
+        kr = mach_vm_read_overwrite(mach_task_self(), (mach_vm_address_t)addr, 32, (mach_vm_address_t)tmp, &got);
+        if (kr != KERN_SUCCESS || got == 0) return false;
+    }
+    size_t n = 0;
+    while (n < (size_t)got && tmp[n] != '\0') {
+        unsigned char c = (unsigned char)tmp[n];
+        if (c < 0x09 || (c > 0x0D && c < 0x20) || c == 0x7F) return false;
+        n++;
+    }
+    if (n == 0 || n == (size_t)got) return false;
+    memcpy(out, tmp, n);
+    out[n] = '\0';
+    return true;
+}
+
+static void locate_host_binary(char *out, size_t cap) {
+    out[0] = '\0';
+    const char *env_host = getenv("GAMEPORT_BRIDGE_HOST");
+    if (env_host && *env_host && access(env_host, X_OK) == 0) {
+        snprintf(out, cap, "%s", env_host);
         return;
     }
-    g_dylib = h;
-    snprintf(g_dylib_path, sizeof(g_dylib_path), "%s", path);
-    g_error_msg[0] = '\0';
-    GP_LOG("loaded native steamclient.dylib from %s", g_dylib_path);
+    Dl_info dli;
+    if (dladdr((const void *)locate_host_binary, &dli) && dli.dli_fname) {
+        char copy[GP_BRIDGE_MAX_PATH];
+        snprintf(copy, sizeof(copy), "%s", dli.dli_fname);
+        char *dir1 = dirname(copy); /* .../x86_64-unix */
+        char copy2[GP_BRIDGE_MAX_PATH];
+        snprintf(copy2, sizeof(copy2), "%s", dir1);
+        char *dir2 = dirname(copy2); /* .../steam-bridge */
+        snprintf(out, cap, "%s/gpsteambridge-host", dir2);
+        if (access(out, X_OK) == 0) return;
+        out[0] = '\0';
+    }
 }
 
 static void gp_bridge_init_once(void) {
@@ -172,78 +223,90 @@ static void gp_bridge_init_once(void) {
     const char *m = getenv("GP_STEAM_BRIDGE_MOCK");
     if (m && m[0] && m[0] != '0') {
         g_mock_mode = 1;
-        init_mock_vtables();
-        p_CreateInterface = mock_create_interface;
-        p_Steam_BGetCallback = mock_get_callback;
-        p_Steam_FreeLastCallback = mock_free_callback;
-        p_Steam_GetAPICallResult = mock_get_apicall_result;
-        p_Steam_ReleaseThreadLocalMemory = mock_release_tls;
-        g_exports_mask = GP_EXP_CREATE_INTERFACE | GP_EXP_GET_CALLBACK |
-                         GP_EXP_FREE_CALLBACK | GP_EXP_GET_APICALL_RESULT | GP_EXP_RELEASE_TLS;
-        snprintf(g_dylib_path, sizeof(g_dylib_path), "mock://steamclient.dylib");
+        init_mock();
         GP_LOG("initialized in MOCK mode");
         return;
     }
 
-    const char *explicit_path = getenv("GAMEPORT_MAC_STEAMCLIENT");
-    if (explicit_path && *explicit_path) {
-        try_open_dylib(explicit_path);
-    }
-    if (!g_dylib) {
-        const char *home = getenv("HOME");
-        if (home && *home) {
-            char buf[GP_BRIDGE_MAX_PATH];
-            snprintf(buf, sizeof(buf),
-                     "%s/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/steamclient.dylib",
-                     home);
-            try_open_dylib(buf);
-        }
-    }
-    if (!g_dylib) {
-        try_open_dylib("/Applications/Steam.app/Contents/MacOS/steamclient.dylib");
-    }
-
-    if (!g_dylib) {
-        if (!g_error_msg[0]) {
-            snprintf(g_error_msg, sizeof(g_error_msg),
-                     "native macOS steamclient.dylib not found (install and run Steam.app)");
-        }
-        GP_LOG("%s", g_error_msg);
+    char host_bin[GP_BRIDGE_MAX_PATH];
+    locate_host_binary(host_bin, sizeof(host_bin));
+    if (!host_bin[0]) {
+        snprintf(g_init_error, sizeof(g_init_error), "gpsteambridge-host binary not found");
+        GP_LOG("%s", g_init_error);
         return;
     }
 
-    p_CreateInterface = (fn_CreateInterface_t)dlsym(g_dylib, "CreateInterface");
-    p_Steam_BGetCallback = (fn_Steam_BGetCallback_t)dlsym(g_dylib, "Steam_BGetCallback");
-    p_Steam_FreeLastCallback = (fn_Steam_FreeLastCallback_t)dlsym(g_dylib, "Steam_FreeLastCallback");
-    p_Steam_GetAPICallResult = (fn_Steam_GetAPICallResult_t)dlsym(g_dylib, "Steam_GetAPICallResult");
-    p_Steam_ReleaseThreadLocalMemory = (fn_Steam_ReleaseThreadLocalMemory_t)dlsym(g_dylib, "Steam_ReleaseThreadLocalMemory");
+    int fds[2];
+    if (socketpair(AF_UNIX, SOCK_STREAM, 0, fds) != 0) {
+        snprintf(g_init_error, sizeof(g_init_error), "socketpair failed: %s", strerror(errno));
+        return;
+    }
+    fcntl(fds[0], F_SETFD, FD_CLOEXEC);
 
-    if (p_CreateInterface)                g_exports_mask |= GP_EXP_CREATE_INTERFACE;
-    if (p_Steam_BGetCallback)             g_exports_mask |= GP_EXP_GET_CALLBACK;
-    if (p_Steam_FreeLastCallback)         g_exports_mask |= GP_EXP_FREE_CALLBACK;
-    if (p_Steam_GetAPICallResult)         g_exports_mask |= GP_EXP_GET_APICALL_RESULT;
-    if (p_Steam_ReleaseThreadLocalMemory) g_exports_mask |= GP_EXP_RELEASE_TLS;
+    char fd_str[32];
+    snprintf(fd_str, sizeof(fd_str), "%d", fds[1]);
+    char *argv[] = { host_bin, "--fd", fd_str, NULL };
 
-    GP_LOG("exports_mask=0x%x", g_exports_mask);
+    pid_t pid = 0;
+    int rc = posix_spawn(&pid, host_bin, NULL, NULL, argv, environ);
+    close(fds[1]);
+    if (rc != 0) {
+        close(fds[0]);
+        snprintf(g_init_error, sizeof(g_init_error), "posix_spawn(%s) failed: %s", host_bin, strerror(rc));
+        GP_LOG("%s", g_init_error);
+        return;
+    }
+
+    g_sock_fd = fds[0];
+    GP_LOG("spawned native host daemon pid=%d (%s)", (int)pid, host_bin);
 }
 
 static void ensure_init(void) {
     pthread_once(&g_init_once, gp_bridge_init_once);
 }
 
+static bool ipc_roundtrip_locked(void) {
+    if (g_sock_fd < 0) return false;
+    if (write_exact(g_sock_fd, &g_req, sizeof(g_req)) != 1) return false;
+    if (read_exact(g_sock_fd, &g_resp, sizeof(g_resp)) != 1) return false;
+    return true;
+}
+
 /* --------------------------------------------------------------------------
- * Wine UnixLib Handlers
+ * Wine UnixLib Entry Points
  * -------------------------------------------------------------------------- */
 static NTSTATUS gp_unix_ping(void *raw) {
     struct gp_ping_args *p = (struct gp_ping_args *)raw;
     if (!p) return STATUS_INVALID_PARAMETER;
     ensure_init();
     p->protocol_version = GP_BRIDGE_PROTOCOL_VERSION;
-    p->loaded = (g_dylib != NULL || g_mock_mode) ? 1u : 0u;
-    p->mock_mode = (uint32_t)g_mock_mode;
-    p->exports_mask = g_exports_mask;
-    snprintf(p->dylib_path, sizeof(p->dylib_path), "%s", g_dylib_path);
-    snprintf(p->error_msg, sizeof(p->error_msg), "%s", g_error_msg);
+    if (g_mock_mode) {
+        p->loaded = 1;
+        p->mock_mode = 1;
+        p->exports_mask = GP_EXP_CREATE_INTERFACE | GP_EXP_GET_CALLBACK |
+                          GP_EXP_FREE_CALLBACK | GP_EXP_GET_APICALL_RESULT | GP_EXP_RELEASE_TLS;
+        snprintf(p->dylib_path, sizeof(p->dylib_path), "mock://steamclient.dylib");
+        p->error_msg[0] = '\0';
+        return STATUS_SUCCESS;
+    }
+
+    pthread_mutex_lock(&g_ipc_lock);
+    memset(&g_req, 0, sizeof(g_req));
+    g_req.op = GP_BRIDGE_OP_PING;
+    bool ok = ipc_roundtrip_locked();
+    if (ok) {
+        p->loaded = g_resp.loaded;
+        p->mock_mode = 0;
+        p->exports_mask = g_resp.exports_mask;
+        snprintf(p->dylib_path, sizeof(p->dylib_path), "%s", g_resp.dylib_path);
+        snprintf(p->error_msg, sizeof(p->error_msg), "%s", g_resp.error_msg);
+    } else {
+        p->loaded = 0;
+        p->mock_mode = 0;
+        snprintf(p->error_msg, sizeof(p->error_msg), "%s",
+                 g_init_error[0] ? g_init_error : "IPC connection to gpsteambridge-host failed");
+    }
+    pthread_mutex_unlock(&g_ipc_lock);
     return STATUS_SUCCESS;
 }
 
@@ -251,62 +314,50 @@ static NTSTATUS gp_unix_create_interface(void *raw) {
     struct gp_create_interface_args *p = (struct gp_create_interface_args *)raw;
     if (!p || !p->name_ptr) return STATUS_INVALID_PARAMETER;
     ensure_init();
-    if (!p_CreateInterface) {
+    const char *name = (const char *)(uintptr_t)p->name_ptr;
+
+    if (g_mock_mode) {
+        if (strncmp(name, "SteamClient", 11) == 0) {
+            p->native_obj = (uint64_t)(uintptr_t)&g_mock_client;
+            p->return_code = 0;
+            GP_LOG("CreateInterface(\"%s\") -> %p (rc=0)", name, &g_mock_client);
+            return STATUS_SUCCESS;
+        }
         p->native_obj = 0;
         p->return_code = 1;
-        return STATUS_UNSUCCESSFUL;
+        return STATUS_SUCCESS;
     }
-    const char *name = (const char *)(uintptr_t)p->name_ptr;
-    int rc = 0;
-    void *obj = p_CreateInterface(name, &rc);
-    p->native_obj = (uint64_t)(uintptr_t)obj;
-    p->return_code = rc;
-    GP_LOG("CreateInterface(\"%s\") -> %p (rc=%d)", name, obj, rc);
-    return STATUS_SUCCESS;
+
+    pthread_mutex_lock(&g_ipc_lock);
+    memset(&g_req, 0, sizeof(g_req));
+    g_req.op = GP_BRIDGE_OP_CREATE_INTERFACE;
+    snprintf(g_req.iface_name, sizeof(g_req.iface_name), "%s", name);
+    bool ok = ipc_roundtrip_locked();
+    if (ok && g_resp.status == 0) {
+        p->native_obj = g_resp.ret_u64;
+        p->return_code = g_resp.return_code;
+    } else {
+        p->native_obj = 0;
+        p->return_code = 1;
+    }
+    pthread_mutex_unlock(&g_ipc_lock);
+    GP_LOG("CreateInterface(\"%s\") -> 0x%llx (rc=%d)", name, (unsigned long long)p->native_obj, p->return_code);
+    return ok ? STATUS_SUCCESS : STATUS_UNSUCCESSFUL;
 }
 
-typedef uint64_t (*sysv_vfn_u64_t)(void *this_ptr,
-                                   uint64_t a0, uint64_t a1, uint64_t a2, uint64_t a3,
-                                   uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7);
-typedef double   (*sysv_vfn_f64_t)(void *this_ptr,
-                                   uint64_t a0, uint64_t a1, uint64_t a2, uint64_t a3,
-                                   uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7);
-typedef float    (*sysv_vfn_f32_t)(void *this_ptr,
-                                   uint64_t a0, uint64_t a1, uint64_t a2, uint64_t a3,
-                                   uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7);
+typedef uint64_t (*sysv_vfn_u64_t)(void *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t);
 
 static NTSTATUS gp_unix_vtable_call(void *raw) {
     struct gp_vtable_call_args *p = (struct gp_vtable_call_args *)raw;
-    if (!p || !p->native_obj || p->slot >= GP_BRIDGE_VTABLE_SLOTS) {
-        return STATUS_INVALID_PARAMETER;
-    }
-    void *obj = (void *)(uintptr_t)p->native_obj;
-    void **vtable = *(void ***)obj;
-    if (!vtable || !vtable[p->slot]) {
-        p->ret_u64 = 0;
-        p->ret_f64 = 0.0;
-        return STATUS_UNSUCCESSFUL;
-    }
+    if (!p || !p->native_obj || p->slot >= GP_BRIDGE_VTABLE_SLOTS) return STATUS_INVALID_PARAMETER;
+    ensure_init();
 
-    GP_LOG("vtable_call(obj=%p, slot=%u, flags=0x%x)", obj, p->slot, p->flags);
-
-    if (p->flags & GP_CALL_FLAG_RET_DOUBLE) {
-        sysv_vfn_f64_t fn = (sysv_vfn_f64_t)vtable[p->slot];
-        p->ret_f64 = fn(obj, p->args[0], p->args[1], p->args[2], p->args[3],
-                        p->args[4], p->args[5], p->args[6], p->args[7]);
-        p->ret_u64 = 0;
-    } else if (p->flags & GP_CALL_FLAG_RET_FLOAT) {
-        sysv_vfn_f32_t fn = (sysv_vfn_f32_t)vtable[p->slot];
-        float r = fn(obj, p->args[0], p->args[1], p->args[2], p->args[3],
-                     p->args[4], p->args[5], p->args[6], p->args[7]);
-        p->ret_f64 = (double)r;
-        uint32_t bits = 0;
-        memcpy(&bits, &r, sizeof(bits));
-        p->ret_u64 = bits;
-    } else {
-        sysv_vfn_u64_t fn = (sysv_vfn_u64_t)vtable[p->slot];
-        p->ret_u64 = fn(obj, p->args[0], p->args[1], p->args[2], p->args[3],
-                        p->args[4], p->args[5], p->args[6], p->args[7]);
+    if (g_mock_mode) {
+        void *obj = (void *)(uintptr_t)p->native_obj;
+        void **vt = *(void ***)obj;
+        GP_LOG("vtable_call(obj=%p, slot=%u, flags=0x%x)", obj, p->slot, p->flags);
+        p->ret_u64 = ((sysv_vfn_u64_t)vt[p->slot])(obj, p->args[0], p->args[1], p->args[2], p->args[3],
+                                                   p->args[4], p->args[5], p->args[6], p->args[7]);
         p->ret_f64 = 0.0;
         if ((p->flags & GP_CALL_FLAG_RET_CSTR) && p->str_buf_ptr && p->str_buf_cap > 0) {
             char *dst = (char *)(uintptr_t)p->str_buf_ptr;
@@ -319,45 +370,126 @@ static NTSTATUS gp_unix_vtable_call(void *raw) {
                 p->ret_u64 = 0;
             }
         }
+        return STATUS_SUCCESS;
     }
-    return STATUS_SUCCESS;
+
+    pthread_mutex_lock(&g_ipc_lock);
+    memset(&g_req, 0, sizeof(g_req));
+    g_req.op = GP_BRIDGE_OP_VTABLE_CALL;
+    g_req.native_obj = p->native_obj;
+    g_req.slot = p->slot;
+    g_req.flags = p->flags;
+    for (int k = 0; k < 3; k++) {
+        g_req.out_arg_idx[k] = p->out_arg_idx[k];
+        g_req.out_arg_len[k] = p->out_arg_len[k];
+    }
+    g_req.in_buf_arg_idx = p->in_buf_arg_idx;
+    g_req.in_buf_len = 0;
+
+    if (p->in_buf_arg_idx >= 1 && p->in_buf_arg_idx <= 8 && p->in_buf_len > 0) {
+        uint64_t src_addr = p->args[p->in_buf_arg_idx - 1];
+        uint32_t n = p->in_buf_len > GP_IPC_MAX_PAYLOAD ? GP_IPC_MAX_PAYLOAD : p->in_buf_len;
+        mach_vm_size_t got = 0;
+        if (src_addr >= 0x10000ULL &&
+            mach_vm_read_overwrite(mach_task_self(), (mach_vm_address_t)src_addr, n,
+                                   (mach_vm_address_t)g_req.in_payload, &got) == KERN_SUCCESS) {
+            g_req.in_buf_len = (uint32_t)got;
+        }
+    }
+
+    for (int i = 0; i < 8; i++) {
+        g_req.args[i] = p->args[i];
+        bool is_special = ((i + 1) == p->out_arg_idx[0]) ||
+                          ((i + 1) == p->out_arg_idx[1]) ||
+                          ((i + 1) == p->out_arg_idx[2]) ||
+                          ((i + 1) == p->in_buf_arg_idx);
+        if (!is_special && try_probe_wine_cstr(p->args[i], g_req.str_args[i], GP_IPC_MAX_STR)) {
+            g_req.arg_is_str[i] = 1;
+        }
+    }
+    bool ok = ipc_roundtrip_locked();
+    if (ok && g_resp.status == 0) {
+        p->ret_u64 = g_resp.ret_u64;
+        p->ret_f64 = g_resp.ret_f64;
+        uint32_t off = 0;
+        for (int k = 0; k < 3; k++) {
+            uint8_t idx = p->out_arg_idx[k];
+            uint32_t n = g_resp.out_len[k];
+            if (idx >= 1 && idx <= 8 && n > 0 && off + n <= GP_IPC_MAX_PAYLOAD) {
+                uint64_t dst_addr = p->args[idx - 1];
+                if (dst_addr >= 0x10000ULL) {
+                    memcpy((void *)(uintptr_t)dst_addr, g_resp.payload + off, n);
+                }
+                off += n;
+            }
+        }
+        if (g_resp.ret_is_str) {
+            if (p->str_buf_ptr && p->str_buf_cap > 0) {
+                snprintf((char *)(uintptr_t)p->str_buf_ptr, p->str_buf_cap, "%s", g_resp.ret_str);
+                p->ret_u64 = p->str_buf_ptr;
+            } else {
+                char *slot_buf = g_unix_str_ring[(g_unix_str_idx++) % GP_UNIX_STR_SLOTS];
+                snprintf(slot_buf, GP_IPC_MAX_STR, "%s", g_resp.ret_str);
+                p->ret_u64 = (uint64_t)(uintptr_t)slot_buf;
+            }
+        }
+    } else {
+        p->ret_u64 = 0;
+        p->ret_f64 = 0.0;
+    }
+    pthread_mutex_unlock(&g_ipc_lock);
+    return (ok && g_resp.status == 0) ? STATUS_SUCCESS : STATUS_UNSUCCESSFUL;
 }
 
 static NTSTATUS gp_unix_get_callback(void *raw) {
     struct gp_get_callback_args *p = (struct gp_get_callback_args *)raw;
     if (!p) return STATUS_INVALID_PARAMETER;
     ensure_init();
-    if (!p_Steam_BGetCallback) {
+    if (g_mock_mode) {
         p->has_callback = 0;
-        return STATUS_UNSUCCESSFUL;
+        return STATUS_SUCCESS;
     }
-    struct native_callback_msg msg;
-    memset(&msg, 0, sizeof(msg));
-    bool ok = p_Steam_BGetCallback(p->pipe, &msg);
-    p->has_callback = ok ? 1 : 0;
-    if (ok) {
-        p->steam_user  = msg.m_hSteamUser;
-        p->callback_id = msg.m_iCallback;
-        p->cub_param   = msg.m_cubParam;
-        if (p->copy_buf_ptr && p->copy_buf_cap > 0 && msg.m_pubParam && msg.m_cubParam > 0) {
-            size_t n = (size_t)msg.m_cubParam;
-            if (n > p->copy_buf_cap) n = p->copy_buf_cap;
-            memcpy((void *)(uintptr_t)p->copy_buf_ptr, msg.m_pubParam, n);
-            p->pub_param = p->copy_buf_ptr;
+
+    pthread_mutex_lock(&g_ipc_lock);
+    memset(&g_req, 0, sizeof(g_req));
+    g_req.op = GP_BRIDGE_OP_GET_CALLBACK;
+    g_req.pipe = p->pipe;
+    bool ok = ipc_roundtrip_locked();
+    if (ok && g_resp.status == 0 && g_resp.has_callback) {
+        p->has_callback = 1;
+        p->steam_user = g_resp.steam_user;
+        p->callback_id = g_resp.callback_id;
+        p->cub_param = g_resp.cub_param;
+        if (g_resp.payload_len > 0) {
+            if (p->copy_buf_ptr && p->copy_buf_cap > 0) {
+                size_t n = g_resp.payload_len < p->copy_buf_cap ? g_resp.payload_len : p->copy_buf_cap;
+                memcpy((void *)(uintptr_t)p->copy_buf_ptr, g_resp.payload, n);
+                p->pub_param = p->copy_buf_ptr;
+            } else {
+                memcpy(g_cb_buf, g_resp.payload, g_resp.payload_len);
+                p->pub_param = (uint64_t)(uintptr_t)g_cb_buf;
+            }
         } else {
-            p->pub_param = (uint64_t)(uintptr_t)msg.m_pubParam;
+            p->pub_param = 0;
         }
+    } else {
+        p->has_callback = 0;
     }
-    return STATUS_SUCCESS;
+    pthread_mutex_unlock(&g_ipc_lock);
+    return ok ? STATUS_SUCCESS : STATUS_UNSUCCESSFUL;
 }
 
 static NTSTATUS gp_unix_free_callback(void *raw) {
     struct gp_free_callback_args *p = (struct gp_free_callback_args *)raw;
     if (!p) return STATUS_INVALID_PARAMETER;
     ensure_init();
-    if (p_Steam_FreeLastCallback) {
-        p_Steam_FreeLastCallback(p->pipe);
-    }
+    if (g_mock_mode) return STATUS_SUCCESS;
+    pthread_mutex_lock(&g_ipc_lock);
+    memset(&g_req, 0, sizeof(g_req));
+    g_req.op = GP_BRIDGE_OP_FREE_CALLBACK;
+    g_req.pipe = p->pipe;
+    ipc_roundtrip_locked();
+    pthread_mutex_unlock(&g_ipc_lock);
     return STATUS_SUCCESS;
 }
 
@@ -365,31 +497,49 @@ static NTSTATUS gp_unix_get_apicall_result(void *raw) {
     struct gp_get_apicall_result_args *p = (struct gp_get_apicall_result_args *)raw;
     if (!p) return STATUS_INVALID_PARAMETER;
     ensure_init();
-    if (!p_Steam_GetAPICallResult) {
+    if (g_mock_mode) {
+        p->ok = 0;
+        p->failed = 0;
+        return STATUS_SUCCESS;
+    }
+    pthread_mutex_lock(&g_ipc_lock);
+    memset(&g_req, 0, sizeof(g_req));
+    g_req.op = GP_BRIDGE_OP_GET_APICALL_RESULT;
+    g_req.pipe = p->pipe;
+    g_req.api_call = p->api_call;
+    g_req.cub_buf = p->cub_buf;
+    g_req.expected_callback = p->expected_callback;
+    bool ok = ipc_roundtrip_locked();
+    if (ok && g_resp.status == 0) {
+        p->ok = g_resp.ok;
+        p->failed = g_resp.failed;
+        if (g_resp.ok && g_resp.payload_len > 0 && p->buf_ptr) {
+            size_t n = g_resp.payload_len;
+            if ((int32_t)n > p->cub_buf) n = (size_t)p->cub_buf;
+            memcpy((void *)(uintptr_t)p->buf_ptr, g_resp.payload, n);
+        }
+    } else {
         p->ok = 0;
         p->failed = 1;
-        return STATUS_UNSUCCESSFUL;
     }
-    bool failed = false;
-    bool ok = p_Steam_GetAPICallResult(p->pipe, p->api_call,
-                                       (void *)(uintptr_t)p->buf_ptr, p->cub_buf,
-                                       p->expected_callback, &failed);
-    p->ok = ok ? 1 : 0;
-    p->failed = failed ? 1 : 0;
-    return STATUS_SUCCESS;
+    pthread_mutex_unlock(&g_ipc_lock);
+    return ok ? STATUS_SUCCESS : STATUS_UNSUCCESSFUL;
 }
 
 static NTSTATUS gp_unix_release_tls(void *raw) {
     struct gp_release_tls_args *p = (struct gp_release_tls_args *)raw;
     if (!p) return STATUS_INVALID_PARAMETER;
     ensure_init();
-    if (p_Steam_ReleaseThreadLocalMemory) {
-        p_Steam_ReleaseThreadLocalMemory(p->all_threads);
-    }
+    if (g_mock_mode) return STATUS_SUCCESS;
+    pthread_mutex_lock(&g_ipc_lock);
+    memset(&g_req, 0, sizeof(g_req));
+    g_req.op = GP_BRIDGE_OP_RELEASE_TLS;
+    g_req.expected_callback = p->all_threads;
+    ipc_roundtrip_locked();
+    pthread_mutex_unlock(&g_ipc_lock);
     return STATUS_SUCCESS;
 }
 
-/* Exported Wine UnixLib tables (matched by Wine 9/10/11 & CrossOver 25/26+) */
 __attribute__((visibility("default")))
 const unixlib_entry_t __wine_unix_call_funcs[GP_BRIDGE_OP_COUNT] = {
     gp_unix_ping,

@@ -39,18 +39,29 @@ enum gp_call_flags {
     /* Method returns a float/double in XMM0. */
     GP_CALL_FLAG_RET_FLOAT   = (1u << 1),
     GP_CALL_FLAG_RET_DOUBLE  = (1u << 2),
-    /* WoW64: native method returns a 64-bit `const char *`; copy into str_buf_ptr (< 4GB). */
-    GP_CALL_FLAG_RET_CSTR    = (1u << 3)
+    /* WoW64 / Host IPC: native method returns a `const char *`; copy into Wine buffer. */
+    GP_CALL_FLAG_RET_CSTR    = (1u << 3),
+    /* Suppress automatic C-string probing on return value (e.g. ISteamClient sub-interface getters). */
+    GP_CALL_FLAG_NO_AUTO_CSTR = (1u << 4)
 };
 
 /* Known proxy interface families for ABI adjustments & sub-interface wrapping */
 enum gp_iface_kind {
-    GP_IFACE_GENERIC        = 0,
-    GP_IFACE_STEAMCLIENT    = 1,
-    GP_IFACE_STEAMUSER      = 2,
-    GP_IFACE_STEAMFRIENDS   = 3,
-    GP_IFACE_STEAMAPPS      = 4,
-    GP_IFACE_STEAMUTILS     = 5
+    GP_IFACE_GENERIC          = 0,
+    GP_IFACE_STEAMCLIENT      = 1,
+    GP_IFACE_STEAMUSER        = 2,
+    GP_IFACE_STEAMFRIENDS     = 3,
+    GP_IFACE_STEAMAPPS        = 4,
+    GP_IFACE_STEAMUTILS       = 5,
+    GP_IFACE_STEAMHTMLSURFACE = 6,
+    GP_IFACE_STEAMHTTP        = 7,
+    GP_IFACE_STEAMREMOTESTORAGE = 8,
+    GP_IFACE_STEAMINVENTORY   = 9,
+    GP_IFACE_STEAMCONTROLLER  = 10,
+    GP_IFACE_STEAMINPUT       = 11,
+    GP_IFACE_STEAMUSERSTATS   = 12,
+    GP_IFACE_STEAMGC          = 13,
+    GP_IFACE_STEAMNETUTILS    = 14
 };
 
 #pragma pack(push, 8)
@@ -86,7 +97,10 @@ struct gp_vtable_call_args {
     double   fargs[4];           /* in: floating-point arguments (future use) */
     uint64_t str_buf_ptr;        /* in (optional): PE buffer for GP_CALL_FLAG_RET_CSTR */
     uint32_t str_buf_cap;        /* in (optional): capacity of str_buf_ptr */
-    uint32_t reserved0;
+    uint8_t  out_arg_idx[3];     /* in: arg index+1 (1..8) of out-pointer to copy back, 0 = unused */
+    uint8_t  in_buf_arg_idx;     /* in: arg index+1 (1..8) of binary input buffer, 0 = unused */
+    uint32_t out_arg_len[3];     /* in: byte size for out_arg_idx[0..2] */
+    uint32_t in_buf_len;         /* in: byte size for in_buf_arg_idx */
     uint64_t ret_u64;            /* out: RAX return value */
     double   ret_f64;            /* out: XMM0 return value */
 };

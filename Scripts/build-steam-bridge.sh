@@ -51,6 +51,13 @@ trap 'rm -rf "$stage"' EXIT
 mingw32_cc="$(dirname "$mingw_cc")/i686-w64-mingw32-clang"
 mkdir -p "$stage/x86_64-unix" "$stage/x86_64-windows" "$stage/i386-windows"
 
+echo "Compiling native Apple Silicon host daemon (gpsteambridge-host)..."
+/usr/bin/clang -arch arm64 -O2 -Wall -Wextra -Werror \
+    -mmacosx-version-min=13.0 \
+    -I"$src" \
+    "$src/host_daemon.c" \
+    -o "$stage/gpsteambridge-host"
+
 echo "Compiling macOS x86_64 Wine UnixLib (steamclient64.so + steamclient.so)..."
 /usr/bin/clang -arch x86_64 -shared -O2 -Wall -Wextra -Werror \
     -mmacosx-version-min=13.0 \
@@ -84,6 +91,7 @@ echo "Compiling Windows x64 & 32-bit probes (bridge_probe.exe + bridge_probe32.e
     -o "$stage/bridge_probe32.exe"
 
 mkdir -p "$out_dir/x86_64-unix" "$out_dir/x86_64-windows" "$out_dir/i386-windows"
+cp "$stage/gpsteambridge-host" "$out_dir/gpsteambridge-host"
 cp "$stage/x86_64-unix/steamclient64.so" "$out_dir/x86_64-unix/steamclient64.so"
 cp "$stage/x86_64-unix/steamclient.so" "$out_dir/x86_64-unix/steamclient.so"
 cp "$stage/x86_64-windows/steamclient64.dll" "$out_dir/x86_64-windows/steamclient64.dll"
@@ -91,6 +99,6 @@ cp "$stage/i386-windows/steamclient.dll" "$out_dir/i386-windows/steamclient.dll"
 cp "$stage/bridge_probe.exe" "$out_dir/bridge_probe.exe"
 cp "$stage/bridge_probe32.exe" "$out_dir/bridge_probe32.exe"
 
-echo "Built GamePort Steam Bridge (64-bit + 32-bit WoW64) -> $out_dir"
-ls -lh "$out_dir/x86_64-unix/steamclient64.so" "$out_dir/x86_64-windows/steamclient64.dll" \
+echo "Built GamePort Steam Bridge (native host daemon + 64-bit + 32-bit WoW64) -> $out_dir"
+ls -lh "$out_dir/gpsteambridge-host" "$out_dir/x86_64-unix/steamclient64.so" "$out_dir/x86_64-windows/steamclient64.dll" \
     "$out_dir/i386-windows/steamclient.dll" "$out_dir/bridge_probe.exe" "$out_dir/bridge_probe32.exe"
