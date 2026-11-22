@@ -10567,6 +10567,7 @@ enum BundledData {
 {
   "advertiseAVX": false,
   "environment": {},
+  "executable": "Mount & Blade II Bannerlord/bin/Win64_Shipping_Client/TaleWorlds.MountAndBlade.Launcher.exe",
   "id": "hbdb-mount-blade-ii-bannerlord",
   "knownIssues": [],
   "launch": "steam",

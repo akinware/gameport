@@ -83,7 +83,14 @@ public struct SteamDepotManager: Sendable {
         let dir = depotDirectory(appID: appID)
         guard FileManager.default.fileExists(atPath: dir.path),
               Self.isDownloadComplete(appID: appID, in: dir) else { return nil }
-        return Self.discoverMainExecutable(in: dir, preferredName: preferredName)
+        return Self.mainExecutable(appID: appID, in: dir, preferredName: preferredName, paths: paths)
+    }
+
+    /// The game `.exe` of a Steam depot for `appID`: the executable its recipe declares when there
+    /// is one (helper programs can outweigh the real game in the heuristic), otherwise the best guess.
+    public static func mainExecutable(appID: Int, in dir: URL, preferredName: String? = nil, paths: Paths) -> URL? {
+        let recipe = RecipeCatalog.load(paths: paths).recipe(steamAppID: appID)
+        return discoverMainExecutable(in: dir, preferredName: preferredName ?? recipe?.title, knownExecutable: recipe?.executable)
     }
 
     /// `<dir>/steamapps/appmanifest_<appID>.acf`, written by steamcmd and by GamePort's QR downloader.
@@ -251,8 +258,19 @@ public struct SteamDepotManager: Sendable {
 
     /// Ranks candidate Windows `.exe` files inside a downloaded depot folder to locate the main game executable,
     /// skipping redistributables, uninstallers, crash handlers, and anti-cheat installers.
-    public static func discoverMainExecutable(in installDir: URL, preferredName: String? = nil) -> URL? {
+    /// - Parameter knownExecutable: a recipe's `executable` (relative to `steamapps/common`, so its
+    ///   first component is the install folder). A depot download holds the install folder's contents
+    ///   directly, so both `<dir>/<rest>` and `<dir>/<full path>` are tried first.
+    public static func discoverMainExecutable(in installDir: URL, preferredName: String? = nil, knownExecutable: String? = nil) -> URL? {
         let fm = FileManager.default
+        if let known = knownExecutable, !known.isEmpty {
+            let parts = known.split(separator: "/").map(String.init)
+            let tries = [parts.dropFirst().joined(separator: "/"), parts.joined(separator: "/")].filter { !$0.isEmpty }
+            for rel in tries {
+                let candidate = installDir.appendingPathComponent(rel)
+                if fm.fileExists(atPath: candidate.path) { return candidate }
+            }
+        }
         guard let enumerator = fm.enumerator(
             at: installDir,
             includingPropertiesForKeys: [.isRegularFileKey, .fileSizeKey],
@@ -265,6 +283,7 @@ public struct SteamDepotManager: Sendable {
             "easyanticheat_eos_setup", "easyanticheat_setup", "battleye", "installscript",
             "directx", "physx", "openal", "oalinst", "vc_redist", "unitycrashhandler",
             "cefprocess", "webhelper", "steamerrorreporter", "activationui",
+            "watchdog", "codegenerator",
         ]
 
         let normPreferred = preferredName?

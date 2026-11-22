@@ -429,7 +429,7 @@ public struct GamePort: Sendable {
             targetExe = executable
         } else {
             let searchRoot = depotDirectory ?? paths.tools.appendingPathComponent("depots/\(appID)", isDirectory: true)
-            guard let found = SteamDepotManager.discoverMainExecutable(in: searchRoot, preferredName: r.recipe?.title) else {
+            guard let found = SteamDepotManager.discoverMainExecutable(in: searchRoot, preferredName: r.recipe?.title, knownExecutable: r.recipe?.executable) else {
                 throw GamePortError.missing("could not find a Windows .exe in \(searchRoot.path); pass --exe or download the depot first")
             }
             targetExe = found

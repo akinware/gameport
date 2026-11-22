@@ -583,7 +583,7 @@ public struct SteamQRDownloader: Sendable {
                         }
                         switch result.outcome {
                         case .success:
-                            let exe = SteamDepotManager.discoverMainExecutable(in: destination, preferredName: title)
+                            let exe = SteamDepotManager.mainExecutable(appID: appID, in: destination, preferredName: title, paths: paths)
                             try SteamDepotManager.markDownloadComplete(
                                 appID: appID,
                                 name: title ?? "App \(appID)",

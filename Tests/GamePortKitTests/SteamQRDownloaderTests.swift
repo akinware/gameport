@@ -276,3 +276,34 @@ final class LaunchLifecycleTests: XCTestCase {
         XCTAssertFalse(LaunchState.closing(profileID: "tf2").isLaunching)
     }
 }
+
+final class DepotExecutableTests: XCTestCase {
+    /// Bannerlord-like depot: tiny .NET stubs next to a large helper (Watchdog) that outweighs them.
+    private func makeDepot() throws -> URL {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("gp-depot-\(UUID().uuidString)", isDirectory: true)
+        let bin = root.appendingPathComponent("bin/Win64_Shipping_Client", isDirectory: true)
+        try FileManager.default.createDirectory(at: bin.appendingPathComponent("Watchdog"), withIntermediateDirectories: true)
+        for name in ["Bannerlord.exe", "TaleWorlds.MountAndBlade.Launcher.exe", "TaleWorlds.MountAndBlade.SaveSystem.CodeGenerator.exe"] {
+            try Data(count: 140_000).write(to: bin.appendingPathComponent(name))
+        }
+        try Data(count: 6 * 1024 * 1024).write(to: bin.appendingPathComponent("Watchdog/Watchdog.exe"))
+        return root
+    }
+
+    func testRecipeExecutableWinsAndHandlesTheInstallFolderPrefix() throws {
+        let root = try makeDepot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let exe = SteamDepotManager.discoverMainExecutable(
+            in: root,
+            knownExecutable: "Mount & Blade II Bannerlord/bin/Win64_Shipping_Client/TaleWorlds.MountAndBlade.Launcher.exe")
+        XCTAssertEqual(exe?.lastPathComponent, "TaleWorlds.MountAndBlade.Launcher.exe")
+    }
+
+    func testHelpersAreNeverPickedAsTheGame() throws {
+        let root = try makeDepot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let exe = SteamDepotManager.discoverMainExecutable(in: root)
+        XCTAssertNotEqual(exe?.lastPathComponent, "Watchdog.exe")
+        XCTAssertFalse(exe?.lastPathComponent.contains("CodeGenerator") ?? true)
+    }
+}

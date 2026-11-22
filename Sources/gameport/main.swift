@@ -612,7 +612,7 @@ do {
             let targetDir = customDir ?? gameport.steamDepot.depotDirectory(appID: appID)
             if useSteamCmd {
                 let code = try gameport.steamDepot.downloadAttached(appID: appID, installDir: targetDir, username: user ?? "anonymous")
-                if code == 0, let exe = SteamDepotManager.discoverMainExecutable(in: targetDir) {
+                if code == 0, let exe = SteamDepotManager.mainExecutable(appID: appID, in: targetDir, paths: gameport.paths) {
                     print("✓ Downloaded AppID \(appID) -> \(targetDir.path)")
                     print("  Detected main executable: \(exe.path)")
                 }
@@ -620,6 +620,7 @@ do {
             }
             let stream = gameport.steamQRDownloader.download(
                 appID: appID,
+                title: gameport.catalog.recipe(steamAppID: appID)?.title,
                 installDir: targetDir,
                 preferredAccount: user ?? ExternalDiscovery.macSteamAccountName(),
                 anonymous: anonymous,
