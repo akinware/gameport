@@ -334,6 +334,7 @@ public struct SteamBridge: Sendable {
         runner: WineRunner,
         executable: URL,
         arguments: [String] = [],
+        gameFolder: URL? = nil,
         appID: Int,
         antiCheat: AntiCheatEntry? = nil,
         allowVACOverride: Bool = false,
@@ -373,8 +374,13 @@ public struct SteamBridge: Sendable {
             mockMode: false,
             verboseLog: verboseLog
         )
+        // A game outside the prefix (a depot download) gets a drive letter, so it runs from `Y:\…`
+        // instead of a `\\?\unix\…` path that .NET games cannot handle.
+        let insidePrefix = executable.standardizedFileURL.path.hasPrefix(runner.prefix.standardizedFileURL.path + "/")
+        let folder = gameFolder ?? executable.deletingLastPathComponent()
+        let windowsPath = insidePrefix ? nil : try runner.mapGameDrive(folder, executable: executable)
         return try runner.spawn(
-            [executable.path] + arguments,
+            [windowsPath ?? executable.path] + arguments,
             extra: extra,
             logName: "bridge-game.log",
             currentDirectory: executable.deletingLastPathComponent()

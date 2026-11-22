@@ -425,10 +425,11 @@ public struct GamePort: Sendable {
         }
         let ac = r.recipe.flatMap { AntiCheatDB.bundled.entry(for: $0) } ?? AntiCheatDB.bundled.entry(steamAppID: appID)
         let targetExe: URL
+        let depotRoot = depotDirectory ?? paths.tools.appendingPathComponent("depots/\(appID)", isDirectory: true)
         if let executable {
             targetExe = executable
         } else {
-            let searchRoot = depotDirectory ?? paths.tools.appendingPathComponent("depots/\(appID)", isDirectory: true)
+            let searchRoot = depotRoot
             guard let found = SteamDepotManager.discoverMainExecutable(in: searchRoot, preferredName: r.recipe?.title, knownExecutable: r.recipe?.executable) else {
                 throw GamePortError.missing("could not find a Windows .exe in \(searchRoot.path); pass --exe or download the depot first")
             }
@@ -443,6 +444,7 @@ public struct GamePort: Sendable {
             runner: r,
             executable: targetExe,
             arguments: arguments,
+            gameFolder: Self.isInside(targetExe, depotRoot) ? depotRoot : nil,
             appID: appID,
             antiCheat: ac,
             allowVACOverride: allowVACOverride,
@@ -450,6 +452,12 @@ public struct GamePort: Sendable {
         )
         recordLaunch(requested: profileID, actual: profileID)
         return proc
+    }
+
+    /// True when `file` lies inside `folder` (symlinks resolved).
+    static func isInside(_ file: URL, _ folder: URL) -> Bool {
+        let root = folder.standardizedFileURL.resolvingSymlinksInPath().path
+        return file.standardizedFileURL.resolvingSymlinksInPath().path.hasPrefix(root + "/")
     }
 
     /// Discovers installed and owned games across Epic (`legendary`), GOG (`gogdl`), and Heroic Games Launcher.

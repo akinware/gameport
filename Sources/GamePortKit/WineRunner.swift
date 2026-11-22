@@ -158,6 +158,7 @@ public struct WineRunner: Sendable {
             logs
         )
         try RendererStager.sync(renderer: effectiveRenderer, engine: engine, prefix: prefix)
+        try mapEngineDrive()
         applyRetinaModeIfConfigured()
     }
 
@@ -209,8 +210,9 @@ public struct WineRunner: Sendable {
     @available(*, deprecated, message: "Use GamePort.applyWineDefault(_:to:) to apply the OpenGL preset.")
     public static let prefixDefaults = ConfigPatcher.WineDefault.openGL.registry
 
-    /// Wine maps the whole Mac as Z: and every mounted volume as D:, E:, …. Keep only C: (and the prefix)
-    /// so a game cannot wander the disk. Steam libraries live inside the prefix, so nothing a game needs is lost.
+    /// Wine maps the whole Mac as Z: and every mounted volume as D:, E:, …. Keep only C: (and the prefix),
+    /// plus GamePort's own X: (engine) and Y: (the game's depot folder), so a game cannot wander the disk.
+    /// Steam libraries live inside the prefix, so nothing a game needs is lost.
     /// Wine's mount manager adds volumes again while it runs; this clears them each time the prefix is settled.
     /// Known gap: on macOS, mountmgr.sys (diskarb.c) gives every removable volume, mounted disk images
     /// included, a letter as soon as the prefix starts, and no registry value turns that off. Closing it
@@ -218,12 +220,53 @@ public struct WineRunner: Sendable {
     func isolateHostDrives() throws {
         let dosdevices = prefix.appendingPathComponent("dosdevices", isDirectory: true)
         guard let entries = try? FileManager.default.contentsOfDirectory(atPath: dosdevices.path) else { return }
-        for name in entries where name.lowercased() != "c:" {
+        for name in entries where !Self.keptDrives.contains(name.lowercased()) {
             let link = dosdevices.appendingPathComponent(name)
             if (try? FileManager.default.destinationOfSymbolicLink(atPath: link.path)) != nil {
                 try FileManager.default.removeItem(at: link)
             }
         }
+    }
+
+    /// Drives GamePort maps itself; isolation keeps them. Far from D:, E:, … which Wine's mount manager
+    /// hands to mounted volumes.
+    public static let engineDrive = "x:"
+    public static let gameDrive = "y:"
+    static let keptDrives: Set<String> = ["c:", engineDrive, gameDrive]
+
+    /// Maps the (read-only, shared) engine as X:. Without Z:, Wine can name its own data folder only as
+    /// a `\\?\unix\…` path, which mscoree cannot use: Wine Mono is then "not installed" and every .NET
+    /// game quits at start. Through X: the data folder becomes `X:\engine\share\wine`.
+    func mapEngineDrive() throws {
+        try mapDrive(Self.engineDrive, to: engine.root)
+    }
+
+    /// Maps a game folder that lives outside the prefix (a Steam depot download) as Y: and returns the
+    /// executable's Windows path on it. Without a drive letter Wine runs such a game from a
+    /// `\\?\unix\…` path, which .NET hosts (and some native games) cannot resolve, so they quit at start.
+    /// Returns nil when the executable is not inside `folder`.
+    @discardableResult
+    public func mapGameDrive(_ folder: URL, executable: URL) throws -> String? {
+        let root = folder.standardizedFileURL.resolvingSymlinksInPath().path
+        let exe = executable.standardizedFileURL.resolvingSymlinksInPath().path
+        guard exe.hasPrefix(root + "/") else { return nil }
+        try mapDrive(Self.gameDrive, to: URL(fileURLWithPath: root, isDirectory: true))
+        let relative = exe.dropFirst(root.count + 1).replacingOccurrences(of: "/", with: "\\")
+        return Self.gameDrive.uppercased() + "\\" + relative
+    }
+
+    /// Points `dosdevices/<drive>` at `target`, replacing a link that points elsewhere.
+    func mapDrive(_ drive: String, to target: URL) throws {
+        let dosdevices = prefix.appendingPathComponent("dosdevices", isDirectory: true)
+        guard FileManager.default.fileExists(atPath: dosdevices.path) else { return }
+        let link = dosdevices.appendingPathComponent(drive)
+        if let current = try? FileManager.default.destinationOfSymbolicLink(atPath: link.path) {
+            if current == target.path { return }
+            try FileManager.default.removeItem(at: link)
+        } else if FileManager.default.fileExists(atPath: link.path) {
+            return // a real folder the user made; leave it alone
+        }
+        try FileManager.default.createSymbolicLink(atPath: link.path, withDestinationPath: target.path)
     }
 
     public func applyRegistry() throws {

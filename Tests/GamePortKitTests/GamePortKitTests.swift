@@ -324,6 +324,31 @@ final class GamePortKitTests: XCTestCase {
         XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: runner.prefix.appendingPathComponent("dosdevices").path), ["c:"])
     }
 
+    func testEngineAndDepotGetTheirOwnDrives() throws {
+        let paths = Paths(root: temp)
+        let engine = try fakeEngine(renderers: ["dxmt"])
+        let runner = WineRunner(paths: paths, engine: engine, profile: Profile(id: "g", title: "G", recipeID: nil, engineID: engine.id), recipe: nil)
+        try fakePrefix(at: runner.prefix, marker: "x")
+        let dosdevices = runner.prefix.appendingPathComponent("dosdevices")
+
+        // X: is the engine, so Wine Mono in its data folder is found without Z:.
+        try runner.mapEngineDrive()
+        XCTAssertEqual(try FileManager.default.destinationOfSymbolicLink(atPath: dosdevices.appendingPathComponent("x:").path), engine.root.path)
+
+        // A depot game runs from Y:\…, not a \\?\unix\… path.
+        let depot = temp.appendingPathComponent("tools/depots/261550", isDirectory: true)
+        let exe = depot.appendingPathComponent("bin/Win64_Shipping_Client/Launcher.exe")
+        try FileManager.default.createDirectory(at: exe.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try Data().write(to: exe)
+        XCTAssertEqual(try runner.mapGameDrive(depot, executable: exe), "Y:\\bin\\Win64_Shipping_Client\\Launcher.exe")
+        XCTAssertNil(try runner.mapGameDrive(depot, executable: temp.appendingPathComponent("elsewhere.exe")))
+
+        // Isolation drops host drives but keeps GamePort's own.
+        try FileManager.default.createSymbolicLink(atPath: dosdevices.appendingPathComponent("z:").path, withDestinationPath: "/")
+        try runner.isolateHostDrives()
+        XCTAssertEqual(try FileManager.default.contentsOfDirectory(atPath: dosdevices.path).sorted(), ["c:", "x:", "y:"])
+    }
+
     func testSteamBaseIsOnlyClonedWhenComplete() throws {
         let paths = Paths(root: temp)
         let engine = try fakeEngine(renderers: ["dxmt"])
