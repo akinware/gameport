@@ -70,6 +70,9 @@ struct PlayGuideView: View {
                     LaunchStatusView(profile: profile, recipe: recipe)
                 }
                 ExternalLauncherBar(recipe: recipe)
+                if let profile, recipe.launch != .battlenet, recipe.steamAppID != nil {
+                    SteamBridgeActionBar(recipe: recipe, profile: profile)
+                }
             }
         }
         .task(id: Observation(revision: model.revision, phase: scenePhase)) {
@@ -140,6 +143,92 @@ struct PlayGuideView: View {
         case .play:
             guard let profile else { return }
             model.launchGame(profile: profile, recipe: recipe)
+        }
+    }
+}
+
+struct SteamBridgeActionBar: View {
+    @EnvironmentObject var model: AppModel
+    let recipe: Recipe
+    let profile: Profile
+    @State private var showDownloadSheet = false
+    @State private var steamUsername = ""
+
+    private var appID: Int? { recipe.steamAppID }
+    private var antiCheat: AntiCheatEntry? { AntiCheatDB.bundled.entry(for: recipe) }
+    private var vacDecision: SteamBridgeVACDecision { SteamBridge.vacDecision(for: antiCheat) }
+    private var downloadedExe: URL? {
+        guard let appID else { return nil }
+        return model.gameport.steamDepot.downloadedExecutable(appID: appID, preferredName: recipe.title)
+    }
+
+    var body: some View {
+        if let appID, model.bridgeStatus.overlayInstalled {
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 8) {
+                    Image(systemName: "bolt.horizontal.circle.fill").foregroundStyle(.blue)
+                    Text("Zero Windows Steam (Bridge Mode)").font(.caption.weight(.semibold))
+                    Spacer()
+                    if case .blocked = vacDecision {
+                        Text("VAC game · use Windows Steam").font(.caption2).foregroundStyle(.orange)
+                    } else if let exe = downloadedExe {
+                        Button("Play via Bridge") {
+                            model.job("Launching \(recipe.title) via Bridge") { k, p in
+                                _ = try k.launchWithSteamBridge(profile.id, executable: exe, progress: p)
+                                return "Launched \(exe.lastPathComponent) via Bridge"
+                            }
+                        }
+                        .controlSize(.small)
+                        .disabled(!model.bridgeStatus.isReadyToLaunch || model.busy != nil)
+                    } else {
+                        Button(model.bridgeStatus.steamCmdInstalled ? "Download Depot" : "Install steamcmd") {
+                            if model.bridgeStatus.steamCmdInstalled {
+                                showDownloadSheet = true
+                            } else {
+                                model.job("Installing Valve steamcmd") { k, p in
+                                    try await k.steamDepot.install(progress: p)
+                                    return "Valve steamcmd installed"
+                                }
+                            }
+                        }
+                        .controlSize(.small)
+                        .disabled(model.busy != nil)
+                    }
+                }
+                if case .allowed = vacDecision {
+                    Text(downloadedExe != nil
+                         ? "Depot ready (\(downloadedExe!.lastPathComponent)). \(model.bridgeStatus.isReadyToLaunch ? "Talks directly to native Mac Steam." : "Install & run native Mac Steam.app to launch.")"
+                         : "Downloads Windows files natively via Valve steamcmd and skips Windows Steam in RAM.")
+                    .font(.caption2).foregroundStyle(.secondary)
+                }
+            }
+            .padding(8)
+            .background(.blue.opacity(0.06), in: RoundedRectangle(cornerRadius: 8))
+            .sheet(isPresented: $showDownloadSheet) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Download Windows Depot — \(recipe.title)").font(.headline)
+                    Text("Opens Terminal running Valve's official steamcmd so you can sign in with Steam Guard safely (GamePort never sees your password). Leave blank for anonymous free depots.")
+                        .font(.callout).foregroundStyle(.secondary)
+                    TextField("Steam username (or leave blank for anonymous)", text: $steamUsername)
+                        .textFieldStyle(.roundedBorder)
+                    HStack {
+                        Spacer()
+                        Button("Cancel") { showDownloadSheet = false }
+                        Button("Start Native Download") {
+                            showDownloadSheet = false
+                            let user = steamUsername
+                            do {
+                                try model.gameport.steamDepot.launchInteractiveTerminalDownload(appID: appID, username: user)
+                                model.say("✓ Opened Terminal for native steamcmd download of \(recipe.title) (\(appID))")
+                            } catch {
+                                model.say("✗ \(error)")
+                            }
+                        }.buttonStyle(.borderedProminent)
+                    }
+                }
+                .padding(20)
+                .frame(width: 440)
+            }
         }
     }
 }
@@ -258,14 +347,27 @@ struct ExternalLauncherBar: View {
                             .controlSize(.small)
                     }
                 }
-                if let cxBottle, let cxApp = model.externalEnv.crossoverApp {
+                if let cxBottle, let appID = recipe.steamAppID, model.externalEnv.crossoverApp != nil {
                     HStack(spacing: 8) {
                         Image(systemName: "shippingbox").foregroundStyle(.orange)
-                        Text("Also installed in CrossOver bottle \"\(cxBottle.name)\".")
+                        Text("Installed in CrossOver bottle \"\(cxBottle.name)\".")
                             .font(.caption).foregroundStyle(.secondary)
                         Spacer()
-                        Button("Open CrossOver") { NSWorkspace.shared.open(cxApp) }
-                            .controlSize(.small)
+                        Button("1-Click Play via CrossOver") {
+                            let item = CrossOverBottleLaunchItem(
+                                bottleName: cxBottle.name,
+                                bottlePath: cxBottle.path,
+                                title: recipe.title,
+                                kind: .steam(appID: appID)
+                            )
+                            do {
+                                _ = try CrossOverSupport.launch(item: item)
+                                model.say("✓ Launched \(recipe.title) via CrossOver bottle \"\(cxBottle.name)\"")
+                            } catch {
+                                model.say("✗ \(error)")
+                            }
+                        }
+                        .controlSize(.small)
                     }
                 }
             }

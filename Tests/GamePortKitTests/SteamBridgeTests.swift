@@ -123,7 +123,7 @@ final class SteamBridgeTests: XCTestCase {
         let cxEnv = bridge.bridgeEnvironment(engine: cxEngine, appID: 1245620, macSteamClient: dylib)
         XCTAssertEqual(cxEnv["SteamAppId"], "1245620")
         XCTAssertEqual(cxEnv["GAMEPORT_MAC_STEAMCLIENT"], dylib.path)
-        XCTAssertEqual(cxEnv["WINEDLLOVERRIDES"], "steamclient64=b")
+        XCTAssertEqual(cxEnv["WINEDLLOVERRIDES"], "steamclient64,steamclient=b")
         XCTAssertEqual(cxEnv["WINEDLLPATH_PREPEND+"], bridge.overlayDir.path)
         XCTAssertNil(cxEnv["WINEDLLPATH+"])
 

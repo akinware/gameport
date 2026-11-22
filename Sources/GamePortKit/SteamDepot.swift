@@ -72,6 +72,107 @@ public struct SteamDepotManager: Sendable {
         return min(max(value, 0), 100)
     }
 
+    /// Default depot destination folder for a Steam AppID inside GamePort's tools directory.
+    public func depotDirectory(appID: Int) -> URL {
+        paths.tools.appendingPathComponent("depots/\(appID)", isDirectory: true)
+    }
+
+    /// True if a depot folder for `appID` already contains a discoverable Windows game `.exe`.
+    public func downloadedExecutable(appID: Int, preferredName: String? = nil) -> URL? {
+        let dir = depotDirectory(appID: appID)
+        guard FileManager.default.fileExists(atPath: dir.path) else { return nil }
+        return Self.discoverMainExecutable(in: dir, preferredName: preferredName)
+    }
+
+    /// Runs `steamcmd` asynchronously with streamed line-by-line progress (suitable for SwiftUI apps).
+    /// For Steam accounts that need interactive Steam Guard / password entry, use `openInteractiveTerminalDownload`.
+    @discardableResult
+    public func download(
+        appID: Int,
+        installDir targetDir: URL? = nil,
+        username: String = "anonymous",
+        validate: Bool = true,
+        progress: ProgressHandler? = nil
+    ) async throws -> URL {
+        guard isInstalled else {
+            throw GamePortError.missing("steamcmd is not installed")
+        }
+        let destination = targetDir ?? depotDirectory(appID: appID)
+        try FileManager.default.createDirectory(at: destination, withIntermediateDirectories: true)
+        let args = Self.downloadArguments(appID: appID, installDir: destination, username: username, validate: validate)
+        var env = ProcessInfo.processInfo.environment
+        env["HOME"] = installDir.path
+
+        return try await Task.detached(priority: .userInitiated) {
+            let process = Process()
+            process.executableURL = executableURL
+            process.arguments = args
+            process.environment = env
+            process.standardInput = FileHandle.nullDevice
+            let pipe = Pipe()
+            process.standardOutput = pipe
+            process.standardError = pipe
+            try process.run()
+
+            let handle = pipe.fileHandleForReading
+            var buffer = Data()
+            while true {
+                let chunk = handle.availableData
+                if chunk.isEmpty { break }
+                buffer.append(chunk)
+                while let nl = buffer.firstIndex(of: 0x0A) {
+                    let lineData = buffer.prefix(upTo: nl)
+                    buffer.removeSubrange(...nl)
+                    let line = String(decoding: lineData, as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
+                    if !line.isEmpty {
+                        if let pct = Self.parseProgressPercent(from: line) {
+                            progress?(String(format: "Downloading AppID %d: %.1f%%", appID, pct))
+                        } else if line.contains("Success!") || line.contains("ERROR") || line.contains("FAILED") {
+                            progress?(line)
+                        }
+                    }
+                }
+            }
+            process.waitUntilExit()
+            guard process.terminationStatus == 0 else {
+                throw GamePortError.process("steamcmd app_update \(appID)", process.terminationStatus)
+            }
+            return destination
+        }.value
+    }
+
+    /// Opens macOS Terminal.app running `steamcmd` interactively so the user can enter their
+    /// Steam password & Steam Guard code safely without GamePort ever seeing credentials.
+    public func launchInteractiveTerminalDownload(
+        appID: Int,
+        username: String,
+        installDir targetDir: URL? = nil
+    ) throws {
+        guard isInstalled else {
+            throw GamePortError.missing("steamcmd is not installed")
+        }
+        let destination = targetDir ?? depotDirectory(appID: appID)
+        try FileManager.default.createDirectory(at: destination, withIntermediateDirectories: true)
+        let cleanUser = username.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? "anonymous" : username.trimmingCharacters(in: .whitespacesAndNewlines)
+        func shQuote(_ s: String) -> String { "'" + s.replacingOccurrences(of: "'", with: "'\\''") + "'" }
+        let cmd = [
+            "HOME=\(shQuote(installDir.path))",
+            shQuote(executableURL.path),
+            "+@sSteamCmdForcePlatformType windows",
+            "+force_install_dir \(shQuote(destination.path))",
+            "+login \(shQuote(cleanUser))",
+            "+app_update \(appID) validate",
+            "+quit",
+        ].joined(separator: " ")
+
+        let script = paths.temp.appendingPathComponent("steamcmd-download-\(appID).command")
+        try paths.ensure(paths.temp)
+        let body = "#!/bin/bash\nset -e\necho \"GamePort Native Windows Steam Depot Download (AppID \(appID))\"\n\(cmd)\necho \"Done! You can close this window and click Play via Bridge in GamePort.\"\n"
+        try body.write(to: script, atomically: true, encoding: .utf8)
+        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: script.path)
+        try Shell.run("/usr/bin/open", [script.path])
+    }
+
     /// Runs `steamcmd` interactively (attached to the terminal so Steam Guard prompts work cleanly)
     /// to download a Windows Steam app directly into `installDir`.
     @discardableResult

@@ -308,6 +308,17 @@ static NTSTATUS gp_unix_vtable_call(void *raw) {
         p->ret_u64 = fn(obj, p->args[0], p->args[1], p->args[2], p->args[3],
                         p->args[4], p->args[5], p->args[6], p->args[7]);
         p->ret_f64 = 0.0;
+        if ((p->flags & GP_CALL_FLAG_RET_CSTR) && p->str_buf_ptr && p->str_buf_cap > 0) {
+            char *dst = (char *)(uintptr_t)p->str_buf_ptr;
+            const char *src = (const char *)(uintptr_t)p->ret_u64;
+            if (src) {
+                snprintf(dst, p->str_buf_cap, "%s", src);
+                p->ret_u64 = p->str_buf_ptr;
+            } else {
+                dst[0] = '\0';
+                p->ret_u64 = 0;
+            }
+        }
     }
     return STATUS_SUCCESS;
 }
@@ -327,8 +338,15 @@ static NTSTATUS gp_unix_get_callback(void *raw) {
     if (ok) {
         p->steam_user  = msg.m_hSteamUser;
         p->callback_id = msg.m_iCallback;
-        p->pub_param   = (uint64_t)(uintptr_t)msg.m_pubParam;
         p->cub_param   = msg.m_cubParam;
+        if (p->copy_buf_ptr && p->copy_buf_cap > 0 && msg.m_pubParam && msg.m_cubParam > 0) {
+            size_t n = (size_t)msg.m_cubParam;
+            if (n > p->copy_buf_cap) n = p->copy_buf_cap;
+            memcpy((void *)(uintptr_t)p->copy_buf_ptr, msg.m_pubParam, n);
+            p->pub_param = p->copy_buf_ptr;
+        } else {
+            p->pub_param = (uint64_t)(uintptr_t)msg.m_pubParam;
+        }
     }
     return STATUS_SUCCESS;
 }

@@ -86,6 +86,7 @@ public struct EngineManifest: Codable, Sendable, Equatable {
     }
 
     public var downloadSizeLabel: String {
+        if components.isEmpty { return "0 MB (System)" }
         let bytes = totalDownloadSize
         guard bytes > 0 else { return "size varies" }
         return ByteCountFormatter.string(fromByteCount: bytes, countStyle: .file)
@@ -172,12 +173,19 @@ public struct InstalledEngine: Sendable {
 
     /// A renderer overlay: the engine's own `renderers/<name>` wins over the one the runtime
     /// frameworks bundle (`frameworks/renderer/<name>`), so a newer DXMT can replace the bundled one.
+    /// Also recognizes CrossOver.app's bundled `lib/apple_gptk`, `lib/dxmt`, and `lib/dxvk` layouts.
     public func rendererDirectory(_ name: String) -> URL? {
-        let candidates = [
+        var candidates = [
             root.appendingPathComponent("renderers/\(name)", isDirectory: true),
             frameworks.appendingPathComponent("renderer/\(name)", isDirectory: true),
         ]
-        return candidates.first { FileManager.default.fileExists(atPath: $0.appendingPathComponent("wine").path) || FileManager.default.fileExists(atPath: $0.appendingPathComponent("external").path) }
+        let cxSub = name == "d3dmetal" ? "apple_gptk" : name
+        candidates.append(root.appendingPathComponent("lib/\(cxSub)", isDirectory: true))
+        candidates.append(root.appendingPathComponent("lib64/\(cxSub)", isDirectory: true))
+        return candidates.first {
+            FileManager.default.fileExists(atPath: $0.appendingPathComponent("wine").path) ||
+            FileManager.default.fileExists(atPath: $0.appendingPathComponent("external").path)
+        }
     }
 
     /// The KosmicKrisp shim, when KosmicKrisp is installed in `renderers/kosmickrisp`
@@ -205,13 +213,28 @@ public struct EngineStore: Sendable {
 
     static let receiptName = "gameport-engine.json"
 
-    public func installed() -> [InstalledEngine] {
-        guard let ids = try? FileManager.default.contentsOfDirectory(atPath: paths.engines.path) else { return [] }
-        return ids.sorted().compactMap { try? engine($0) }
+    public func installed(includeSystemCrossOver: Bool = true) -> [InstalledEngine] {
+        var list: [InstalledEngine] = []
+        if let ids = try? FileManager.default.contentsOfDirectory(atPath: paths.engines.path) {
+            list = ids.sorted().compactMap { try? engine($0) }
+        }
+        // Only auto-attach host /Applications/CrossOver.app when running against the user's real home
+        // (never pollute isolated temp test directories).
+        let isTempSandbox = paths.root.path.hasPrefix("/tmp/") || paths.root.path.hasPrefix("/var/folders/") || paths.root.path.hasPrefix("/private/var/folders/")
+        if includeSystemCrossOver && !isTempSandbox, let cx = CrossOverSupport.detect() {
+            list.append(cx.asInstalledEngine())
+        }
+        return list
     }
 
     public func engine(_ id: String) throws -> InstalledEngine {
         try validateID(id, what: "engine id")
+        if id == CrossOverInstallation.engineID {
+            guard let cx = CrossOverSupport.detect() else {
+                throw GamePortError.missing("CrossOver.app is not installed in /Applications")
+            }
+            return cx.asInstalledEngine()
+        }
         let root = paths.engine(id)
         let receipt = root.appendingPathComponent(Self.receiptName)
         guard FileManager.default.fileExists(atPath: receipt.path) else { throw GamePortError.missing("engine \(id) is not installed") }

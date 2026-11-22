@@ -125,12 +125,20 @@ public struct SteamBridge: Sendable {
 
     public var overlayDir: URL { paths.tools.appendingPathComponent("steam-bridge", isDirectory: true) }
     public var peDLL: URL { overlayDir.appendingPathComponent("x86_64-windows/steamclient64.dll") }
+    public var peDLL32: URL { overlayDir.appendingPathComponent("i386-windows/steamclient.dll") }
     public var unixSO: URL { overlayDir.appendingPathComponent("x86_64-unix/steamclient64.so") }
+    public var unixSO32: URL { overlayDir.appendingPathComponent("x86_64-unix/steamclient.so") }
     public var probeExecutable: URL { overlayDir.appendingPathComponent("bridge_probe.exe") }
+    public var probeExecutable32: URL { overlayDir.appendingPathComponent("bridge_probe32.exe") }
 
     public var isOverlayInstalled: Bool {
         let fm = FileManager.default
         return fm.fileExists(atPath: peDLL.path) && fm.fileExists(atPath: unixSO.path)
+    }
+
+    public var has32BitSupport: Bool {
+        let fm = FileManager.default
+        return fm.fileExists(atPath: peDLL32.path) && fm.fileExists(atPath: unixSO32.path)
     }
 
     /// Searches standard native macOS Steam paths for `steamclient.dylib` without modifying Steam.app.
@@ -208,7 +216,7 @@ public struct SteamBridge: Sendable {
             "SteamAppId": String(appID),
             "SteamGameId": String(appID),
             "STEAM_COMPAT_CLIENT_INSTALL_PATH": home.appendingPathComponent("Library/Application Support/Steam").path,
-            "WINEDLLOVERRIDES": "steamclient64=b",
+            "WINEDLLOVERRIDES": "steamclient64,steamclient=b",
         ]
         if engine.manifest.effectiveOverlayMode == .prefix {
             env["WINEDLLPATH+"] = overlayDir.path
@@ -237,19 +245,26 @@ public struct SteamBridge: Sendable {
 
         let fm = FileManager.default
         let system32 = runner.prefix.appendingPathComponent("drive_c/windows/system32", isDirectory: true)
+        let syswow64 = runner.prefix.appendingPathComponent("drive_c/windows/syswow64", isDirectory: true)
         try fm.createDirectory(at: system32, withIntermediateDirectories: true)
+        try fm.createDirectory(at: syswow64, withIntermediateDirectories: true)
 
-        // For stock Wine (.prefix), symlink the builtin DLL into system32 so LoadLibraryA("steamclient64.dll")
-        // finds it with its Wine builtin signature intact and pairs it with x86_64-unix/steamclient64.so.
+        // Stage both 64-bit (system32/steamclient64.dll) and 32-bit WoW64 (syswow64/steamclient.dll)
+        // as Wine builtin symlinks so Wine pairs them with x86_64-unix/steamclient64.so & steamclient.so.
         let stagedDLL = system32.appendingPathComponent("steamclient64.dll")
-        if fm.fileExists(atPath: stagedDLL.path) || (try? fm.attributesOfItem(atPath: stagedDLL.path)) != nil {
-            try? fm.removeItem(at: stagedDLL)
-        }
+        try? fm.removeItem(at: stagedDLL)
         try fm.createSymbolicLink(at: stagedDLL, withDestinationURL: peDLL)
+
+        if has32BitSupport {
+            let stagedDLL32 = syswow64.appendingPathComponent("steamclient.dll")
+            try? fm.removeItem(at: stagedDLL32)
+            try fm.createSymbolicLink(at: stagedDLL32, withDestinationURL: peDLL32)
+        }
 
         let regKey = #"HKCU\Software\Valve\Steam\ActiveProcess"#
         let entries: [(String, String, String)] = [
             ("SteamClientDll64", "REG_SZ", #"C:\windows\system32\steamclient64.dll"#),
+            ("SteamClientDll", "REG_SZ", #"C:\windows\syswow64\steamclient.dll"#),
             ("pid", "REG_DWORD", "1"),
             ("ActiveUser", "REG_DWORD", "1"),
             ("Universe", "REG_SZ", "Public"),
@@ -310,10 +325,11 @@ public struct SteamBridge: Sendable {
         return try runner.spawn([executable.path], extra: extra, logName: "bridge-game.log")
     }
 
-    /// Runs `bridge_probe.exe` in a clean temporary prefix against the given engine to verify
-    /// the PE64 <-> Wine UnixLib <-> macOS SysV ABI bridge end-to-end.
-    public func probe(engine: InstalledEngine, mockMode: Bool = false) throws -> SteamBridgeProbeResult {
-        guard isOverlayInstalled, FileManager.default.fileExists(atPath: probeExecutable.path) else {
+    /// Runs `bridge_probe.exe` (or 32-bit WoW64 `bridge_probe32.exe`) in a clean temporary prefix
+    /// against the given engine to verify the PE <-> Wine UnixLib <-> macOS SysV ABI bridge end-to-end.
+    public func probe(engine: InstalledEngine, mockMode: Bool = false, probe32: Bool = false) throws -> SteamBridgeProbeResult {
+        let targetProbe = probe32 ? probeExecutable32 : probeExecutable
+        guard isOverlayInstalled, FileManager.default.fileExists(atPath: targetProbe.path) else {
             throw GamePortError.missing("GamePort Steam Bridge overlay/probe is not built yet (run Scripts/build-steam-bridge.sh)")
         }
         let tempDir = paths.temp.appendingPathComponent("bridge-probe-\(UUID().uuidString)", isDirectory: true)
@@ -331,6 +347,13 @@ public struct SteamBridge: Sendable {
             let staged = system32.appendingPathComponent("steamclient64.dll")
             try? FileManager.default.removeItem(at: staged)
             try FileManager.default.createSymbolicLink(at: staged, withDestinationURL: peDLL)
+            if has32BitSupport {
+                let syswow64 = runner.prefix.appendingPathComponent("drive_c/windows/syswow64", isDirectory: true)
+                try FileManager.default.createDirectory(at: syswow64, withIntermediateDirectories: true)
+                let staged32 = syswow64.appendingPathComponent("steamclient.dll")
+                try? FileManager.default.removeItem(at: staged32)
+                try FileManager.default.createSymbolicLink(at: staged32, withDestinationURL: peDLL32)
+            }
         }
 
         let dylib = mockMode ? nil : Self.locateMacSteamClient()
@@ -341,10 +364,11 @@ public struct SteamBridge: Sendable {
             mockMode: mockMode,
             verboseLog: true
         )
-        let result = try runner.run([probeExecutable.path], sync: SyncMode.none, extra: extra, check: false)
+        let result = try runner.run([targetProbe.path], sync: SyncMode.none, extra: extra, check: false)
         let combined = result.output.trimmingCharacters(in: .whitespacesAndNewlines)
+        let expectedMarker = probe32 ? "OK32:" : "OK:"
         return SteamBridgeProbeResult(
-            success: result.status == 0 && combined.contains("OK:"),
+            success: result.status == 0 && combined.contains(expectedMarker),
             engineID: engine.id,
             mockMode: mockMode,
             output: combined,

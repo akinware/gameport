@@ -38,7 +38,9 @@ enum gp_call_flags {
     GP_CALL_FLAG_MSVC_SRET8  = (1u << 0),
     /* Method returns a float/double in XMM0. */
     GP_CALL_FLAG_RET_FLOAT   = (1u << 1),
-    GP_CALL_FLAG_RET_DOUBLE  = (1u << 2)
+    GP_CALL_FLAG_RET_DOUBLE  = (1u << 2),
+    /* WoW64: native method returns a 64-bit `const char *`; copy into str_buf_ptr (< 4GB). */
+    GP_CALL_FLAG_RET_CSTR    = (1u << 3)
 };
 
 /* Known proxy interface families for ABI adjustments & sub-interface wrapping */
@@ -82,6 +84,9 @@ struct gp_vtable_call_args {
     uint32_t flags;              /* in: enum gp_call_flags */
     uint64_t args[8];            /* in: integer/pointer arguments after `this` */
     double   fargs[4];           /* in: floating-point arguments (future use) */
+    uint64_t str_buf_ptr;        /* in (optional): PE buffer for GP_CALL_FLAG_RET_CSTR */
+    uint32_t str_buf_cap;        /* in (optional): capacity of str_buf_ptr */
+    uint32_t reserved0;
     uint64_t ret_u64;            /* out: RAX return value */
     double   ret_f64;            /* out: XMM0 return value */
 };
@@ -93,7 +98,8 @@ struct gp_get_callback_args {
     int32_t  callback_id;        /* out: CallbackMsg_t.m_iCallback */
     uint64_t pub_param;          /* out: CallbackMsg_t.m_pubParam */
     int32_t  cub_param;          /* out: CallbackMsg_t.m_cubParam */
-    int32_t  reserved;
+    uint32_t copy_buf_cap;       /* in (optional): WoW64 32-bit copy buffer size */
+    uint64_t copy_buf_ptr;       /* in (optional): WoW64 32-bit buffer to copy payload into */
 };
 
 struct gp_free_callback_args {

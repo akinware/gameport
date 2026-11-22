@@ -48,14 +48,16 @@ fi
 stage="$(mktemp -d "${TMPDIR:-/tmp}/gp-steam-bridge.XXXXXXXX")"
 trap 'rm -rf "$stage"' EXIT
 
-mkdir -p "$stage/x86_64-unix" "$stage/x86_64-windows"
+mingw32_cc="$(dirname "$mingw_cc")/i686-w64-mingw32-clang"
+mkdir -p "$stage/x86_64-unix" "$stage/x86_64-windows" "$stage/i386-windows"
 
-echo "Compiling macOS x86_64 Wine UnixLib (steamclient64.so)..."
+echo "Compiling macOS x86_64 Wine UnixLib (steamclient64.so + steamclient.so)..."
 /usr/bin/clang -arch x86_64 -shared -O2 -Wall -Wextra -Werror \
     -mmacosx-version-min=13.0 \
     -I"$src" \
     "$src/unix_bridge.c" \
     -o "$stage/x86_64-unix/steamclient64.so"
+cp "$stage/x86_64-unix/steamclient64.so" "$stage/x86_64-unix/steamclient.so"
 
 echo "Compiling Windows x64 Wine Builtin DLL (steamclient64.dll)..."
 "$mingw_cc" -shared -O2 -Wall -Wextra -Werror \
@@ -64,16 +66,31 @@ echo "Compiling Windows x64 Wine Builtin DLL (steamclient64.dll)..."
     -o "$stage/x86_64-windows/steamclient64.dll"
 python3 -I "$repo/Scripts/mark-wine-builtin.py" "$stage/x86_64-windows/steamclient64.dll"
 
-echo "Compiling Windows x64 probe (bridge_probe.exe)..."
+echo "Compiling Windows 32-bit WoW64 Wine Builtin DLL (steamclient.dll)..."
+"$mingw32_cc" -shared -O2 -Wall -Wextra -Werror \
+    -I"$src" \
+    "$src/pe_bridge32.c" \
+    -o "$stage/i386-windows/steamclient.dll"
+python3 -I "$repo/Scripts/mark-wine-builtin.py" "$stage/i386-windows/steamclient.dll"
+
+echo "Compiling Windows x64 & 32-bit probes (bridge_probe.exe + bridge_probe32.exe)..."
 "$mingw_cc" -O2 -Wall -Wextra -Werror \
     -I"$src" \
     "$src/bridge_probe.c" \
     -o "$stage/bridge_probe.exe"
+"$mingw32_cc" -O2 -Wall -Wextra -Werror \
+    -I"$src" \
+    "$src/bridge_probe32.c" \
+    -o "$stage/bridge_probe32.exe"
 
-mkdir -p "$out_dir/x86_64-unix" "$out_dir/x86_64-windows"
+mkdir -p "$out_dir/x86_64-unix" "$out_dir/x86_64-windows" "$out_dir/i386-windows"
 cp "$stage/x86_64-unix/steamclient64.so" "$out_dir/x86_64-unix/steamclient64.so"
+cp "$stage/x86_64-unix/steamclient.so" "$out_dir/x86_64-unix/steamclient.so"
 cp "$stage/x86_64-windows/steamclient64.dll" "$out_dir/x86_64-windows/steamclient64.dll"
+cp "$stage/i386-windows/steamclient.dll" "$out_dir/i386-windows/steamclient.dll"
 cp "$stage/bridge_probe.exe" "$out_dir/bridge_probe.exe"
+cp "$stage/bridge_probe32.exe" "$out_dir/bridge_probe32.exe"
 
-echo "Built GamePort Steam Bridge -> $out_dir"
-ls -lh "$out_dir/x86_64-unix/steamclient64.so" "$out_dir/x86_64-windows/steamclient64.dll" "$out_dir/bridge_probe.exe"
+echo "Built GamePort Steam Bridge (64-bit + 32-bit WoW64) -> $out_dir"
+ls -lh "$out_dir/x86_64-unix/steamclient64.so" "$out_dir/x86_64-windows/steamclient64.dll" \
+    "$out_dir/i386-windows/steamclient.dll" "$out_dir/bridge_probe.exe" "$out_dir/bridge_probe32.exe"

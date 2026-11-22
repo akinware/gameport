@@ -36,6 +36,7 @@ Usage:
   \(cli) battlenet install <profile>    Download & run Blizzard's Battle.net installer in a profile
   \(cli) battlenet open <profile>       Open Battle.net in a profile (Overwatch 2, Diablo IV, etc.)
   \(cli) bridge [status|probe|install-steamcmd|download|launch]  Clean-room Mac Steam bridge (zero Windows Steam)
+  \(cli) crossover [status|bottles|launch <bottle> <appID>]     Use installed CrossOver.app (0 MB engine & 1-click bottles)
   \(cli) play <profile>                 Start the game
   \(cli) stop <profile>                 Stop everything in a profile
   \(cli) lab <profile> [renderer,…] [s] Start the game, measure FPS and record whether it works
@@ -530,7 +531,8 @@ do {
         case "status":
             let st = gameport.steamBridge.status()
             print("GamePort Steam Bridge: \(st.readinessSummary)")
-            print("  Overlay built:    \(st.overlayInstalled ? "yes (\(st.overlayDir.path))" : "no (run Scripts/build-steam-bridge.sh)")")
+            let archText = gameport.steamBridge.has32BitSupport ? "64-bit + 32-bit WoW64" : "64-bit only"
+            print("  Overlay built:    \(st.overlayInstalled ? "yes (\(archText) at \(st.overlayDir.path))" : "no (run Scripts/build-steam-bridge.sh)")")
             print("  Native Mac Steam: \(st.macSteamInstalled ? (st.macSteamRunning ? "installed & running" : "installed (not running)") : "not installed")")
             if let dylib = st.steamClientDylib {
                 print("  steamclient.dylib: \(dylib.path) (x86_64 slice: \(st.steamClientHasX86_64 ? "yes" : "no"))")
@@ -541,10 +543,12 @@ do {
         case "probe":
             var engineID: String? = nil
             var mock = false
+            var probe32 = false
             var it = args.dropFirst().makeIterator()
             while let tok = it.next() {
                 if tok == "--engine" { engineID = it.next() }
                 else if tok == "--mock" { mock = true }
+                else if tok == "--32" { probe32 = true }
                 else { fail("unknown flag \(tok)") }
             }
             let engine: InstalledEngine
@@ -557,8 +561,8 @@ do {
             } else {
                 fail("no engine installed")
             }
-            let res = try gameport.steamBridge.probe(engine: engine, mockMode: mock)
-            print("\(res.success ? "✓" : "✗") Bridge probe on \(res.engineID) (\(res.mockMode ? "mock" : "native Mac Steam"), exit \(res.exitCode))")
+            let res = try gameport.steamBridge.probe(engine: engine, mockMode: mock, probe32: probe32)
+            print("\(res.success ? "✓" : "✗") Bridge \(probe32 ? "32-bit WoW64 " : "64-bit ")probe on \(res.engineID) (\(res.mockMode ? "mock" : "native Mac Steam"), exit \(res.exitCode))")
             if !res.output.isEmpty { print(res.output) }
             exit(res.success ? 0 : 1)
         case "install-steamcmd":
@@ -604,6 +608,51 @@ do {
                 verboseLog: verbose,
                 progress: progress
             )
+            proc.waitUntilExit()
+            exit(proc.terminationStatus)
+        default:
+            fail(usage)
+        }
+
+    case "crossover":
+        let action = args.first ?? "status"
+        switch action {
+        case "status":
+            if let cx = CrossOverSupport.detect() {
+                print("CrossOver: installed (\(cx.version ?? "unknown")) at \(cx.appURL.path)")
+                print("  Engine ID: \(CrossOverInstallation.engineID) (0 MB download)")
+                let games = CrossOverSupport.discoverBottleGames()
+                print("  Bottle games: \(games.count)")
+            } else {
+                print("CrossOver: not installed in /Applications (GamePort PowerKit engines are ready instead).")
+            }
+        case "bottles":
+            let games = CrossOverSupport.discoverBottleGames()
+            if games.isEmpty {
+                print("No Steam or Battle.net games found in CrossOver bottles.")
+            } else {
+                for g in games {
+                    switch g.kind {
+                    case .steam(let appID): print("[\(g.bottleName)] \(g.title) (Steam \(appID))")
+                    case .battleNet: print("[\(g.bottleName)] \(g.title)")
+                    }
+                }
+            }
+        case "launch":
+            let bottleName = arg(1, "bottle")
+            let rawID = arg(2, "Steam App ID or battlenet")
+            let games = CrossOverSupport.discoverBottleGames()
+            let item: CrossOverBottleLaunchItem?
+            if rawID.lowercased() == "battlenet" {
+                item = games.first { $0.bottleName == bottleName && $0.kind == .battleNet }
+            } else if let appID = SteamStore.parseAppID(rawID) {
+                item = games.first { $0.bottleName == bottleName && $0.kind == .steam(appID: appID) }
+            } else {
+                fail("expected a numeric Steam App ID or 'battlenet'")
+            }
+            guard let target = item else { fail("game \(rawID) not found in CrossOver bottle '\(bottleName)'") }
+            print("Launching \(target.title) from CrossOver bottle '\(target.bottleName)'…")
+            let proc = try CrossOverSupport.launch(item: target)
             proc.waitUntilExit()
             exit(proc.terminationStatus)
         default:
