@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "call-of-duty",
+  "title": "Call of Duty (2003)",
+  "steamAppID": 2620,
+  "status": "untested",
+  "renderer": "dxvk",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "Classic OpenGL/D3D title. Tip: enable x87sidecar and 1x Native scaling in Advanced for high FPS."
+  ]
+}

@@ -24,8 +24,34 @@ public struct CrossOverBottle: Sendable, Equatable, Identifiable {
 /// so players can launch them from one place when appropriate (e.g. Obelisk for Linux-EAC games).
 public struct ExternalEnvironment: Sendable, Equatable {
     public static let obeliskWebsite = "https://getobelisk.app"
+    public static let siliconiumWebsite = "https://github.com/sirdankdabs/siliconium/releases/latest"
+
+    /// Steam AppIDs of the classic Call of Duty lineup tuned by Siliconium (CoD 1 through Infinite Warfare).
+    public static let siliconiumAppIDs: Set<Int> = [
+        2620,   // Call of Duty (2003)
+        2640,   // Call of Duty: United Offensive
+        2630,   // Call of Duty 2
+        7940,   // Call of Duty 4: Modern Warfare
+        10090,  // Call of Duty: World at War
+        10180,  // Call of Duty: Modern Warfare 2 (2009) SP
+        10190,  // Call of Duty: Modern Warfare 2 (2009) MP
+        42700,  // Call of Duty: Black Ops SP
+        42710,  // Call of Duty: Black Ops MP
+        42680,  // Call of Duty: Modern Warfare 3 (2011) SP
+        42690,  // Call of Duty: Modern Warfare 3 (2011) MP
+        202970, // Call of Duty: Black Ops II SP
+        202990, // Call of Duty: Black Ops II MP
+        212910, // Call of Duty: Black Ops II Zombies
+        209160, // Call of Duty: Ghosts SP
+        209170, // Call of Duty: Ghosts MP
+        209650, // Call of Duty: Advanced Warfare SP
+        209660, // Call of Duty: Advanced Warfare MP
+        311210, // Call of Duty: Black Ops III
+        292730, // Call of Duty: Infinite Warfare
+    ]
 
     public let obeliskApp: URL?
+    public let siliconiumApp: URL?
     public let crossoverApp: URL?
     public let crossoverBottles: [CrossOverBottle]
     public let macSteamApp: URL?
@@ -33,8 +59,14 @@ public struct ExternalEnvironment: Sendable, Equatable {
     public let notProtonInstalled: Bool
 
     public var hasObelisk: Bool { obeliskApp != nil }
+    public var hasSiliconium: Bool { siliconiumApp != nil }
     public var hasCrossOver: Bool { crossoverApp != nil }
     public var hasMacSteam: Bool { macSteamApp != nil }
+
+    public static func suggestsSiliconium(steamAppID: Int?) -> Bool {
+        guard let id = steamAppID else { return false }
+        return siliconiumAppIDs.contains(id)
+    }
 
     public func macSteamGame(appID: Int) -> DiscoveredSteamGame? {
         macSteamGames.first { $0.appID == appID }
@@ -58,12 +90,12 @@ public struct ExternalEnvironment: Sendable, Equatable {
     }
 
     public static let empty = ExternalEnvironment(
-        obeliskApp: nil, crossoverApp: nil, crossoverBottles: [],
+        obeliskApp: nil, siliconiumApp: nil, crossoverApp: nil, crossoverBottles: [],
         macSteamApp: nil, macSteamGames: [], notProtonInstalled: false
     )
 }
 
-/// Read-only discovery of installed external launchers (Obelisk, CrossOver, native Mac Steam / NotProton).
+/// Read-only discovery of installed external launchers (Obelisk, Siliconium, CrossOver, native Mac Steam / NotProton).
 public enum ExternalDiscovery {
     public static func scan(
         applicationsDirs: [URL]? = nil,
@@ -84,6 +116,7 @@ public enum ExternalDiscovery {
         }
 
         let obelisk = findApp("Obelisk.app")
+        let siliconium = findApp("Siliconium.app")
         let crossover = findApp("CrossOver.app")
         let macSteam = findApp("Steam.app")
 
@@ -98,6 +131,7 @@ public enum ExternalDiscovery {
 
         return ExternalEnvironment(
             obeliskApp: obelisk,
+            siliconiumApp: siliconium,
             crossoverApp: crossover,
             crossoverBottles: bottles,
             macSteamApp: macSteam,

@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "call-of-duty-modern-warfare-3-2011",
+  "title": "Call of Duty: Modern Warfare 3 (2011)",
+  "steamAppID": 42680,
+  "status": "untested",
+  "renderer": "dxvk",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 9 campaign & Survival. DXVK + x87sidecar recommended. For Plutonium IW5 multiplayer, Siliconium is also supported."
+  ]
+}

@@ -64,6 +64,12 @@ public struct WineRunner: Sendable {
             env["DXMT_ENABLE_NVEXT"] = "1"
             env["D3DM_ENABLE_METALFX"] = "1"
         }
+        if profile.x87Acceleration == true, engine.manifest.requiresRosetta {
+            let sidecar = X87SidecarStore(paths: paths)
+            if sidecar.isInstalled {
+                env["ROSETTA_X87_PATH"] = sidecar.binaryURL.path
+            }
+        }
         if profile.metalHUD { env["MTL_HUD_ENABLED"] = "1" }
         if effectiveVulkanDriver == .kosmickrisp {
             guard let shim = engine.kosmicKrispShim else {

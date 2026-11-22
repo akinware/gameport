@@ -261,6 +261,206 @@ enum BundledData {
         #"""
 {
   "schema": 1,
+  "id": "call-of-duty-2",
+  "title": "Call of Duty 2",
+  "steamAppID": 2630,
+  "status": "untested",
+  "renderer": "dxvk",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 9 classic. DXVK + x87sidecar + 1x Native scaling give high frame rates on Apple Silicon."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "call-of-duty-4-modern-warfare",
+  "title": "Call of Duty 4: Modern Warfare",
+  "steamAppID": 7940,
+  "status": "untested",
+  "renderer": "dxvk",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 9 classic. DXVK + x87sidecar recommended. For CoD4X multiplayer servers, Siliconium is also supported."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "call-of-duty-advanced-warfare",
+  "title": "Call of Duty: Advanced Warfare",
+  "steamAppID": 209650,
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 11 campaign. DXMT + Performance cores + 1x Native scaling recommended."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "call-of-duty-black-ops-2",
+  "title": "Call of Duty: Black Ops II",
+  "steamAppID": 202970,
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 11 campaign (Zombies/MP are separate Steam AppIDs 212910/202990). DXMT + 1x Native scaling recommended."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "call-of-duty-black-ops-3",
+  "title": "Call of Duty: Black Ops III",
+  "steamAppID": 311210,
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 11 campaign, multiplayer & Zombies. DXMT + 1x Native scaling recommended; Siliconium also supports Ezz/BOIII."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "call-of-duty-ghosts",
+  "title": "Call of Duty: Ghosts",
+  "steamAppID": 209160,
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 11 campaign. DXMT + Performance cores + 1x Native scaling recommended."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "call-of-duty-infinite-warfare",
+  "title": "Call of Duty: Infinite Warfare",
+  "steamAppID": 292730,
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 11 campaign & Zombies. DXMT + 1x Native scaling recommended; Siliconium also supports IW7-Mod."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "call-of-duty-modern-warfare-3-2011",
+  "title": "Call of Duty: Modern Warfare 3 (2011)",
+  "steamAppID": 42680,
+  "status": "untested",
+  "renderer": "dxvk",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 9 campaign & Survival. DXVK + x87sidecar recommended. For Plutonium IW5 multiplayer, Siliconium is also supported."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "call-of-duty-united-offensive",
+  "title": "Call of Duty: United Offensive",
+  "steamAppID": 2640,
+  "status": "untested",
+  "renderer": "dxvk",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "Requires Call of Duty (2003) in the same Steam account. Tip: enable x87sidecar and 1x Native scaling."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "call-of-duty",
+  "title": "Call of Duty (2003)",
+  "steamAppID": 2620,
+  "status": "untested",
+  "renderer": "dxvk",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "Classic OpenGL/D3D title. Tip: enable x87sidecar and 1x Native scaling in Advanced for high FPS."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
   "id": "company-of-heroes-3",
   "title": "Company of Heroes 3",
   "steamAppID": 1677280,

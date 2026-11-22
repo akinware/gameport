@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "call-of-duty-2",
+  "title": "Call of Duty 2",
+  "steamAppID": 2630,
+  "status": "untested",
+  "renderer": "dxvk",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 9 classic. DXVK + x87sidecar + 1x Native scaling give high frame rates on Apple Silicon."
+  ]
+}

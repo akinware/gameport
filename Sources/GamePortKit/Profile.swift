@@ -26,6 +26,8 @@ public struct Profile: Codable, Sendable, Equatable, Identifiable {
     public var retinaMode: Bool?
     /// nil = off; true = enable MetalFX upscaling (DXMT spatial + D3DMetal MetalFX).
     public var metalFX: Bool?
+    /// nil = off; true = attach x87sidecar (`ROSETTA_X87_PATH`) for 32-bit/DX9 x87 floating-point acceleration.
+    public var x87Acceleration: Bool?
     /// nil = Rosetta 2 (default). Optional experimental AArchX (`ocerz` / `ocerz -fex`) runner.
     public var executionRunner: ExecutionRunner?
     public var environment: [String: String] = [:]

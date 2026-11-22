@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "call-of-duty-ghosts",
+  "title": "Call of Duty: Ghosts",
+  "steamAppID": 209160,
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 11 campaign. DXMT + Performance cores + 1x Native scaling recommended."
+  ]
+}

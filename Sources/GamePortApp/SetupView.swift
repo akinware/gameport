@@ -204,6 +204,34 @@ struct SetupView: View {
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
                                 HStack(spacing: 6) {
+                                    Text("x87sidecar (Rosetta x87 JIT Accelerator)").font(.headline)
+                                    Text("MIT · 182 KB").font(.caption).foregroundStyle(.secondary)
+                                }
+                                Text("Speeds up legacy 32-bit/DX9 x87 floating-point math under Rosetta (classic Call of Duty, Half-Life 2, older PC games).")
+                                    .font(.caption).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            if model.x87Installed {
+                                Label(model.x87Version ?? "Installed", systemImage: "checkmark.seal.fill")
+                                    .font(.caption.weight(.semibold)).foregroundStyle(.green)
+                                Button("Remove", role: .destructive) {
+                                    try? model.gameport.x87sidecar.remove()
+                                    model.refresh()
+                                    model.say("✓ Removed x87sidecar")
+                                }.disabled(model.busy != nil)
+                            } else {
+                                Button("Install x87sidecar") {
+                                    model.job("Installing x87sidecar") { k, p in
+                                        _ = try await k.x87sidecar.install(progress: p)
+                                        return "x87sidecar installed"
+                                    }
+                                }.disabled(model.busy != nil)
+                            }
+                        }
+                        Divider()
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                HStack(spacing: 6) {
                                     Text("AArchX (No-Rosetta Experimental Runner)").font(.headline)
                                     Text("LGPL-2.1 · 7.7 MB").font(.caption).foregroundStyle(.secondary)
                                 }
@@ -242,6 +270,21 @@ struct SetupView: View {
                                 Button("Open Obelisk") { NSWorkspace.shared.open(app) }
                             } else if let url = URL(string: ExternalEnvironment.obeliskWebsite) {
                                 Link("Get Obelisk…", destination: url)
+                            }
+                        }
+                        HStack {
+                            Label(
+                                model.externalEnv.hasSiliconium
+                                    ? "Siliconium: installed (tuned classic Call of Duty & Plutonium/IW4X/BOIII)"
+                                    : "Siliconium: not installed (optional for classic CoD community servers)",
+                                systemImage: model.externalEnv.hasSiliconium ? "checkmark.circle.fill" : "arrow.up.right.square"
+                            )
+                            .foregroundStyle(model.externalEnv.hasSiliconium ? Color.primary : Color.secondary)
+                            Spacer()
+                            if let app = model.externalEnv.siliconiumApp {
+                                Button("Open Siliconium") { NSWorkspace.shared.open(app) }
+                            } else if let url = URL(string: ExternalEnvironment.siliconiumWebsite) {
+                                Link("Get Siliconium…", destination: url)
                             }
                         }
                         HStack {

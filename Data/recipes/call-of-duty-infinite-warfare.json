@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "call-of-duty-infinite-warfare",
+  "title": "Call of Duty: Infinite Warfare",
+  "steamAppID": 292730,
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 11 campaign & Zombies. DXMT + 1x Native scaling recommended; Siliconium also supports IW7-Mod."
+  ]
+}

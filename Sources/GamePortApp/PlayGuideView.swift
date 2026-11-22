@@ -184,10 +184,11 @@ struct ExternalLauncherBar: View {
     var body: some View {
         let ac = AntiCheatDB.bundled.entry(for: recipe)
         let suggestObelisk = ExternalEnvironment.suggestsObelisk(for: ac)
+        let suggestSiliconium = ExternalEnvironment.suggestsSiliconium(steamAppID: recipe.steamAppID)
         let macGame = recipe.steamAppID.flatMap { model.externalEnv.macSteamGame(appID: $0) }
         let cxBottle = recipe.steamAppID.flatMap { model.externalEnv.crossoverBottle(containingAppID: $0) }
 
-        if suggestObelisk || macGame != nil || cxBottle != nil {
+        if suggestObelisk || suggestSiliconium || macGame != nil || cxBottle != nil {
             VStack(alignment: .leading, spacing: 6) {
                 if suggestObelisk {
                     HStack(spacing: 8) {
@@ -201,6 +202,22 @@ struct ExternalLauncherBar: View {
                                 .controlSize(.small)
                         } else if let url = URL(string: ExternalEnvironment.obeliskWebsite) {
                             Link("Get Obelisk…", destination: url)
+                                .font(.caption.weight(.semibold))
+                        }
+                    }
+                }
+                if suggestSiliconium {
+                    HStack(spacing: 8) {
+                        Image(systemName: "bolt.circle.fill")
+                            .foregroundStyle(.purple)
+                        Text("Also supported by Siliconium (dedicated Call of Duty tuning, Plutonium / IW4X / CoD4X / BOIII).")
+                            .font(.caption).foregroundStyle(.secondary)
+                        Spacer()
+                        if let app = model.externalEnv.siliconiumApp {
+                            Button("Run with Siliconium") { NSWorkspace.shared.open(app) }
+                                .controlSize(.small)
+                        } else if let url = URL(string: ExternalEnvironment.siliconiumWebsite) {
+                            Link("Get Siliconium…", destination: url)
                                 .font(.caption.weight(.semibold))
                         }
                     }

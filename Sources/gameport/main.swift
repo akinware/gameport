@@ -41,9 +41,10 @@ Usage:
   \(cli) vulkan <profile> [driver]      Vulkan driver for the game: moltenvk (default) or kosmickrisp (experimental)
   \(cli) telemetry [status|on|off|preview|reset-id]  Anonymous FPS & compatibility sharing (default: on)
   \(cli) storage [status|set <folder>|reset]  Choose an External APFS SSD or custom data folder
-  \(cli) perf <profile> [pcores|retina|metalfx|runner] [value]  Apple Silicon performance settings
+  \(cli) perf <profile> [pcores|retina|metalfx|x87|runner] [value]  Apple Silicon performance settings
+  \(cli) x87 [status|install|probe|remove]  Rosetta x87 JIT accelerator (x87sidecar, MIT, 182 KB)
   \(cli) aarchx [status|install|remove] Experimental No-Rosetta x86-64 runner (LGPL-2.1)
-  \(cli) external                       Detect Obelisk, CrossOver bottles, Mac Steam & NotProton
+  \(cli) external                       Detect Obelisk, Siliconium, CrossOver, Mac Steam & NotProton
   \(cli) env <profile>                  Show the game's environment variables
   \(cli) run <profile> <windows command…>  Run a Windows program in a profile
 
@@ -434,9 +435,10 @@ do {
             print("P-cores:   \((profile.performanceCores ?? true) ? "on" : "off")")
             print("Retina:    \(profile.retinaMode.map { $0 ? "hidpi" : "1x" } ?? "auto")")
             print("MetalFX:   \(profile.metalFX == true ? "on" : "off")")
+            print("x87:       \(profile.x87Acceleration == true ? "on" : "off")")
             print("Runner:    \((profile.executionRunner ?? .rosetta).rawValue)")
         } else {
-            let key = arg(1, "pcores|retina|metalfx|runner").lowercased()
+            let key = arg(1, "pcores|retina|metalfx|x87|runner").lowercased()
             let val = arg(2, "value").lowercased()
             switch key {
             case "pcores":
@@ -452,6 +454,9 @@ do {
             case "metalfx":
                 guard ["on", "off"].contains(val) else { fail("metalfx expects on|off") }
                 profile.metalFX = val == "on" ? true : nil
+            case "x87":
+                guard ["on", "off"].contains(val) else { fail("x87 expects on|off") }
+                profile.x87Acceleration = val == "on" ? true : nil
             case "runner":
                 guard let runner = ExecutionRunner(rawValue: val) else {
                     fail("runner expects one of " + ExecutionRunner.allCases.map(\.rawValue).joined(separator: ", "))
@@ -461,6 +466,29 @@ do {
             }
             try gameport.profiles.save(profile)
             print("✓ Updated \(id): \(key)=\(val)")
+        }
+
+    case "x87":
+        let action = args.first ?? "status"
+        switch action {
+        case "status":
+            if gameport.x87sidecar.isInstalled {
+                let check = gameport.x87sidecar.probe()
+                print("x87sidecar: installed (\(gameport.x87sidecar.versionString() ?? "unknown")) — probe: \(check.ok ? "supported" : check.detail)")
+            } else {
+                print("x87sidecar: not installed. Run `\(cli) x87 install` (182 KB, SHA-256 verified, MIT).")
+            }
+        case "install":
+            let bin = try await gameport.x87sidecar.install(progress: progress)
+            print("✓ Installed x87sidecar at \(bin.path)")
+        case "probe":
+            let check = gameport.x87sidecar.probe()
+            print("\(check.ok ? "✓" : "✗") \(check.detail)")
+            exit(check.ok ? 0 : 1)
+        case "remove":
+            try gameport.x87sidecar.remove()
+            print("✓ Removed x87sidecar")
+        default: fail(usage)
         }
 
     case "aarchx":
@@ -483,8 +511,9 @@ do {
 
     case "external":
         let env = ExternalDiscovery.scan()
-        print("Obelisk:   \(env.obeliskApp?.path ?? "not installed (\(ExternalEnvironment.obeliskWebsite))")")
-        print("CrossOver: \(env.crossoverApp?.path ?? "not installed") (\(env.crossoverBottles.count) bottles)")
+        print("Obelisk:    \(env.obeliskApp?.path ?? "not installed (\(ExternalEnvironment.obeliskWebsite))")")
+        print("Siliconium: \(env.siliconiumApp?.path ?? "not installed (\(ExternalEnvironment.siliconiumWebsite))")")
+        print("CrossOver:  \(env.crossoverApp?.path ?? "not installed") (\(env.crossoverBottles.count) bottles)")
         for b in env.crossoverBottles {
             print("  • bottle \(b.name): \(b.steamGames.count) Steam games")
         }

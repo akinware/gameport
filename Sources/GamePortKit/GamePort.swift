@@ -10,6 +10,7 @@ public struct GamePort: Sendable {
     public var licenses: LicenseStore { LicenseStore(paths: paths) }
     public var telemetry: TelemetryStore { TelemetryStore(paths: paths) }
     public var aarchx: AArchXStore { AArchXStore(paths: paths) }
+    public var x87sidecar: X87SidecarStore { X87SidecarStore(paths: paths) }
     public var catalog: RecipeCatalog { RecipeCatalog.load(paths: paths) }
 
     /// The engine new profiles use: the first bundled manifest.

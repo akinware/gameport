@@ -63,6 +63,14 @@ struct AdvancedView: View {
                             get: { profile.metalFX == true },
                             set: { on in model.updateProfile(profile.id) { $0.metalFX = on ? true : nil } }
                         ))
+                        Toggle("x87sidecar Acceleration (32-bit / DX9 Rosetta boost)", isOn: Binding(
+                            get: { profile.x87Acceleration == true },
+                            set: { on in model.updateProfile(profile.id) { $0.x87Acceleration = on ? true : nil } }
+                        ))
+                        if profile.x87Acceleration == true && !model.x87Installed {
+                            Text("x87sidecar is not installed yet — install it under Setup → External Launchers & Experimental Runners (182 KB).")
+                                .font(.caption).foregroundStyle(.orange)
+                        }
                         Picker("Execution runner", selection: Binding<ExecutionRunner>(
                             get: { profile.executionRunner ?? .rosetta },
                             set: { r in model.updateProfile(profile.id) { $0.executionRunner = r == .rosetta ? nil : r } }

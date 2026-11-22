@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "call-of-duty-united-offensive",
+  "title": "Call of Duty: United Offensive",
+  "steamAppID": 2640,
+  "status": "untested",
+  "renderer": "dxvk",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "Requires Call of Duty (2003) in the same Steam account. Tip: enable x87sidecar and 1x Native scaling."
+  ]
+}

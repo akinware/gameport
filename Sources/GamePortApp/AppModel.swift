@@ -25,6 +25,8 @@ final class AppModel: ObservableObject {
     @Published var externalEnv: ExternalEnvironment = .empty
     @Published var aarchxInstalled = false
     @Published var aarchxVersion: String?
+    @Published var x87Installed = false
+    @Published var x87Version: String?
     private(set) var engineProfiles: [String: [Profile]] = [:]
     private var launchMonitorTask: Task<Void, Never>?
 
@@ -66,6 +68,8 @@ final class AppModel: ObservableObject {
         steamBase = (try? gameport.steamBase()).flatMap { $0.isReady ? $0.stamp : nil }
         aarchxInstalled = gameport.aarchx.isInstalled
         aarchxVersion = gameport.aarchx.versionString()
+        x87Installed = gameport.x87sidecar.isInstalled
+        x87Version = gameport.x87sidecar.versionString()
         externalEnv = ExternalDiscovery.scan()
         engineProfiles = profiles.reduce(into: [:]) { groups, profile in
             if let id = profile.recipeID { groups[id, default: []].append(profile) }

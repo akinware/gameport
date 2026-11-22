@@ -74,6 +74,15 @@ final class Phase1PackTests: XCTestCase {
         try Data("#!/bin/sh\nexit 0\n".utf8).write(to: ocerz)
         try fm.setAttributes([.posixPermissions: 0o755], ofItemAtPath: ocerz.path)
 
+        // x87sidecar injects ROSETTA_X87_PATH when installed and enabled on the profile
+        try fm.createDirectory(at: gp.x87sidecar.installDir, withIntermediateDirectories: true)
+        try Data("#!/bin/sh\nexit 0\n".utf8).write(to: gp.x87sidecar.binaryURL)
+        try fm.setAttributes([.posixPermissions: 0o755], ofItemAtPath: gp.x87sidecar.binaryURL.path)
+        var x87Profile = profile
+        x87Profile.x87Acceleration = true
+        let x87Env = try WineRunner(paths: paths, engine: engine, profile: x87Profile, recipe: nil).environment()
+        XCTAssertEqual(x87Env["ROSETTA_X87_PATH"], gp.x87sidecar.binaryURL.path)
+
         var aarchxProfile = profile
         aarchxProfile.executionRunner = .aarchxFEX
         aarchxProfile.performanceCores = false
@@ -141,6 +150,12 @@ final class Phase1PackTests: XCTestCase {
         XCTAssertFalse(ExternalEnvironment.suggestsObelisk(for: vacGame))
         XCTAssertFalse(ExternalEnvironment.suggestsObelisk(for: deniedAC))
         XCTAssertFalse(ExternalEnvironment.suggestsObelisk(for: nil))
+
+        // Siliconium suggestion triggers strictly for supported classic Call of Duty Steam AppIDs
+        XCTAssertTrue(ExternalEnvironment.suggestsSiliconium(steamAppID: 7940))   // CoD 4
+        XCTAssertTrue(ExternalEnvironment.suggestsSiliconium(steamAppID: 311210)) // BO3
+        XCTAssertFalse(ExternalEnvironment.suggestsSiliconium(steamAppID: 440))   // TF2
+        XCTAssertFalse(ExternalEnvironment.suggestsSiliconium(steamAppID: nil))
     }
 
     func testDiagnosticReportRedactsUserHome() throws {

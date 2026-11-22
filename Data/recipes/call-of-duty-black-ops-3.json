@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "call-of-duty-black-ops-3",
+  "title": "Call of Duty: Black Ops III",
+  "steamAppID": 311210,
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": false,
+  "launch": "steam",
+  "launchArguments": [],
+  "environment": {},
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 11 campaign, multiplayer & Zombies. DXMT + 1x Native scaling recommended; Siliconium also supports Ezz/BOIII."
+  ]
+}
