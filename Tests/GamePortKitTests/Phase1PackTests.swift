@@ -130,12 +130,15 @@ final class Phase1PackTests: XCTestCase {
         XCTAssertEqual(env.macSteamGame(appID: 440)?.name, "Team Fortress 2")
         XCTAssertEqual(env.crossoverBottle(containingAppID: 252950)?.name, "Steam")
 
-        // Obelisk suggestion triggers for Linux-supported EAC/BattlEye games, not Denied/kernel-only ones
+        // Obelisk suggestion triggers ONLY for Linux-supported EAC/BattlEye games, never VAC or Denied ones
         let linuxEAC = AntiCheatEntry(id: "rl", title: "Rocket League", antiCheats: ["Easy Anti-Cheat"],
                                       linuxStatus: "Supported", steamAppID: 252950, macVerdict: .warning)
+        let vacGame = AntiCheatEntry(id: "tf2", title: "Team Fortress 2", antiCheats: ["VAC"],
+                                     linuxStatus: "Supported", steamAppID: 440, macVerdict: .warning)
         let deniedAC = AntiCheatEntry(id: "val", title: "Valorant", antiCheats: ["Vanguard"],
                                       linuxStatus: "Denied", steamAppID: nil, macVerdict: .blocked)
         XCTAssertTrue(ExternalEnvironment.suggestsObelisk(for: linuxEAC))
+        XCTAssertFalse(ExternalEnvironment.suggestsObelisk(for: vacGame))
         XCTAssertFalse(ExternalEnvironment.suggestsObelisk(for: deniedAC))
         XCTAssertFalse(ExternalEnvironment.suggestsObelisk(for: nil))
     }

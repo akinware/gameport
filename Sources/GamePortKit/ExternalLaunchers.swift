@@ -44,12 +44,17 @@ public struct ExternalEnvironment: Sendable, Equatable {
         crossoverBottles.first { $0.steamGames.contains { $0.appID == appID } }
     }
 
-    /// True when a game has anti-cheat that works on Linux/Steam Deck (e.g. Rocket League, Elden Ring online),
-    /// where Obelisk's Linux runtime can run it even when standard macOS Wine cannot.
+    /// True ONLY when a game uses Easy Anti-Cheat or BattlEye with Linux/Steam Deck support
+    /// (e.g. Elden Ring online, Armored Core VI, Rocket League), where Obelisk's Linux runtime
+    /// helps — never on VAC games that already work natively in GamePort's Windows Steam.
     public static func suggestsObelisk(for antiCheat: AntiCheatEntry?) -> Bool {
         guard let ac = antiCheat else { return false }
         let linuxOK = ac.linuxStatus == "Supported" || ac.linuxStatus == "Running"
-        return linuxOK && !ac.antiCheats.isEmpty
+        guard linuxOK else { return false }
+        return ac.antiCheats.contains { name in
+            let lower = name.lowercased()
+            return lower.contains("easy anti-cheat") || lower.contains("battleye")
+        }
     }
 
     public static let empty = ExternalEnvironment(
