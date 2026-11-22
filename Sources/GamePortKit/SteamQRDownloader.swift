@@ -30,12 +30,34 @@ public struct DepotDownloaderTool: Sendable {
     public static var hostAsset: Asset { Shell.isAppleSilicon ? arm64 : x64 }
 
     public let paths: Paths
-    public init(paths: Paths) { self.paths = paths }
+    /// Folders searched for DepotDownloader's remembered-login store (`account.config`).
+    public let tokenStoreRoots: [URL]
+
+    public init(paths: Paths, tokenStoreRoots: [URL]? = nil) {
+        self.paths = paths
+        self.tokenStoreRoots = tokenStoreRoots ?? Self.defaultTokenStoreRoots(toolHome: paths.tools
+            .appendingPathComponent("depotdownloader/home", isDirectory: true))
+    }
+
+    /// .NET isolated storage ignores `$HOME` on macOS and writes under the account's real home
+    /// (`~/Library/Application Support/IsolatedStorage`), so look there as well as the private home.
+    public static func defaultTokenStoreRoots(toolHome: URL) -> [URL] {
+        var home = FileManager.default.homeDirectoryForCurrentUser
+        if let pw = getpwuid(getuid()), let dir = pw.pointee.pw_dir {
+            home = URL(fileURLWithPath: String(cString: dir), isDirectory: true)
+        }
+        return [
+            home.appendingPathComponent("Library/Application Support/IsolatedStorage", isDirectory: true),
+            home.appendingPathComponent(".local/share/IsolatedStorage", isDirectory: true),
+            toolHome,
+        ]
+    }
 
     public var toolDir: URL { paths.tools.appendingPathComponent("depotdownloader", isDirectory: true) }
+    public var logsDir: URL { toolDir.appendingPathComponent("logs", isDirectory: true) }
     public var binaryURL: URL { toolDir.appendingPathComponent("DepotDownloader") }
-    /// Private `HOME` for DepotDownloader. Its .NET isolated storage (the remembered Steam
-    /// login token, `account.config`) lives here, never in the user's real home folder.
+    /// Private working `HOME` for DepotDownloader (its remembered login still goes to .NET
+    /// isolated storage in the real home; see `tokenStoreRoots`).
     public var homeDir: URL { toolDir.appendingPathComponent("home", isDirectory: true) }
     /// Account names that finished a QR sign-in with `-remember-password`. Holds no secrets.
     public var sessionFile: URL { toolDir.appendingPathComponent("session.json") }
@@ -90,17 +112,37 @@ public struct DepotDownloaderTool: Sendable {
 
     /// Accounts with a remembered DepotDownloader login, most recent first.
     public func rememberedAccounts() -> [String] {
-        guard hasStoredLoginTokens,
-              let data = try? Data(contentsOf: sessionFile),
+        guard let data = try? Data(contentsOf: sessionFile),
               let record = try? JSONDecoder().decode(SessionRecord.self, from: data) else { return [] }
-        return record.accounts
+        let stores = tokenStores().map(\.contents)
+        return record.accounts.filter { account in stores.contains { Self.store($0, holds: account) } }
     }
 
-    /// True when DepotDownloader has written its isolated-storage `account.config` (the token store).
-    public var hasStoredLoginTokens: Bool {
-        guard let e = FileManager.default.enumerator(at: homeDir, includingPropertiesForKeys: nil) else { return false }
-        for case let url as URL in e where url.lastPathComponent == "account.config" { return true }
-        return false
+    /// True when DepotDownloader holds a remembered login token for any account.
+    public var hasStoredLoginTokens: Bool { !tokenStores().isEmpty }
+
+    /// DepotDownloader `account.config` files (raw-deflate protobuf) with their inflated contents.
+    func tokenStores() -> [(url: URL, contents: Data)] {
+        var found: [(URL, Data)] = []
+        for root in tokenStoreRoots {
+            guard let e = FileManager.default.enumerator(at: root, includingPropertiesForKeys: nil) else { continue }
+            for case let url as URL in e where url.lastPathComponent == "account.config" {
+                guard let raw = try? Data(contentsOf: url), let inflated = Self.inflate(raw) else { continue }
+                found.append((url, inflated))
+            }
+        }
+        return found
+    }
+
+    static func inflate(_ data: Data) -> Data? {
+        if data.isEmpty { return Data() }
+        // Apple's "zlib" algorithm is raw DEFLATE, which is what .NET's DeflateStream writes.
+        return try? (data as NSData).decompressed(using: .zlib) as Data
+    }
+
+    static func store(_ contents: Data, holds account: String) -> Bool {
+        let needle = Data(account.utf8)
+        return !needle.isEmpty && contents.range(of: needle) != nil
     }
 
     /// Picks the account to sign in silently with: `preferred` (e.g. the Mac Steam account) when its
@@ -133,10 +175,52 @@ public struct DepotDownloaderTool: Sendable {
         if let out = try? JSONEncoder().encode(record) { try? out.write(to: sessionFile, options: .atomic) }
     }
 
-    /// Signs out of every remembered account (deletes DepotDownloader's private token store).
+    /// Signs out of every remembered account: deletes DepotDownloader's token store(s) that hold
+    /// a GamePort-remembered account, its private home, and the session record.
     public func signOutAll() {
+        let accounts = (try? Data(contentsOf: sessionFile)).flatMap { try? JSONDecoder().decode(SessionRecord.self, from: $0) }?.accounts ?? []
+        for store in tokenStores() where accounts.contains(where: { Self.store(store.contents, holds: $0) }) {
+            try? FileManager.default.removeItem(at: store.url)
+        }
         try? FileManager.default.removeItem(at: homeDir)
         try? FileManager.default.removeItem(at: sessionFile)
+    }
+
+    // MARK: Running processes
+
+    /// PIDs of DepotDownloader processes started from this install, optionally only those
+    /// downloading into `directory`.
+    public func runningProcesses(directory: URL? = nil) -> [Int32] {
+        guard let res = try? Shell.run("/bin/ps", ["-axww", "-o", "pid=,command="]) else { return [] }
+        return Self.matchingPIDs(psOutput: res.output, binary: binaryURL.path, directory: directory?.path)
+    }
+
+    static func matchingPIDs(psOutput: String, binary: String, directory: String?) -> [Int32] {
+        psOutput.split(separator: "\n").compactMap { raw in
+            let line = raw.trimmingCharacters(in: .whitespaces)
+            guard let space = line.firstIndex(of: " "), let pid = Int32(line[..<space]) else { return nil }
+            let command = line[space...].trimmingCharacters(in: .whitespaces)
+            guard command.hasPrefix(binary + " ") || command == binary else { return nil }
+            if let directory {
+                guard command.contains(" -dir \(directory) ") || command.hasSuffix(" -dir \(directory)") else { return nil }
+            }
+            return pid
+        }
+    }
+
+    /// Stops DepotDownloader processes (all of them, or those writing into `directory`):
+    /// SIGTERM, then SIGKILL after `timeout`. Returns how many were stopped.
+    @discardableResult
+    public func stopRunning(directory: URL? = nil, timeout: TimeInterval = 5) -> Int {
+        let pids = runningProcesses(directory: directory)
+        guard !pids.isEmpty else { return 0 }
+        pids.forEach { kill($0, SIGTERM) }
+        let deadline = Date().addingTimeInterval(timeout)
+        while Date() < deadline, pids.contains(where: { kill($0, 0) == 0 }) {
+            usleep(100_000)
+        }
+        pids.filter { kill($0, 0) == 0 }.forEach { kill($0, SIGKILL) }
+        return pids.count
     }
 
     // MARK: Arguments
@@ -370,7 +454,9 @@ public struct DepotDownloaderOutputParser: Sendable {
         } else if text.hasPrefix("Error:") || text.hasPrefix("Unable to login") || text.hasPrefix("Failed to authenticate")
                     || text.hasPrefix("Couldn't find any depots") || text.hasPrefix("Download failed")
                     || text.hasPrefix("Could not connect to Steam") || text.contains("was not completely downloaded")
-                    || text.hasPrefix("No valid depot key") {
+                    || text.hasPrefix("No valid depot key") || text.hasPrefix("Encountered ")
+                    || text.hasPrefix("Failed to find any server") || text.hasPrefix("Lost connection to Steam")
+                    || text.hasPrefix("Unable to ") || text.hasPrefix("Failed to ") {
             if lastError == nil || !text.hasPrefix("Error: InitializeSteam failed") { lastError = text }
         }
         return out
@@ -407,6 +493,19 @@ public struct DepotDownloaderOutputParser: Sendable {
 }
 
 // MARK: - Downloader
+
+public enum SteamQRDownloadError: Error, CustomStringConvertible, Equatable {
+    case signInFailed(String)
+    case failed(status: Int32, detail: String?)
+
+    public var description: String {
+        switch self {
+        case .signInFailed(let why): return "Steam sign-in failed: \(why)"
+        case .failed(let status, let detail):
+            return "Download stopped (DepotDownloader exit \(status))" + (detail.map { ": \($0)" } ?? "")
+        }
+    }
+}
 
 /// Native in-app Steam game downloader: signs in with a Steam Mobile App QR code once (no password
 /// ever typed or seen by GamePort), then downloads the Windows depots of a game straight into
@@ -455,6 +554,13 @@ public struct SteamQRDownloader: Sendable {
                     try FileManager.default.createDirectory(at: destination.appendingPathComponent(".DepotDownloader"), withIntermediateDirectories: true)
                     try? FileManager.default.removeItem(at: SteamDepotManager.appManifestURL(appID: appID, in: destination))
 
+                    // A download of this game left running by an earlier session (e.g. the app quit
+                    // mid-download) would fight this one for the same files and Steam logon ID.
+                    // Stop it; DepotDownloader validates what is already on disk and resumes.
+                    if tool.stopRunning(directory: destination) > 0 {
+                        continuation.yield(.status("Resuming a download started earlier…"))
+                    }
+
                     var login: DepotDownloaderTool.Login
                     if anonymous { login = .anonymous }
                     else if let acct = tool.cachedAccount(preferred: preferredAccount) { login = .remembered(account: acct) }
@@ -493,9 +599,9 @@ public struct SteamQRDownloader: Sendable {
                                 login = .qrCode
                                 continue
                             }
-                            throw GamePortError.invalid("Steam sign-in failed: \(why)")
+                            throw SteamQRDownloadError.signInFailed(why)
                         case .failed(let code, let message):
-                            throw GamePortError.invalid("DepotDownloader exited with status \(code)\(message.map { ": \($0)" } ?? "")")
+                            throw SteamQRDownloadError.failed(status: code, detail: message)
                         }
                     }
                 } catch {
@@ -556,13 +662,31 @@ final class ProcessBox: @unchecked Sendable {
         lock.unlock()
         try proc.run()
 
+        try? FileManager.default.createDirectory(at: tool.logsDir, withIntermediateDirectories: true)
+        let logURL = tool.logsDir.appendingPathComponent("\(Self.appID(in: arguments) ?? "download").log")
+        FileManager.default.createFile(atPath: logURL.path, contents: Data("$ DepotDownloader \(Self.redacted(arguments).joined(separator: " "))\n".utf8))
+        let log = try? FileHandle(forWritingTo: logURL)
+        log?.seekToEndOfFile()
+        defer { try? log?.close() }
+        var recent: [String] = []
+
         var parser = DepotDownloaderOutputParser()
         var needsQR: String? = nil
         var fatal: String? = nil
         let handle = pipe.fileHandleForReading
         var buffer = Data()
         func handleLine(_ data: Data) {
-            let out = parser.consume(String(decoding: data, as: UTF8.self))
+            let text = String(decoding: data, as: UTF8.self)
+            let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            let isQRArt = !trimmed.isEmpty && trimmed.allSatisfy { $0 == "█" || $0 == " " }
+            if !isQRArt {
+                log?.write(data + Data([0x0A]))
+                if !trimmed.isEmpty, DepotDownloaderOutputParser.progress(trimmed) == nil, !trimmed.hasPrefix("Pre-allocating ") {
+                    recent.append(trimmed)
+                    if recent.count > 12 { recent.removeFirst(recent.count - 12) }
+                }
+            }
+            let out = parser.consume(text)
             out.events.forEach(onEvent)
             switch out.failure {
             case .needsQRLogin(let why)?:
@@ -599,6 +723,20 @@ final class ProcessBox: @unchecked Sendable {
         if parser.lastError?.hasPrefix("Unable to login to Steam3") == true, arguments.contains("-username") {
             return Result(outcome: .needsQRLogin(parser.lastError!), signedInAccount: nil)
         }
-        return Result(outcome: .failed(proc.terminationStatus, fatal ?? parser.lastError), signedInAccount: parser.signedInAccount)
+        let detail = fatal ?? parser.lastError ?? recent.last(where: { !$0.hasPrefix("Disconnected from Steam") }) ?? recent.last
+        let message = [detail, "log: \(logURL.path)"].compactMap { $0 }.joined(separator: " — ")
+        return Result(outcome: .failed(proc.terminationStatus, message), signedInAccount: parser.signedInAccount)
+    }
+
+    static func appID(in arguments: [String]) -> String? {
+        guard let i = arguments.firstIndex(of: "-app"), i + 1 < arguments.count else { return nil }
+        return arguments[i + 1]
+    }
+
+    /// Arguments as written to the log (no secrets are ever passed, but keep account names out).
+    static func redacted(_ arguments: [String]) -> [String] {
+        var out = arguments
+        if let i = out.firstIndex(of: "-username"), i + 1 < out.count { out[i + 1] = "<account>" }
+        return out
     }
 }

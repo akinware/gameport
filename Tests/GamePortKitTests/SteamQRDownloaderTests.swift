@@ -104,24 +104,53 @@ final class SteamQRDownloaderTests: XCTestCase {
         }
     }
 
-    func testRememberedAccountsNeedTokenStore() throws {
+    func testRememberedAccountsNeedATokenForThatAccount() throws {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("gp-qr-\(UUID().uuidString)")
         defer { try? FileManager.default.removeItem(at: root) }
-        let tool = DepotDownloaderTool(paths: Paths(root: root))
+        // Never touch the real ~/Library/Application Support/IsolatedStorage from tests.
+        let isolated = root.appendingPathComponent("IsolatedStorage", isDirectory: true)
+        let tool = DepotDownloaderTool(paths: Paths(root: root), tokenStoreRoots: [isolated])
         tool.rememberAccount("gamer_one")
         XCTAssertNil(tool.cachedAccount(preferred: "gamer_one"), "no account.config yet: QR is still needed")
 
-        let store = tool.homeDir.appendingPathComponent("Library/Application Support/IsolatedStorage/abc/AssemFiles", isDirectory: true)
+        // DepotDownloader writes a raw-DEFLATE protobuf keyed by account name.
+        let store = isolated.appendingPathComponent("abc/def/Url.xyz/AssemFiles", isDirectory: true)
         try FileManager.default.createDirectory(at: store, withIntermediateDirectories: true)
-        try Data([1]).write(to: store.appendingPathComponent("account.config"))
+        let config = store.appendingPathComponent("account.config")
+        let payload = Data("\u{0A}\u{09}gamer_one\u{12}\u{05}token".utf8)
+        try ((payload as NSData).compressed(using: .zlib) as Data).write(to: config)
+        XCTAssertEqual(DepotDownloaderTool.inflate(try Data(contentsOf: config)), payload)
+
         tool.rememberAccount("second")
-        XCTAssertEqual(tool.rememberedAccounts(), ["second", "gamer_one"])
+        XCTAssertEqual(tool.rememberedAccounts(), ["gamer_one"], "second has no token in the store")
         XCTAssertEqual(tool.cachedAccount(preferred: "GAMER_ONE"), "gamer_one")
-        XCTAssertEqual(tool.cachedAccount(preferred: "someone-else"), "second")
-        tool.forgetAccount("second")
-        XCTAssertEqual(tool.cachedAccount(), "gamer_one")
-        tool.signOutAll()
+        XCTAssertEqual(tool.cachedAccount(preferred: "someone-else"), "gamer_one")
+        tool.forgetAccount("gamer_one")
         XCTAssertNil(tool.cachedAccount())
+        tool.rememberAccount("gamer_one")
+        tool.signOutAll()
+        XCTAssertFalse(FileManager.default.fileExists(atPath: config.path), "sign-out deletes the token store")
+        XCTAssertNil(tool.cachedAccount())
+    }
+
+    func testFindsLeftoverDownloadsByBinaryAndDirectory() {
+        let bin = "/Users/x/Library/Application Support/GamePort/tools/depotdownloader/DepotDownloader"
+        let dir = "/Users/x/Library/Application Support/GamePort/tools/depots/261550"
+        let ps = """
+          101 \(bin) -app 261550 -os windows -osarch 64 -dir \(dir) -qr -remember-password -loginid 1
+          102 \(bin) -app 1007 -os windows -osarch 64 -dir \(dir)0 -loginid 2
+          103 /usr/local/bin/DepotDownloader -app 261550 -dir \(dir)
+          104 /bin/zsh -c echo \(bin) -dir \(dir)
+        """
+        XCTAssertEqual(DepotDownloaderTool.matchingPIDs(psOutput: ps, binary: bin, directory: dir), [101])
+        XCTAssertEqual(DepotDownloaderTool.matchingPIDs(psOutput: ps, binary: bin, directory: nil), [101, 102])
+    }
+
+    func testLogRedactsAccountAndFindsAppID() {
+        let args = DepotDownloaderTool.arguments(appID: 261550, directory: URL(fileURLWithPath: "/tmp/d"), login: .remembered(account: "gamer_one"))
+        XCTAssertEqual(ProcessBox.appID(in: args), "261550")
+        XCTAssertFalse(ProcessBox.redacted(args).contains("gamer_one"))
+        XCTAssertTrue(SteamQRDownloadError.failed(status: 1, detail: "Encountered 401 for chunk").description.contains("401"))
     }
 
     func testDepotCompletionStates() throws {
