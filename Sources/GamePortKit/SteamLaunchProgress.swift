@@ -80,13 +80,16 @@ public struct SteamLaunchLogMarks: Sendable, Equatable {
     public var content: UInt64
     public var cef: UInt64
     public var bootstrap: UInt64
+    /// The profile's own `game.log` (Wine/DXVK output of this launch).
+    public var game: UInt64
 
-    public init(console: UInt64 = 0, connection: UInt64 = 0, content: UInt64 = 0, cef: UInt64 = 0, bootstrap: UInt64 = 0) {
+    public init(console: UInt64 = 0, connection: UInt64 = 0, content: UInt64 = 0, cef: UInt64 = 0, bootstrap: UInt64 = 0, game: UInt64 = 0) {
         self.console = console
         self.connection = connection
         self.content = content
         self.cef = cef
         self.bootstrap = bootstrap
+        self.game = game
     }
 }
 
@@ -169,7 +172,9 @@ public enum SteamLaunchProgress {
 extension GamePort {
     /// Current sizes of the profile's Steam logs; pass to `monitorLaunch` so it reads only new lines.
     public func steamLaunchLogMarks(_ profileID: String) -> SteamLaunchLogMarks {
-        guard let logs = try? steam(for: profileID).logs else { return SteamLaunchLogMarks() }
+        let gameLog = profiles.logs(profileID).appendingPathComponent("game.log")
+        let gameSize = (try? FileManager.default.attributesOfItem(atPath: gameLog.path)[.size] as? UInt64) ?? 0
+        guard let logs = try? steam(for: profileID).logs else { return SteamLaunchLogMarks(game: gameSize) }
         func size(_ name: String) -> UInt64 {
             (try? FileManager.default.attributesOfItem(atPath: logs.appendingPathComponent(name).path)[.size] as? UInt64) ?? 0
         }
@@ -178,7 +183,8 @@ extension GamePort {
             connection: size("connection_log.txt"),
             content: size("content_log.txt"),
             cef: size("cef_log.txt"),
-            bootstrap: size("bootstrap_log.txt")
+            bootstrap: size("bootstrap_log.txt"),
+            game: gameSize
         )
     }
 }

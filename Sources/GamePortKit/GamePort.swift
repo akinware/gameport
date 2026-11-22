@@ -271,6 +271,72 @@ public struct GamePort: Sendable {
         try? FileManager.default.removeItem(at: marker)
     }
 
+    /// Starts a tiny watchdog (`/bin/sh`) that stops the profile's Wine session (`wineserver -k`) as soon
+    /// as process `ownerPID` (the app that pressed Play) is gone — even when that app is force quit
+    /// and can run no cleanup of its own. Terminate the returned process when the session ends normally.
+    public func startOwnerExitGuard(_ profileID: String, ownerPID: Int32 = getpid()) throws -> Process {
+        let profile = try profiles.load(profileID)
+        let marker = profiles.directory(profileID).appendingPathComponent("last-play-profile")
+        var target = profile
+        if let last = try? String(contentsOf: marker, encoding: .utf8), last != profileID,
+           let other = try? enginePair(profile, otherID: last) {
+            target = other
+        }
+        let runner = try runner(for: target)
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/bin/sh")
+        process.arguments = [
+            "-c", #"while kill -0 "$1" 2>/dev/null; do sleep 2; done; exec "$2" -k"#,
+            "gameport-guard", String(ownerPID), runner.engine.wineServer.path,
+        ]
+        process.environment = try runner.environment(sync: SyncMode.none)
+        process.standardInput = FileHandle.nullDevice
+        process.standardOutput = FileHandle.nullDevice
+        process.standardError = FileHandle.nullDevice
+        try process.run()
+        return process
+    }
+
+    /// Stops every Windows program GamePort (or CrossOver) is running, in every profile and bottle,
+    /// including programs left behind by earlier sessions whose Wine server is already gone (those
+    /// hang instead of exiting). Wine rewrites process names to Windows paths, so processes are
+    /// matched by their real executable path. Wine servers go first, then every remaining Wine
+    /// process; anything still alive after `timeout` is killed. Returns how many processes were stopped.
+    @discardableResult
+    public func stopAllWindowsProcesses(timeout: TimeInterval = 4) -> Int {
+        let ps = (try? Shell.run("/bin/ps", ["-axo", "pid="], check: false).output) ?? ""
+        let me = getpid()
+        var servers: [Int32] = []
+        var clients: [Int32] = []
+        for token in ps.split(whereSeparator: { $0 == "\n" || $0 == " " }) {
+            guard let pid = Int32(token), pid != me, let path = Self.executablePath(of: pid),
+                  Self.isWineExecutable(path, enginesRoot: paths.engines.path) else { continue }
+            if (path as NSString).lastPathComponent == "wineserver" { servers.append(pid) } else { clients.append(pid) }
+        }
+        let all = servers + clients
+        guard !all.isEmpty else { return 0 }
+        servers.forEach { kill($0, SIGTERM) }
+        usleep(500_000)
+        clients.forEach { kill($0, SIGTERM) }
+        let deadline = Date().addingTimeInterval(timeout)
+        while Date() < deadline, all.contains(where: { kill($0, 0) == 0 }) { usleep(100_000) }
+        all.filter { kill($0, 0) == 0 }.forEach { kill($0, SIGKILL) }
+        return all.count
+    }
+
+    /// True for Wine's own binaries (loader, preloader, server) inside GamePort's engines or CrossOver.app.
+    static func isWineExecutable(_ path: String, enginesRoot: String) -> Bool {
+        guard path.hasPrefix(enginesRoot.hasSuffix("/") ? enginesRoot : enginesRoot + "/") || path.contains("/CrossOver.app/") else { return false }
+        let name = (path as NSString).lastPathComponent
+        return ["wine", "wine64", "wineserver", "wine-preloader", "wine64-preloader", "wineloader"].contains(name)
+    }
+
+    static func executablePath(of pid: Int32) -> String? {
+        var buffer = [CChar](repeating: 0, count: 4096)
+        let n = proc_pidpath(pid, &buffer, UInt32(buffer.count))
+        return n > 0 ? String(cString: buffer) : nil
+    }
+
     func enginePair(_ profile: Profile, otherID: String) throws -> Profile {
         let other = try profiles.load(otherID)
         guard let recipe = profile.recipeID, recipe == other.recipeID, profile.engineID != other.engineID else {

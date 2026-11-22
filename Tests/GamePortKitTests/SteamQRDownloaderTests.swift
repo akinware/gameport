@@ -238,3 +238,33 @@ final class SteamLaunchProgressTests: XCTestCase {
         XCTAssertEqual(LaunchState.running(profileID: "a", seconds: 1, fps: nil).profileID, "a")
     }
 }
+
+final class LaunchLifecycleTests: XCTestCase {
+    func testWineExecutablesOnlyMatchGamePortAndCrossOver() {
+        let root = "/Users/x/Library/Application Support/GamePort/engines"
+        XCTAssertTrue(GamePort.isWineExecutable("\(root)/x64-crossover26.3/engine/lib/wine/x86_64-unix/wine", enginesRoot: root))
+        XCTAssertTrue(GamePort.isWineExecutable("\(root)/x64-wine-staging-11.21/engine/bin/wineserver", enginesRoot: root))
+        XCTAssertTrue(GamePort.isWineExecutable("/Applications/CrossOver.app/Contents/SharedSupport/CrossOver/bin/wineloader", enginesRoot: root))
+        XCTAssertFalse(GamePort.isWineExecutable("/opt/homebrew/bin/wine", enginesRoot: root), "someone else's Wine")
+        XCTAssertFalse(GamePort.isWineExecutable("\(root)/x64/engine/bin/dxvk-helper", enginesRoot: root))
+        XCTAssertFalse(GamePort.isWineExecutable("\(root)-other/bin/wine", enginesRoot: root))
+        XCTAssertNotNil(GamePort.executablePath(of: getpid()))
+    }
+
+    func testRedistributableInstallersAreNotTheGame() {
+        let ps = """
+          20 C:\\Program Files (x86)\\Steam\\steamapps\\common\\Steamworks Shared\\_CommonRedist\\vcredist\\2022\\VC_redist.x64.exe /q
+          21 C:\\Program Files (x86)\\Steam\\steamapps\\common\\Team Fortress 2\\tf_win64.exe -steam
+          22 C:\\Program Files (x86)\\Steam\\steamapps\\common\\Game\\_CommonRedist\\DirectX\\DXSETUP.exe /silent
+        """
+        XCTAssertEqual(LabResult.gameProcessIDs(inProcessList: ps), [21])
+    }
+
+    func testQuickQuitIsNotACrash() {
+        // Exiting is no longer a crash sign by itself; real signatures still are.
+        XCTAssertTrue(LabTriage.findings(game: "info: DXVK\n", cef: "", bootstrap: nil, gameExited: false).isEmpty)
+        XCTAssertFalse(LabTriage.findings(game: "wine: Unhandled page fault on read access\n", cef: "", bootstrap: nil, gameExited: false).isEmpty)
+        XCTAssertEqual(LaunchState.closing(profileID: "tf2").profileID, "tf2")
+        XCTAssertFalse(LaunchState.closing(profileID: "tf2").isLaunching)
+    }
+}

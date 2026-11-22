@@ -245,6 +245,10 @@ extension LabResult {
             let command = line.lowercased()
             guard let exe = command.range(of: ".exe"),
                   command[..<exe.lowerBound].contains("\\steamapps\\common\\") else { return nil }
+            // Steam's install scripts run redistributable installers from steamapps\common too.
+            let path = command[..<exe.lowerBound]
+            if ["\\steamworks shared\\", "\\_commonredist\\", "\\redist\\", "vcredist", "dxsetup", "dotnetfx"]
+                .contains(where: { path.contains($0) }) { return nil }
             return Int(line.split(separator: " ", maxSplits: 1).first ?? "")
         })
     }

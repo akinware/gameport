@@ -7,6 +7,8 @@ public enum LaunchState: Equatable, Sendable {
     case waitingForGame(profileID: String, title: String)
     /// Windows Steam is working towards starting the game (stage read from Steam's logs).
     case preparing(profileID: String, progress: LaunchProgress)
+    /// The game exited; Windows Steam (started hidden for it) is shutting down.
+    case closing(profileID: String)
     case running(profileID: String, seconds: Int, fps: Double?)
     case needsAttention(profileID: String, diagnosis: LaunchDiagnosis)
 }
@@ -17,7 +19,7 @@ extension LaunchState {
         switch self {
         case .idle: return nil
         case .startingSteam(let id), .waitingForGame(let id, _), .preparing(let id, _),
-             .running(let id, _, _), .needsAttention(let id, _):
+             .running(let id, _, _), .needsAttention(let id, _), .closing(let id):
             return id
         }
     }
@@ -189,6 +191,7 @@ extension GamePort {
         cefStart: UInt64,
         bootstrapStart: UInt64,
         marks: SteamLaunchLogMarks? = nil,
+        closeSteamWhenGameExits: Bool = false,
         onState: @escaping @Sendable (LaunchState) -> Void
     ) async {
         let gameLog = profiles.logs(profile.id).appendingPathComponent("game.log")
@@ -212,6 +215,7 @@ extension GamePort {
         var lastProgressAt = startedAt
         var lastSnapshot = SteamLaunchSnapshot()
         var gameStart: Date?
+        var missedPolls = 0
 
         onState(.preparing(profileID: profile.id, progress: LaunchProgress(title: recipe.title, stage: .startingSteam, seconds: 0, secondsWithoutProgress: 0)))
 
@@ -222,7 +226,13 @@ extension GamePort {
             let active = LabResult.gameProcessIDs(inProcessList: ps)
             let now = Date()
 
+            if active.isEmpty, gameStart != nil, missedPolls < 1 {
+                // One missing sample is not an exit (process lists can race with Wine re-execs).
+                missedPolls += 1
+                continue
+            }
             if !active.isEmpty {
+                missedPolls = 0
                 if gameStart == nil { gameStart = now }
                 let secs = Int(now.timeIntervalSince(gameStart!))
                 let liveFPS = (try? String(contentsOf: fpsLog, encoding: .utf8))
@@ -230,14 +240,22 @@ extension GamePort {
                 onState(.running(profileID: profile.id, seconds: secs, fps: liveFPS))
             } else if let start = gameStart {
                 let played = now.timeIntervalSince(start)
-                let logText = (try? String(contentsOf: gameLog, encoding: .utf8)) ?? ""
+                // Only this launch's part of game.log, and only real crash evidence: quitting a
+                // game quickly is not a crash.
+                let logText = GamePort.tail(of: gameLog, from: marks.game)
                 let cefText = cefLog.map { GamePort.tail(of: $0, from: marks.cef) } ?? ""
                 let bootText = bootstrapLog.map { GamePort.tail(of: $0, from: marks.bootstrap) } ?? ""
-                let signs = LabTriage.findings(game: logText, cef: cefText, bootstrap: bootText, gameExited: true)
+                let signs = LabTriage.findings(game: logText, cef: cefText, bootstrap: bootText, gameExited: false)
                 if played < 60 && !signs.isEmpty {
                     let snaps = profiles.listSnapshots(profile.id)
                     let diag = SelfHealing.diagnose(profile: profile, recipe: recipe, crashSigns: signs, logText: logText, snapshots: snaps, hasD3DMetalLicense: hasGPTK)
                     onState(.needsAttention(profileID: profile.id, diagnosis: diag))
+                } else if closeSteamWhenGameExits {
+                    // Windows Steam was started hidden just for this game: close it (it finishes
+                    // Steam Cloud sync first) so no Wine processes stay behind.
+                    onState(.closing(profileID: profile.id))
+                    try? steam(for: profile.id).shutdown(within: 45)
+                    onState(.idle)
                 } else {
                     onState(.idle)
                 }
@@ -266,7 +284,7 @@ extension GamePort {
                 let giveUp = snapshot.failed ? stalled >= 20
                     : (snapshot.waitingForUser == nil && snapshot.stage != SteamLaunchStage.updatingGame && stalled >= 180)
                 if giveUp {
-                    let logText = (try? String(contentsOf: gameLog, encoding: .utf8)) ?? ""
+                    let logText = GamePort.tail(of: gameLog, from: marks.game)
                     let cefText = cefLog.map { GamePort.tail(of: $0, from: marks.cef) } ?? ""
                     let bootText = bootstrapLog.map { GamePort.tail(of: $0, from: marks.bootstrap) } ?? ""
                     let signs = LabTriage.findings(game: logText, cef: cefText, bootstrap: bootText, gameExited: false)

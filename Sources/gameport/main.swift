@@ -47,6 +47,7 @@ Usage:
   \(cli) heroic                                                 Discover existing Heroic (Epic/GOG/Amazon) installs
   \(cli) play <profile>                 Start the game
   \(cli) stop <profile>                 Stop everything in a profile
+  \(cli) stop --all                    Stop every Windows program (all profiles, CrossOver, leftovers)
   \(cli) lab <profile> [renderer,…] [s] Start the game, measure FPS and record whether it works
   \(cli) lab <profile> auto [s]         Try every renderer and set the fastest working one
   \(cli) lab <profile> compare <other-profile> [s]  Compare two engines on the same game
@@ -393,8 +394,13 @@ do {
         print("Details: \(gameport.profiles.directory(id).appendingPathComponent("lab").path)")
 
     case "stop":
-        try gameport.stop(arg(0, "profile"))
-        print("✓ Stopped.")
+        if args.first == "--all" {
+            let n = gameport.stopAllWindowsProcesses()
+            print(n == 0 ? "No Windows programs were running." : "✓ Stopped \(n) Windows process\(n == 1 ? "" : "es").")
+        } else {
+            try gameport.stop(arg(0, "profile"))
+            print("✓ Stopped.")
+        }
 
     case "vulkan":
         let id = arg(0, "profile")
