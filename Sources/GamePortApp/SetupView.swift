@@ -21,27 +21,133 @@ struct SetupView: View {
                         }
                     }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
                 }
-                GroupBox("Engine") {
+                GroupBox("Storage & External SSD") {
                     VStack(alignment: .leading, spacing: 8) {
-                        if let m = model.gameport.defaultManifest {
-                            Text(m.displayName).font(.headline)
-                            Text("Wine, runtime libraries and renderers. Every part is verified with SHA-256. About 440 MB.")
+                        let info = model.storageInfo
+                        HStack(spacing: 8) {
+                            Label("\(info.volumeName) · \(info.filesystem) · \(info.freeSpaceLabel)",
+                                  systemImage: info.isExternal ? "externaldrive.fill" : "internaldrive.fill")
+                                .font(.headline)
+                                .foregroundStyle(info.isAPFS ? Color.primary : Color.orange)
+                        }
+                        Text(info.root.path).font(.caption).foregroundStyle(.secondary).textSelection(.enabled)
+                        if let warning = info.warning {
+                            Label(warning, systemImage: "exclamationmark.triangle.fill")
+                                .font(.callout).foregroundStyle(.orange)
+                        } else {
+                            Text("Store games, engines, and APFS snapshots on an external APFS SSD to save internal Mac storage.")
                                 .foregroundStyle(.secondary)
-                            HStack {
-                                Button(model.engines.contains(m.id) ? "Reinstall" : "Install engine") {
-                                    model.job("Engine install") { k, p in try await k.installDefaultEngine(progress: p).id }
-                                }.disabled(model.busy != nil)
-                                if model.engines.contains(m.id) { Label("Installed", systemImage: "checkmark.seal.fill").foregroundStyle(.green) }
-                                Button("Install from manifest…") {
-                                    let panel = NSOpenPanel()
-                                    panel.allowedContentTypes = [.json]
-                                    panel.message = "Choose a trusted GamePort engine manifest."
-                                    guard panel.runModal() == .OK, let url = panel.url else { return }
-                                    model.job("Installing engine") { k, p in
-                                        try await k.engines.install(EngineManifest.load(url), progress: p).id
-                                    }
+                        }
+                        HStack {
+                            Button("Choose External SSD / Folder…") {
+                                let panel = NSOpenPanel()
+                                panel.canChooseFiles = false
+                                panel.canChooseDirectories = true
+                                panel.canCreateDirectories = true
+                                panel.message = "Choose a folder on an APFS drive (e.g. External SSD) for GamePort games and engines."
+                                guard panel.runModal() == .OK, let chosen = panel.url else { return }
+                                do {
+                                    let updated = try StorageInfo.setCustomRoot(chosen)
+                                    model.reloadStorage()
+                                    model.say("✓ Storage set to \(updated.root.path) (\(updated.filesystem), \(updated.freeSpaceLabel))")
+                                } catch {
+                                    model.say("✗ \(error)")
+                                }
+                            }.disabled(model.busy != nil)
+                            if info.isCustom {
+                                Button("Reset to Internal") {
+                                    _ = try? StorageInfo.resetToDefault()
+                                    model.reloadStorage()
+                                    model.say("✓ Storage reset to default internal folder")
                                 }.disabled(model.busy != nil)
                             }
+                        }
+                    }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
+                }
+                GroupBox("Engines") {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Every engine component is verified with SHA-256. You can keep multiple Wine / CrossOver / ARM64 engines side-by-side and choose which one new games use.")
+                            .foregroundStyle(.secondary)
+                        ForEach(model.engineCatalog) { entry in
+                            VStack(alignment: .leading, spacing: 6) {
+                                HStack(spacing: 8) {
+                                    Text(entry.manifest.displayName).font(.headline)
+                                    Text(entry.manifest.arch.label)
+                                        .font(.caption.monospaced())
+                                        .padding(.horizontal, 6).padding(.vertical, 2)
+                                        .background(.quaternary, in: Capsule())
+                                    if entry.isDefault {
+                                        Label("Default", systemImage: "star.fill")
+                                            .font(.caption.weight(.semibold))
+                                            .foregroundStyle(.blue)
+                                    }
+                                    if entry.isInstalled {
+                                        Label("Installed", systemImage: "checkmark.seal.fill")
+                                            .font(.caption.weight(.semibold))
+                                            .foregroundStyle(.green)
+                                    }
+                                }
+                                HStack(spacing: 12) {
+                                    Text(entry.id).font(.caption.monospaced()).foregroundStyle(.secondary)
+                                    Text("·").foregroundStyle(.secondary)
+                                    Text("~\(entry.manifest.downloadSizeLabel)").font(.caption).foregroundStyle(.secondary)
+                                    if entry.profilesUsingCount > 0 {
+                                        Text("·").foregroundStyle(.secondary)
+                                        Text("Used by \(entry.profilesUsingCount) \(entry.profilesUsingCount == 1 ? "game" : "games")")
+                                            .font(.caption).foregroundStyle(.secondary)
+                                    }
+                                    if entry.kosmicKrispInstalled {
+                                        Text("· KosmicKrisp").font(.caption).foregroundStyle(.purple)
+                                    }
+                                }
+                                HStack {
+                                    if entry.isBundled {
+                                        Button(entry.isInstalled ? "Reinstall" : "Install") {
+                                            let manifest = entry.manifest
+                                            model.job("Engine install (\(manifest.id))") { k, p in
+                                                try await k.engines.install(manifest, progress: p).id
+                                            }
+                                        }.disabled(model.busy != nil)
+                                    }
+                                    if entry.isInstalled && !entry.isDefault {
+                                        Button("Set as Default") {
+                                            do {
+                                                try model.gameport.engines.setDefaultEngine(entry.id)
+                                                model.refresh()
+                                                model.say("✓ Default engine set to \(entry.id)")
+                                            } catch {
+                                                model.say("✗ \(error)")
+                                            }
+                                        }.disabled(model.busy != nil)
+                                    }
+                                    if entry.isInstalled && entry.profilesUsingCount == 0 {
+                                        Button("Remove", role: .destructive) {
+                                            do {
+                                                try model.gameport.removeEngine(entry.id)
+                                                model.refresh()
+                                                model.say("✓ Removed engine \(entry.id)")
+                                            } catch {
+                                                model.say("✗ \(error)")
+                                            }
+                                        }.disabled(model.busy != nil)
+                                    }
+                                }
+                            }
+                            if entry.id != model.engineCatalog.last?.id { Divider() }
+                        }
+                        Divider()
+                        HStack {
+                            Button("Install from manifest…") {
+                                let panel = NSOpenPanel()
+                                panel.allowedContentTypes = [.json]
+                                panel.message = "Choose a trusted GamePort engine manifest (.json)."
+                                guard panel.runModal() == .OK, let url = panel.url else { return }
+                                model.job("Installing engine") { k, p in
+                                    try await k.engines.install(EngineManifest.load(url), progress: p).id
+                                }
+                            }.disabled(model.busy != nil)
+                            Text("Import community Wine, CrossOver, or ARM64/FEX manifests.")
+                                .font(.caption).foregroundStyle(.secondary)
                         }
                     }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
                 }

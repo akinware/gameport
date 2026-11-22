@@ -47,11 +47,60 @@ public struct GamePort: Sendable {
         return try await engines.install(manifest, progress: progress)
     }
 
+    /// Unified catalog of bundled engines + any installed custom/community engines.
+    public func engineCatalog() -> [EngineCatalogEntry] {
+        let bundled = EngineStore.bundledManifests()
+        let bundledIDs = Set(bundled.map(\.id))
+        let installed = Dictionary(uniqueKeysWithValues: engines.installed().map { ($0.id, $0) })
+        let activeDefault = engines.defaultEngineID()
+            ?? (defaultManifest.flatMap { installed[$0.id] != nil ? $0.id : nil })
+            ?? installed.keys.sorted().first
+        var usage: [String: Int] = [:]
+        for p in profiles.all() { usage[p.engineID, default: 0] += 1 }
+
+        var seen = Set<String>()
+        var rows: [EngineCatalogEntry] = []
+        for m in bundled {
+            seen.insert(m.id)
+            let inst = installed[m.id]
+            rows.append(EngineCatalogEntry(
+                manifest: inst?.manifest ?? m,
+                isBundled: true,
+                isInstalled: inst != nil,
+                isDefault: inst != nil && m.id == activeDefault,
+                kosmicKrispInstalled: inst?.kosmicKrispShim != nil,
+                profilesUsingCount: usage[m.id] ?? 0
+            ))
+        }
+        for id in installed.keys.sorted() where !seen.contains(id) {
+            guard let inst = installed[id] else { continue }
+            rows.append(EngineCatalogEntry(
+                manifest: inst.manifest,
+                isBundled: bundledIDs.contains(id),
+                isInstalled: true,
+                isDefault: id == activeDefault,
+                kosmicKrispInstalled: inst.kosmicKrispShim != nil,
+                profilesUsingCount: usage[id] ?? 0
+            ))
+        }
+        return rows
+    }
+
+    /// Removes an installed engine only when no game profile still depends on it.
+    public func removeEngine(_ id: String) throws {
+        _ = try engines.engine(id)
+        let using = profiles.all().filter { $0.engineID == id }.map(\.id)
+        if !using.isEmpty {
+            throw GamePortError.invalid("engine \(id) is still used by \(using.joined(separator: ", "))")
+        }
+        try engines.remove(id)
+    }
+
     private func selectedEngine(_ id: String?) throws -> InstalledEngine {
         if let id { return try engines.engine(id) }
         let all = engines.installed()
-        let defaultID = defaultManifest?.id
-        let ordered = all.filter { $0.id == defaultID } + all.filter { $0.id != defaultID }
+        let preferredID = engines.defaultEngineID() ?? defaultManifest?.id
+        let ordered = all.filter { $0.id == preferredID } + all.filter { $0.id != preferredID }
         guard let first = ordered.first else { throw GamePortError.missing("no engine installed") }
         return ordered.first { (try? $0.checkHost()) != nil && (try? $0.checkFiles()) != nil } ?? first
     }

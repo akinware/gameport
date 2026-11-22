@@ -88,6 +88,8 @@ class RecipeImportTests(unittest.TestCase):
         (root / "Sources/GamePortKit/Generated").mkdir(parents=True)
         (root / "Tools/kosmickrisp-shim").mkdir(parents=True)
         shutil.copy(ROOT / "Tools/kosmickrisp-shim/shim.c", root / "Tools/kosmickrisp-shim")
+        (root / "Tools/fps-probe").mkdir(parents=True)
+        shutil.copy(ROOT / "Tools/fps-probe/fps_probe.m", root / "Tools/fps-probe")
         shutil.copy(ROOT / "Scripts/embed-data.py", scripts)
         original = (ROOT / "Data/recipes/elden-ring.json").read_bytes()
         (recipes / "elden-ring.json").write_bytes(original)

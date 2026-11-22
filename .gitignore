@@ -4,6 +4,7 @@ build/
 *.xcodeproj/
 DerivedData/
 .DS_Store
+.wrangler/
 
 # Local scratch / private research notes
 HANDOFF.md

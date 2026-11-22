@@ -67,6 +67,20 @@ public struct EngineManifest: Codable, Sendable, Equatable {
 
     public var requiresRosetta: Bool { arch == .rosetta }
 
+    /// Total download size in bytes across unique component hashes.
+    public var totalDownloadSize: Int64 {
+        var seen = Set<String>()
+        return components.reduce(into: Int64(0)) { sum, c in
+            if seen.insert(c.sha256).inserted { sum += c.size ?? 0 }
+        }
+    }
+
+    public var downloadSizeLabel: String {
+        let bytes = totalDownloadSize
+        guard bytes > 0 else { return "size varies" }
+        return ByteCountFormatter.string(fromByteCount: bytes, countStyle: .file)
+    }
+
     public static func load(_ url: URL) throws -> EngineManifest {
         let manifest = try JSONDecoder().decode(EngineManifest.self, from: Data(contentsOf: url))
         try manifest.validate()
@@ -204,6 +218,32 @@ public struct EngineStore: Sendable {
         }
     }
 
+    /// Look up a bundled engine manifest by id.
+    public static func bundledManifest(id: String) -> EngineManifest? {
+        bundledManifests().first { $0.id == id }
+    }
+
+    private var defaultEngineFile: URL { paths.engines.appendingPathComponent("default-engine.txt") }
+
+    /// User-selected default engine id, when still installed.
+    public func defaultEngineID() -> String? {
+        guard let raw = try? String(contentsOf: defaultEngineFile, encoding: .utf8)
+            .trimmingCharacters(in: .whitespacesAndNewlines), !raw.isEmpty else { return nil }
+        guard (try? engine(raw)) != nil else { return nil }
+        return raw
+    }
+
+    /// Persists the preferred default engine for new profiles (nil clears the preference).
+    public func setDefaultEngine(_ id: String?) throws {
+        if let id {
+            _ = try engine(id)
+            try paths.ensure(paths.engines)
+            try (id + "\n").write(to: defaultEngineFile, atomically: true, encoding: .utf8)
+        } else {
+            try? FileManager.default.removeItem(at: defaultEngineFile)
+        }
+    }
+
     /// Installs into a staging folder and swaps it in only when every component verified,
     /// so a failed install never leaves a half engine behind.
     @discardableResult
@@ -318,6 +358,31 @@ public struct EngineStore: Sendable {
 
     public func remove(_ id: String) throws {
         try withInstallLock(id) { try FileManager.default.removeItem(at: paths.engine(id)) }
+        if defaultEngineID() == nil, FileManager.default.fileExists(atPath: defaultEngineFile.path) {
+            try? FileManager.default.removeItem(at: defaultEngineFile)
+        }
+    }
+}
+
+/// Summary row for the Multi-Engine Catalog (bundled manifests + custom installed engines).
+public struct EngineCatalogEntry: Identifiable, Sendable, Equatable {
+    public let manifest: EngineManifest
+    public let isBundled: Bool
+    public let isInstalled: Bool
+    public let isDefault: Bool
+    public let kosmicKrispInstalled: Bool
+    public let profilesUsingCount: Int
+
+    public var id: String { manifest.id }
+
+    public init(manifest: EngineManifest, isBundled: Bool, isInstalled: Bool, isDefault: Bool,
+                kosmicKrispInstalled: Bool, profilesUsingCount: Int) {
+        self.manifest = manifest
+        self.isBundled = isBundled
+        self.isInstalled = isInstalled
+        self.isDefault = isDefault
+        self.kosmicKrispInstalled = kosmicKrispInstalled
+        self.profilesUsingCount = profilesUsingCount
     }
 }
 

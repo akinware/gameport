@@ -4,8 +4,9 @@ import GamePortKit
 
 @MainActor
 final class AppModel: ObservableObject {
-    let gameport = GamePort()
+    var gameport = GamePort()
     @Published var checks: [GamePort.Check] = []
+    @Published var engineCatalog: [EngineCatalogEntry] = []
     private(set) var installedEngines: [InstalledEngine] = []
     var engines: [String] { installedEngines.map(\.id) }
     private(set) var acceptedLicenses: Set<String> = []
@@ -18,10 +19,21 @@ final class AppModel: ObservableObject {
     @Published var gptkAccepted = false
     @Published var telemetryEnabled = true
     @Published var steamBase: SteamBase.Stamp?
+    @Published var storageInfo: StorageInfo = StorageInfo.inspect(Paths.default().root, isCustom: StoragePreference.load().customRoot != nil)
+    @Published var launchState: LaunchState = .idle
     @Published var communityVerdicts: [Int: [CommunityVerdict]] = [:]
     private(set) var engineProfiles: [String: [Profile]] = [:]
+    private var launchMonitorTask: Task<Void, Never>?
 
     init() {
+        communityVerdicts = gameport.telemetry.loadCachedVerdicts()
+        refresh()
+        refreshCommunityVerdicts()
+    }
+
+    func reloadStorage() {
+        gameport = GamePort()
+        storageInfo = StorageInfo.inspect(gameport.paths.root, isCustom: StoragePreference.load().customRoot != nil)
         communityVerdicts = gameport.telemetry.loadCachedVerdicts()
         refresh()
         refreshCommunityVerdicts()
@@ -36,8 +48,10 @@ final class AppModel: ObservableObject {
     }
 
     func refresh() {
+        storageInfo = StorageInfo.inspect(gameport.paths.root, isCustom: StoragePreference.load().customRoot != nil)
         checks = gameport.doctor()
         installedEngines = gameport.engines.installed()
+        engineCatalog = gameport.engineCatalog()
         let licenseIDs = Set(installedEngines.flatMap { $0.manifest.licenses.keys })
         acceptedLicenses = licenseIDs.filter { gameport.licenses.isAccepted($0) }
         recipes = gameport.catalog.sorted
@@ -51,6 +65,51 @@ final class AppModel: ObservableObject {
             if let id = profile.recipeID { groups[id, default: []].append(profile) }
         }
         revision += 1
+    }
+
+    func launchGame(profile: Profile, recipe: Recipe) {
+        launchMonitorTask?.cancel()
+        launchState = .startingSteam(profileID: profile.id)
+        let kit = self.gameport
+        let steamLogs = (try? kit.steam(for: profile.id).logs)
+        let cefLog = steamLogs?.appendingPathComponent("cef_log.txt")
+        let bootstrapLog = steamLogs?.appendingPathComponent("bootstrap_log.txt")
+        func fileSize(_ url: URL?) -> UInt64 {
+            guard let url else { return 0 }
+            return (try? FileManager.default.attributesOfItem(atPath: url.path)[.size] as? UInt64) ?? 0
+        }
+        let cefStart = fileSize(cefLog)
+        let bootstrapStart = fileSize(bootstrapLog)
+
+        job("Starting \(recipe.title)") { kit, progress in
+            _ = try kit.play(profile.id, progress: progress)
+            await MainActor.run {
+                self.startLaunchWatcher(profile: profile, recipe: recipe, cefStart: cefStart, bootstrapStart: bootstrapStart)
+            }
+            return "Launch requested"
+        }
+    }
+
+    private func startLaunchWatcher(profile: Profile, recipe: Recipe, cefStart: UInt64, bootstrapStart: UInt64) {
+        launchMonitorTask?.cancel()
+        let kit = self.gameport
+        launchMonitorTask = Task.detached(priority: .utility) {
+            await kit.monitorLaunch(profile: profile, recipe: recipe, cefStart: cefStart, bootstrapStart: bootstrapStart) { state in
+                Task { @MainActor in self.launchState = state }
+            }
+        }
+    }
+
+    func applyRecovery(_ action: RecoveryAction, to profile: Profile, recipe: Recipe, retry: Bool) {
+        launchState = .idle
+        job(action.title) { kit, progress in
+            let msg = try kit.applyRecovery(action.kind, to: profile.id, progress: progress)
+            if retry {
+                let updated = try kit.profiles.load(profile.id)
+                await MainActor.run { self.launchGame(profile: updated, recipe: recipe) }
+            }
+            return msg
+        }
     }
 
     func say(_ line: String) { log.append(line); if log.count > 400 { log.removeFirst(log.count - 400) } }

@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS lab_reports (
     engine_id TEXT NOT NULL,
     engine_arch TEXT NOT NULL,
     chip TEXT NOT NULL,
+    ram_gb INTEGER,
     macos TEXT NOT NULL,
     verdict TEXT NOT NULL,
     avg_fps REAL,

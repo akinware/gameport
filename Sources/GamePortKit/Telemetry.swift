@@ -29,6 +29,7 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
     public var engineID: String
     public var engineArch: EngineArchitecture
     public var chip: String
+    public var ramGB: Int?
     public var macOS: String
     public var verdict: LabResult.Verdict
     public var avgFPS: Double?
@@ -51,6 +52,7 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
             engineID: result.engineID,
             engineArch: result.engineArchitecture ?? .rosetta,
             chip: bucketChip(result.machine),
+            ramGB: currentRAMGB(),
             macOS: majorMinor(result.macOS),
             verdict: result.verdict,
             avgFPS: stats?.averageFPS,
@@ -109,6 +111,7 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
             engineID: engineID,
             engineArch: engineArch,
             chip: bucketChip(machine),
+            ramGB: currentRAMGB(),
             macOS: majorMinor(macOS),
             verdict: verdict,
             avgFPS: avgFPS,
@@ -130,6 +133,7 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
             engineID: "x64-crossover26.3-hb20261014",
             engineArch: .rosetta,
             chip: bucketChip(Shell.machineDescription),
+            ramGB: currentRAMGB(),
             macOS: majorMinor(Shell.macOSVersionString),
             verdict: .works,
             avgFPS: 120.0,
@@ -138,6 +142,10 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
             crashCodes: [],
             reportedDay: utcDay(Date())
         )
+    }
+
+    static func currentRAMGB(bytes: UInt64 = ProcessInfo.processInfo.physicalMemory) -> Int {
+        max(1, Int((Double(bytes) / 1_073_741_824.0).rounded()))
     }
 
     static func bucketChip(_ machine: String) -> String {
@@ -497,6 +505,7 @@ public struct TelemetryStore: Sendable {
 public struct CommunityVerdict: Codable, Sendable, Equatable, Identifiable {
     public var steamAppID: Int
     public var chip: String
+    public var ramGB: Int?
     public var renderer: Renderer
     public var vulkanDriver: VulkanDriver
     public var engineArch: EngineArchitecture
@@ -505,7 +514,7 @@ public struct CommunityVerdict: Codable, Sendable, Equatable, Identifiable {
     public var avgFPS: Double?
     public var onePercentLowFPS: Double?
 
-    public var id: String { "\(steamAppID)-\(chip)-\(renderer.rawValue)-\(vulkanDriver.rawValue)-\(engineArch.rawValue)" }
+    public var id: String { "\(steamAppID)-\(chip)-\(ramGB ?? 0)-\(renderer.rawValue)-\(vulkanDriver.rawValue)-\(engineArch.rawValue)" }
 
     public var summary: String {
         let rendererLabel: String
@@ -515,7 +524,8 @@ public struct CommunityVerdict: Codable, Sendable, Equatable, Identifiable {
         case .dxvk: rendererLabel = "DXVK"
         case .wined3d: rendererLabel = "WineD3D"
         }
-        var parts = [chip, rendererLabel]
+        let hw = ramGB.map { "\(chip) (\($0) GB)" } ?? chip
+        var parts = [hw, rendererLabel]
         if vulkanDriver != .moltenvk { parts.append(vulkanDriver.displayName) }
         if let avgFPS {
             let fps = String(format: "%.0f FPS", avgFPS)

@@ -146,11 +146,12 @@ final class TelemetryTests: XCTestCase {
 
     func testCommunityVerdictDecodingAndFormatting() throws {
         let json = """
-        {"schema":1,"updatedAt":"2026-11-22","verdicts":[{"steamAppID":440,"chip":"Apple M1","renderer":"dxmt","vulkanDriver":"moltenvk","engineArch":"x86_64","reports":3,"works":3,"avgFPS":98.2,"onePercentLowFPS":49.5}]}
+        {"schema":1,"updatedAt":"2026-11-22","verdicts":[{"steamAppID":440,"chip":"Apple M1","ramGB":16,"renderer":"dxmt","vulkanDriver":"moltenvk","engineArch":"x86_64","reports":3,"works":3,"avgFPS":98.2,"onePercentLowFPS":49.5}]}
         """
         let feed = try JSONDecoder().decode(CommunityVerdictFeed.self, from: Data(json.utf8))
         let grouped = TelemetryStore.groupVerdicts(feed.verdicts)
         let tf2 = try XCTUnwrap(grouped[440]?.first)
-        XCTAssertEqual(tf2.summary, "Apple M1 · DXMT · 98 FPS (1% low 50) · 3/3 works")
+        XCTAssertEqual(tf2.summary, "Apple M1 (16 GB) · DXMT · 98 FPS (1% low 50) · 3/3 works")
+        XCTAssertEqual(TelemetryReport.currentRAMGB(bytes: 16 * 1_073_741_824), 16)
     }
 }

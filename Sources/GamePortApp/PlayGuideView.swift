@@ -61,6 +61,9 @@ struct PlayGuideView: View {
                         Button("Open Steam") { perform(.openSteam) }
                     }
                 }.disabled(model.busy != nil)
+                if let profile {
+                    LaunchStatusView(profile: profile, recipe: recipe)
+                }
             }
         }
         .task(id: Observation(revision: model.revision, phase: scenePhase)) {
@@ -108,10 +111,60 @@ struct PlayGuideView: View {
             }
         case .play:
             guard let profile else { return }
-            model.job("Starting \(recipe.title)") { kit, progress in
-                _ = try kit.play(profile.id, progress: progress)
-                return "Launch requested"
-            }
+            model.launchGame(profile: profile, recipe: recipe)
+        }
+    }
+}
+
+struct LaunchStatusView: View {
+    @EnvironmentObject var model: AppModel
+    let profile: Profile
+    let recipe: Recipe
+
+    var body: some View {
+        switch model.launchState {
+        case .startingSteam(let id) where id == profile.id:
+            HStack(spacing: 8) {
+                ProgressView().controlSize(.small)
+                Text("Starting Windows Steam…").font(.callout).foregroundStyle(.secondary)
+            }.padding(.top, 4)
+        case .waitingForGame(let id, let title) where id == profile.id:
+            HStack(spacing: 8) {
+                ProgressView().controlSize(.small)
+                Text("Launching \(title) (first launch may compile shaders)…").font(.callout).foregroundStyle(.secondary)
+            }.padding(.top, 4)
+        case .running(let id, let seconds, let fps) where id == profile.id:
+            HStack(spacing: 8) {
+                Image(systemName: "play.circle.fill").foregroundStyle(.green)
+                let fpsText = fps.map { " · \(String(format: "%.0f", $0)) FPS" } ?? ""
+                Text("Running (\(seconds)s)\(fpsText)").font(.callout).foregroundStyle(.secondary)
+            }.padding(.top, 4)
+        case .needsAttention(let id, let diagnosis) where id == profile.id:
+            GroupBox {
+                VStack(alignment: .leading, spacing: 8) {
+                    Label(diagnosis.headline, systemImage: "wrench.and.screwdriver.fill")
+                        .font(.headline).foregroundStyle(.orange)
+                    Text(diagnosis.explanation).font(.callout).foregroundStyle(.secondary)
+                    ForEach(diagnosis.actions) { action in
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(action.title).font(.callout.bold())
+                                Text(action.detail).font(.caption).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            Button("Fix & Retry") {
+                                model.applyRecovery(action, to: profile, recipe: recipe, retry: true)
+                            }.buttonStyle(.borderedProminent).controlSize(.small)
+                        }
+                    }
+                    HStack {
+                        Spacer()
+                        Button("Dismiss") { model.launchState = .idle }.controlSize(.small)
+                    }
+                }.padding(6)
+            }.padding(.top, 6)
+        default:
+            EmptyView()
         }
     }
 }

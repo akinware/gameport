@@ -7,7 +7,10 @@ let usage = """
 
 Usage:
   \(cli) doctor                         Check system requirements
-  \(cli) engine install [manifest.json] Install the bundled engine or a trusted engine manifest
+  \(cli) engine available               List bundled and installed engines
+  \(cli) engine install [id|manifest]   Install the default engine, a bundled engine id, or a manifest.json
+  \(cli) engine default [engine]        Show or set the default engine for new profiles
+  \(cli) engine remove <engine>         Remove an unused installed engine
   \(cli) engine kosmickrisp <engine>    Install the optional verified Vulkan driver and shim
   \(cli) engine list                    Installed engines
   \(cli) license show apple-gptk        Show the licence summary
@@ -36,6 +39,7 @@ Usage:
   \(cli) lab <profile> compare <other-profile> [s]  Compare two engines on the same game
   \(cli) vulkan <profile> [driver]      Vulkan driver for the game: moltenvk (default) or kosmickrisp (experimental)
   \(cli) telemetry [status|on|off|preview|reset-id]  Anonymous FPS & compatibility sharing (default: on)
+  \(cli) storage [status|set <folder>|reset]  Choose an External APFS SSD or custom data folder
   \(cli) env <profile>                  Show the game's environment variables
   \(cli) run <profile> <windows command…>  Run a Windows program in a profile
 
@@ -75,24 +79,57 @@ do {
         exit(allOK ? 0 : 1)
 
     case "engine":
-        switch arg(0, "install|list|kosmickrisp") {
+        switch arg(0, "available|install|default|remove|list|kosmickrisp") {
+        case "available":
+            for entry in gameport.engineCatalog() {
+                var flags: [String] = []
+                if entry.isInstalled { flags.append("installed") } else { flags.append("available") }
+                if entry.isDefault { flags.append("default") }
+                if entry.profilesUsingCount > 0 { flags.append("\(entry.profilesUsingCount) games") }
+                print("\(entry.id)  [\(flags.joined(separator: ", "))]  \(entry.manifest.arch.label)  ~\(entry.manifest.downloadSizeLabel)  \(entry.manifest.displayName)")
+            }
         case "install":
             guard args.count <= 2 else { fail(usage) }
             let engine: InstalledEngine
             if args.count == 2 {
-                let manifest = try EngineManifest.load(URL(fileURLWithPath: args[1]))
-                engine = try await gameport.engines.install(manifest, progress: progress)
+                if let bundled = EngineStore.bundledManifest(id: args[1]) {
+                    engine = try await gameport.engines.install(bundled, progress: progress)
+                } else {
+                    let manifest = try EngineManifest.load(URL(fileURLWithPath: args[1]))
+                    engine = try await gameport.engines.install(manifest, progress: progress)
+                }
             } else {
                 engine = try await gameport.installDefaultEngine(progress: progress)
             }
             print("✓ Installed: \(engine.id)")
+        case "default":
+            if args.count == 1 {
+                if let def = gameport.engineCatalog().first(where: \.isDefault) {
+                    print("\(def.id)  (\(def.manifest.displayName))")
+                } else {
+                    print("No engine installed. Run `\(cli) engine install`.")
+                }
+            } else if args.count == 2 {
+                try gameport.engines.setDefaultEngine(args[1])
+                print("✓ Default engine set to: \(args[1])")
+            } else {
+                fail(usage)
+            }
+        case "remove":
+            guard args.count == 2 else { fail(usage) }
+            try gameport.removeEngine(args[1])
+            print("✓ Removed engine: \(args[1])")
         case "kosmickrisp":
             guard args.count == 2 else { fail(usage) }
             try await gameport.engines.installKosmicKrisp(args[1], progress: progress)
         case "list":
             let list = gameport.engines.installed()
+            let defaultID = gameport.engineCatalog().first(where: \.isDefault)?.id
             if list.isEmpty { print("No engine installed. Run `\(cli) engine install`.") }
-            for e in list { print("\(e.id)  \(e.manifest.arch.label)  \(e.manifest.displayName)") }
+            for e in list {
+                let mark = e.id == defaultID ? " [default]" : ""
+                print("\(e.id)\(mark)  \(e.manifest.arch.label)  \(e.manifest.displayName)")
+            }
         default: fail(usage)
         }
 
@@ -359,6 +396,25 @@ do {
         case "reset-id":
             let updated = try gameport.telemetry.resetInstallID()
             print("✓ Anonymous install ID rotated: \(updated.installID)")
+        default: fail(usage)
+        }
+
+    case "storage":
+        let action = args.first ?? "status"
+        switch action {
+        case "status":
+            let info = StorageInfo.inspect(gameport.paths.root, isCustom: StoragePreference.load().customRoot != nil)
+            print("Storage: \(info.root.path)")
+            print("Volume:  \(info.volumeName) (\(info.filesystem), \(info.freeSpaceLabel))\(info.isExternal ? " [external]" : "")")
+            if let warning = info.warning { print("! \(warning)") }
+        case "set":
+            let path = arg(1, "folder path")
+            let info = try StorageInfo.setCustomRoot(URL(fileURLWithPath: path))
+            print("✓ Storage set to \(info.root.path) (\(info.volumeName), \(info.filesystem), \(info.freeSpaceLabel))")
+            if let warning = info.warning { print("! \(warning)") }
+        case "reset":
+            let info = try StorageInfo.resetToDefault()
+            print("✓ Storage reset to default: \(info.root.path)")
         default: fail(usage)
         }
 
