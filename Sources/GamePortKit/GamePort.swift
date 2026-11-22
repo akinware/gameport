@@ -153,7 +153,7 @@ public struct GamePort: Sendable {
         let runner = WineRunner(paths: paths, engine: engine, profile: setupProfile, recipe: recipe)
         let base = SteamBase(paths: paths, engine: engine)
         do {
-            if base.isReady {
+            if recipe.launch != .battlenet && base.isReady {
                 progress?("Cloning the Steam base…")
                 try base.clone(to: runner.prefix)
                 try runner.settle()
@@ -199,6 +199,18 @@ public struct GamePort: Sendable {
     public func openSteam(_ profileID: String, progress: ProgressHandler? = nil) throws -> Process {
         if let s = autoSnapshot(profileID) { progress?("Automatic snapshot: \(s.name)") }
         let process = try steam(for: profileID).openClient()
+        recordLaunch(requested: profileID, actual: profileID)
+        return process
+    }
+
+    public func battleNet(for profileID: String) throws -> BattleNetClient {
+        BattleNetClient(runner: try runner(for: profileID))
+    }
+
+    public func openBattleNet(_ profileID: String, progress: ProgressHandler? = nil) throws -> Process {
+        if let s = autoSnapshot(profileID) { progress?("Automatic snapshot: \(s.name)") }
+        let bn = try battleNet(for: profileID)
+        let process = try bn.openClient(productCode: bn.runner.recipe?.battleNetProduct)
         recordLaunch(requested: profileID, actual: profileID)
         return process
     }

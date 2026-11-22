@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "id": "battlenet",
+  "title": "Battle.net (Blizzard Launcher)",
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": true,
+  "launch": "battlenet",
+  "launchArguments": [],
+  "environment": {
+    "WINE_SIMULATE_WRITECOPY": "1"
+  },
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "General isolated Battle.net environment for Blizzard Windows games (Overwatch 2, Diablo IV, Diablo II: Resurrected, Diablo III)."
+  ]
+}

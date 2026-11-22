@@ -55,6 +55,8 @@ public struct SteamClient: Sendable {
             let path = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\" + exe.replacingOccurrences(of: "/", with: "\\")
             return try runner.spawn([path] + recipe.launchArguments,
                                     extra: ["SteamAppId": String(appID), "SteamGameId": String(appID)], logName: "game.log")
+        case .battlenet:
+            return try BattleNetClient(runner: runner).openClient(productCode: recipe.battleNetProduct)
         }
     }
 

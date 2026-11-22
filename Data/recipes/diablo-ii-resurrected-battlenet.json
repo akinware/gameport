@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "diablo-ii-resurrected-battlenet",
+  "title": "Diablo II: Resurrected (Battle.net)",
+  "battleNetProduct": "OSI",
+  "status": "untested",
+  "renderer": "d3dmetal",
+  "sync": "msync",
+  "advertiseAVX": true,
+  "launch": "battlenet",
+  "launchArguments": [],
+  "environment": {
+    "WINE_SIMULATE_WRITECOPY": "1"
+  },
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 12 remaster running through Battle.net with D3DMetal + AVX. Accept Apple's GPTK licence in Setup before launching."
+  ]
+}

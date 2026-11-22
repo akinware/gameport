@@ -33,6 +33,8 @@ Usage:
   \(cli) snapshot auto <profile> on|off Daily automatic snapshot before Steam starts (default: on)
   \(cli) steam install <profile>        Install Windows Steam in a profile
   \(cli) steam open <profile>           Open Steam (sign in, store, downloads)
+  \(cli) battlenet install <profile>    Download & run Blizzard's Battle.net installer in a profile
+  \(cli) battlenet open <profile>       Open Battle.net in a profile (Overwatch 2, Diablo IV, etc.)
   \(cli) play <profile>                 Start the game
   \(cli) stop <profile>                 Stop everything in a profile
   \(cli) lab <profile> [renderer,…] [s] Start the game, measure FPS and record whether it works
@@ -322,6 +324,18 @@ do {
         case "open":
             let p = try gameport.openSteam(id, progress: progress)
             print("Opening Steam (pid \(p.processIdentifier)). The first start can take a few minutes. Log: \(gameport.profiles.logs(id).appendingPathComponent("steam.log").path)")
+        default: fail(usage)
+        }
+
+    case "battlenet":
+        let action = arg(0, "install|open"), id = arg(1, "profile")
+        switch action {
+        case "install":
+            _ = try await gameport.battleNet(for: id).install(progress: progress)
+            print("✓ Battle.net installer launched for \(id). Complete sign-in and game download in its window.")
+        case "open":
+            _ = try gameport.openBattleNet(id, progress: progress)
+            print("✓ Battle.net opened for \(id).")
         default: fail(usage)
         }
 

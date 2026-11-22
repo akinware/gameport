@@ -12,8 +12,11 @@ struct PlayGuideView: View {
     let openSetup: () -> Void
 
     @State private var steamInstalled: Bool?
+    @State private var battleNetInstalled: Bool?
     @State private var gameInstalled = false
     @State private var showLicense = false
+
+    private var isBattleNet: Bool { recipe.launch == .battlenet }
 
     private var engine: InstalledEngine? { model.installedEngines.first { $0.id == profile?.engineID } }
 
@@ -28,7 +31,8 @@ struct PlayGuideView: View {
         PlayStep.next(engineAvailable: profile == nil ? !model.engines.isEmpty : engine != nil,
                       hasProfile: profile != nil, needsLicense: requiredLicense != nil,
                       steamInstalled: steamInstalled == true, hasSteamAppID: recipe.steamAppID != nil,
-                      gameInstalled: gameInstalled, hasFallback: profile?.fallbackProfileID != nil)
+                      gameInstalled: gameInstalled, hasFallback: profile?.fallbackProfileID != nil,
+                      isBattleNet: isBattleNet, battleNetInstalled: battleNetInstalled == true)
     }
 
     private struct Observation: Equatable {
@@ -38,7 +42,7 @@ struct PlayGuideView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if profile != nil && engine != nil && steamInstalled == nil {
+            if profile != nil && engine != nil && (isBattleNet ? battleNetInstalled == nil : steamInstalled == nil) {
                 ProgressView("Checking installation…").controlSize(.small)
             } else {
                 let step = nextStep
@@ -49,7 +53,7 @@ struct PlayGuideView: View {
                 }
                 HStack {
                     Button { perform(step) } label: {
-                        Label(step.buttonTitle, systemImage: step == .play ? "play.fill" : "arrow.right")
+                        Label(step.buttonTitle, systemImage: (step == .play || step == .openBattleNet) ? "play.fill" : "arrow.right")
                     }
                     .buttonStyle(.borderedProminent).controlSize(.large)
                     // The core also allows an explicit launch when Steam's local manifest is missing
@@ -71,6 +75,16 @@ struct PlayGuideView: View {
         .task(id: Observation(revision: model.revision, phase: scenePhase)) {
             guard let profile, engine != nil, scenePhase != .background else { return }
             let gameport = model.gameport
+            if isBattleNet {
+                let bn = await Task.detached { try? gameport.battleNet(for: profile.id) }.value
+                while !Task.isCancelled {
+                    let installed = bn?.isInstalled == true
+                    battleNetInstalled = installed
+                    guard !installed, scenePhase == .active else { break }
+                    do { try await Task.sleep(for: .seconds(4)) } catch { break }
+                }
+                return
+            }
             let client = await Task.detached { try? gameport.steam(for: profile.id) }.value
             // Steam finishes downloads in a separate process. While waiting for a download,
             // re-read just this game's manifest so the button changes to Play automatically.
@@ -110,6 +124,18 @@ struct PlayGuideView: View {
             model.job("Opening Steam") { kit, progress in
                 _ = try kit.openSteam(profile.id, progress: progress)
                 return "Steam opened"
+            }
+        case .installBattleNet:
+            guard let profile else { return }
+            model.job("Installing Battle.net") { kit, progress in
+                _ = try await kit.battleNet(for: profile.id).install(progress: progress)
+                return "Battle.net installer launched — complete setup in its window"
+            }
+        case .openBattleNet:
+            guard let profile else { return }
+            model.job("Opening Battle.net") { kit, progress in
+                _ = try kit.openBattleNet(profile.id, progress: progress)
+                return "Battle.net opened"
             }
         case .play:
             guard let profile else { return }
@@ -258,6 +284,8 @@ private extension PlayStep {
         case .reviewLicense: return "Review licence"
         case .installSteam: return "Install Steam"
         case .downloadGame, .openSteam: return "Open Steam"
+        case .installBattleNet: return "Install Battle.net"
+        case .openBattleNet: return "Open Battle.net"
         case .play: return "Play"
         }
     }
@@ -270,6 +298,8 @@ private extension PlayStep {
         case .installSteam: return "Install Windows Steam in this game’s environment."
         case .downloadGame: return "Sign in to Steam and download the game. Play appears when the download finishes."
         case .openSteam: return "This recipe has no Steam app ID. Open Steam to find and launch the game manually."
+        case .installBattleNet: return "Download and run Blizzard’s official Battle.net installer inside this private environment."
+        case .openBattleNet: return "Open Battle.net to sign in, install, or play this game."
         case .play: return "Installed in Steam."
         }
     }

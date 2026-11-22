@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "diablo-iii-battlenet",
+  "title": "Diablo III (Battle.net)",
+  "battleNetProduct": "D3",
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": true,
+  "launch": "battlenet",
+  "launchArguments": [],
+  "environment": {
+    "WINE_SIMULATE_WRITECOPY": "1"
+  },
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 11 title running through Battle.net with DXMT + AVX."
+  ]
+}

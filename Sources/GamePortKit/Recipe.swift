@@ -10,6 +10,8 @@ public struct Recipe: Codable, Sendable, Equatable, Identifiable {
         /// SteamAppId set (used where Steam's launch path adds an anti-cheat bootstrapper that
         /// cannot run under Wine and the game supports offline play without it).
         case direct
+        /// Windows Battle.net desktop app (`Battle.net Launcher.exe`, optionally with `--exec=launch <code>`).
+        case battlenet
     }
 
     public enum Status: String, Codable, Sendable, CaseIterable {
@@ -36,6 +38,8 @@ public struct Recipe: Codable, Sendable, Equatable, Identifiable {
     public var id: String
     public var title: String
     public var steamAppID: Int?
+    /// Optional Blizzard Battle.net product code (e.g. `"Pro"` for Overwatch 2, `"Fen"` for Diablo IV).
+    public var battleNetProduct: String?
     /// Path of the game executable relative to `steamapps/common`, used for detection and `direct`.
     public var executable: String?
     public var launch: Launch
@@ -55,13 +59,15 @@ public struct Recipe: Codable, Sendable, Equatable, Identifiable {
     /// Where the facts came from (our test, highball-db id, …).
     public var source: String?
 
-    public init(id: String, title: String, steamAppID: Int? = nil, executable: String? = nil, launch: Launch = .steam,
+    public init(id: String, title: String, steamAppID: Int? = nil, battleNetProduct: String? = nil,
+                executable: String? = nil, launch: Launch = .steam,
                 renderer: Renderer, sync: SyncMode = .msync, advertiseAVX: Bool = false,
                 environment: [String: String] = [:], dllOverrides: String? = nil, launchArguments: [String] = [],
                 registry: [RegistryValue] = [], minMacOS: String? = nil, status: Status = .untested,
                 notes: [String] = [], knownIssues: [KnownIssue] = [], source: String? = nil) {
         self.schema = 1
-        self.id = id; self.title = title; self.steamAppID = steamAppID; self.executable = executable
+        self.id = id; self.title = title; self.steamAppID = steamAppID; self.battleNetProduct = battleNetProduct
+        self.executable = executable
         self.launch = launch; self.renderer = renderer; self.sync = sync; self.advertiseAVX = advertiseAVX
         self.environment = environment; self.dllOverrides = dllOverrides; self.launchArguments = launchArguments
         self.registry = registry; self.minMacOS = minMacOS; self.status = status; self.notes = notes

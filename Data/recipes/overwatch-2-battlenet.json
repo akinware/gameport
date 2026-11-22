@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "overwatch-2-battlenet",
+  "title": "Overwatch 2 (Battle.net)",
+  "battleNetProduct": "Pro",
+  "status": "untested",
+  "renderer": "d3dmetal",
+  "sync": "msync",
+  "advertiseAVX": true,
+  "launch": "battlenet",
+  "launchArguments": [],
+  "environment": {
+    "WINE_SIMULATE_WRITECOPY": "1"
+  },
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "Runs Overwatch 2 through Blizzard's Battle.net desktop app with D3DMetal + AVX. First match compiles Metal shaders (sit in Practice Range or custom code D0231 for 2-3 minutes to warm up caches). Online matchmaking works (Warden)."
+  ]
+}

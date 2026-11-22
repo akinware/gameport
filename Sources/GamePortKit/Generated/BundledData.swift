@@ -237,6 +237,27 @@ enum BundledData {
         #"""
 {
   "schema": 1,
+  "id": "battlenet",
+  "title": "Battle.net (Blizzard Launcher)",
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": true,
+  "launch": "battlenet",
+  "launchArguments": [],
+  "environment": {
+    "WINE_SIMULATE_WRITECOPY": "1"
+  },
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "General isolated Battle.net environment for Blizzard Windows games (Overwatch 2, Diablo IV, Diablo II: Resurrected, Diablo III)."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
   "id": "beamng-drive",
   "title": "BeamNG.drive",
   "steamAppID": 284160,
@@ -532,6 +553,72 @@ enum BundledData {
   ],
   "knownIssues": [],
   "source": "highball-db (CC0)"
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "diablo-ii-resurrected-battlenet",
+  "title": "Diablo II: Resurrected (Battle.net)",
+  "battleNetProduct": "OSI",
+  "status": "untested",
+  "renderer": "d3dmetal",
+  "sync": "msync",
+  "advertiseAVX": true,
+  "launch": "battlenet",
+  "launchArguments": [],
+  "environment": {
+    "WINE_SIMULATE_WRITECOPY": "1"
+  },
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 12 remaster running through Battle.net with D3DMetal + AVX. Accept Apple's GPTK licence in Setup before launching."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "diablo-iii-battlenet",
+  "title": "Diablo III (Battle.net)",
+  "battleNetProduct": "D3",
+  "status": "untested",
+  "renderer": "dxmt",
+  "sync": "msync",
+  "advertiseAVX": true,
+  "launch": "battlenet",
+  "launchArguments": [],
+  "environment": {
+    "WINE_SIMULATE_WRITECOPY": "1"
+  },
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 11 title running through Battle.net with DXMT + AVX."
+  ]
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "diablo-iv-battlenet",
+  "title": "Diablo IV (Battle.net)",
+  "battleNetProduct": "Fen",
+  "status": "untested",
+  "renderer": "d3dmetal",
+  "sync": "msync",
+  "advertiseAVX": true,
+  "launch": "battlenet",
+  "launchArguments": [],
+  "environment": {
+    "WINE_SIMULATE_WRITECOPY": "1"
+  },
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "DirectX 12 title running through Battle.net with D3DMetal + AVX. Accept Apple's GPTK licence in Setup before launching."
+  ]
 }
 """#,
         #"""
@@ -18052,6 +18139,28 @@ enum BundledData {
   ],
   "knownIssues": [],
   "source": "highball-db (CC0) + GameToMac 0.1.74 notes (facts, independently rewritten)"
+}
+"""#,
+        #"""
+{
+  "schema": 1,
+  "id": "overwatch-2-battlenet",
+  "title": "Overwatch 2 (Battle.net)",
+  "battleNetProduct": "Pro",
+  "status": "untested",
+  "renderer": "d3dmetal",
+  "sync": "msync",
+  "advertiseAVX": true,
+  "launch": "battlenet",
+  "launchArguments": [],
+  "environment": {
+    "WINE_SIMULATE_WRITECOPY": "1"
+  },
+  "registry": [],
+  "knownIssues": [],
+  "notes": [
+    "Runs Overwatch 2 through Blizzard's Battle.net desktop app with D3DMetal + AVX. First match compiles Metal shaders (sit in Practice Range or custom code D0231 for 2-3 minutes to warm up caches). Online matchmaking works (Warden)."
+  ]
 }
 """#,
         #"""
