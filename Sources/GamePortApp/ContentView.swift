@@ -6,6 +6,7 @@ struct ContentView: View {
     @EnvironmentObject var model: AppModel
     @State private var selection: String? = "setup"
     @State private var filter = RecipeFilter()
+    @State private var showAddGame = false
 
     var body: some View {
         NavigationSplitView {
@@ -14,6 +15,11 @@ struct ContentView: View {
                     Label("Setup", systemImage: "wrench.and.screwdriver").tag("setup")
                 }
                 Section("Games") {
+                    Button { showAddGame = true } label: {
+                        Label("Add any Steam game…", systemImage: "plus.circle")
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(Color.accentColor)
                     Menu("Filter recipes", systemImage: "line.3.horizontal.decrease.circle") {
                         Picker("Status", selection: $filter.status) {
                             Text("All statuses").tag(nil as Recipe.Status?)
@@ -25,7 +31,12 @@ struct ContentView: View {
                         }
                     }
                     let matches = filter.apply(to: model.recipes)
-                    if matches.isEmpty { Text("No matching recipes").foregroundStyle(.secondary) }
+                    if matches.isEmpty {
+                        Text("No matching recipes").foregroundStyle(.secondary)
+                        if !filter.query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            Button("Search Steam for \"\(filter.query)\"…") { showAddGame = true }
+                        }
+                    }
                     ForEach(matches) { r in
                         HStack {
                             EvidenceIcon(level: model.evidence(for: r, profile: model.profile(for: r)).level)
@@ -38,6 +49,12 @@ struct ContentView: View {
             }
             .navigationSplitViewColumnWidth(min: 240, ideal: 280)
             .searchable(text: $filter.query, placement: .sidebar, prompt: "Game, recipe ID or Steam ID")
+            .sheet(isPresented: $showAddGame) {
+                AddSteamGameSheet(query: filter.query) { recipe in
+                    filter = RecipeFilter()
+                    selection = recipe.id
+                }
+            }
         } detail: {
             VStack(spacing: 0) {
                 Group {

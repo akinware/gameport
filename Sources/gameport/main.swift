@@ -13,6 +13,7 @@ Usage:
   \(cli) license show apple-gptk        Show the licence summary
   \(cli) license accept apple-gptk      Accept Apple's GPTK licence for D3DMetal
   \(cli) recipes [words or Steam ID] [--status <status>] [--renderer <renderer>]
+  \(cli) recipes add <Steam URL or ID> [title] [--renderer <renderer>]  Add any Steam game to your library
   \(cli) anticheat <game name|Steam id> Before downloading: does anti-cheat block it on a Mac?
   \(cli) base build                     Build the Steam base (once; later profiles are ready in seconds)
   \(cli) base status                    Steam base status
@@ -114,6 +115,33 @@ do {
         }
 
     case "recipes":
+        if args.first == "add" {
+            let input = arg(1, "Steam URL or App ID")
+            guard let appID = SteamStore.parseAppID(input) else { fail("expected a numeric Steam App ID or Steam Store URL") }
+            var renderer: Renderer = .dxmt
+            var titleWords: [String] = []
+            var rest = args.dropFirst(2).makeIterator()
+            while let tok = rest.next() {
+                if tok == "--renderer" {
+                    guard let val = rest.next(), let r = Renderer(rawValue: val) else {
+                        fail("--renderer expects one of " + Renderer.allCases.map(\.rawValue).joined(separator: ", "))
+                    }
+                    renderer = r
+                } else {
+                    titleWords.append(tok)
+                }
+            }
+            let title: String
+            if !titleWords.isEmpty {
+                title = titleWords.joined(separator: " ")
+            } else {
+                title = (try? await SteamStore.fetchTitle(appID: appID)) ?? "Steam Game \(appID)"
+            }
+            let recipe = try gameport.addCustomSteamGame(appID: appID, title: title, renderer: renderer)
+            print("✓ Ready: \(recipe.id) (\(recipe.title), Steam \(appID), \(recipe.renderer.rawValue))")
+            print("  Next: \(cli) profile create \(recipe.id)")
+            exit(0)
+        }
         var filter = RecipeFilter()
         var words: [String] = []
         var tokens = args.makeIterator()
