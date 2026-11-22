@@ -264,9 +264,11 @@ public struct SteamBridge: Sendable {
             "STEAM_COMPAT_CLIENT_INSTALL_PATH": home.appendingPathComponent("Library/Application Support/Steam").path,
             "WINEDLLOVERRIDES": "steamclient64,steamclient=b",
         ]
-        if engine.manifest.effectiveOverlayMode == .prefix {
-            env["WINEDLLPATH+"] = overlayDir.path
-        } else {
+        // Every Wine searches WINEDLLPATH. Only GamePort's own builds also read WINEDLLPATH_PREPEND;
+        // CrossOver.app's Wine does not, and without the plain path the Bridge's unix library is never
+        // found there (the game then reports SteamAPI_Init() failed).
+        env["WINEDLLPATH+"] = overlayDir.path
+        if engine.manifest.effectiveOverlayMode == .prepend {
             env["WINEDLLPATH_PREPEND+"] = overlayDir.path
         }
         if let macSteamClient {

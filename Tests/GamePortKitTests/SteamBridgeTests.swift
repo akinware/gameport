@@ -125,7 +125,14 @@ final class SteamBridgeTests: XCTestCase {
         XCTAssertEqual(cxEnv["GAMEPORT_MAC_STEAMCLIENT"], dylib.path)
         XCTAssertEqual(cxEnv["WINEDLLOVERRIDES"], "steamclient64,steamclient=b")
         XCTAssertEqual(cxEnv["WINEDLLPATH_PREPEND+"], bridge.overlayDir.path)
-        XCTAssertNil(cxEnv["WINEDLLPATH+"])
+        XCTAssertEqual(cxEnv["WINEDLLPATH+"], bridge.overlayDir.path, "every Wine reads WINEDLLPATH")
+
+        // CrossOver.app's own Wine ignores WINEDLLPATH_PREPEND: the plain path is what makes the Bridge load there.
+        let app = CrossOverInstallation(appURL: URL(fileURLWithPath: "/Applications/CrossOver.app"),
+                                        sharedSupportURL: URL(fileURLWithPath: "/Applications/CrossOver.app/Contents/SharedSupport/CrossOver"),
+                                        version: "26.3")
+        let appEnv = bridge.bridgeEnvironment(engine: app.asInstalledEngine(), appID: 1245620, macSteamClient: dylib)
+        XCTAssertEqual(appEnv["WINEDLLPATH+"], bridge.overlayDir.path)
 
         let w11Manifest = try XCTUnwrap(EngineStore.bundledManifest(id: "x64-wine-staging-11.21"))
         let w11Engine = InstalledEngine(manifest: w11Manifest, root: paths.engine(w11Manifest.id))
