@@ -354,6 +354,8 @@ public enum SteamQRDownloadEvent: Sendable, Equatable {
     case waitingForMobileApproval
     case signedIn(account: String)
     case downloading(percent: Double, detail: String)
+    /// An update of an already finished download ended: `changed` is false when it was up to date.
+    case updateChecked(changed: Bool)
     case completed(directory: URL, executable: URL?)
 }
 
@@ -550,9 +552,25 @@ public struct SteamQRDownloader: Sendable {
                     try FileManager.default.createDirectory(at: destination, withIntermediateDirectories: true)
                     try FileManager.default.createDirectory(at: tool.homeDir, withIntermediateDirectories: true)
                     // A (re-)download is not playable until DepotDownloader exits cleanly. Create
-                    // its work folder first so the depot reads as "in progress" from the start.
+                    // its work folder first so a new download reads as "in progress" from the start.
+                    // An update keeps its finished manifest (so the game stays playable) until files
+                    // actually start changing: a failed sign-in or an up-to-date check breaks nothing.
+                    let manifest = SteamDepotManager.appManifestURL(appID: appID, in: destination)
+                    let updating = FileManager.default.fileExists(atPath: manifest.path)
+                    let before = SteamDepotManager.downloadedManifests(in: destination)
                     try FileManager.default.createDirectory(at: destination.appendingPathComponent(".DepotDownloader"), withIntermediateDirectories: true)
-                    try? FileManager.default.removeItem(at: SteamDepotManager.appManifestURL(appID: appID, in: destination))
+                    var manifestRemoved = false
+                    let onEvent: (SteamQRDownloadEvent) -> Void = { event in
+                        // DepotDownloader walks every file with a running percentage even when nothing
+                        // changes. A new version shows up as a new depot manifest, saved before any
+                        // game file is touched: only then is the game "being updated".
+                        if case .downloading = event, !manifestRemoved,
+                           SteamDepotManager.downloadedManifests(in: destination) != before {
+                            manifestRemoved = true
+                            try? FileManager.default.removeItem(at: manifest)
+                        }
+                        continuation.yield(event)
+                    }
 
                     // A download of this game left running by an earlier session (e.g. the app quit
                     // mid-download) would fight this one for the same files and Steam logon ID.
@@ -576,13 +594,17 @@ public struct SteamQRDownloader: Sendable {
                         let result = try runner.run(
                             tool: tool,
                             arguments: DepotDownloaderTool.arguments(appID: appID, directory: destination, login: login, validate: validate),
-                            onEvent: { continuation.yield($0) }
+                            onEvent: onEvent
                         )
                         if let account = result.signedInAccount, login != .anonymous {
                             tool.rememberAccount(account)
                         }
                         switch result.outcome {
                         case .success:
+                            if updating {
+                                let changed = SteamDepotManager.downloadedManifests(in: destination) != before
+                                continuation.yield(.updateChecked(changed: changed))
+                            }
                             let exe = SteamDepotManager.mainExecutable(appID: appID, in: destination, preferredName: title, paths: paths)
                             try SteamDepotManager.markDownloadComplete(
                                 appID: appID,

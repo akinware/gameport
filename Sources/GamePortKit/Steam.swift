@@ -72,6 +72,33 @@ public struct SteamClient: Sendable {
         return text.range(of: #""StateFlags"\s+"4""#, options: .regularExpression) != nil
     }
 
+    /// True when this prefix's Windows Steam (`steam.exe`) is running. Never starts anything: running
+    /// `steam.exe -shutdown` to find out would start Steam when it is not running.
+    ///
+    /// A Wine process keeps files open in its wineserver's folder, `/tmp/.wine-<uid>/server-<dev>-<inode>`,
+    /// named after the prefix folder, so a `steam.exe` with that folder open belongs to this prefix.
+    public var isRunning: Bool {
+        guard let server = Self.wineServerFolderName(prefix: runner.prefix) else { return false }
+        let ps = (try? Shell.run("/bin/ps", ["-axo", "pid=,command="], check: false))?.output ?? ""
+        let pids = ps.split(separator: "\n").compactMap { line -> String? in
+            let parts = line.trimmingCharacters(in: .whitespaces).split(separator: " ", maxSplits: 1)
+            guard parts.count == 2, parts[1].hasPrefix(#"C:\Program Files (x86)\Steam\steam.exe"#) else { return nil }
+            return String(parts[0])
+        }
+        for pid in pids {
+            let open = (try? Shell.run("/usr/sbin/lsof", ["-a", "-p", pid, "-Fn"], check: false))?.output ?? ""
+            if open.contains("/\(server)/") { return true }
+        }
+        return false
+    }
+
+    /// `server-<st_dev>-<st_ino>` (hex), the wineserver folder Wine uses for `prefix`.
+    static func wineServerFolderName(prefix: URL) -> String? {
+        var st = stat()
+        guard stat(prefix.path, &st) == 0 else { return nil }
+        return "server-" + String(UInt64(st.st_dev), radix: 16) + "-" + String(UInt64(st.st_ino), radix: 16)
+    }
+
     /// Asks Steam to quit and waits for the prefix to go quiet; after `seconds` everything is stopped.
     public func shutdown(within seconds: TimeInterval = 60) throws {
         _ = try? runner.run([windowsExe, "-shutdown"], sync: SyncMode.none, check: false)

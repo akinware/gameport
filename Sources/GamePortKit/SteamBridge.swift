@@ -329,6 +329,11 @@ public struct SteamBridge: Sendable {
         _ = appID
     }
 
+    /// Where Mac Steam keeps Workshop items for `appID`.
+    public static func macSteamWorkshopFolder(appID: Int, home: URL = FileManager.default.homeDirectoryForCurrentUser) -> URL {
+        home.appendingPathComponent("Library/Application Support/Steam/steamapps/workshop/content/\(appID)", isDirectory: true)
+    }
+
     /// Launches a Windows Steam game executable directly through GamePort Bridge (zero Windows Steam).
     public func launch(
         runner: WineRunner,
@@ -379,6 +384,8 @@ public struct SteamBridge: Sendable {
         let insidePrefix = executable.standardizedFileURL.path.hasPrefix(runner.prefix.standardizedFileURL.path + "/")
         let folder = gameFolder ?? executable.deletingLastPathComponent()
         let windowsPath = insidePrefix ? nil : try runner.mapGameDrive(folder, executable: executable)
+        // Workshop items Mac Steam downloads for this game: the Bridge turns their macOS folder into W:\….
+        try runner.mapDrive(WineRunner.workshopDrive, to: Self.macSteamWorkshopFolder(appID: appID, home: home))
         return try runner.spawn(
             [windowsPath ?? executable.path] + arguments,
             extra: extra,

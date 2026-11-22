@@ -654,6 +654,8 @@ do {
                         lastPrinted = pct
                         print(String(format: "%6.2f%% %@", pct, detail))
                     }
+                case .updateChecked(let changed):
+                    print(changed ? "✓ Updated to the latest version" : "✓ Already up to date")
                 case .completed(let dir, let exe):
                     print("✓ Downloaded AppID \(appID) -> \(dir.path)")
                     if let exe { print("  Detected main executable: \(exe.path)") }

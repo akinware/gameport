@@ -103,7 +103,7 @@ extension GamePort {
         timeout: TimeInterval = 90,
         progress: ProgressHandler? = nil
     ) throws {
-        if let steam = try? steam(for: profileID), let up = try? steam.runner.waitForServer(timeout: 1), !up {
+        if let steam = try? steam(for: profileID), steam.isRunning {
             progress?("Closing this game's Windows Steam (it would sign Mac Steam out)…")
             try? steam.shutdown(within: 30)
         }

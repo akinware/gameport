@@ -211,7 +211,8 @@ public struct WineRunner: Sendable {
     public static let prefixDefaults = ConfigPatcher.WineDefault.openGL.registry
 
     /// Wine maps the whole Mac as Z: and every mounted volume as D:, E:, …. Keep only C: (and the prefix),
-    /// plus GamePort's own X: (engine) and Y: (the game's depot folder), so a game cannot wander the disk.
+    /// plus GamePort's own X: (engine), Y: (the game's depot folder) and W: (its Workshop folder in
+    /// Mac Steam), so a game cannot wander the disk.
     /// Steam libraries live inside the prefix, so nothing a game needs is lost.
     /// Wine's mount manager adds volumes again while it runs; this clears them each time the prefix is settled.
     /// Known gap: on macOS, mountmgr.sys (diskarb.c) gives every removable volume, mounted disk images
@@ -232,7 +233,9 @@ public struct WineRunner: Sendable {
     /// hands to mounted volumes.
     public static let engineDrive = "x:"
     public static let gameDrive = "y:"
-    static let keptDrives: Set<String> = ["c:", engineDrive, gameDrive]
+    /// Mac Steam's Workshop folder for a Bridge game, so the game can open the mods Mac Steam downloads.
+    public static let workshopDrive = "w:"
+    static let keptDrives: Set<String> = ["c:", engineDrive, gameDrive, workshopDrive]
 
     /// Maps the (read-only, shared) engine as X:. Without Z:, Wine can name its own data folder only as
     /// a `\\?\unix\…` path, which mscoree cannot use: Wine Mono is then "not installed" and every .NET

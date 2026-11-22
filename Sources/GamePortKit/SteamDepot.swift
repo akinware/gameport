@@ -98,6 +98,14 @@ public struct SteamDepotManager: Sendable {
         dir.appendingPathComponent("steamapps/appmanifest_\(appID).acf")
     }
 
+    /// The depot manifests DepotDownloader has downloaded into `dir` (`<depot>_<manifest>.manifest`).
+    /// A new game version brings new manifest IDs, so a changed set after an update means files changed.
+    public static func downloadedManifests(in dir: URL) -> Set<String> {
+        let work = dir.appendingPathComponent(".DepotDownloader")
+        let names = (try? FileManager.default.contentsOfDirectory(atPath: work.path)) ?? []
+        return Set(names.filter { $0.hasSuffix(".manifest") })
+    }
+
     /// Whether a depot folder holds a finished download:
     /// - an app manifest exists: finished only when it reports `StateFlags` 4 (fully installed);
     /// - a DepotDownloader work folder exists without a manifest: still downloading (or interrupted);

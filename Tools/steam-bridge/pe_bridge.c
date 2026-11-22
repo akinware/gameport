@@ -91,6 +91,7 @@ static int classify_interface(const char *name) {
     if (strncmp(name, "SteamGameServerStats", 20) == 0) return GP_IFACE_STEAMGAMESERVERSTATS;
     /* "SteamGameServer015" (not "SteamGameServerStats001") */
     if (strncmp(name, "SteamGameServer0", 16) == 0) return GP_IFACE_STEAMGAMESERVER;
+    if (strncmp(name, "STEAMUGC_INTERFACE_VERSION", 26) == 0) return GP_IFACE_STEAMUGC;
     return GP_IFACE_GENERIC;
 }
 
@@ -156,6 +157,30 @@ static struct gp_proxy *wrap_native_object(uint64_t native_obj, const char *ifac
     }
     LeaveCriticalSection(&g_proxy_lock);
     return p;
+}
+
+/* Mac Steam answers folder questions (e.g. where a Workshop item is installed) with a macOS path.
+ * Rewrites such a path in place to the Windows path Wine gives it through the prefix's drive
+ * letters (GamePort maps Mac Steam's Workshop folder for the game as W:). Leaves anything that is
+ * not an absolute macOS path, or that does not fit `cap`, unchanged. */
+typedef WCHAR *(CDECL *gp_wine_get_dos_file_name_fn)(const char *);
+static void gp_unix_path_to_dos(char *buf, uint32_t cap) {
+    static gp_wine_get_dos_file_name_fn to_dos;
+    static int looked;
+    if (!buf || cap < 2 || buf[0] != '/') return;
+    if (!looked) {
+        HMODULE k32 = GetModuleHandleA("kernel32.dll");
+        if (k32) to_dos = (gp_wine_get_dos_file_name_fn)(void *)GetProcAddress(k32, "wine_get_dos_file_name");
+        looked = 1;
+    }
+    if (!to_dos) return;
+    buf[cap - 1] = '\0';
+    WCHAR *dos = to_dos(buf);
+    if (!dos) return;
+    char out[4096];
+    int n = WideCharToMultiByte(CP_UTF8, 0, dos, -1, out, (int)sizeof(out), NULL, NULL);
+    HeapFree(GetProcessHeap(), 0, dos);
+    if (n > 0 && (uint32_t)n <= cap) memcpy(buf, out, (size_t)n);
 }
 
 /* --------------------------------------------------------------------------
@@ -612,6 +637,32 @@ static uint64_t gp_dispatch_slot(
             if (GP_PTR(a1) && a2 > 0) GP_IN(2, a2);
             if (GP_PTR(a3)) GP_OUT(0, 4, 8);
         }
+        break;
+
+    case GP_IFACE_STEAMUGC:
+        /* ISteamUGC016 — Workshop. Slots read from the flat API thunks of a steam_api64.dll built
+         * for 016 (SteamAPI_ISteamUGC_* jump through [vtable + 8 * slot]). */
+        if (ver != 16) break;
+        if (slot == 68) {
+            /* GetSubscribedItems(PublishedFileId_t *pvecPublishedFileID, uint32 cMaxEntries) */
+            if (GP_PTR(a0) && a1 > 0 && a1 <= 65536) GP_OUT(0, 1, a1 * 8);
+        } else if (slot == 70) {
+            /* GetItemInstallInfo(PublishedFileId_t, uint64 *punSizeOnDisk, char *pchFolder,
+             *                    uint32 cchFolderSize, uint32 *punTimeStamp) */
+            int folder = GP_PTR(a2) && a3 > 1 && a3 <= 65536;
+            if (GP_PTR(a1)) GP_OUT(0, 2, 8);
+            if (folder) GP_OUT(1, 3, a3);
+            if (GP_PTR(a4)) GP_OUT(2, 5, 4);
+            if (gp_unix_call(GP_BRIDGE_OP_VTABLE_CALL, &call) != 0) return 0;
+            if ((call.ret_u64 & 0xff) && folder) gp_unix_path_to_dos((char *)(uintptr_t)a2, (uint32_t)a3);
+            return call.ret_u64;
+        } else if (slot == 71) {
+            /* GetItemDownloadInfo(PublishedFileId_t, uint64 *punBytesDownloaded, uint64 *punBytesTotal) */
+            if (GP_PTR(a1)) GP_OUT(0, 2, 8);
+            if (GP_PTR(a2)) GP_OUT(1, 3, 8);
+        }
+        /* GetNumSubscribedItems (67), GetItemState (69) and DownloadItem (72) take and return
+         * plain values. */
         break;
 
     default:

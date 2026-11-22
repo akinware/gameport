@@ -80,3 +80,23 @@ final class WindowsSteamLibraryTests: XCTestCase {
         XCTAssertThrowsError(try kit.switchEngine("g", to: "not-installed"))
     }
 }
+
+final class WindowsSteamProcessTests: XCTestCase {
+    func testWineServerFolderIsNamedAfterThePrefix() throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("gp-srv-\(UUID().uuidString)")
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let attrs = try FileManager.default.attributesOfItem(atPath: dir.path)
+        let dev = try XCTUnwrap(attrs[.systemNumber] as? NSNumber).uint64Value
+        let ino = try XCTUnwrap(attrs[.systemFileNumber] as? NSNumber).uint64Value
+        XCTAssertEqual(SteamClient.wineServerFolderName(prefix: dir),
+                       "server-\(String(dev, radix: 16))-\(String(ino, radix: 16))")
+        XCTAssertNil(SteamClient.wineServerFolderName(prefix: dir.appendingPathComponent("missing")))
+    }
+
+    func testWorkshopDriveSurvivesIsolation() {
+        XCTAssertTrue(WineRunner.keptDrives.contains(WineRunner.workshopDrive))
+        XCTAssertEqual(SteamBridge.macSteamWorkshopFolder(appID: 261550, home: URL(fileURLWithPath: "/Users/x")).path,
+                       "/Users/x/Library/Application Support/Steam/steamapps/workshop/content/261550")
+    }
+}

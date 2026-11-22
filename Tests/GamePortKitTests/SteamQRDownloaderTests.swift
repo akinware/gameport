@@ -307,3 +307,21 @@ final class DepotExecutableTests: XCTestCase {
         XCTAssertFalse(exe?.lastPathComponent.contains("CodeGenerator") ?? true)
     }
 }
+
+final class DepotUpdateTests: XCTestCase {
+    func testNewManifestMeansTheGameChanged() throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("gp-update-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let work = dir.appendingPathComponent(".DepotDownloader")
+        try FileManager.default.createDirectory(at: work, withIntermediateDirectories: true)
+        try Data().write(to: work.appendingPathComponent("261551_111.manifest"))
+        try Data().write(to: work.appendingPathComponent("261551_111.manifest.sha"))
+        try Data().write(to: work.appendingPathComponent("depot.config"))
+        let before = SteamDepotManager.downloadedManifests(in: dir)
+        XCTAssertEqual(before, ["261551_111.manifest"])
+        XCTAssertEqual(SteamDepotManager.downloadedManifests(in: dir), before, "nothing new: up to date")
+        try Data().write(to: work.appendingPathComponent("261551_222.manifest"))
+        XCTAssertNotEqual(SteamDepotManager.downloadedManifests(in: dir), before, "a new version brings a new manifest")
+        XCTAssertEqual(SteamDepotManager.downloadedManifests(in: dir.appendingPathComponent("missing")), [])
+    }
+}

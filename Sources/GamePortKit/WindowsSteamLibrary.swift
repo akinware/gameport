@@ -61,7 +61,7 @@ extension GamePort {
         }
 
         // Windows Steam must not be running while its library changes under it.
-        if let up = try? r.waitForServer(timeout: 1), !up {
+        if steam.isRunning {
             progress?("Closing Windows Steam…")
             try? steam.shutdown(within: 30)
         }
