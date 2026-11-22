@@ -412,6 +412,7 @@ public struct GamePort: Sendable {
     public func launchWithSteamBridge(
         _ profileID: String,
         executable: URL? = nil,
+        arguments: [String] = [],
         depotDirectory: URL? = nil,
         allowVACOverride: Bool = false,
         verboseLog: Bool = false,
@@ -441,6 +442,7 @@ public struct GamePort: Sendable {
         let proc = try steamBridge.launch(
             runner: r,
             executable: targetExe,
+            arguments: arguments,
             appID: appID,
             antiCheat: ac,
             allowVACOverride: allowVACOverride,

@@ -654,8 +654,10 @@ do {
             var dir: URL? = nil
             var forceVAC = false
             var verbose = false
+            var gameArgs: [String] = []
             var it = args.dropFirst(2).makeIterator()
             while let tok = it.next() {
+                if tok == "--" { while let a = it.next() { gameArgs.append(a) }; break }
                 if tok == "--exe" { if let p = it.next() { exe = URL(fileURLWithPath: p) } }
                 else if tok == "--dir" { if let d = it.next() { dir = URL(fileURLWithPath: d, isDirectory: true) } }
                 else if tok == "--force-vac" { forceVAC = true }
@@ -665,6 +667,7 @@ do {
             let proc = try gameport.launchWithSteamBridge(
                 id,
                 executable: exe,
+                arguments: gameArgs,
                 depotDirectory: dir,
                 allowVACOverride: forceVAC,
                 verboseLog: verbose,

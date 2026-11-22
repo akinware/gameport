@@ -75,7 +75,7 @@ struct gp_ipc_response {
     uint32_t ret_is_str;
     uint32_t payload_len;
     uint32_t out_len[3];
-    uint32_t reserved0;
+    uint32_t ret_is_obj;   /* ret_u64 is a native C++ object: the PE side must wrap it in a proxy */
     char     ret_str[GP_IPC_MAX_STR];
     char     dylib_path[GP_BRIDGE_MAX_PATH];
     char     error_msg[256];
@@ -180,7 +180,10 @@ static bool try_probe_wine_cstr(uint64_t addr, char *out, size_t cap) {
         (mach_vm_address_t)tmp, &got
     );
     if (kr != KERN_SUCCESS || got == 0) {
-        kr = mach_vm_read_overwrite(mach_task_self(), (mach_vm_address_t)addr, 32, (mach_vm_address_t)tmp, &got);
+        /* The string may sit near the end of a mapping: read only up to the page boundary. */
+        size_t to_page_end = 4096 - (size_t)(addr & 4095);
+        size_t n2 = to_page_end < len ? to_page_end : len;
+        kr = mach_vm_read_overwrite(mach_task_self(), (mach_vm_address_t)addr, n2, (mach_vm_address_t)tmp, &got);
         if (kr != KERN_SUCCESS || got == 0) return false;
     }
     size_t n = 0;
@@ -189,7 +192,9 @@ static bool try_probe_wine_cstr(uint64_t addr, char *out, size_t cap) {
         if (c < 0x09 || (c > 0x0D && c < 0x20) || c == 0x7F) return false;
         n++;
     }
-    if (n == 0 || n == (size_t)got) return false;
+    /* An empty string ("") is still a string: the native side lives in another process and could
+     * never read the game's pointer, so passing a copy is always safer than the raw address. */
+    if (n == (size_t)got) return false;
     memcpy(out, tmp, n);
     out[n] = '\0';
     return true;
@@ -411,6 +416,7 @@ static NTSTATUS gp_unix_vtable_call(void *raw) {
     if (ok && g_resp.status == 0) {
         p->ret_u64 = g_resp.ret_u64;
         p->ret_f64 = g_resp.ret_f64;
+        p->ret_is_obj = g_resp.ret_is_obj;
         uint32_t off = 0;
         for (int k = 0; k < 3; k++) {
             uint8_t idx = p->out_arg_idx[k];

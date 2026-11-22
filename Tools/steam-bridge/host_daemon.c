@@ -67,7 +67,7 @@ struct gp_ipc_response {
     uint32_t ret_is_str;
     uint32_t payload_len;
     uint32_t out_len[3];
-    uint32_t reserved0;
+    uint32_t ret_is_obj;   /* ret_u64 is a native C++ object: the PE side must wrap it in a proxy */
     char     ret_str[GP_IPC_MAX_STR];
     char     dylib_path[GP_BRIDGE_MAX_PATH];
     char     error_msg[256];
@@ -93,6 +93,28 @@ typedef bool (*fn_Steam_GetAPICallResult_t)(int32_t hSteamPipe, uint64_t hSteamA
                                             void *pCallback, int32_t cubCallback,
                                             int32_t iCallbackExpected, bool *pbFailed);
 typedef void (*fn_Steam_ReleaseThreadLocalMemory_t)(int32_t bThreadExit);
+
+struct gp_ret_blob20 { uint8_t bytes[20]; };
+typedef struct gp_ret_blob20 (*native_vfn_blob20_t)(void *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t);
+
+/* Base address of the loaded steamclient image, to recognise objects whose vtable lives there. */
+static const void *g_steamclient_base = NULL;
+
+/* True when `p` is a C++ object of steamclient: readable, and its first word (the vtable
+ * pointer) points into the steamclient image. Such returns must become PE-side proxies. */
+static bool looks_like_native_object(uint64_t p) {
+    if (!g_steamclient_base || p < 0x10000ULL || (p & 7)) return false;
+    uint64_t vt = 0;
+    mach_vm_size_t got = 0;
+    if (mach_vm_read_overwrite(mach_task_self(), (mach_vm_address_t)p, sizeof(vt),
+                               (mach_vm_address_t)&vt, &got) != KERN_SUCCESS || got != sizeof(vt)) {
+        return false;
+    }
+    if (vt < 0x10000ULL || (vt & 7)) return false;
+    Dl_info info;
+    if (!dladdr((const void *)(uintptr_t)vt, &info)) return false;
+    return info.dli_fbase == g_steamclient_base;
+}
 
 typedef uint64_t (*sysv_vfn_u64_t)(void *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t);
 typedef double   (*sysv_vfn_f64_t)(void *, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, uint64_t);
@@ -224,6 +246,9 @@ int main(int argc, char **argv) {
             snprintf(dylib_path, sizeof(dylib_path), "%s", candidates[i]);
             error_msg[0] = '\0';
             if (verbose) fprintf(stderr, "[gpsteambridge-host] loaded %s\n", dylib_path);
+            Dl_info self_info;
+            void *sym = dlsym(h, "CreateInterface");
+            if (sym && dladdr(sym, &self_info)) g_steamclient_base = self_info.dli_fbase;
         } else {
             const char *e = dlerror();
             snprintf(error_msg, sizeof(error_msg), "dlopen(%s): %s", candidates[i], e ? e : "unknown");
@@ -351,9 +376,18 @@ int main(int argc, char **argv) {
                     uint32_t bits = 0;
                     memcpy(&bits, &f, sizeof(bits));
                     resp->ret_u64 = bits;
+                } else if (req->flags & GP_CALL_FLAG_RET_BLOB20) {
+                    /* a[0] already points at the out-arg payload buffer (out_arg_idx 1). */
+                    struct gp_ret_blob20 r = ((native_vfn_blob20_t)vt[req->slot])(obj, a[1], a[2], a[3], a[4], a[5], a[6], a[7]);
+                    if (req->out_arg_idx[0] == 1 && req->out_arg_len[0] >= sizeof(r)) {
+                        memcpy((void *)(uintptr_t)a[0], &r, sizeof(r));
+                    }
+                    resp->ret_u64 = 0;
                 } else {
                     resp->ret_u64 = ((sysv_vfn_u64_t)vt[req->slot])(obj, a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7]);
-                    if (resp->ret_u64) {
+                    if (resp->ret_u64 && looks_like_native_object(resp->ret_u64)) {
+                        resp->ret_is_obj = 1;
+                    } else if (resp->ret_u64) {
                         bool explicit_cstr = (req->flags & GP_CALL_FLAG_RET_CSTR) != 0;
                         bool auto_cstr = (req->flags & GP_CALL_FLAG_NO_AUTO_CSTR) == 0 && resp->ret_u64 >= 0x100000000ULL;
                         if (explicit_cstr || auto_cstr) {
@@ -365,7 +399,9 @@ int main(int argc, char **argv) {
                 }
                 g_in_vtable_call = 0;
                 if (verbose) {
-                    if (resp->ret_is_str) {
+                    if (resp->ret_is_obj) {
+                        fprintf(stderr, "[gpsteambridge-host]   -> obj=0x%llx\n", (unsigned long long)resp->ret_u64);
+                    } else if (resp->ret_is_str) {
                         fprintf(stderr, "[gpsteambridge-host]   -> str=\"%s\"\n", resp->ret_str);
                     } else {
                         fprintf(stderr, "[gpsteambridge-host]   -> 0x%llx\n", (unsigned long long)resp->ret_u64);

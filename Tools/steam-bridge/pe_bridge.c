@@ -77,6 +77,8 @@ static int classify_interface(const char *name) {
     if (strncmp(name, "STEAMUSERSTATS_", 15) == 0) return GP_IFACE_STEAMUSERSTATS;
     if (strncmp(name, "SteamGameCoordinator", 20) == 0) return GP_IFACE_STEAMGC;
     if (strncmp(name, "SteamNetworkingUtils", 20) == 0) return GP_IFACE_STEAMNETUTILS;
+    /* "SteamGameServer015" (not "SteamGameServerStats001") */
+    if (strncmp(name, "SteamGameServer0", 16) == 0) return GP_IFACE_STEAMGAMESERVER;
     return GP_IFACE_GENERIC;
 }
 
@@ -177,6 +179,9 @@ static uint64_t gp_dispatch_slot(
          * Slot 8 is GetFriendGamePlayed(CSteamID, FriendGameInfo_t *): its first argument is a
          * SteamID value, not a return pointer (see the out-struct marshaling below). */
         is_msvc_sret8 = (a0 >= 0x10000ULL);
+    } else if (self->kind == GP_IFACE_STEAMGAMESERVER && (slot == 10 || slot == 39)) {
+        /* ISteamGameServer015::GetSteamID (10) / CreateUnauthenticatedUserConnection (39) */
+        is_msvc_sret8 = (a0 >= 0x10000ULL);
     }
 
     /* Never write a return value through something that is not writable memory in this process. */
@@ -227,7 +232,48 @@ static uint64_t gp_dispatch_slot(
     }
 
     /* Out-pointer / buffer marshaling across host daemon socket (out_arg_idx uses 1..8, 0=unused) */
-    if (self->kind == GP_IFACE_STEAMHTTP) {
+    if (self->kind == GP_IFACE_STEAMCLIENT) {
+        if (slot == 3) {
+            /* CreateLocalUser(HSteamPipe *phSteamPipe, EAccountType): used by SteamGameServer_Init
+             * (listen servers, e.g. TF2 training / offline practice). The pipe is written back;
+             * 0 going in asks Steam for a new pipe, which is what the game passes. */
+            if (a0 >= 0x10000ULL) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = 4; }
+        } else if (slot == 7) {
+            /* SetLocalIPBinding(const SteamIPAddress_t &unIP, uint16 usPort):
+             * 16-byte IPv6 + 4-byte ESteamIPType = 20 bytes, read from the game's memory. */
+            if (a0 >= 0x10000ULL) { call.in_buf_arg_idx = 1; call.in_buf_len = 20; }
+        }
+    } else if (self->kind == GP_IFACE_STEAMGAMESERVER) {
+        /* ISteamGameServer015 — used by listen servers (TF2 training, offline practice, local servers). */
+        if (slot == 25) {
+            /* GetAuthSessionTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket, const SteamNetworkingIdentity *pSnid) */
+            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 16384) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
+            if (a2 >= 0x10000ULL) { call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4; }
+            if (a3 >= 0x10000ULL) { call.in_buf_arg_idx = 4; call.in_buf_len = 136; }
+        } else if (slot == 26 || slot == 34) {
+            /* BeginAuthSession(const void *pAuthTicket, int cbAuthTicket, CSteamID) /
+             * HandleIncomingPacket(const void *pData, int cbData, uint32 srcIP, uint16 srcPort) */
+            if (a0 >= 0x10000ULL && a1 > 0) { call.in_buf_arg_idx = 1; call.in_buf_len = (uint32_t)a1; }
+        } else if (slot == 33) {
+            /* SteamIPAddress_t GetPublicIP(): 20-byte struct returned through a hidden pointer (a0). */
+            if (gp_is_writable(a0, 20)) {
+                call.flags |= GP_CALL_FLAG_RET_BLOB20;
+                call.out_arg_idx[0] = 1; call.out_arg_len[0] = 20;
+                if (gp_unix_call(GP_BRIDGE_OP_VTABLE_CALL, &call) != 0) memset((void *)(uintptr_t)a0, 0, 20);
+                return a0;
+            }
+            return 0;
+        } else if (slot == 35) {
+            /* GetNextOutgoingPacket(void *pOut, int cbMaxOut, uint32 *pNetAdr, uint16 *pPort) */
+            if (a0 >= 0x10000ULL && a1 > 0) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
+            if (a2 >= 0x10000ULL) { call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4; }
+            if (a3 >= 0x10000ULL) { call.out_arg_idx[2] = 4; call.out_arg_len[2] = 2; }
+        } else if (slot == 38) {
+            /* SendUserConnectAndAuthenticate_DEPRECATED(uint32 ip, const void *pvAuthBlob, uint32 cub, CSteamID *pSteamIDUser) */
+            if (a1 >= 0x10000ULL && a2 > 0) { call.in_buf_arg_idx = 2; call.in_buf_len = (uint32_t)a2; }
+            if (a3 >= 0x10000ULL) { call.out_arg_idx[0] = 4; call.out_arg_len[0] = 8; }
+        }
+    } else if (self->kind == GP_IFACE_STEAMHTTP) {
         if (slot == 5 || slot == 6) {
             /* SendHTTPRequest / SendHTTPRequestAndStreamResponse(hReq, SteamAPICall_t *pCallHandle) */
             if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 8; }
@@ -258,18 +304,63 @@ static uint64_t gp_dispatch_slot(
         } else if (slot == 11) {
             /* IsAPICallCompleted(hSteamAPICall, bool *pbFailed) */
             if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 1; }
+        } else if (slot == 22) {
+            /* GetEnteredGamepadTextInput(char *pchText, uint32 cchText) */
+            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 65536) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
+        } else if (slot == 32) {
+            /* FilterText(ETextFilteringContext, CSteamID source, const char *pchIn, char *pchOut, uint32 cbOut) */
+            if (a1 == 0) {
+                /* No source user (server/system text): native Steam crashes on this, and there is
+                 * nothing to filter, so hand the text back unchanged. */
+                if (!gp_is_writable(a3, 1) || a4 == 0) return 0;
+                const char *in = (a2 >= 0x10000ULL) ? (const char *)(uintptr_t)a2 : "";
+                size_t n = strnlen(in, (size_t)a4 - 1);
+                memcpy((void *)(uintptr_t)a3, in, n);
+                ((char *)(uintptr_t)a3)[n] = '\0';
+                return (uint64_t)n;
+            }
+            if (a3 >= 0x10000ULL && a4 > 0 && a4 <= 65536) { call.out_arg_idx[0] = 4; call.out_arg_len[0] = (uint32_t)a4; }
         } else if (slot == 13) {
             /* GetAPICallResult(hSteamAPICall, void *pCallback, int cubCallback, int expected, bool *pbFailed) */
             if (a1 >= 0x10000ULL && a2 > 0) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = (uint32_t)a2; }
             if (a4 >= 0x10000ULL) { call.out_arg_idx[1] = 5; call.out_arg_len[1] = 1; }
         }
     } else if (self->kind == GP_IFACE_STEAMUSER) {
-        if (slot == 12 || slot == 13 || slot == 11) {
-            /* GetAuthSessionTicket / GetEncryptedAppTicket(void *pTicket, int cbMax, uint32 *pcbTicket) */
-            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 16384 && a2 >= 0x10000ULL) {
-                call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1;
-                call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4;
-            }
+        /* ISteamUser023 slots (Steamworks SDK order). */
+        if (slot == 3) {
+            /* InitiateGameConnection_DEPRECATED(void *pAuthBlob, int cbMaxAuthBlob, CSteamID, uint32 ip, uint16 port, bool) */
+            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 16384) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
+        } else if (slot == 6) {
+            /* GetUserDataFolder(char *pchBuffer, int cubBuffer) */
+            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 4096) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
+        } else if (slot == 9) {
+            /* GetAvailableVoice(uint32 *pcbCompressed, uint32 *pcbUncompressed_Deprecated, uint32 rate) */
+            if (a0 >= 0x10000ULL) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = 4; }
+            if (a1 >= 0x10000ULL) { call.out_arg_idx[1] = 2; call.out_arg_len[1] = 4; }
+        } else if (slot == 10) {
+            /* GetVoice(bool bWantCompressed, void *pDest, uint32 cbDest, uint32 *nBytesWritten, ...deprecated) */
+            if (a1 >= 0x10000ULL && a2 > 0) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = (uint32_t)a2; }
+            if (a3 >= 0x10000ULL) { call.out_arg_idx[1] = 4; call.out_arg_len[1] = 4; }
+        } else if (slot == 11) {
+            /* DecompressVoice(const void *pCompressed, uint32 cbCompressed, void *pDest, uint32 cbDest, uint32 *nBytesWritten, uint32 rate) */
+            if (a0 >= 0x10000ULL && a1 > 0) { call.in_buf_arg_idx = 1; call.in_buf_len = (uint32_t)a1; }
+            if (a2 >= 0x10000ULL && a3 > 0) { call.out_arg_idx[0] = 3; call.out_arg_len[0] = (uint32_t)a3; }
+            if (a4 >= 0x10000ULL) { call.out_arg_idx[1] = 5; call.out_arg_len[1] = 4; }
+        } else if (slot == 13) {
+            /* GetAuthSessionTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket, const SteamNetworkingIdentity *pSnid) */
+            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 16384) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
+            if (a2 >= 0x10000ULL) { call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4; }
+            if (a3 >= 0x10000ULL) { call.in_buf_arg_idx = 4; call.in_buf_len = 136; }
+        } else if (slot == 15) {
+            /* BeginAuthSession(const void *pAuthTicket, int cbAuthTicket, CSteamID) */
+            if (a0 >= 0x10000ULL && a1 > 0) { call.in_buf_arg_idx = 1; call.in_buf_len = (uint32_t)a1; }
+        } else if (slot == 21) {
+            /* RequestEncryptedAppTicket(void *pDataToInclude, int cbDataToInclude) */
+            if (a0 >= 0x10000ULL && a1 > 0) { call.in_buf_arg_idx = 1; call.in_buf_len = (uint32_t)a1; }
+        } else if (slot == 22) {
+            /* GetEncryptedAppTicket(void *pTicket, int cbMaxTicket, uint32 *pcbTicket) */
+            if (a0 >= 0x10000ULL && a1 > 0 && a1 <= 16384) { call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1; }
+            if (a2 >= 0x10000ULL) { call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4; }
         }
     } else if (self->kind == GP_IFACE_STEAMFRIENDS) {
         if (slot == 8) {
@@ -350,6 +441,14 @@ static uint64_t gp_dispatch_slot(
             struct gp_proxy *child = wrap_native_object(call.ret_u64, ver);
             return (uint64_t)(uintptr_t)child;
         }
+    }
+
+    /* Any other method that hands back a steamclient object (e.g.
+     * ISteamNetworkingSockets::CreateFakeUDPPort): the game must only ever see a proxy, never a
+     * pointer into the native host process. */
+    if (call.ret_is_obj && call.ret_u64) {
+        struct gp_proxy *child = wrap_native_object(call.ret_u64, NULL);
+        return (uint64_t)(uintptr_t)child;
     }
 
     return call.ret_u64;

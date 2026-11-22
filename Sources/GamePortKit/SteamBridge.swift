@@ -278,6 +278,10 @@ public struct SteamBridge: Sendable {
         if verboseLog {
             env["GP_STEAM_BRIDGE_LOG"] = "1"
         }
+        // Debugging aid: e.g. GAMEPORT_WINEDEBUG=+seh to see the exception behind a silent exit.
+        if let debug = ProcessInfo.processInfo.environment["GAMEPORT_WINEDEBUG"], !debug.isEmpty {
+            env["WINEDEBUG"] = debug
+        }
         return env
     }
 

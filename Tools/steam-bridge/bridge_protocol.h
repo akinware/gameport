@@ -42,7 +42,12 @@ enum gp_call_flags {
     /* WoW64 / Host IPC: native method returns a `const char *`; copy into Wine buffer. */
     GP_CALL_FLAG_RET_CSTR    = (1u << 3),
     /* Suppress automatic C-string probing on return value (e.g. ISteamClient sub-interface getters). */
-    GP_CALL_FLAG_NO_AUTO_CSTR = (1u << 4)
+    GP_CALL_FLAG_NO_AUTO_CSTR = (1u << 4),
+    /* Method returns a 20-byte struct by value (SteamIPAddress_t). MSVC passes the hidden return
+     * buffer after `this` (arg 0, marshaled as out-arg 1). The native ABI differs (SysV x86_64: RDI
+     * before `this`; arm64: x8), so the host calls through a typed struct-returning pointer and
+     * copies the result into the out-arg buffer. */
+    GP_CALL_FLAG_RET_BLOB20 = (1u << 5)
 };
 
 /* Known proxy interface families for ABI adjustments & sub-interface wrapping */
@@ -61,7 +66,8 @@ enum gp_iface_kind {
     GP_IFACE_STEAMINPUT       = 11,
     GP_IFACE_STEAMUSERSTATS   = 12,
     GP_IFACE_STEAMGC          = 13,
-    GP_IFACE_STEAMNETUTILS    = 14
+    GP_IFACE_STEAMNETUTILS    = 14,
+    GP_IFACE_STEAMGAMESERVER  = 15
 };
 
 #pragma pack(push, 8)
@@ -103,6 +109,8 @@ struct gp_vtable_call_args {
     uint32_t in_buf_len;         /* in: byte size for in_buf_arg_idx */
     uint64_t ret_u64;            /* out: RAX return value */
     double   ret_f64;            /* out: XMM0 return value */
+    uint32_t ret_is_obj;         /* out: ret_u64 is a native C++ object (vtable inside steamclient) */
+    uint32_t reserved;
 };
 
 struct gp_get_callback_args {
