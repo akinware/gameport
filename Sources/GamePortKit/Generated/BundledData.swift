@@ -87,6 +87,73 @@ enum BundledData {
   }
 }
 """#,
+        #"""
+{
+  "schema": 1,
+  "id": "x64-wine-staging-11.21",
+  "displayName": "Wine Staging 11.21 (Official WineHQ macOS) — Intel, Rosetta 2",
+  "arch": "x86_64",
+  "overlayMode": "prefix",
+  "supportsKosmicKrisp": false,
+  "minMacOS": "14.0",
+  "wineLoader": "engine/bin/wine",
+  "wineServer": "engine/bin/wineserver",
+  "notes": [
+    "100% upstream WineHQ macOS build (Gcenx/macOS_Wine_builds 11.21, LGPL-2.1) with zero dependency on CrossOver or Highball.",
+    "Includes official 3Shain/dxmt v0.80 (MIT) for Direct3D 10/11 → Metal and Sikarugir Template 1.0.27's DXVK (zlib) for Direct3D 9/10/11 → Vulkan → Metal.",
+    "Uses reversible prefix DLL staging (overlayMode: prefix) + WINEDLLPATH so DXMT, DXVK, and WineD3D switch cleanly on stock Wine without mutating the engine."
+  ],
+  "components": [
+    {
+      "name": "wine",
+      "kind": "engine",
+      "url": "https://github.com/Gcenx/macOS_Wine_builds/releases/download/11.21/wine-staging-11.21-osx64.tar.xz",
+      "sha256": "d7bcd5abf4df27aae397a7898aef074fea4a2e0b51e0a55aa9659517bbf9d452",
+      "size": 228148688,
+      "license": "LGPL-2.1-or-later",
+      "extract": { "subpath": "Wine Staging.app/Contents/Resources/wine", "into": "engine" },
+      "order": 0
+    },
+    {
+      "name": "template-renderers",
+      "kind": "renderer",
+      "url": "https://github.com/Sikarugir-App/Template/releases/download/v1.0/Template-1.0.27.tar.xz",
+      "sha256": "dd0778f7b553d63df9b0f4e2cda3f3c6c005aabb75588c84d604afe80cdedbb9",
+      "size": 96161660,
+      "license": "mixed (MIT DXMT, zlib DXVK, Apple GPTK licence for D3DMetal)",
+      "extract": { "subpath": "Template-1.0.27.app/Contents/SharedSupport/renderer", "into": "frameworks/renderer" },
+      "order": 0
+    },
+    {
+      "name": "dxmt",
+      "kind": "renderer",
+      "url": "https://github.com/3Shain/dxmt/releases/download/v0.80/dxmt-v0.80-builtin.tar.gz",
+      "sha256": "8f260e36b5739e68f3bad613381441385c4dc7b85b78ba8de653d5a6a264529d",
+      "size": 18681669,
+      "license": "MIT",
+      "extract": { "subpath": "v0.80", "into": "renderers/dxmt/wine" },
+      "order": 1
+    },
+    {
+      "name": "winetricks",
+      "kind": "tool",
+      "url": "https://raw.githubusercontent.com/Winetricks/winetricks/5a59ea07513b24093bd90fad943ecf9543cf05bc/src/winetricks",
+      "sha256": "f35c29737ca08a583569e6a3752d52fbe23333c5acfad5f16c4177d25eaf3f4b",
+      "size": 849574,
+      "license": "LGPL-2.1-or-later",
+      "place": "tools/winetricks",
+      "executable": true,
+      "order": 2
+    }
+  ],
+  "baseEnvironment": {
+    "DYLD_FALLBACK_LIBRARY_PATH": "${root}/engine/lib:${root}/engine/lib/external",
+    "VK_ICD_FILENAMES": "${root}/engine/share/vulkan/icd.d/MoltenVK_icd.json",
+    "DXMT_ALLOW_CROSS_PROCESS_SWAPCHAIN": "1"
+  },
+  "licenses": {}
+}
+"""#,
     ]
     static let recipes: [String] = [
         #"""

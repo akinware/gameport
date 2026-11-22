@@ -54,7 +54,16 @@ public struct EngineManifest: Codable, Sendable, Equatable {
         public var x64: String
         public var x86: String
     }
+    public enum OverlayMode: String, Codable, Sendable, Equatable {
+        /// Engine honors `WINEDLLPATH_PREPEND` (CrossOver / patched Wine).
+        case prepend
+        /// Stock Wine (`WINEDLLPATH` searched after `lib/wine`): renderer DLLs are symlinked
+        /// into the profile's `system32`/`syswow64` before launch, and `WINEDLLPATH` exposes unix `.so`s.
+        case prefix
+    }
     public var fexModules: FEXModules?
+    /// How renderer DLL overlays reach Wine. Defaults to `.prepend` for backwards compatibility.
+    public var overlayMode: OverlayMode?
     /// The loader honors CX_LIBVULKAN and the engine includes a matching MoltenVK.
     public var supportsKosmicKrisp: Bool?
     public var minMacOS: String
@@ -66,6 +75,7 @@ public struct EngineManifest: Codable, Sendable, Equatable {
     public var notes: [String]
 
     public var requiresRosetta: Bool { arch == .rosetta }
+    public var effectiveOverlayMode: OverlayMode { overlayMode ?? .prepend }
 
     /// Total download size in bytes across unique component hashes.
     public var totalDownloadSize: Int64 {

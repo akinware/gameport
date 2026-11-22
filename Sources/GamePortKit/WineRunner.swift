@@ -97,6 +97,7 @@ public struct WineRunner: Sendable {
             try engine.checkFiles()
         }
         try paths.ensure(home, home.appendingPathComponent("tmp"), home.appendingPathComponent("cache"), logs)
+        try RendererStager.sync(renderer: effectiveRenderer, engine: engine, prefix: prefix)
     }
 
     /// Creates or updates the prefix.

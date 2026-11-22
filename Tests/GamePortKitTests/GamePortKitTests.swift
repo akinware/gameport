@@ -24,13 +24,16 @@ final class GamePortKitTests: XCTestCase {
 
     func testBundledEngineManifestIsValid() throws {
         let manifests = EngineStore.bundledManifests()
-        XCTAssertEqual(manifests.count, 1)
-        let m = try XCTUnwrap(manifests.first)
-        XCTAssertTrue(m.requiresRosetta)
-        XCTAssertEqual(m.licenses["apple-gptk"]?.gatesRenderers, ["d3dmetal"])
-        XCTAssertEqual(Renderer.d3dmetal.gatingLicense(in: m), "apple-gptk")
-        XCTAssertNil(Renderer.dxmt.gatingLicense(in: m))
-        XCTAssertTrue(m.components.contains { $0.kind == "engine" })
+        XCTAssertEqual(manifests.count, BundledData.engineManifests.count, "a bundled engine manifest failed to decode or validate")
+        XCTAssertGreaterThanOrEqual(manifests.count, 2)
+        let primary = try XCTUnwrap(manifests.first)
+        XCTAssertTrue(primary.requiresRosetta)
+        XCTAssertEqual(primary.licenses["apple-gptk"]?.gatesRenderers, ["d3dmetal"])
+        XCTAssertEqual(Renderer.d3dmetal.gatingLicense(in: primary), "apple-gptk")
+        XCTAssertNil(Renderer.dxmt.gatingLicense(in: primary))
+        for m in manifests {
+            XCTAssertTrue(m.components.contains { $0.kind == "engine" })
+        }
     }
 
     func testAllBundledRecipesDecodeAndValidate() throws {

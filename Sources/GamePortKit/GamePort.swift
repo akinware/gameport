@@ -120,7 +120,7 @@ public struct GamePort: Sendable {
         let directory = profiles.directory(id)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false)
         var profile = Profile(id: id, title: recipe.title, recipeID: recipe.id, engineID: engine.id)
-        if engine.manifest.arch == .fex && recipe.renderer == .d3dmetal {
+        if (engine.manifest.arch == .fex || engine.manifest.effectiveOverlayMode == .prefix) && recipe.renderer == .d3dmetal {
             profile.renderer = engine.rendererDirectory("dxmt") == nil ? .wined3d : .dxmt
         }
         // The prefix itself does not need a licence-gated renderer: set it up with wined3d, keep the choice.

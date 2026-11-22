@@ -133,4 +133,94 @@ final class StorageAndSelfHealingTests: XCTestCase {
         XCTAssertNoThrow(try gp.removeEngine("custom-one"))
         XCTAssertNil(gp.engineCatalog().first(where: { $0.id == "custom-one" }))
     }
+
+    func testBundledWineStagingManifestAndPrefixRendererStagerRoundTrip() throws {
+        let gp = GamePort(paths: Paths(root: temp))
+        let bundled = EngineStore.bundledManifests()
+        XCTAssertEqual(bundled.first?.id, "x64-crossover26.3-hb20261014")
+        let staging = try XCTUnwrap(EngineStore.bundledManifest(id: "x64-wine-staging-11.21"))
+        XCTAssertEqual(staging.effectiveOverlayMode, .prefix)
+        XCTAssertGreaterThan(staging.totalDownloadSize, 300_000_000)
+
+        // Helper: fake PE with "Wine builtin DLL" marker at offset 0x40 and pe_offset = 0x80
+        func fakeBuiltinPE(_ tag: String) -> Data {
+            var d = Data(repeating: 0, count: 0x90)
+            d[0] = 0x4D; d[1] = 0x5A // MZ
+            d[0x3C] = 0x80           // pe_offset = 0x80
+            let mark = Data("Wine builtin DLL".utf8)
+            d.replaceSubrange(0x40..<(0x40 + mark.count), with: mark)
+            let tagData = Data(tag.utf8)
+            d.replaceSubrange(0x80..<(0x80 + min(tagData.count, 16)), with: tagData.prefix(16))
+            return d
+        }
+
+        // Build a fake .prefix engine with dxmt (pure PE d3d11 + unix-backed winemetal) + dxvk
+        let engineRoot = gp.paths.engine("prefix-test")
+        let fm = FileManager.default
+        let dxmt64 = engineRoot.appendingPathComponent("renderers/dxmt/wine/x86_64-windows")
+        let dxmt32 = engineRoot.appendingPathComponent("renderers/dxmt/wine/i386-windows")
+        let dxmtUnix = engineRoot.appendingPathComponent("renderers/dxmt/wine/x86_64-unix")
+        let dxvk64 = engineRoot.appendingPathComponent("frameworks/renderer/dxvk/wine/x86_64-windows")
+        try fm.createDirectory(at: dxmt64, withIntermediateDirectories: true)
+        try fm.createDirectory(at: dxmt32, withIntermediateDirectories: true)
+        try fm.createDirectory(at: dxmtUnix, withIntermediateDirectories: true)
+        try fm.createDirectory(at: dxvk64, withIntermediateDirectories: true)
+
+        let dxmtD3D11 = fakeBuiltinPE("dxmt-d3d11-64")
+        let dxmtWinemetal = fakeBuiltinPE("dxmt-winemetal")
+        try dxmtD3D11.write(to: dxmt64.appendingPathComponent("d3d11.dll"))
+        try dxmtWinemetal.write(to: dxmt64.appendingPathComponent("winemetal.dll"))
+        try Data("unix-so".utf8).write(to: dxmtUnix.appendingPathComponent("winemetal.so"))
+        try Data("disabled".utf8).write(to: dxmt64.appendingPathComponent("_d3d12.dll"))
+        try fakeBuiltinPE("dxmt-d3d11-32").write(to: dxmt32.appendingPathComponent("d3d11.dll"))
+        try fakeBuiltinPE("dxvk-d3d11-64").write(to: dxvk64.appendingPathComponent("d3d11.dll"))
+
+        let manifest = EngineManifest(
+            schema: 1, id: "prefix-test", displayName: "Prefix Test", arch: .rosetta,
+            fexModules: nil, overlayMode: .prefix, supportsKosmicKrisp: false,
+            minMacOS: "14.0", wineLoader: "engine/bin/wine", wineServer: "engine/bin/wineserver",
+            components: [], baseEnvironment: [:], licenses: [:], notes: []
+        )
+        let engine = InstalledEngine(manifest: manifest, root: engineRoot)
+
+        // Verify env uses WINEDLLPATH+ (not WINEDLLPATH_PREPEND) and D3DMetal is rejected cleanly
+        let env = try Renderer.dxmt.environment(engine: engine)
+        XCTAssertNil(env["WINEDLLPATH_PREPEND"])
+        XCTAssertNotNil(env["WINEDLLPATH+"])
+        XCTAssertThrowsError(try Renderer.d3dmetal.environment(engine: engine))
+
+        // Prepare fake prefix with Wine stub DLLs
+        let prefix = temp.appendingPathComponent("prefix")
+        let sys32 = prefix.appendingPathComponent("drive_c/windows/system32")
+        let syswow = prefix.appendingPathComponent("drive_c/windows/syswow64")
+        try fm.createDirectory(at: sys32, withIntermediateDirectories: true)
+        try fm.createDirectory(at: syswow, withIntermediateDirectories: true)
+        try Data("wine-stub-64".utf8).write(to: sys32.appendingPathComponent("d3d11.dll"))
+        try Data("wine-stub-32".utf8).write(to: syswow.appendingPathComponent("d3d11.dll"))
+
+        // 1. Stage DXMT: pure PE d3d11 has builtin marker stripped; winemetal stays symlinked with marker intact
+        try RendererStager.sync(renderer: .dxmt, engine: engine, prefix: prefix)
+        let stagedD3D11 = try Data(contentsOf: sys32.appendingPathComponent("d3d11.dll"))
+        XCTAssertEqual(stagedD3D11[0x40..<0x50], Data(repeating: 0, count: 16))
+        XCTAssertEqual(try Data(contentsOf: dxmt64.appendingPathComponent("d3d11.dll"))[0x40..<0x50], Data("Wine builtin DLL".utf8)) // engine untouched!
+        let wmAttrs = try fm.attributesOfItem(atPath: sys32.appendingPathComponent("winemetal.dll").path)
+        XCTAssertEqual(wmAttrs[.type] as? FileAttributeType, .typeSymbolicLink)
+        XCTAssertEqual(try Data(contentsOf: sys32.appendingPathComponent("winemetal.dll"))[0x40..<0x50], Data("Wine builtin DLL".utf8))
+        XCTAssertFalse(fm.fileExists(atPath: sys32.appendingPathComponent("_d3d12.dll").path))
+        XCTAssertTrue(fm.fileExists(atPath: sys32.appendingPathComponent("d3d11.dll.gameport-orig").path))
+
+        // 2. Switch to DXVK -> winemetal removed, 64-bit becomes DXVK (marker stripped), 32-bit restores Wine stub
+        try RendererStager.sync(renderer: .dxvk, engine: engine, prefix: prefix)
+        XCTAssertFalse(fm.fileExists(atPath: sys32.appendingPathComponent("winemetal.dll").path))
+        let stagedDXVK = try Data(contentsOf: sys32.appendingPathComponent("d3d11.dll"))
+        XCTAssertEqual(stagedDXVK[0x40..<0x50], Data(repeating: 0, count: 16))
+        XCTAssertEqual(try Data(contentsOf: syswow.appendingPathComponent("d3d11.dll")), Data("wine-stub-32".utf8))
+
+        // 3. Switch to WineD3D -> both stubs restored cleanly and tracking file removed
+        try RendererStager.sync(renderer: .wined3d, engine: engine, prefix: prefix)
+        XCTAssertEqual(try Data(contentsOf: sys32.appendingPathComponent("d3d11.dll")), Data("wine-stub-64".utf8))
+        XCTAssertEqual(try Data(contentsOf: syswow.appendingPathComponent("d3d11.dll")), Data("wine-stub-32".utf8))
+        XCTAssertFalse(fm.fileExists(atPath: sys32.appendingPathComponent("d3d11.dll.gameport-orig").path))
+        XCTAssertFalse(fm.fileExists(atPath: prefix.appendingPathComponent(".gameport-staged-dlls.json").path))
+    }
 }
