@@ -7,8 +7,9 @@ import Darwin
 /// Cloning a prefix with a 50 GB game in it takes seconds and almost no disk.
 public enum CopyOnWrite {
     /// Clones `source` (file or whole directory tree) to `destination`, which must not exist.
-    /// Falls back to a plain copy where the volume cannot clone (not APFS, another volume).
-    public static func clone(_ source: URL, to destination: URL) throws {
+    /// Falls back to a plain copy where the volume cannot clone (not APFS, another volume), unless
+    /// `allowCopy` is false (for game folders too big to copy in full).
+    public static func clone(_ source: URL, to destination: URL, allowCopy: Bool = true) throws {
         try FileManager.default.createDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true)
         #if canImport(Darwin)
         if clonefile(source.path, destination.path, UInt32(CLONE_NOFOLLOW)) == 0 { return }
@@ -16,6 +17,9 @@ public enum CopyOnWrite {
             throw GamePortError.invalid("could not clone \(source.path): \(String(cString: strerror(errno)))")
         }
         #endif
+        guard allowCopy else {
+            throw GamePortError.unsupported("\(source.path) cannot be cloned to \(destination.path) (not the same APFS volume), and a full copy is not allowed here")
+        }
         try FileManager.default.copyItem(at: source, to: destination)
     }
 

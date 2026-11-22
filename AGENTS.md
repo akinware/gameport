@@ -15,7 +15,7 @@ GamePort is a native macOS app + CLI for running Windows games smoothly on Apple
 
 | Path | Role |
 | --- | --- |
-| `Sources/GamePortKit/` | Core library shared by CLI and SwiftUI app (`GamePort.swift`, `Engine.swift`, `Profile.swift`, `Renderer.swift`, `WineRunner.swift`, `Steam.swift`, `SteamBase.swift`, `SteamDepot.swift`, `SteamQRDownloader.swift`, `MacSteam.swift`, `Snapshots.swift`, `Lab.swift`, `AntiCheat.swift`, `Recipe.swift`, `Brand.swift`) |
+| `Sources/GamePortKit/` | Core library shared by CLI and SwiftUI app (`GamePort.swift`, `Engine.swift`, `Profile.swift`, `Renderer.swift`, `WineRunner.swift`, `Steam.swift`, `SteamBase.swift`, `SteamDepot.swift`, `SteamQRDownloader.swift`, `MacSteam.swift`, `WindowsSteamLibrary.swift`, `Snapshots.swift`, `Lab.swift`, `AntiCheat.swift`, `Recipe.swift`, `Brand.swift`) |
 | `Sources/gameport/` | Command-line interface (`main.swift`) |
 | `Sources/GamePortApp/` | SwiftUI macOS app (`App.swift`) |
 | `Data/engines/` | Engine manifests (every component pinned by URL + SHA-256) |

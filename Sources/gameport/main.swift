@@ -26,6 +26,7 @@ Usage:
   \(cli) base status                    Steam base status
   \(cli) profile create <recipe> [id] [--engine <engine>]  Create an isolated game environment
   \(cli) profile fallback <profile> <other-profile|off>   Select an alternate engine profile for play
+  \(cli) profile engine <profile> <engine>   Move a profile to another installed engine (snapshot first)
   \(cli) profile list                   Profiles
   \(cli) config <profile>               Apply missing optional recipe settings after closing the game
   \(cli) config <profile> controller|opengl   Apply missing controller or OpenGL defaults in this profile
@@ -40,6 +41,7 @@ Usage:
   \(cli) battlenet open <profile>       Open Battle.net in a profile (Overwatch 2, Diablo IV, etc.)
   \(cli) bridge [status|probe|install-steamcmd|install-depotdownloader|download|signout|launch]  Clean-room Mac Steam bridge (zero Windows Steam)
   \(cli) bridge download <appID> [--user <acct>] [--anonymous] [--validate] [--dir <d>] [--steamcmd]
+  \(cli) bridge add-to-steam <profile>       Put a downloaded game into the profile's Windows Steam library (APFS clone)
                                        Download a Windows game: Steam Mobile QR sign-in once, then silent
   \(cli) crossover [status|bottles|launch <bottle> <appID>]     Use installed CrossOver.app (0 MB engine & 1-click bottles)
   \(cli) epic [status|install|login <code>|logout|list|download <app>|launch <app>]  Epic Games via native legendary
@@ -300,7 +302,7 @@ do {
         print("Source: highball-db / Are We Anti-Cheat Yet? (MIT)")
 
     case "profile":
-        switch arg(0, "create|list|delete|fallback") {
+        switch arg(0, "create|list|delete|fallback|engine") {
         case "create":
             let recipe = arg(1, "recipe")
             var options = Array(args.dropFirst(2))
@@ -313,6 +315,10 @@ do {
             for p in gameport.profiles.all() {
                 print("\(p.id)  \(p.title)  [\(p.engineID)]" + (p.fallbackProfileID.map { "  fallback: \($0)" } ?? ""))
             }
+        case "engine":
+            let id = arg(1, "profile"), engine = arg(2, "engine")
+            let p = try gameport.switchEngine(id, to: engine, progress: progress)
+            print("✓ \(p.id) now uses \(p.engineID)")
         case "fallback":
             guard args.count == 3 else { fail(usage) }
             try gameport.setFallback(args[1], to: args[2] == "off" ? nil : args[2])
@@ -542,6 +548,10 @@ do {
     case "bridge":
         let action = args.first ?? "status"
         switch action {
+        case "add-to-steam":
+            let id = arg(1, "profile")
+            let dir = try gameport.addDepotToWindowsSteam(id, progress: progress)
+            print("✓ In Windows Steam's library: \(dir.path)")
         case "status":
             let st = gameport.steamBridge.status()
             print("GamePort Steam Bridge: \(st.readinessSummary)")
