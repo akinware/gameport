@@ -47,6 +47,11 @@ public struct SteamClient: Sendable {
         switch recipe.launch {
         case .steam:
             guard let appID = recipe.steamAppID else { throw GamePortError.missing("\(recipe.id): steamAppID") }
+            // If the game isn't downloaded inside this prefix yet, launch Steam visibly with sync off
+            // so the login / install dialog appears instead of running invisibly under `-silent` + msync.
+            if !isGameInstalled(appID: appID) {
+                return try runner.spawn([windowsExe, "steam://install/\(appID)"], sync: SyncMode.none, logName: "steam.log")
+            }
             return try runner.spawn([windowsExe, "-silent", "-applaunch", String(appID)] + recipe.launchArguments, logName: "game.log")
         case .direct:
             guard let appID = recipe.steamAppID, let exe = recipe.executable else { throw GamePortError.missing("\(recipe.id): executable") }
