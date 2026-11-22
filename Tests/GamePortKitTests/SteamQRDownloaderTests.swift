@@ -200,6 +200,14 @@ final class SteamLaunchProgressTests: XCTestCase {
         XCTAssertEqual(SteamLaunchProgress.parse(appID: 440, console: "", connection: done).stage, .checkingForUpdates)
     }
 
+    func testReadsCRLFLogsLineByLine() {
+        // Steam writes CRLF logs; every task must be seen, not just the first one.
+        let crlf = consoleTF2.replacingOccurrences(of: "\n", with: "\r\n")
+        let snap = SteamLaunchProgress.parse(appID: 440, console: crlf, connection: "")
+        XCTAssertEqual(snap.steamTask, "RunningInstallScript")
+        XCTAssertEqual(snap.stage, .preparingGame)
+    }
+
     func testReadsLaunchTasksForThatAppOnly() {
         let snap = SteamLaunchProgress.parse(appID: 440, console: consoleTF2, connection: "")
         XCTAssertEqual(snap.stage, .preparingGame)

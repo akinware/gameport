@@ -415,6 +415,7 @@ public struct GamePort: Sendable {
         depotDirectory: URL? = nil,
         allowVACOverride: Bool = false,
         verboseLog: Bool = false,
+        prepareMacSteam: Bool = true,
         progress: ProgressHandler? = nil
     ) throws -> Process {
         let r = try runner(for: profileID)
@@ -431,6 +432,9 @@ public struct GamePort: Sendable {
                 throw GamePortError.missing("could not find a Windows .exe in \(searchRoot.path); pass --exe or download the depot first")
             }
             targetExe = found
+        }
+        if prepareMacSteam {
+            try prepareMacSteamForBridge(profileID, progress: progress)
         }
         if let s = autoSnapshot(profileID) { progress?("Automatic snapshot: \(s.name)") }
         progress?("Launching \(targetExe.lastPathComponent) via GamePort Steam Bridge (zero Windows Steam) on \(r.engine.id)…")

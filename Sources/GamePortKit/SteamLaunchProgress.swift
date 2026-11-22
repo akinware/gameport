@@ -103,16 +103,16 @@ public enum SteamLaunchProgress {
         var snap = SteamLaunchSnapshot()
         func raise(_ stage: SteamLaunchStage) { if stage > snap.stage { snap.stage = stage } }
 
-        for line in connection.split(separator: "\n") {
+        for line in connection.split(whereSeparator: \.isNewline) {
             if line.contains("Logging on") || line.contains("[Connecting") || line.contains("Connect()") { raise(.signingIn) }
             if line.contains("[Logged On") || line.contains("processing complete") { raise(.checkingForUpdates) }
         }
-        for line in content.split(separator: "\n") where line.contains("AppID \(appID) ") {
+        for line in content.split(whereSeparator: \.isNewline) where line.contains("AppID \(appID) ") {
             if line.contains("Update Running") || line.contains("Downloading") { raise(.updatingGame) }
         }
 
         let marker = "[AppID \(appID),"
-        for raw in console.split(separator: "\n") {
+        for raw in console.split(whereSeparator: \.isNewline) {
             let line = String(raw)
             if line.contains("Console Log Start") { snap.waitingForUser = nil }
             guard line.contains("GameAction"), line.contains(marker) else { continue }

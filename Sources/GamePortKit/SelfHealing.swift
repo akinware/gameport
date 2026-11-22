@@ -45,11 +45,14 @@ public struct LaunchProgress: Equatable, Sendable {
     public var waitingForUser: String?
     /// Steam reported the launch failed.
     public var steamFailed: Bool
+    /// Set for Steam Bridge launches (no Windows Steam): the current step, shown instead of Windows Steam's stages.
+    public var bridgeStep: String?
 
     /// Long enough without a new step that the user should be offered to look at Steam.
     public var looksStuck: Bool { waitingForUser != nil || steamFailed || (stage != .updatingGame && secondsWithoutProgress >= 75) }
 
-    public init(title: String, stage: SteamLaunchStage, seconds: Int, secondsWithoutProgress: Int, waitingForUser: String? = nil, steamFailed: Bool = false) {
+    public init(title: String, stage: SteamLaunchStage, seconds: Int, secondsWithoutProgress: Int, waitingForUser: String? = nil, steamFailed: Bool = false, bridgeStep: String? = nil) {
+        self.bridgeStep = bridgeStep
         self.title = title
         self.stage = stage
         self.seconds = seconds
@@ -87,6 +90,8 @@ public struct LaunchDiagnosis: Equatable, Sendable {
     public var headline: String
     public var explanation: String
     public var actions: [RecoveryAction]
+    /// The launch went through the Steam Bridge (native Mac Steam), not Windows Steam.
+    public var viaBridge: Bool = false
 }
 
 /// Deterministic self-healing advisor: turns raw Wine/Steam/Vulkan failures into safe 1-click fixes.
