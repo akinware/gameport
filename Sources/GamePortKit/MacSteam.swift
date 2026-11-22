@@ -169,8 +169,8 @@ extension LaunchDiagnosis {
 }
 
 extension GamePort {
-    /// A game that closes within this many seconds of a Bridge launch is treated as a failed start.
-    public static let bridgeQuickExitSeconds: TimeInterval = 30
+    /// A game that fails (non-zero exit) within this many seconds of a Bridge launch is treated as a failed start.
+    public static let bridgeQuickExitSeconds: TimeInterval = 90
 
     /// Explains a Bridge launch whose game closed right after starting.
     public static func bridgeExitDiagnosis(

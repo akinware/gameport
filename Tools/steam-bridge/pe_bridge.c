@@ -94,6 +94,19 @@ static const char *probe_steam_version_string(uint64_t candidate) {
     return NULL;
 }
 
+/* True when [addr, addr+len) is committed, writable memory in this (game) process. */
+static bool gp_is_writable(uint64_t addr, size_t len) {
+    if (addr < 0x10000ULL) return false;
+    MEMORY_BASIC_INFORMATION mbi;
+    if (VirtualQuery((LPCVOID)(uintptr_t)addr, &mbi, sizeof(mbi)) == 0) return false;
+    if (mbi.State != MEM_COMMIT) return false;
+    DWORD prot = mbi.Protect & 0xFF;
+    if (!(prot & (PAGE_READWRITE | PAGE_WRITECOPY | PAGE_EXECUTE_READWRITE | PAGE_EXECUTE_WRITECOPY))) return false;
+    if (mbi.Protect & PAGE_GUARD) return false;
+    uint64_t end = (uint64_t)(uintptr_t)mbi.BaseAddress + mbi.RegionSize;
+    return addr + len <= end;
+}
+
 static struct gp_proxy *wrap_native_object(uint64_t native_obj, const char *iface_name) {
     if (!native_obj) return NULL;
     int kind = classify_interface(iface_name);
@@ -159,9 +172,16 @@ static uint64_t gp_dispatch_slot(
     if (self->kind == GP_IFACE_STEAMUSER && slot == 2) {
         /* ISteamUser::GetSteamID() */
         is_msvc_sret8 = (a0 >= 0x10000ULL);
-    } else if (self->kind == GP_IFACE_STEAMFRIENDS && (slot == 4 || slot == 8)) {
-        /* ISteamFriends::GetFriendByIndex / GetClanByIndex */
+    } else if (self->kind == GP_IFACE_STEAMFRIENDS && (slot == 4 || slot == 19)) {
+        /* ISteamFriends017::GetFriendByIndex (4) / GetClanByIndex (19).
+         * Slot 8 is GetFriendGamePlayed(CSteamID, FriendGameInfo_t *): its first argument is a
+         * SteamID value, not a return pointer (see the out-struct marshaling below). */
         is_msvc_sret8 = (a0 >= 0x10000ULL);
+    }
+
+    /* Never write a return value through something that is not writable memory in this process. */
+    if (is_msvc_sret8 && !gp_is_writable(a0, sizeof(uint64_t))) {
+        is_msvc_sret8 = false;
     }
 
     if (is_msvc_sret8) {
@@ -250,6 +270,13 @@ static uint64_t gp_dispatch_slot(
                 call.out_arg_idx[0] = 1; call.out_arg_len[0] = (uint32_t)a1;
                 call.out_arg_idx[1] = 3; call.out_arg_len[1] = 4;
             }
+        }
+    } else if (self->kind == GP_IFACE_STEAMFRIENDS) {
+        if (slot == 8) {
+            /* GetFriendGamePlayed(CSteamID steamIDFriend, FriendGameInfo_t *pFriendGameInfo):
+             * CGameID(8) + IP(4) + game port(2) + query port(2) + lobby CSteamID(8) = 24 bytes,
+             * identical layout on Windows x64 and macOS x86_64. */
+            if (a1 >= 0x10000ULL) { call.out_arg_idx[0] = 2; call.out_arg_len[0] = 24; }
         }
     } else if (self->kind == GP_IFACE_STEAMAPPS) {
         if (slot == 18) {
