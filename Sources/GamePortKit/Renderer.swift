@@ -74,6 +74,14 @@ public enum Renderer: String, Codable, Sendable, CaseIterable {
             if let dxmt = engine.rendererDirectory("dxmt") {
                 overlays.append(wineDir(in: dxmt))
             }
+            // On engines without a separate d9vk folder (such as CrossOver.app's lib/dxvk),
+            // let Direct3D 9 fall through to DXVK when it actually provides d3d9.dll.
+            if d9vk == nil, let dxvk = engine.rendererDirectory("dxvk") {
+                let dxvkWine = wineDir(in: dxvk)
+                if FileManager.default.fileExists(atPath: dxvkWine.appendingPathComponent("x86_64-windows/d3d9.dll").path) {
+                    overlays.append(dxvkWine)
+                }
+            }
             return withD9VK(overlays)
         case .dxvk:
             return withD9VK([wineDir(in: try dir("dxvk"))])
@@ -104,8 +112,15 @@ public enum Renderer: String, Codable, Sendable, CaseIterable {
                 }
                 return d
             }()
+            let hasDXVK9: Bool = {
+                guard let dxvk = engine.rendererDirectory("dxvk") else { return false }
+                let nested = dxvk.appendingPathComponent("wine/x86_64-windows/d3d9.dll").path
+                let direct = dxvk.appendingPathComponent("x86_64-windows/d3d9.dll").path
+                return FileManager.default.fileExists(atPath: nested) || FileManager.default.fileExists(atPath: direct)
+            }()
+            let hasD3D9 = d9vk || hasDXVK9
             env[dllPathKey] = overlayPath
-            env["WINEDLLOVERRIDES"] = "dxgi,d3d11,d3d10core,d3d12,d3d12core" + (d9vk ? ",d3d9" : "") + "=n,b"
+            env["WINEDLLOVERRIDES"] = "dxgi,d3d11,d3d10core,d3d12,d3d12core" + (hasD3D9 ? ",d3d9" : "") + "=n,b"
             let external = d3dm.appendingPathComponent("external").path
             env["CX_D3DMETALPATH"] = external
             env["DYLD_FALLBACK_LIBRARY_PATH+"] = external
