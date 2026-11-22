@@ -37,6 +37,9 @@ Usage:
   \(cli) battlenet open <profile>       Open Battle.net in a profile (Overwatch 2, Diablo IV, etc.)
   \(cli) bridge [status|probe|install-steamcmd|download|launch]  Clean-room Mac Steam bridge (zero Windows Steam)
   \(cli) crossover [status|bottles|launch <bottle> <appID>]     Use installed CrossOver.app (0 MB engine & 1-click bottles)
+  \(cli) epic [status|install|login <code>|logout|list|download <app>|launch <app>]  Epic Games via native legendary
+  \(cli) gog [status|install|login <code>|logout|list|download <id>|launch <id>]    GOG DRM-free via native gogdl
+  \(cli) heroic                                                 Discover existing Heroic (Epic/GOG/Amazon) installs
   \(cli) play <profile>                 Start the game
   \(cli) stop <profile>                 Stop everything in a profile
   \(cli) lab <profile> [renderer,…] [s] Start the game, measure FPS and record whether it works
@@ -629,12 +632,12 @@ do {
         case "bottles":
             let games = CrossOverSupport.discoverBottleGames()
             if games.isEmpty {
-                print("No Steam or Battle.net games found in CrossOver bottles.")
+                print("No Steam, Battle.net, Epic, or GOG games found in CrossOver bottles.")
             } else {
                 for g in games {
                     switch g.kind {
                     case .steam(let appID): print("[\(g.bottleName)] \(g.title) (Steam \(appID))")
-                    case .battleNet: print("[\(g.bottleName)] \(g.title)")
+                    case .battleNet, .epicLauncher, .gogGalaxy: print("[\(g.bottleName)] \(g.title)")
                     }
                 }
             }
@@ -657,6 +660,100 @@ do {
             exit(proc.terminationStatus)
         default:
             fail(usage)
+        }
+
+    case "epic":
+        let action = args.first ?? "status"
+        switch action {
+        case "status":
+            let e = gameport.epic
+            print("Epic Games (legendary \(EpicStorefront.version)): \(e.isInstalled ? "installed" : "not installed (`\(cli) epic install`)")")
+            if e.isInstalled {
+                print("  Signed in: \(e.isSignedIn ? (e.accountDisplayName() ?? "yes") : "no (open \(EpicStorefront.loginURL.absoluteString), then `\(cli) epic login <code>`)")")
+            }
+        case "install":
+            let bin = try await gameport.epic.install(progress: progress)
+            print("✓ Installed legendary at \(bin.path)")
+            print("  Next: open \(EpicStorefront.loginURL.absoluteString) and run `\(cli) epic login <authorizationCode>`")
+        case "login":
+            try gameport.epic.authenticate(authorizationCode: arg(1, "authorizationCode"))
+            print("✓ Signed in to Epic Games\(gameport.epic.accountDisplayName().map { " as \($0)" } ?? "").")
+        case "logout":
+            try gameport.epic.signOut()
+            print("✓ Signed out of Epic Games.")
+        case "list":
+            let games = try gameport.epic.listGames()
+            if games.isEmpty { print("No Epic Games titles found.") }
+            for g in games {
+                print("\(g.isInstalled ? "[installed]" : "[owned]    ") \(g.appID)  \(g.title)")
+            }
+        case "download":
+            let app = arg(1, "appName")
+            let dir = try await gameport.epic.download(appName: app, progress: progress)
+            print("✓ Downloaded \(app) into \(dir.path)")
+        case "launch":
+            let app = arg(1, "appName")
+            let games = try gameport.epic.listGames(includeUninstalled: false)
+            guard let game = games.first(where: { $0.appID == app || $0.title.caseInsensitiveCompare(app) == .orderedSame }) else {
+                fail("installed Epic game '\(app)' not found")
+            }
+            let proc = try gameport.launchStorefrontGame(game, progress: progress)
+            proc.waitUntilExit()
+            exit(proc.terminationStatus)
+        default: fail(usage)
+        }
+
+    case "gog":
+        let action = args.first ?? "status"
+        switch action {
+        case "status":
+            let g = gameport.gog
+            print("GOG (gogdl \(GOGStorefront.version)): \(g.isInstalled ? "installed" : "not installed (`\(cli) gog install`)")")
+            if g.isInstalled {
+                print("  Signed in: \(g.isSignedIn ? "yes" : "no (open \(GOGStorefront.loginURL.absoluteString), then `\(cli) gog login <code>`)")")
+            }
+            print("  Installed games: \(g.listInstalled().count)")
+        case "install":
+            let bin = try await gameport.gog.install(progress: progress)
+            print("✓ Installed gogdl at \(bin.path)")
+            print("  Next: open \(GOGStorefront.loginURL.absoluteString) and run `\(cli) gog login <code>`")
+        case "login":
+            try gameport.gog.authenticate(authorizationCode: arg(1, "code"))
+            print("✓ Signed in to GOG.")
+        case "logout":
+            gameport.gog.signOut()
+            print("✓ Signed out of GOG.")
+        case "list":
+            let games = gameport.gog.listInstalled()
+            if games.isEmpty { print("No GOG games installed in \(gameport.gog.gamesDir.path).") }
+            for g in games {
+                print("[\(g.appID)] \(g.title)  \(g.installPath?.path ?? "")")
+            }
+        case "download":
+            let id = arg(1, "gameID")
+            let dir = try await gameport.gog.download(gameID: id, progress: progress)
+            print("✓ Downloaded GOG game \(id) into \(dir.path)")
+        case "launch":
+            let id = arg(1, "gameID")
+            let games = gameport.gog.listInstalled()
+            guard let game = games.first(where: { $0.appID == id || $0.title.caseInsensitiveCompare(id) == .orderedSame }) else {
+                fail("installed GOG game '\(id)' not found")
+            }
+            let proc = try gameport.launchStorefrontGame(game, progress: progress)
+            proc.waitUntilExit()
+            exit(proc.terminationStatus)
+        default: fail(usage)
+        }
+
+    case "heroic":
+        let games = HeroicDiscovery.scan()
+        if games.isEmpty {
+            print("Heroic Games Launcher: no installed Epic/GOG/Amazon games detected.")
+        } else {
+            print("Heroic Games Launcher: \(games.count) installed game(s):")
+            for g in games {
+                print("  • [\(g.store.displayName)] \(g.title) (\(g.appID)) — \(g.installPath?.path ?? "")")
+            }
         }
 
     case "external":

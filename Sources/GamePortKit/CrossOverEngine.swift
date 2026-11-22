@@ -65,6 +65,8 @@ public struct CrossOverBottleLaunchItem: Sendable, Equatable, Identifiable {
     public enum Kind: Sendable, Equatable {
         case steam(appID: Int)
         case battleNet
+        case epicLauncher
+        case gogGalaxy
     }
 
     public let bottleName: String
@@ -83,6 +85,8 @@ public struct CrossOverBottleLaunchItem: Sendable, Equatable, Identifiable {
         switch kind {
         case .steam(let appID): return "cx:\(bottleName):steam:\(appID)"
         case .battleNet: return "cx:\(bottleName):battlenet"
+        case .epicLauncher: return "cx:\(bottleName):epic"
+        case .gogGalaxy: return "cx:\(bottleName):gog"
         }
     }
 }
@@ -147,6 +151,27 @@ public enum CrossOverSupport {
                     break
                 }
             }
+            let epicExes = [
+                "Program Files (x86)/Epic Games/Launcher/Portal/Binaries/Win64/EpicGamesLauncher.exe",
+                "Program Files (x86)/Epic Games/Launcher/Portal/Binaries/Win32/EpicGamesLauncher.exe",
+            ]
+            if epicExes.contains(where: { fm.fileExists(atPath: bottle.path.appendingPathComponent("drive_c/" + $0).path) }) {
+                items.append(CrossOverBottleLaunchItem(
+                    bottleName: bottle.name,
+                    bottlePath: bottle.path,
+                    title: "Epic Games (\(bottle.name))",
+                    kind: .epicLauncher
+                ))
+            }
+            let gogExe = bottle.path.appendingPathComponent("drive_c/Program Files (x86)/GOG Galaxy/GalaxyClient.exe")
+            if fm.fileExists(atPath: gogExe.path) {
+                items.append(CrossOverBottleLaunchItem(
+                    bottleName: bottle.name,
+                    bottlePath: bottle.path,
+                    title: "GOG Galaxy (\(bottle.name))",
+                    kind: .gogGalaxy
+                ))
+            }
         }
         return items.sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
     }
@@ -194,6 +219,10 @@ public enum CrossOverSupport {
             }
             env["WINE_SIMULATE_WRITECOPY"] = "1"
             wineArgs = args
+        case .epicLauncher:
+            wineArgs = [#"C:\Program Files (x86)\Epic Games\Launcher\Portal\Binaries\Win64\EpicGamesLauncher.exe"#]
+        case .gogGalaxy:
+            wineArgs = [#"C:\Program Files (x86)\GOG Galaxy\GalaxyClient.exe"#]
         }
 
         #if os(macOS)

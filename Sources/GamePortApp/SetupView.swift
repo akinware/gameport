@@ -8,6 +8,8 @@ struct SetupView: View {
     @EnvironmentObject var model: AppModel
     @State private var showLicense = false
     @State private var showTelemetryPreview = false
+    @State private var authStorePrompt: StorefrontKind?
+    @State private var authCodeInput = ""
 
     var body: some View {
         ScrollView {
@@ -234,6 +236,114 @@ struct SetupView: View {
                             }
                         }
                     }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
+                }
+                GroupBox("Epic Games, GOG & Heroic (Zero Store Launcher in RAM)") {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Downloads Windows games natively on macOS and launches them straight on CrossOver.app (0 MB) or GamePort PowerKit — no sluggish Windows Epic Launcher or GOG Galaxy running in the background.")
+                            .foregroundStyle(.secondary)
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Epic Games (legendary \(EpicStorefront.version))").font(.headline)
+                                Text(model.epicInstalled
+                                     ? (model.epicSignedIn ? "Signed in · ready to download & launch" : "Installed · click Sign In to link Epic")
+                                     : "Native arm64 binary · SHA-256 verified (13.5 MB)")
+                                    .font(.caption).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            if !model.epicInstalled {
+                                Button("Install legendary") {
+                                    model.job("Installing Epic legendary") { k, p in
+                                        _ = try await k.epic.install(progress: p)
+                                        return "Epic legendary installed"
+                                    }
+                                }.disabled(model.busy != nil)
+                            } else if !model.epicSignedIn {
+                                Button("Sign In to Epic") {
+                                    NSWorkspace.shared.open(EpicStorefront.loginURL)
+                                    authCodeInput = ""
+                                    authStorePrompt = .epic
+                                }.disabled(model.busy != nil)
+                            } else {
+                                Label("Connected", systemImage: "checkmark.seal.fill").font(.caption.weight(.semibold)).foregroundStyle(.green)
+                                Button("Sign Out") {
+                                    try? model.gameport.epic.signOut()
+                                    model.refresh()
+                                }.disabled(model.busy != nil)
+                            }
+                        }
+                        Divider()
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("GOG (gogdl \(GOGStorefront.version) · DRM-Free)").font(.headline)
+                                Text(model.gogInstalled
+                                     ? (model.gogSignedIn ? "Signed in · ready to download DRM-free games" : "Installed · click Sign In to link GOG")
+                                     : "Native arm64 binary · SHA-256 verified (11.1 MB)")
+                                    .font(.caption).foregroundStyle(.secondary)
+                            }
+                            Spacer()
+                            if !model.gogInstalled {
+                                Button("Install gogdl") {
+                                    model.job("Installing GOG gogdl") { k, p in
+                                        _ = try await k.gog.install(progress: p)
+                                        return "GOG gogdl installed"
+                                    }
+                                }.disabled(model.busy != nil)
+                            } else if !model.gogSignedIn {
+                                Button("Sign In to GOG") {
+                                    NSWorkspace.shared.open(GOGStorefront.loginURL)
+                                    authCodeInput = ""
+                                    authStorePrompt = .gog
+                                }.disabled(model.busy != nil)
+                            } else {
+                                Label("Connected", systemImage: "checkmark.seal.fill").font(.caption.weight(.semibold)).foregroundStyle(.green)
+                                Button("Sign Out") {
+                                    model.gameport.gog.signOut()
+                                    model.refresh()
+                                }.disabled(model.busy != nil)
+                            }
+                        }
+                        if !model.storefrontGames.isEmpty {
+                            Divider()
+                            Text("Detected Epic / GOG / Heroic Games (\(model.storefrontGames.count))").font(.caption.bold())
+                            ForEach(model.storefrontGames.prefix(10)) { game in
+                                HStack {
+                                    Text("\(game.title) · \(game.store.displayName)").font(.caption)
+                                    Spacer()
+                                    Button("Play") {
+                                        model.job("Launching \(game.title)") { k, p in
+                                            _ = try k.launchStorefrontGame(game, progress: p)
+                                            return "Launched \(game.title)"
+                                        }
+                                    }.controlSize(.small).disabled(model.busy != nil)
+                                }
+                            }
+                        }
+                    }.frame(maxWidth: .infinity, alignment: .leading).padding(4)
+                }
+                .sheet(item: $authStorePrompt) { kind in
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(kind == .epic ? "Sign In to Epic Games" : "Sign In to GOG").font(.headline)
+                        Text(kind == .epic
+                             ? "Sign in on the Epic page that just opened in your browser, copy the `authorizationCode` value, and paste it below."
+                             : "Sign in on the GOG page that just opened in your browser, copy the `code=` parameter from the final URL, and paste it below.")
+                            .font(.callout).foregroundStyle(.secondary)
+                        TextField("Authorization code", text: $authCodeInput).textFieldStyle(.roundedBorder)
+                        HStack {
+                            Spacer()
+                            Button("Cancel") { authStorePrompt = nil }
+                            Button("Connect") {
+                                let code = authCodeInput
+                                authStorePrompt = nil
+                                model.job("Signing in to \(kind.displayName)") { k, _ in
+                                    if kind == .epic { try k.epic.authenticate(authorizationCode: code) }
+                                    else { try k.gog.authenticate(authorizationCode: code) }
+                                    return "Signed in to \(kind.displayName)"
+                                }
+                            }.buttonStyle(.borderedProminent).disabled(authCodeInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        }
+                    }
+                    .padding(20)
+                    .frame(width: 440)
                 }
                 GroupBox("D3DMetal (Apple Game Porting Toolkit)") {
                     VStack(alignment: .leading, spacing: 8) {

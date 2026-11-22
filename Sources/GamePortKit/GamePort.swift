@@ -13,6 +13,8 @@ public struct GamePort: Sendable {
     public var x87sidecar: X87SidecarStore { X87SidecarStore(paths: paths) }
     public var steamBridge: SteamBridge { SteamBridge(paths: paths) }
     public var steamDepot: SteamDepotManager { SteamDepotManager(paths: paths) }
+    public var epic: EpicStorefront { EpicStorefront(paths: paths) }
+    public var gog: GOGStorefront { GOGStorefront(paths: paths) }
     public var catalog: RecipeCatalog { RecipeCatalog.load(paths: paths) }
 
     /// The engine new profiles use: the first bundled manifest.
@@ -373,6 +375,78 @@ public struct GamePort: Sendable {
             verboseLog: verboseLog
         )
         recordLaunch(requested: profileID, actual: profileID)
+        return proc
+    }
+
+    /// Discovers installed and owned games across Epic (`legendary`), GOG (`gogdl`), and Heroic Games Launcher.
+    public func discoverStorefrontGames(includeUninstalledEpic: Bool = true) -> [StorefrontGame] {
+        var all: [StorefrontGame] = []
+        if let epicGames = try? epic.listGames(includeUninstalled: includeUninstalledEpic) {
+            all.append(contentsOf: epicGames)
+        }
+        all.append(contentsOf: gog.listInstalled())
+        all.append(contentsOf: HeroicDiscovery.scan())
+        var seenPaths = Set<String>()
+        return all.filter { game in
+            guard let p = game.installPath?.standardizedFileURL.path else { return true }
+            return seenPaths.insert(p).inserted
+        }
+    }
+
+    /// Launches an Epic, GOG, or Heroic Windows game directly under an isolated GamePort profile
+    /// using either CrossOver.app (0 MB) or GamePort PowerKit — with ZERO Epic Launcher or GOG Galaxy in RAM.
+    @discardableResult
+    public func launchStorefrontGame(
+        _ game: StorefrontGame,
+        engineID: String? = nil,
+        renderer: Renderer = .dxmt,
+        progress: ProgressHandler? = nil
+    ) throws -> Process {
+        let slug = game.appID.lowercased().map { ($0.isASCII && ($0.isLetter || $0.isNumber || $0 == "-")) ? $0 : "-" }
+        let profileID = "store-\(game.store.rawValue)-\(String(slug).prefix(40))"
+
+        let chosenEngineID: String
+        if let engineID {
+            chosenEngineID = engineID
+        } else if let def = engines.defaultEngineID() {
+            chosenEngineID = def
+        } else if let first = engines.installed().first?.id {
+            chosenEngineID = first
+        } else {
+            throw GamePortError.missing("no engine installed (install a PowerKit engine or CrossOver.app)")
+        }
+
+        let profile: Profile
+        if let existing = try? profiles.load(profileID) {
+            profile = existing
+        } else {
+            var created = Profile(id: profileID, title: game.title, recipeID: nil, engineID: chosenEngineID)
+            created.renderer = renderer
+            try profiles.save(created)
+            profile = created
+        }
+
+        let r = try runner(for: profile)
+        let executable: URL
+        var args: [String] = []
+        var extraEnv: [String: String] = [:]
+
+        if game.store == .epic, epic.isInstalled, epic.isSignedIn,
+           let launch = try? epic.launchParameters(appName: game.appID) {
+            executable = launch.executable
+            args = launch.arguments
+            extraEnv = launch.environment
+        } else {
+            guard let resolved = game.resolvedExecutable() else {
+                throw GamePortError.missing("could not find Windows .exe for \(game.title) (download the game first)")
+            }
+            executable = resolved
+        }
+
+        if let s = autoSnapshot(profile.id) { progress?("Automatic snapshot: \(s.name)") }
+        progress?("Launching \(game.title) (\(game.store.displayName)) directly on \(r.engine.id) — zero store launcher in RAM…")
+        let proc = try r.spawn([executable.path] + args, extra: extraEnv, logName: "storefront-game.log")
+        recordLaunch(requested: profile.id, actual: profile.id)
         return proc
     }
 }

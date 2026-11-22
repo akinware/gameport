@@ -28,6 +28,11 @@ final class AppModel: ObservableObject {
     @Published var x87Installed = false
     @Published var x87Version: String?
     @Published var bridgeStatus: SteamBridgeStatus = SteamBridge(paths: Paths.default()).status()
+    @Published var epicInstalled = false
+    @Published var epicSignedIn = false
+    @Published var gogInstalled = false
+    @Published var gogSignedIn = false
+    @Published var storefrontGames: [StorefrontGame] = []
     private(set) var engineProfiles: [String: [Profile]] = [:]
     private var launchMonitorTask: Task<Void, Never>?
 
@@ -72,6 +77,11 @@ final class AppModel: ObservableObject {
         x87Installed = gameport.x87sidecar.isInstalled
         x87Version = gameport.x87sidecar.versionString()
         bridgeStatus = gameport.steamBridge.status()
+        epicInstalled = gameport.epic.isInstalled
+        epicSignedIn = gameport.epic.isSignedIn
+        gogInstalled = gameport.gog.isInstalled
+        gogSignedIn = gameport.gog.isSignedIn
+        storefrontGames = gameport.discoverStorefrontGames(includeUninstalledEpic: false)
         externalEnv = ExternalDiscovery.scan()
         engineProfiles = profiles.reduce(into: [:]) { groups, profile in
             if let id = profile.recipeID { groups[id, default: []].append(profile) }
