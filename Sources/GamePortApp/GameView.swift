@@ -18,7 +18,11 @@ struct GameView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
                 GameHeader(recipe: recipe)
-                CompatibilityCard(evidence: evidence, antiCheat: AntiCheatDB.bundled.entry(for: recipe))
+                CompatibilityCard(
+                    evidence: evidence,
+                    antiCheat: AntiCheatDB.bundled.entry(for: recipe),
+                    liveVerdicts: recipe.steamAppID.flatMap { model.communityVerdicts[$0] } ?? []
+                )
                 if choices.count > 1, let profile {
                     Picker("Play profile", selection: Binding(get: { profile.id }, set: { selectedProfileID = $0 })) {
                         ForEach(choices) { Text("\($0.id) · \($0.engineID)").tag($0.id) }

@@ -18,9 +18,22 @@ final class AppModel: ObservableObject {
     @Published var gptkAccepted = false
     @Published var telemetryEnabled = true
     @Published var steamBase: SteamBase.Stamp?
+    @Published var communityVerdicts: [Int: [CommunityVerdict]] = [:]
     private(set) var engineProfiles: [String: [Profile]] = [:]
 
-    init() { refresh() }
+    init() {
+        communityVerdicts = gameport.telemetry.loadCachedVerdicts()
+        refresh()
+        refreshCommunityVerdicts()
+    }
+
+    func refreshCommunityVerdicts() {
+        let telemetry = gameport.telemetry
+        Task.detached(priority: .utility) {
+            let fresh = await telemetry.refreshCommunityVerdicts()
+            await MainActor.run { self.communityVerdicts = fresh }
+        }
+    }
 
     func refresh() {
         checks = gameport.doctor()

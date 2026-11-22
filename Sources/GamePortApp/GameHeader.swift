@@ -39,24 +39,38 @@ struct GameHeader: View {
 struct CompatibilityCard: View {
     let evidence: Evidence
     let antiCheat: AntiCheatEntry?
+    let liveVerdicts: [CommunityVerdict]
 
     var body: some View {
         GroupBox("Compatibility") {
-            HStack(alignment: .top, spacing: 12) {
-                EvidenceIcon(level: evidence.level).font(.title2).accessibilityHidden(true)
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(evidence.title).font(.headline)
-                    if let detail = evidence.detail, !detail.isEmpty {
-                        Text(detail).foregroundStyle(.secondary)
-                    }
-                    if let antiCheat {
-                        // Evidence normally includes the anti-cheat verdict. A blocked recipe
-                        // can give a different reason; keep the anti-cheat warning visible too.
-                        if evidence.detail?.contains(antiCheat.summary) != true {
-                            Text(antiCheat.summary).foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(alignment: .top, spacing: 12) {
+                    EvidenceIcon(level: evidence.level).font(.title2).accessibilityHidden(true)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(evidence.title).font(.headline)
+                        if let detail = evidence.detail, !detail.isEmpty {
+                            Text(detail).foregroundStyle(.secondary)
                         }
-                    } else {
-                        Text("No anti-cheat report in the catalog.").font(.caption).foregroundStyle(.secondary)
+                        if let antiCheat {
+                            // Evidence normally includes the anti-cheat verdict. A blocked recipe
+                            // can give a different reason; keep the anti-cheat warning visible too.
+                            if evidence.detail?.contains(antiCheat.summary) != true {
+                                Text(antiCheat.summary).foregroundStyle(.secondary)
+                            }
+                        } else {
+                            Text("No anti-cheat report in the catalog.").font(.caption).foregroundStyle(.secondary)
+                        }
+                    }
+                }
+                if !liveVerdicts.isEmpty {
+                    Divider()
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Live Apple Silicon gameplay reports").font(.caption.bold()).foregroundStyle(.secondary)
+                        ForEach(liveVerdicts.prefix(4)) { verdict in
+                            Label(verdict.summary, systemImage: verdict.works > 0 ? "bolt.fill" : "exclamationmark.triangle")
+                                .font(.callout)
+                                .foregroundStyle(verdict.works > 0 ? Color.primary : Color.orange)
+                        }
                     }
                 }
             }

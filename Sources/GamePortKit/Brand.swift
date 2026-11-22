@@ -17,6 +17,8 @@ public enum Brand {
     /// HTTPS endpoint for anonymous compatibility reports (Cloudflare Worker `/v1/report`).
     /// Override with `GAMEPORT_TELEMETRY_URL` for local testing.
     public static let telemetryEndpoint: String? = "https://gameport-telemetry.gameportapp.workers.dev/v1/report"
+    /// HTTPS endpoint for aggregated live community verdicts (Cloudflare Worker `/v1/verdicts.json`).
+    public static let verdictsEndpoint: String? = "https://gameport-telemetry.gameportapp.workers.dev/v1/verdicts.json"
     /// Environment variable overriding `telemetryEndpoint`.
     public static let telemetryURLVariable = "GAMEPORT_TELEMETRY_URL"
 }

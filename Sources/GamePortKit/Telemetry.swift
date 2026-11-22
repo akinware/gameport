@@ -458,4 +458,80 @@ public struct TelemetryStore: Sendable {
               (200..<300).contains(http.statusCode) else { return false }
         return true
     }
+
+    public var verdictsCacheFile: URL { paths.db.appendingPathComponent("community-verdicts.json") }
+
+    /// Loads cached community verdicts from disk immediately (works offline).
+    public func loadCachedVerdicts() -> [Int: [CommunityVerdict]] {
+        guard let data = try? Data(contentsOf: verdictsCacheFile),
+              let feed = try? JSONDecoder().decode(CommunityVerdictFeed.self, from: data) else { return [:] }
+        return Self.groupVerdicts(feed.verdicts)
+    }
+
+    /// Fetches fresh live community verdicts from Cloudflare, caches them to disk, and returns grouped results.
+    public func refreshCommunityVerdicts(from urlString: String? = Brand.verdictsEndpoint) async -> [Int: [CommunityVerdict]] {
+        guard let urlString, let url = URL(string: urlString), url.scheme == "https" else {
+            return loadCachedVerdicts()
+        }
+        var request = URLRequest(url: url, timeoutInterval: 5)
+        request.setValue("\(Brand.displayName)/1", forHTTPHeaderField: "User-Agent")
+        guard let (data, response) = try? await URLSession.shared.data(for: request),
+              let http = response as? HTTPURLResponse,
+              (200..<300).contains(http.statusCode),
+              let feed = try? JSONDecoder().decode(CommunityVerdictFeed.self, from: data) else {
+            return loadCachedVerdicts()
+        }
+        try? paths.ensure(paths.db)
+        try? data.write(to: verdictsCacheFile, options: .atomic)
+        return Self.groupVerdicts(feed.verdicts)
+    }
+
+    static func groupVerdicts(_ verdicts: [CommunityVerdict]) -> [Int: [CommunityVerdict]] {
+        Dictionary(grouping: verdicts, by: \.steamAppID).mapValues { items in
+            items.sorted { ($0.works, $0.reports, $0.avgFPS ?? 0) > ($1.works, $1.reports, $1.avgFPS ?? 0) }
+        }
+    }
+}
+
+/// Aggregated real-hardware community verdict served by `GET /v1/verdicts.json`.
+public struct CommunityVerdict: Codable, Sendable, Equatable, Identifiable {
+    public var steamAppID: Int
+    public var chip: String
+    public var renderer: Renderer
+    public var vulkanDriver: VulkanDriver
+    public var engineArch: EngineArchitecture
+    public var reports: Int
+    public var works: Int
+    public var avgFPS: Double?
+    public var onePercentLowFPS: Double?
+
+    public var id: String { "\(steamAppID)-\(chip)-\(renderer.rawValue)-\(vulkanDriver.rawValue)-\(engineArch.rawValue)" }
+
+    public var summary: String {
+        let rendererLabel: String
+        switch renderer {
+        case .dxmt: rendererLabel = "DXMT"
+        case .d3dmetal: rendererLabel = "D3DMetal"
+        case .dxvk: rendererLabel = "DXVK"
+        case .wined3d: rendererLabel = "WineD3D"
+        }
+        var parts = [chip, rendererLabel]
+        if vulkanDriver != .moltenvk { parts.append(vulkanDriver.displayName) }
+        if let avgFPS {
+            let fps = String(format: "%.0f FPS", avgFPS)
+            if let low = onePercentLowFPS {
+                parts.append("\(fps) (1% low \(String(format: "%.0f", low)))")
+            } else {
+                parts.append(fps)
+            }
+        }
+        parts.append("\(works)/\(reports) works")
+        return parts.joined(separator: " · ")
+    }
+}
+
+public struct CommunityVerdictFeed: Codable, Sendable, Equatable {
+    public var schema: Int
+    public var updatedAt: String
+    public var verdicts: [CommunityVerdict]
 }
