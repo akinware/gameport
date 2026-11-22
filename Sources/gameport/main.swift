@@ -60,6 +60,7 @@ Usage:
   \(cli) x87 [status|install|probe|remove]  Rosetta x87 JIT accelerator (x87sidecar, MIT, 182 KB)
   \(cli) aarchx [status|install|remove] Experimental No-Rosetta x86-64 runner (LGPL-2.1)
   \(cli) external                       Detect Obelisk, Siliconium, CrossOver, Mac Steam & NotProton
+  \(cli) external owned                 Windows-only games your Mac Steam account owns (recipe, anti-cheat)
   \(cli) env <profile>                  Show the game's environment variables
   \(cli) run <profile> <windows command…>  Run a Windows program in a profile
 
@@ -833,6 +834,17 @@ do {
 
     case "external":
         let env = ExternalDiscovery.scan()
+        if args.first == "owned" {
+            let games = env.macSteamOwnedGames.filter { $0.isGameType && !$0.supportsMacOS }
+            print("\(games.count) Windows-only games owned in Mac Steam:")
+            for g in games.sorted(by: { ($0.title ?? "") < ($1.title ?? "") }) {
+                let recipe = gameport.catalog.recipe(steamAppID: g.appID)
+                let ac = AntiCheatDB.bundled.entry(steamAppID: g.appID)
+                let acText = ac.map { "\($0.macVerdict.rawValue): \($0.antiCheats.joined(separator: ", "))" } ?? "none known"
+                print("  \(g.appID)\t\(g.title ?? recipe?.title ?? "?")\t[recipe: \(recipe?.status.rawValue ?? "none")] [anti-cheat: \(acText)]")
+            }
+            break
+        }
         print("Obelisk:    \(env.obeliskApp?.path ?? "not installed (\(ExternalEnvironment.obeliskWebsite))")")
         print("Siliconium: \(env.siliconiumApp?.path ?? "not installed (\(ExternalEnvironment.siliconiumWebsite))")")
         print("CrossOver:  \(env.crossoverApp?.path ?? "not installed") (\(env.crossoverBottles.count) bottles)")
