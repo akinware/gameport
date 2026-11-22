@@ -59,13 +59,11 @@ final class Phase1PackTests: XCTestCase {
         XCTAssertTrue(fm.fileExists(atPath: gp.profiles.home("cod4").appendingPathComponent("cache/dxvk").path))
         XCTAssertTrue(fm.fileExists(atPath: gp.profiles.home("cod4").appendingPathComponent("cache/dxmt").path))
 
-        // P-core wrapping via taskpolicy on macOS
+        // Never wrap wine in SIP-protected /usr/sbin/taskpolicy (which strips DYLD_FALLBACK_LIBRARY_PATH);
+        // Wine executes directly and P-core QoS is applied post-spawn via `taskpolicy -B -p <pid>`.
         let cmd = try runner.resolvedCommand(arguments: ["game.exe"], applyPerformanceCores: true)
-        #if os(macOS)
-        XCTAssertEqual(cmd.executable, "/usr/sbin/taskpolicy")
-        XCTAssertEqual(Array(cmd.arguments.prefix(5)), ["-a", "-t", "5", "-l", "5"])
-        XCTAssertEqual(cmd.arguments.last, "game.exe")
-        #endif
+        XCTAssertEqual(cmd.executable, engine.wine.path)
+        XCTAssertEqual(cmd.arguments, ["game.exe"])
 
         // AArchX wrapping when installed
         let aarchxDir = gp.aarchx.installDir

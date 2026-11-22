@@ -17,19 +17,25 @@ public struct CrossOverInstallation: Sendable, Equatable {
     }
 
     public var wineURL: URL { sharedSupportURL.appendingPathComponent("bin/wine") }
+    public var wineLoaderURL: URL { sharedSupportURL.appendingPathComponent("bin/wineloader") }
     public var wineServerURL: URL { sharedSupportURL.appendingPathComponent("bin/wineserver") }
     public var lib64URL: URL { sharedSupportURL.appendingPathComponent("lib64", isDirectory: true) }
     public var libURL: URL { sharedSupportURL.appendingPathComponent("lib", isDirectory: true) }
 
     public var hasExecutableWine: Bool {
         let fm = FileManager.default
-        return fm.isExecutableFile(atPath: wineURL.path) && fm.isExecutableFile(atPath: wineServerURL.path)
+        let hasLoader = fm.isExecutableFile(atPath: wineLoaderURL.path) || fm.isExecutableFile(atPath: wineURL.path)
+        return hasLoader && fm.isExecutableFile(atPath: wineServerURL.path)
     }
 
     /// Synthesizes a 0 MB `EngineManifest` pointing directly at the user's installed `CrossOver.app`.
+    /// Prefers CrossOver's Mach-O `bin/wineloader` over the Perl `bin/wine` wrapper so standard
+    /// `WINEPREFIX` isolation works cleanly without requiring a CrossOver bottle and without
+    /// `/usr/bin/perl` SIP-stripping `DYLD_FALLBACK_LIBRARY_PATH`.
     public func engineManifest() -> EngineManifest {
         let verLabel = version.map { " \($0)" } ?? ""
         let dyldLibs = [lib64URL.path, libURL.path].joined(separator: ":")
+        let loaderRel = FileManager.default.isExecutableFile(atPath: wineLoaderURL.path) ? "bin/wineloader" : "bin/wine"
         return EngineManifest(
             schema: 1,
             id: Self.engineID,
@@ -39,12 +45,13 @@ public struct CrossOverInstallation: Sendable, Equatable {
             overlayMode: .prepend,
             supportsKosmicKrisp: false,
             minMacOS: "14.0",
-            wineLoader: "bin/wine",
+            wineLoader: loaderRel,
             wineServer: "bin/wineserver",
             components: [],
             baseEnvironment: [
                 "DYLD_FALLBACK_LIBRARY_PATH+": dyldLibs,
                 "CX_ROOT": sharedSupportURL.path,
+                "WINEDLLPATH+": sharedSupportURL.appendingPathComponent("lib/wine").path,
             ],
             licenses: [:],
             notes: [
@@ -225,11 +232,7 @@ public enum CrossOverSupport {
             wineArgs = [#"C:\Program Files (x86)\GOG Galaxy\GalaxyClient.exe"#]
         }
 
-        #if os(macOS)
-        if performanceCores && FileManager.default.isExecutableFile(atPath: "/usr/sbin/taskpolicy") {
-            return ("/usr/sbin/taskpolicy", ["-a", "-t", "5", "-l", "5", installation.wineURL.path] + wineArgs, env)
-        }
-        #endif
+        _ = performanceCores
         return (installation.wineURL.path, wineArgs, env)
     }
 
@@ -266,6 +269,9 @@ public enum CrossOverSupport {
         process.standardError = FileHandle.nullDevice
         process.qualityOfService = performanceCores ? .userInteractive : .default
         try process.run()
+        if performanceCores {
+            WineRunner.applyPerformanceCores(pid: process.processIdentifier)
+        }
         return process
     }
 }

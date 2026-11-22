@@ -41,7 +41,7 @@ public enum Renderer: String, Codable, Sendable, CaseIterable {
         manifest.licenses.first { $0.value.gatesRenderers.contains(rawValue) }?.key
     }
 
-    /// Ordered `<renderer>/wine` directories (first wins) that supply DLLs for this renderer.
+    /// Ordered renderer overlay directories (first wins) that supply `x86_64-windows` / `i386-windows` DLLs.
     public func overlayDirectories(engine: InstalledEngine) throws -> [URL] {
         func dir(_ name: String) throws -> URL {
             guard let d = engine.rendererDirectory(name) else {
@@ -49,28 +49,34 @@ public enum Renderer: String, Codable, Sendable, CaseIterable {
             }
             return d
         }
-        let d9vk = engine.rendererDirectory("d9vk")?.appendingPathComponent("wine", isDirectory: true)
+        /// Supports both GamePort's `<renderer>/wine/` layout and CrossOver.app's direct `lib/dxmt/x86_64-windows` layout.
+        func wineDir(in rendererRoot: URL) -> URL {
+            let nested = rendererRoot.appendingPathComponent("wine", isDirectory: true)
+            if FileManager.default.fileExists(atPath: nested.path) { return nested }
+            return rendererRoot
+        }
+        let d9vk = engine.rendererDirectory("d9vk").map(wineDir)
         func withD9VK(_ overlays: [URL]) -> [URL] { (d9vk.map { [$0] } ?? []) + overlays }
 
         switch self {
         case .wined3d:
             return []
         case .dxmt:
-            return withD9VK([try dir("dxmt").appendingPathComponent("wine", isDirectory: true)])
+            return withD9VK([wineDir(in: try dir("dxmt"))])
         case .d3dmetal:
             guard engine.manifest.arch == .rosetta else { throw GamePortError.unsupported("D3DMetal requires an x86_64 engine") }
             guard engine.manifest.effectiveOverlayMode == .prepend else {
                 throw GamePortError.unsupported("D3DMetal requires an engine with WINEDLLPATH_PREPEND; use DXMT or DXVK on \(engine.id)")
             }
             let d3dm = try dir("d3dmetal")
-            var overlays = [d3dm.appendingPathComponent("wine", isDirectory: true)]
+            var overlays = [wineDir(in: d3dm)]
             // D3DMetal is 64-bit only: 32-bit D3D10/11 falls through to DXMT instead of wined3d.
             if let dxmt = engine.rendererDirectory("dxmt") {
-                overlays.append(dxmt.appendingPathComponent("wine", isDirectory: true))
+                overlays.append(wineDir(in: dxmt))
             }
             return withD9VK(overlays)
         case .dxvk:
-            return withD9VK([try dir("dxvk").appendingPathComponent("wine", isDirectory: true)])
+            return withD9VK([wineDir(in: try dir("dxvk"))])
         }
     }
 

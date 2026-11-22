@@ -168,7 +168,8 @@ public struct GamePort: Sendable {
             try profiles.save(profile)
         } catch {
             try? runner.killAll()
-            if (try? runner.waitForServer(timeout: 5)) == true { try? FileManager.default.removeItem(at: directory) }
+            _ = try? runner.waitForServer(timeout: 5)
+            try? FileManager.default.removeItem(at: directory)
             throw error
         }
         return profile

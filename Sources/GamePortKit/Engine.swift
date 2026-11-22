@@ -182,9 +182,11 @@ public struct InstalledEngine: Sendable {
         let cxSub = name == "d3dmetal" ? "apple_gptk" : name
         candidates.append(root.appendingPathComponent("lib/\(cxSub)", isDirectory: true))
         candidates.append(root.appendingPathComponent("lib64/\(cxSub)", isDirectory: true))
+        let fm = FileManager.default
         return candidates.first {
-            FileManager.default.fileExists(atPath: $0.appendingPathComponent("wine").path) ||
-            FileManager.default.fileExists(atPath: $0.appendingPathComponent("external").path)
+            fm.fileExists(atPath: $0.appendingPathComponent("wine").path) ||
+            fm.fileExists(atPath: $0.appendingPathComponent("external").path) ||
+            fm.fileExists(atPath: $0.appendingPathComponent("x86_64-windows").path)
         }
     }
 

@@ -87,9 +87,13 @@ public struct WineRunner: Sendable {
         return env
     }
 
-    /// Resolves the final executable and argument list, applying optional AArchX translation and
-    /// macOS Performance-core QoS scheduling (`taskpolicy -a -t 5 -l 5`) when requested.
+    /// Resolves the final executable and argument list, applying optional AArchX translation.
+    /// IMPORTANT: Never wrap `wine` in `/usr/sbin/taskpolicy` as a parent exec on macOS —
+    /// SIP strips `DYLD_FALLBACK_LIBRARY_PATH` / `DYLD_FALLBACK_FRAMEWORK_PATH` whenever a
+    /// system binary in `/usr/sbin` is executed, breaking MoltenVK, GnuTLS, FreeType, and D3DMetal.
+    /// Instead, Performance-core QoS is applied post-spawn via `applyPerformanceCores(pid:)`.
     public func resolvedCommand(arguments: [String], applyPerformanceCores: Bool) throws -> (executable: String, arguments: [String]) {
+        _ = applyPerformanceCores
         var exec = engine.wine.path
         var args = arguments
         if engine.manifest.requiresRosetta, effectiveExecutionRunner != .rosetta {
@@ -97,12 +101,18 @@ public struct WineRunner: Sendable {
             exec = wrapped.executable
             args = wrapped.arguments
         }
-        #if os(macOS)
-        if applyPerformanceCores && effectivePerformanceCores && FileManager.default.isExecutableFile(atPath: "/usr/sbin/taskpolicy") {
-            return ("/usr/sbin/taskpolicy", ["-a", "-t", "5", "-l", "5", exec] + args)
-        }
-        #endif
         return (exec, args)
+    }
+
+    /// Applies macOS Performance-core scheduling (`taskpolicy -B -p <pid>`) to an already-launched
+    /// process so `DYLD_FALLBACK_LIBRARY_PATH` is never stripped by SIP during exec.
+    public static func applyPerformanceCores(pid: Int32) {
+        #if os(macOS)
+        guard pid > 0, FileManager.default.isExecutableFile(atPath: "/usr/sbin/taskpolicy") else { return }
+        _ = try? Shell.run("/usr/sbin/taskpolicy", ["-B", "-p", String(pid)], check: false)
+        #else
+        _ = pid
+        #endif
     }
 
     /// Runs a Wine command to completion (wineboot, reg, installers).
@@ -126,7 +136,11 @@ public struct WineRunner: Sendable {
         try prepareDirectories()
         let log = logs.appendingPathComponent(logName)
         let cmd = try resolvedCommand(arguments: arguments, applyPerformanceCores: true)
-        return try Shell.spawn(cmd.executable, cmd.arguments, environment: try environment(sync: sync, extra: extra), log: log, currentDirectory: currentDirectory)
+        let proc = try Shell.spawn(cmd.executable, cmd.arguments, environment: try environment(sync: sync, extra: extra), log: log, currentDirectory: currentDirectory)
+        if effectivePerformanceCores {
+            Self.applyPerformanceCores(pid: proc.processIdentifier)
+        }
+        return proc
     }
 
     func prepareDirectories() throws {
