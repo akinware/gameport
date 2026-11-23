@@ -137,4 +137,18 @@ final class MacSteamWindowsGameTests: XCTestCase {
         XCTAssertEqual(MacSteamWindowsLaunch.launchURL(appID: 553850)?.absoluteString, "steam://rungameid/553850")
         XCTAssertNil(MacSteamWindowsLaunch.launchURL(appID: 0))
     }
+
+    func testSteamSupportPackagesAreNotGames() throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("steamapps-\(UUID().uuidString)", isDirectory: true)
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir) }
+        for (id, name) in [(945360, "Among Us"), (228980, "Steamworks Common Redistributables"), (1493710, "Proton Experimental"),
+                           (4000000, "Steam Linux Runtime 9.0 (future)")] {
+            let manifest = "\"AppState\"\n{\n\t\"appid\"\t\t\"\(id)\"\n\t\"name\"\t\t\"\(name)\"\n\t\"StateFlags\"\t\t\"4\"\n\t\"installdir\"\t\t\"\(name)\"\n}\n"
+            try manifest.write(to: dir.appendingPathComponent("appmanifest_\(id).acf"), atomically: true, encoding: .utf8)
+        }
+        XCTAssertEqual(ExternalDiscovery.scanSteamApps(in: dir).map(\.appID), [945360])
+        XCTAssertFalse(ExternalDiscovery.isSteamSupportPackage(appID: 1245620, name: "ELDEN RING"))
+        XCTAssertFalse(ExternalDiscovery.isSteamSupportPackage(appID: 1, name: "Protonaut"))
+    }
 }

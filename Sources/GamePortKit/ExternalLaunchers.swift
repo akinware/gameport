@@ -474,7 +474,7 @@ public enum ExternalDiscovery {
         return files.sorted().compactMap { file -> DiscoveredSteamGame? in
             guard file.hasPrefix("appmanifest_"), file.hasSuffix(".acf") else { return nil }
             guard let text = try? String(contentsOf: steamappsDir.appendingPathComponent(file), encoding: .utf8),
-                  var game = parseAppManifest(text) else { return nil }
+                  var game = parseAppManifest(text), !isSteamSupportPackage(appID: game.appID, name: game.name) else { return nil }
             if inspectFolders, !game.installDir.isEmpty {
                 let folder = steamappsDir.appendingPathComponent("common/\(game.installDir)", isDirectory: true)
                 game.folder = folder
@@ -482,6 +482,22 @@ public enum ExternalDiscovery {
             }
             return game
         }
+    }
+
+    /// Steam installs these next to games (redistributables, Proton and the Linux runtimes); they are not games.
+    static let steamSupportAppIDs: Set<Int> = [
+        228980,                                                      // Steamworks Common Redistributables
+        1070560, 1391110, 1628350, 2348590,                          // Steam Linux Runtime 1.0, 2.0, 3.0, 4.0
+        858280, 930400, 961940, 996510, 1054830, 1113280, 1245040, 1420170, 1493710, 1580130,
+        1887720, 2180100, 2230260, 2805730, 3658110,                 // Proton versions and Experimental
+        1826330, 1161040,                                            // Proton EasyAntiCheat and BattlEye runtimes
+    ]
+
+    public static func isSteamSupportPackage(appID: Int, name: String) -> Bool {
+        if steamSupportAppIDs.contains(appID) { return true }
+        let lower = name.lowercased()
+        return lower.hasPrefix("steamworks common redistributables") || lower.hasPrefix("steam linux runtime")
+            || lower.hasPrefix("proton ") || lower == "proton" || lower.hasPrefix("steamvr")
     }
 
     /// Every Mac Steam library: the main one plus the other folders listed in `libraryfolders.vdf`

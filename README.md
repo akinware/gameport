@@ -2,6 +2,9 @@
 
 A macOS app that runs Windows games on Apple Silicon Macs.
 
+[Arcane Portal](https://github.com/akinware/arcane-portal) is the console-style game library built on GamePortKit:
+Windows games from GamePort, CrossOver and Mac Steam with NotProton next to your Mac games.
+
 Every game runs in its own isolated Windows environment: its own Wine prefix, its own Steam install and
 its own HOME folder. The engine is read-only and shared, so a fix for one game can never break another.
 Wine's Z: drive, which shows the whole Mac, is removed. Known gap: while a game runs, Wine shows mounted
