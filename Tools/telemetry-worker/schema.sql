@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS lab_reports (
     crash_codes TEXT NOT NULL,
     reported_day TEXT NOT NULL,
     updated_at INTEGER NOT NULL,
-    PRIMARY KEY (install_id, steam_app_id, renderer, vulkan_driver, engine_id, chip)
+    launch_method TEXT NOT NULL DEFAULT 'windowsSteam',
+    PRIMARY KEY (install_id, steam_app_id, renderer, vulkan_driver, engine_id, chip, launch_method)
 );
 
 CREATE INDEX IF NOT EXISTS idx_reports_game ON lab_reports (steam_app_id, chip, renderer);

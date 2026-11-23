@@ -224,19 +224,7 @@ public struct GamePort: Sendable {
     public func play(_ profileID: String, progress: ProgressHandler? = nil) throws -> Process {
         let baseRunner = try playbackRunner(profileID, progress: progress)
         let actual = baseRunner.profile.id
-        var launchProfile = baseRunner.profile
-        var fpsLog: URL? = nil
-        if telemetry.isEffectivelyEnabled(), telemetry.endpoint() != nil,
-           let probe = telemetry.fpsProbeLibrary(for: baseRunner.engine.manifest.arch) {
-            try? paths.ensure(baseRunner.logs)
-            let log = baseRunner.logs.appendingPathComponent("play-fps.log")
-            try? FileManager.default.removeItem(at: log)
-            let existing = launchProfile.environment["DYLD_INSERT_LIBRARIES"] ?? ""
-            launchProfile.environment["DYLD_INSERT_LIBRARIES"] = existing.isEmpty ? probe.path : "\(probe.path):\(existing)"
-            launchProfile.environment["GAMEPORT_FPS_LOG"] = log.path
-            fpsLog = log
-        }
-        let runner = WineRunner(paths: paths, engine: baseRunner.engine, profile: launchProfile, recipe: baseRunner.recipe)
+        let (runner, fpsLog) = withFPSProbe(baseRunner)
         let steam = SteamClient(runner: runner)
         if let id = runner.recipe?.steamAppID, !steam.isGameInstalled(appID: id) {
             progress?("Steam does not yet report the game as installed (appmanifest_\(id)). Trying anyway.")
@@ -407,6 +395,21 @@ public struct GamePort: Sendable {
         SteamClient(runner: try runner(for: profileID))
     }
 
+    /// The runner with GamePort's invisible Metal FPS probe loaded into the game, when reporting is on,
+    /// and the log it writes (`logs/play-fps.log`). Unchanged when reporting is off or clang is missing.
+    func withFPSProbe(_ runner: WineRunner) -> (WineRunner, URL?) {
+        guard telemetry.isEffectivelyEnabled(), telemetry.endpoint() != nil,
+              let probe = telemetry.fpsProbeLibrary(for: runner.engine.manifest.arch) else { return (runner, nil) }
+        try? paths.ensure(runner.logs)
+        let log = runner.logs.appendingPathComponent("play-fps.log")
+        try? FileManager.default.removeItem(at: log)
+        var profile = runner.profile
+        let existing = profile.environment["DYLD_INSERT_LIBRARIES"] ?? ""
+        profile.environment["DYLD_INSERT_LIBRARIES"] = existing.isEmpty ? probe.path : "\(probe.path):\(existing)"
+        profile.environment["GAMEPORT_FPS_LOG"] = log.path
+        return (WineRunner(paths: paths, engine: runner.engine, profile: profile, recipe: runner.recipe), log)
+    }
+
     /// Launches a Windows Steam game directly through GamePort's clean-room Steamworks Bridge
     /// (zero Windows Steam running in RAM), forwarding Steamworks calls to untouched native Mac Steam.
     public func launchWithSteamBridge(
@@ -419,10 +422,11 @@ public struct GamePort: Sendable {
         prepareMacSteam: Bool = true,
         progress: ProgressHandler? = nil
     ) throws -> Process {
-        let r = try runner(for: profileID)
-        guard let appID = r.recipe?.steamAppID else {
+        let plain = try runner(for: profileID)
+        guard let appID = plain.recipe?.steamAppID else {
             throw GamePortError.invalid("profile \(profileID) has no Steam AppID recipe")
         }
+        let r = withFPSProbe(plain).0
         let ac = r.recipe.flatMap { AntiCheatDB.bundled.entry(for: $0) } ?? AntiCheatDB.bundled.entry(steamAppID: appID)
         let targetExe: URL
         let depotRoot = depotDirectory ?? paths.tools.appendingPathComponent("depots/\(appID)", isDirectory: true)

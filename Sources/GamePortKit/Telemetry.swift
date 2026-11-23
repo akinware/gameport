@@ -37,6 +37,8 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
     public var peakThermalState: String?
     public var crashCodes: [String]
     public var reportedDay: String
+    /// How the game was started: "windowsSteam", "bridge" or "lab". Older servers ignore it.
+    public var launchMethod: String? = nil
 
     /// Build a sanitized report from a completed Lab run. Returns nil for inconclusive runs.
     public static func from(_ result: LabResult, steamAppID: Int, installID: String) -> TelemetryReport? {
@@ -59,7 +61,8 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
             onePercentLowFPS: stats?.onePercentLowFPS,
             peakThermalState: result.peakThermalState?.label,
             crashCodes: classifyCrashSigns(result.crashSigns ?? []),
-            reportedDay: utcDay(result.startedAt)
+            reportedDay: utcDay(result.startedAt),
+            launchMethod: "lab"
         )
     }
 
@@ -83,7 +86,8 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
         avgFPS: Double? = nil,
         onePercentLowFPS: Double? = nil,
         installID: String,
-        startedAt: Date = Date()
+        startedAt: Date = Date(),
+        launchMethod: PlayRecord.Method = .windowsSteam
     ) -> TelemetryReport? {
         guard steamAppID > 0 else { return nil }
         let codes = classifyCrashSigns(crashSigns)
@@ -118,7 +122,8 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
             onePercentLowFPS: onePercentLowFPS,
             peakThermalState: peakThermalState?.label,
             crashCodes: codes,
-            reportedDay: utcDay(startedAt)
+            reportedDay: utcDay(startedAt),
+            launchMethod: launchMethod.rawValue
         )
     }
 
@@ -140,7 +145,8 @@ public struct TelemetryReport: Codable, Sendable, Equatable {
             onePercentLowFPS: 84.0,
             peakThermalState: "nominal",
             crashCodes: [],
-            reportedDay: utcDay(Date())
+            reportedDay: utcDay(Date()),
+            launchMethod: PlayRecord.Method.bridge.rawValue
         )
     }
 
@@ -252,7 +258,7 @@ public struct TelemetryStore: Sendable {
         guard isEffectivelyEnabled(environment: environment),
               let url = endpoint(environment: environment),
               let report = TelemetryReport.from(result, steamAppID: steamAppID, installID: load().installID) else { return false }
-        return await post(report, to: url)
+        return await send(report, to: url)
     }
 
     /// Parses 1-second buckets written by `libgameport_fps.dylib` (`<uptime> <pid> <frames> <elapsed_s> [dt_ms...]`).
@@ -348,10 +354,12 @@ public struct TelemetryStore: Sendable {
         fpsLog: URL? = nil,
         environment: [String: String] = ProcessInfo.processInfo.environment
     ) {
-        guard isEffectivelyEnabled(environment: environment),
-              let url = endpoint(environment: environment) else { return }
+        // Watched even with reporting off: the session still goes into the profile's own play history.
+        let url = isEffectivelyEnabled(environment: environment) ? endpoint(environment: environment) : nil
         let installID = load().installID
         let startedAt = Date()
+        let profileID = runner.profile.id
+        let history = PlayHistoryStore(paths: paths)
         let gameLog = runner.logs.appendingPathComponent("game.log")
         let steam = SteamClient(runner: runner)
         let cefLog = steam.logs.appendingPathComponent("cef_log.txt")
@@ -375,6 +383,14 @@ public struct TelemetryStore: Sendable {
                 guard let fpsLog, let text = try? String(contentsOf: fpsLog, encoding: .utf8) else { return nil }
                 return Self.parsePlayFPSLog(text)
             }
+            func remember(started: Bool, played: TimeInterval, signs: [String], fps: PlayFPSStats?) {
+                let codes = TelemetryReport.classifyCrashSigns(signs)
+                history.record(PlayRecord(
+                    startedAt: startedAt, seconds: Int(played), method: .windowsSteam,
+                    outcome: PlayRecord.outcome(gameStarted: started, seconds: played, problems: codes),
+                    engineID: engineID, renderer: renderer, vulkanDriver: vulkanDriver, sync: sync,
+                    avgFPS: fps?.avgFPS, onePercentLowFPS: fps?.onePercentLowFPS, problems: codes), profileID: profileID)
+            }
 
             while true {
                 try? await Task.sleep(for: .seconds(sentInitial ? 15 : 5))
@@ -396,7 +412,7 @@ public struct TelemetryStore: Sendable {
                             gameExited: false
                         )
                         let fps = readFPS()
-                        if let report = TelemetryReport.fromPlaySession(
+                        if let url, let report = TelemetryReport.fromPlaySession(
                             steamAppID: steamAppID, recipeID: recipeID, renderer: renderer,
                             vulkanDriver: vulkanDriver, sync: sync, engineID: engineID, engineArch: engineArch,
                             gameStarted: true, playedSeconds: played, stillRunning: true,
@@ -404,7 +420,7 @@ public struct TelemetryStore: Sendable {
                             avgFPS: fps?.avgFPS, onePercentLowFPS: fps?.onePercentLowFPS,
                             installID: installID, startedAt: startedAt
                         ) {
-                            _ = await self.post(report, to: url)
+                            _ = await self.send(report, to: url)
                         }
                     } else if now.timeIntervalSince(startedAt) >= maxMonitorDuration {
                         return
@@ -419,7 +435,8 @@ public struct TelemetryStore: Sendable {
                         gameExited: true
                     )
                     let fps = readFPS()
-                    if let report = TelemetryReport.fromPlaySession(
+                    remember(started: true, played: played, signs: signs, fps: fps)
+                    if let url, let report = TelemetryReport.fromPlaySession(
                         steamAppID: steamAppID, recipeID: recipeID, renderer: renderer,
                         vulkanDriver: vulkanDriver, sync: sync, engineID: engineID, engineArch: engineArch,
                         gameStarted: true, playedSeconds: played, stillRunning: false,
@@ -427,7 +444,7 @@ public struct TelemetryStore: Sendable {
                         avgFPS: fps?.avgFPS, onePercentLowFPS: fps?.onePercentLowFPS,
                         installID: installID, startedAt: startedAt
                     ) {
-                        _ = await self.post(report, to: url)
+                        _ = await self.send(report, to: url)
                     }
                     return
                 } else if now.timeIntervalSince(startedAt) >= maxWaitWithoutGame {
@@ -438,14 +455,16 @@ public struct TelemetryStore: Sendable {
                         bootstrap: GamePort.tail(of: bootstrapLog, from: bootstrapLogOffset),
                         gameExited: false
                     )
-                    if let report = TelemetryReport.fromPlaySession(
+                    // Steam still open but no game: only a failure when the logs show one.
+                    if !signs.isEmpty { remember(started: false, played: 0, signs: signs, fps: nil) }
+                    if let url, let report = TelemetryReport.fromPlaySession(
                         steamAppID: steamAppID, recipeID: recipeID, renderer: renderer,
                         vulkanDriver: vulkanDriver, sync: sync, engineID: engineID, engineArch: engineArch,
                         gameStarted: false, playedSeconds: 0, stillRunning: false,
                         crashSigns: signs, peakThermalState: LabThermalState.peak(thermalSamples),
                         installID: installID, startedAt: startedAt
                     ) {
-                        _ = await self.post(report, to: url)
+                        _ = await self.send(report, to: url)
                     }
                     return
                 }
@@ -465,6 +484,65 @@ public struct TelemetryStore: Sendable {
               let http = response as? HTTPURLResponse,
               (200..<300).contains(http.statusCode) else { return false }
         return true
+    }
+
+    /// Reports that could not be sent (offline, server down); sent again with the next report or app start.
+    public var outboxFile: URL { paths.root.appendingPathComponent("telemetry-outbox.json") }
+    public static let outboxLimit = 50
+    private static let outboxLock = NSLock()
+
+    /// Sends `report`, first retrying anything still waiting. A report that cannot be sent waits on disk.
+    @discardableResult
+    public func send(_ report: TelemetryReport, to url: URL) async -> Bool {
+        await flushOutbox(to: url)
+        if await post(report, to: url) { return true }
+        enqueue([report])
+        return false
+    }
+
+    /// Retries the waiting reports. Returns how many were sent.
+    @discardableResult
+    public func flushOutbox(environment: [String: String] = ProcessInfo.processInfo.environment) async -> Int {
+        guard isEffectivelyEnabled(environment: environment), let url = endpoint(environment: environment) else { return 0 }
+        return await flushOutbox(to: url)
+    }
+
+    @discardableResult
+    func flushOutbox(to url: URL) async -> Int {
+        let waiting = takeOutbox()
+        guard !waiting.isEmpty else { return 0 }
+        var failed: [TelemetryReport] = []
+        for (index, report) in waiting.enumerated() {
+            if await post(report, to: url) { continue }
+            // Still offline: keep this one and the rest for later.
+            failed = Array(waiting[index...])
+            break
+        }
+        enqueue(failed)
+        return waiting.count - failed.count
+    }
+
+    public func outbox() -> [TelemetryReport] {
+        guard let data = try? Data(contentsOf: outboxFile) else { return [] }
+        return (try? JSONDecoder().decode([TelemetryReport].self, from: data)) ?? []
+    }
+
+    func enqueue(_ reports: [TelemetryReport]) {
+        guard !reports.isEmpty else { return }
+        Self.outboxLock.lock()
+        defer { Self.outboxLock.unlock() }
+        // Newest kept when full; the server keeps one row per game and setup, so older ones matter least.
+        let all = Array((outbox() + reports).suffix(Self.outboxLimit))
+        try? paths.ensure(paths.root)
+        try? JSONEncoder().encode(all).write(to: outboxFile, options: .atomic)
+    }
+
+    private func takeOutbox() -> [TelemetryReport] {
+        Self.outboxLock.lock()
+        defer { Self.outboxLock.unlock() }
+        let all = outbox()
+        if !all.isEmpty { try? FileManager.default.removeItem(at: outboxFile) }
+        return all
     }
 
     public var verdictsCacheFile: URL { paths.db.appendingPathComponent("community-verdicts.json") }
@@ -513,8 +591,10 @@ public struct CommunityVerdict: Codable, Sendable, Equatable, Identifiable {
     public var works: Int
     public var avgFPS: Double?
     public var onePercentLowFPS: Double?
+    /// "windowsSteam", "bridge" or "lab"; nil from servers that do not record it yet.
+    public var launchMethod: String? = nil
 
-    public var id: String { "\(steamAppID)-\(chip)-\(ramGB ?? 0)-\(renderer.rawValue)-\(vulkanDriver.rawValue)-\(engineArch.rawValue)" }
+    public var id: String { "\(steamAppID)-\(chip)-\(ramGB ?? 0)-\(renderer.rawValue)-\(vulkanDriver.rawValue)-\(engineArch.rawValue)-\(launchMethod ?? "")" }
 
     public var summary: String {
         let rendererLabel: String
@@ -527,6 +607,7 @@ public struct CommunityVerdict: Codable, Sendable, Equatable, Identifiable {
         let hw = ramGB.map { "\(chip) (\($0) GB)" } ?? chip
         var parts = [hw, rendererLabel]
         if vulkanDriver != .moltenvk { parts.append(vulkanDriver.displayName) }
+        if let method = launchMethod.flatMap(PlayRecord.Method.init(rawValue:)) { parts.append(method.label) }
         if let avgFPS {
             let fps = String(format: "%.0f FPS", avgFPS)
             if let low = onePercentLowFPS {

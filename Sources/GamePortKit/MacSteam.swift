@@ -216,8 +216,10 @@ extension GamePort {
         let logs = profiles.logs(profileID)
         let gameLog = logs.appendingPathComponent("bridge-game.log")
         let fpsLog = logs.appendingPathComponent("play-fps.log")
+        let report = BridgeSessionReporter(gameport: self, profileID: profileID, startedAt: startedAt)
         while process.isRunning && !Task.isCancelled {
             let secs = Int(Date().timeIntervalSince(startedAt))
+            if secs >= BridgeSessionReporter.healthySeconds { await report.healthy(fpsLog: fpsLog) }
             if secs < 8 {
                 onState(.preparing(profileID: profileID, progress: LaunchProgress(
                     title: title, stage: .startingGame, seconds: secs, secondsWithoutProgress: 0,
@@ -237,6 +239,9 @@ extension GamePort {
         // Only the game's own log: a Bridge launch has no Windows Steam, so Windows Steam's logs say nothing.
         let signs = LabTriage.crashSigns(inLog: text)
         let macSteamRunning = SteamBridge.isMacSteamRunning()
+        // Stopped by GamePort or macOS (a signal) is not the game failing.
+        let failedExit = process.terminationReason == .exit && process.terminationStatus != 0
+        await report.finished(seconds: played, signs: signs, failedExit: failedExit, fpsLog: fpsLog)
         if Self.bridgeExitNeedsAttention(seconds: played, exitStatus: process.terminationStatus,
                                          crashSigns: signs, macSteamRunning: macSteamRunning) {
             onState(.needsAttention(profileID: profileID, diagnosis: Self.bridgeExitDiagnosis(
@@ -249,5 +254,67 @@ extension GamePort {
         } else {
             onState(.idle)
         }
+    }
+}
+
+/// Records a Bridge session in the profile's play history and, with reporting on, sends the same
+/// anonymous report a Windows Steam session sends (marked as a Bridge launch).
+actor BridgeSessionReporter {
+    static let healthySeconds = 90
+
+    let gameport: GamePort
+    let profileID: String
+    let startedAt: Date
+    private var sentHealthy = false
+
+    init(gameport: GamePort, profileID: String, startedAt: Date) {
+        self.gameport = gameport
+        self.profileID = profileID
+        self.startedAt = startedAt
+    }
+
+    /// Still running cleanly after 90 s: report it works now, in case the app is quit before the game is.
+    func healthy(fpsLog: URL) async {
+        guard !sentHealthy else { return }
+        sentHealthy = true
+        await send(seconds: Date().timeIntervalSince(startedAt), stillRunning: true, signs: [], fpsLog: fpsLog)
+    }
+
+    func finished(seconds: TimeInterval, signs: [String], failedExit: Bool, fpsLog: URL) async {
+        guard let runner = try? gameport.runner(for: profileID) else { return }
+        var signs = signs
+        if failedExit && seconds < 60 { signs.append("The game exited before the end of its first minute.") }
+        let codes = TelemetryReport.classifyCrashSigns(signs)
+        let fps = Self.fps(fpsLog)
+        gameport.playHistory.record(PlayRecord(
+            startedAt: startedAt, seconds: Int(seconds), method: .bridge,
+            outcome: PlayRecord.outcome(gameStarted: true, seconds: seconds, problems: codes, failedExit: failedExit),
+            engineID: runner.engine.id, renderer: runner.effectiveRenderer, vulkanDriver: runner.effectiveVulkanDriver,
+            sync: runner.effectiveSync, avgFPS: fps?.avgFPS, onePercentLowFPS: fps?.onePercentLowFPS, problems: codes),
+            profileID: profileID)
+        await send(seconds: seconds, stillRunning: false, signs: signs, fpsLog: fpsLog, runner: runner)
+    }
+
+    private func send(seconds: TimeInterval, stillRunning: Bool, signs: [String], fpsLog: URL,
+                      runner: WineRunner? = nil) async {
+        let telemetry = gameport.telemetry
+        guard telemetry.isEffectivelyEnabled(), let url = telemetry.endpoint(),
+              let runner = runner ?? (try? gameport.runner(for: profileID)),
+              let appID = runner.recipe?.steamAppID else { return }
+        let fps = Self.fps(fpsLog)
+        guard let report = TelemetryReport.fromPlaySession(
+            steamAppID: appID, recipeID: runner.profile.recipeID, renderer: runner.effectiveRenderer,
+            vulkanDriver: runner.effectiveVulkanDriver, sync: runner.effectiveSync,
+            engineID: runner.engine.id, engineArch: runner.engine.manifest.arch,
+            gameStarted: true, playedSeconds: seconds, stillRunning: stillRunning,
+            crashSigns: signs, peakThermalState: LabThermalState.current(),
+            avgFPS: fps?.avgFPS, onePercentLowFPS: fps?.onePercentLowFPS,
+            installID: telemetry.load().installID, startedAt: startedAt, launchMethod: .bridge
+        ) else { return }
+        await telemetry.send(report, to: url)
+    }
+
+    private static func fps(_ log: URL) -> TelemetryStore.PlayFPSStats? {
+        (try? String(contentsOf: log, encoding: .utf8)).flatMap { TelemetryStore.parsePlayFPSLog($0) }
     }
 }

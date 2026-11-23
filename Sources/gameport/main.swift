@@ -55,7 +55,8 @@ Usage:
   \(cli) lab <profile> auto [s]         Try every renderer and set the fastest working one
   \(cli) lab <profile> compare <other-profile> [s]  Compare two engines on the same game
   \(cli) vulkan <profile> [driver]      Vulkan driver for the game: moltenvk (default) or kosmickrisp (experimental)
-  \(cli) telemetry [status|on|off|preview|reset-id]  Anonymous FPS & compatibility sharing (default: on)
+  \(cli) telemetry [status|on|off|preview|flush|reset-id]  Anonymous FPS & compatibility sharing (default: on)
+  \(cli) history <profile>              How the game ran the last times it was played (kept on this Mac)
   \(cli) storage [status|set <folder>|reset]  Choose an External APFS SSD or custom data folder
   \(cli) perf <profile> [pcores|retina|metalfx|x87|runner] [value]  Apple Silicon performance settings
   \(cli) x87 [status|install|probe|remove]  Rosetta x87 JIT accelerator (x87sidecar, MIT, 182 KB)
@@ -432,6 +433,11 @@ do {
             let on = gameport.telemetry.isEffectivelyEnabled()
             let endpoint = gameport.telemetry.endpoint()?.absoluteString ?? "not configured"
             print("Anonymous compatibility sharing: \(on ? "on" : "off") (endpoint: \(endpoint))")
+            let waiting = gameport.telemetry.outbox().count
+            if waiting > 0 { print("\(waiting) report(s) waiting to be sent (retried with the next report).") }
+        case "flush":
+            let sent = await gameport.telemetry.flushOutbox()
+            print("Sent \(sent) waiting report(s); \(gameport.telemetry.outbox().count) still waiting.")
         case "on":
             _ = try gameport.telemetry.setEnabled(true)
             print("✓ Anonymous compatibility sharing enabled.")
@@ -444,6 +450,16 @@ do {
             let updated = try gameport.telemetry.resetInstallID()
             print("✓ Anonymous install ID rotated: \(updated.installID)")
         default: fail(usage)
+        }
+
+    case "history":
+        let id = arg(0, "profile")
+        _ = try gameport.profiles.load(id)
+        let sessions = gameport.playHistory.sessions(id)
+        if sessions.isEmpty { print("No sessions recorded for \(id) yet.") }
+        for session in sessions {
+            print("  • \(session.summary()) · \(session.renderer.rawValue) · \(session.engineID)"
+                  + (session.problems.isEmpty ? "" : " · \(session.problems.joined(separator: ", "))"))
         }
 
     case "storage":
@@ -688,7 +704,13 @@ do {
                 verboseLog: verbose,
                 progress: progress
             )
-            proc.waitUntilExit()
+            // The same watcher as the app: it records the session in `gameport history` and reports it.
+            let title = (try? gameport.profiles.load(id).title) ?? id
+            await gameport.monitorBridgeLaunch(profileID: id, title: title, process: proc) { state in
+                if case .needsAttention(_, let diagnosis) = state {
+                    print("✗ \(diagnosis.headline)\n  \(diagnosis.explanation)")
+                }
+            }
             exit(proc.terminationStatus)
         default:
             fail(usage)

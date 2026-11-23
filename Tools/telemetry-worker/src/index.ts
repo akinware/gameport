@@ -8,6 +8,7 @@ const SYNCS = new Set(["msync", "esync", "none"]);
 const ARCHS = new Set(["x86_64", "arm64"]);
 const VERDICTS = new Set(["works", "stopped", "noFrames", "blackScreen"]);
 const THERMALS = new Set(["nominal", "fair", "serious", "critical"]);
+const METHODS = new Set(["windowsSteam", "bridge", "lab"]);
 
 function validStr(v: unknown, max: number): v is string {
   return typeof v === "string" && v.length > 0 && v.length <= max;
@@ -41,6 +42,8 @@ export default {
       const avgFPS = validFPS(body.avgFPS);
       const lowFPS = validFPS(body.onePercentLowFPS);
       const codes = Array.isArray(body.crashCodes) ? body.crashCodes.filter((c): c is string => validStr(c, 40)).slice(0, 8) : [];
+      // Older apps send no launch method: their reports came from Windows Steam plays or the Lab.
+      const method = body.launchMethod == null ? "windowsSteam" : (typeof body.launchMethod === "string" && METHODS.has(body.launchMethod) ? body.launchMethod : "invalid");
       const thermal = body.peakThermalState == null ? null : (typeof body.peakThermalState === "string" && THERMALS.has(body.peakThermalState) ? body.peakThermalState : "invalid");
 
       if (
@@ -56,7 +59,7 @@ export default {
         !validStr(body.macOS, 16) ||
         !validStr(body.verdict, 20) || !VERDICTS.has(body.verdict) ||
         !validStr(body.reportedDay, 16) ||
-        Number.isNaN(ramGB) || Number.isNaN(avgFPS) || Number.isNaN(lowFPS) || thermal === "invalid"
+        Number.isNaN(ramGB) || Number.isNaN(avgFPS) || Number.isNaN(lowFPS) || thermal === "invalid" || method === "invalid"
       ) {
         return new Response("invalid report", { status: 400 });
       }
@@ -66,9 +69,9 @@ export default {
         `INSERT INTO lab_reports (
           install_id, steam_app_id, recipe_id, renderer, vulkan_driver, sync_mode,
           engine_id, engine_arch, chip, ram_gb, macos, verdict, avg_fps, one_percent_low_fps,
-          peak_thermal, crash_codes, reported_day, updated_at
-        ) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18)
-        ON CONFLICT (install_id, steam_app_id, renderer, vulkan_driver, engine_id, chip)
+          peak_thermal, crash_codes, reported_day, updated_at, launch_method
+        ) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19)
+        ON CONFLICT (install_id, steam_app_id, renderer, vulkan_driver, engine_id, chip, launch_method)
         DO UPDATE SET
           ram_gb = COALESCE(excluded.ram_gb, lab_reports.ram_gb),
           verdict = excluded.verdict,
@@ -83,7 +86,7 @@ export default {
         .bind(
           body.installID, appID, recipeID, body.renderer, body.vulkanDriver, body.sync,
           body.engineID, body.engineArch, body.chip, ramGB, body.macOS, body.verdict,
-          avgFPS, lowFPS, thermal, JSON.stringify(codes), body.reportedDay, Math.floor(Date.now() / 1000)
+          avgFPS, lowFPS, thermal, JSON.stringify(codes), body.reportedDay, Math.floor(Date.now() / 1000), method
         )
         .run();
 
@@ -99,12 +102,13 @@ export default {
           renderer,
           vulkan_driver AS vulkanDriver,
           engine_arch AS engineArch,
+          launch_method AS launchMethod,
           COUNT(*) AS reports,
           SUM(CASE WHEN verdict = 'works' THEN 1 ELSE 0 END) AS works,
           ROUND(AVG(avg_fps), 1) AS avgFPS,
           ROUND(AVG(one_percent_low_fps), 1) AS onePercentLowFPS
         FROM lab_reports
-        GROUP BY steam_app_id, chip, ram_gb, renderer, vulkan_driver, engine_arch`
+        GROUP BY steam_app_id, chip, ram_gb, renderer, vulkan_driver, engine_arch, launch_method`
       ).all();
 
       return Response.json(
