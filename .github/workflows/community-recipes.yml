@@ -25,8 +25,9 @@ jobs:
       - name: Update recipes from community reports
         run: python3 Scripts/community-recipes.py --summary "$RUNNER_TEMP/summary.md"
 
-      - name: Test the recipe scripts
-        run: python3 -m unittest discover -s Tests/ScriptTests
+      - name: Test the community recipe script
+        # The import-recipes tests build GamePort with Swift, which needs a Mac.
+        run: python3 -m unittest discover -s Tests/ScriptTests -p "test_community_recipes.py"
 
       - name: Open or update the pull request
         env:
