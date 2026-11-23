@@ -15,7 +15,7 @@ GamePort is a native macOS app + CLI for running Windows games smoothly on Apple
 
 | Path | Role |
 | --- | --- |
-| `Sources/GamePortKit/` | Core library shared by CLI and SwiftUI app (`GamePort.swift`, `Engine.swift`, `Profile.swift`, `Renderer.swift`, `WineRunner.swift`, `Steam.swift`, `SteamBase.swift`, `SteamDepot.swift`, `SteamQRDownloader.swift`, `MacSteam.swift`, `MacSteamWindowsLaunch.swift`, `WindowsSteamLibrary.swift`, `GameSetup.swift`, `CrossOverBottles.swift`, `PlayHistory.swift`, `AutoFix.swift`, `Community.swift`, `Snapshots.swift`, `Lab.swift`, `AntiCheat.swift`, `Recipe.swift`, `Brand.swift`) |
+| `Sources/GamePortKit/` | Core library shared by CLI and SwiftUI app (`GamePort.swift`, `Engine.swift`, `Profile.swift`, `Renderer.swift`, `WineRunner.swift`, `Steam.swift`, `SteamBase.swift`, `SteamDepot.swift`, `SteamQRDownloader.swift`, `MacSteam.swift`, `MacSteamWindowsLaunch.swift`, `WindowsSteamLibrary.swift`, `GameSetup.swift`, `CrossOverBottles.swift`, `PlayHistory.swift`, `AutoFix.swift`, `Community.swift`, `Snapshots.swift`, `Lab.swift`, `AntiCheat.swift`, `Recipe.swift`, `Brand.swift`, `StorageMove.swift`) |
 | `Sources/gameport/` | Command-line interface (`main.swift`) |
 | `Sources/GamePortApp/` | SwiftUI macOS app (`App.swift`) |
 | `Data/engines/` | Engine manifests (every component pinned by URL + SHA-256) |

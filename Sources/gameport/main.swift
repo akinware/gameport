@@ -58,7 +58,7 @@ Usage:
   \(cli) telemetry [status|on|off|preview|flush|reset-id]  Anonymous FPS & compatibility sharing (default: on)
   \(cli) history <profile>              How the game ran the last times it was played (kept on this Mac)
   \(cli) community [status|refresh|on|off]  Other players' results, used as defaults for unverified games
-  \(cli) storage [status|set <folder>|reset]  Choose an External APFS SSD or custom data folder
+  \(cli) storage [status|set <folder>|move <folder> [--dry-run]|reset]  Manage the GamePort data folder
   \(cli) perf <profile> [pcores|retina|metalfx|x87|runner] [value]  Apple Silicon performance settings
   \(cli) x87 [status|install|probe|remove]  Rosetta x87 JIT accelerator (x87sidecar, MIT, 182 KB)
   \(cli) aarchx [status|install|remove] Experimental No-Rosetta x86-64 runner (LGPL-2.1)
@@ -518,6 +518,18 @@ do {
         case "reset":
             let info = try StorageInfo.resetToDefault()
             print("✓ Storage reset to default: \(info.root.path)")
+        case "move":
+            let path = arg(1, "folder path")
+            let plan = try StorageMove.plan(to: URL(fileURLWithPath: path), from: gameport.paths.root)
+            print(plan.summary)
+            if args.contains("--dry-run") { break }
+            var last = Date.distantPast
+            let info = try StorageMove.perform(plan) { update in
+                guard Date().timeIntervalSince(last) >= 0.4 || update.fraction >= 1 else { return }
+                last = Date()
+                print(String(format: "\u{001B}[2K\r%3.0f%%  %@", update.fraction * 100, update.currentItem))
+            }
+            print("✓ GamePort data moved to \(info.root.path)")
         default: fail(usage)
         }
 
