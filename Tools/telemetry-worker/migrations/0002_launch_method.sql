@@ -23,7 +23,9 @@ CREATE TABLE lab_reports_v2 (
     launch_method TEXT NOT NULL DEFAULT 'windowsSteam',
     PRIMARY KEY (install_id, steam_app_id, renderer, vulkan_driver, engine_id, chip, launch_method)
 );
-INSERT INTO lab_reports_v2 SELECT *, 'windowsSteam' FROM lab_reports;
+-- Columns by name: deployments that added ram_gb later have it last.
+INSERT INTO lab_reports_v2 (install_id, steam_app_id, recipe_id, renderer, vulkan_driver, sync_mode, engine_id, engine_arch, chip, ram_gb, macos, verdict, avg_fps, one_percent_low_fps, peak_thermal, crash_codes, reported_day, updated_at, launch_method)
+SELECT install_id, steam_app_id, recipe_id, renderer, vulkan_driver, sync_mode, engine_id, engine_arch, chip, ram_gb, macos, verdict, avg_fps, one_percent_low_fps, peak_thermal, crash_codes, reported_day, updated_at, 'windowsSteam' FROM lab_reports;
 DROP TABLE lab_reports;
 ALTER TABLE lab_reports_v2 RENAME TO lab_reports;
 CREATE INDEX IF NOT EXISTS idx_reports_game ON lab_reports (steam_app_id, chip, renderer);
