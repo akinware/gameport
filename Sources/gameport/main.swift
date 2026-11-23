@@ -57,6 +57,7 @@ Usage:
   \(cli) vulkan <profile> [driver]      Vulkan driver for the game: moltenvk (default) or kosmickrisp (experimental)
   \(cli) telemetry [status|on|off|preview|flush|reset-id]  Anonymous FPS & compatibility sharing (default: on)
   \(cli) history <profile>              How the game ran the last times it was played (kept on this Mac)
+  \(cli) community [status|refresh|on|off]  Other players' results, used as defaults for unverified games
   \(cli) storage [status|set <folder>|reset]  Choose an External APFS SSD or custom data folder
   \(cli) perf <profile> [pcores|retina|metalfx|x87|runner] [value]  Apple Silicon performance settings
   \(cli) x87 [status|install|probe|remove]  Rosetta x87 JIT accelerator (x87sidecar, MIT, 182 KB)
@@ -460,6 +461,42 @@ do {
         for session in sessions {
             print("  • \(session.summary()) · \(session.renderer.rawValue) · \(session.engineID)"
                   + (session.problems.isEmpty ? "" : " · \(session.problems.joined(separator: ", "))"))
+        }
+        let fixes = gameport.autoFixes.fixes(id)
+        if !fixes.isEmpty { print("Automatic fixes:") }
+        for fix in fixes { print("  • \(fix.summary)") }
+
+    case "community":
+        let action = args.first ?? "status"
+        switch action {
+        case "status", "refresh":
+            if action == "refresh" {
+                let fresh = await gameport.telemetry.refreshCommunityVerdicts()
+                print("Downloaded results for \(fresh.count) game(s).")
+            }
+            let on = gameport.telemetry.usesCommunityDefaults()
+            print("Community defaults: \(on ? "on" : "off") (a setup counts once \(CommunityAdvice.minMacs)+ Macs report it and \(Int(CommunityAdvice.minWorkRate * 100))%+ say it works)")
+            let verdicts = gameport.telemetry.loadCachedVerdicts()
+            let titles = Dictionary(gameport.catalog.recipes.values.compactMap { r in r.steamAppID.map { ($0, r.title) } },
+                                    uniquingKeysWith: { a, _ in a })
+            for appID in verdicts.keys.sorted() {
+                let title = titles[appID] ?? "App \(appID)"
+                guard let advice = gameport.communityAdvice(steamAppID: appID) else {
+                    print("  • \(title): not enough reports yet")
+                    continue
+                }
+                var parts: [String] = []
+                if let r = advice.renderer, let t = advice.rendererTally {
+                    parts.append("\(GameSetup.rendererName(r)) works on \(t.macs) Macs (\(Int((t.workRate * 100).rounded()))%)")
+                }
+                if advice.prefersWindowsSteam { parts.append("the Bridge fails, Windows Steam works") }
+                if let problem = advice.commonProblem { parts.append("most common problem: \(problem)") }
+                print("  • \(title): " + parts.joined(separator: "; "))
+            }
+        case "on", "off":
+            try gameport.telemetry.setCommunityDefaults(action == "on")
+            print("✓ Community defaults \(action == "on" ? "on" : "off").")
+        default: fail(usage)
         }
 
     case "storage":

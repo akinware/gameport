@@ -133,6 +133,8 @@ public struct PlayHistoryStore: Sendable {
         encoder.dateEncodingStrategy = .iso8601
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         try? encoder.encode(all).write(to: file(profileID), options: .atomic)
+        // A session after an automatic fix decides whether the fix stays.
+        AutoFixStore(paths: paths).resolve(profileID, with: session)
     }
 
     private static let lock = NSLock()

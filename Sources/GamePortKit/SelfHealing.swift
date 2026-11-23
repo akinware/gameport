@@ -92,10 +92,18 @@ public struct LaunchDiagnosis: Equatable, Sendable {
     public var actions: [RecoveryAction]
     /// The launch went through the Steam Bridge (native Mac Steam), not Windows Steam.
     public var viaBridge: Bool = false
+    /// The fix GamePort applies by itself (`GamePort.applyAutoFix`): only when the log names the cause.
+    public var autoFix: RecoveryAction? = nil
 }
 
 /// Deterministic self-healing advisor: turns raw Wine/Steam/Vulkan failures into safe 1-click fixes.
 public enum SelfHealing {
+    /// Fixes whose cause the log names outright, safe to apply without asking (and undone if they do
+    /// not help): KosmicKrisp back to MoltenVK, DXMT for DXVK's MoltenVK query crash and for Steam's
+    /// GPU crash under DXVK, and AVX for an illegal-instruction crash. Renderer guesses, D3DMetal
+    /// (Apple's licence) and snapshot rollbacks always stay the player's choice.
+    public static let automaticActionIDs: Set<String> = ["vk-mvk", "r-dxmt-query", "r-dxmt-steam", "avx-on"]
+
     public static func diagnose(
         profile: Profile,
         recipe: Recipe?,
@@ -130,7 +138,7 @@ public enum SelfHealing {
             headline = "DXVK hit an unsupported MoltenVK query"
             explanation = "Stock DXVK crashes on D3D11 pipeline-statistics queries on MoltenVK. DXMT translates D3D11 directly to Metal."
             if currentRenderer != .dxmt && availableRenderers.contains(.dxmt) {
-                add(RecoveryAction(id: "r-dxmt", title: "Switch renderer to DXMT", detail: "Avoids the MoltenVK D3D11 query crash.", kind: .switchRenderer(.dxmt)))
+                add(RecoveryAction(id: "r-dxmt-query", title: "Switch renderer to DXMT", detail: "Avoids the MoltenVK D3D11 query crash.", kind: .switchRenderer(.dxmt)))
             }
         }
 
@@ -182,7 +190,8 @@ public enum SelfHealing {
             add(RecoveryAction(id: "snap-\(latest.name)", title: "Roll back to snapshot \(latest.name)", detail: "Restores this profile to its last known good state.", kind: .restoreSnapshot(latest.name)))
         }
 
-        return LaunchDiagnosis(headline: headline, explanation: explanation, actions: actions)
+        return LaunchDiagnosis(headline: headline, explanation: explanation, actions: actions,
+                               autoFix: actions.first { automaticActionIDs.contains($0.id) })
     }
 }
 

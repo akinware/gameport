@@ -10,6 +10,10 @@ public struct SetupLine: Sendable, Equatable, Identifiable {
         case recipe
         /// Changed by the player in Options.
         case player
+        /// From other players' reports (`CommunityAdvice`).
+        case community
+        /// Changed by GamePort itself after a crash (`AutoFix`).
+        case autoFix
     }
 
     public var label: String
@@ -70,8 +74,19 @@ public struct GameSetup: Sendable, Equatable {
                                 origin: profile.executionRunner == nil ? .gameport : .player))
 
         let renderer = runner.effectiveRenderer
-        basics.append(SetupLine("Graphics", rendererName(renderer), why: rendererWhy(renderer),
-                                origin: profile.renderer != nil ? .player : (recipe != nil ? .recipe : .gameport)))
+        let fixes = AutoFixStore(paths: runner.paths).fixes(profile.id).filter { $0.state != .undone }
+        let rendererFix = fixes.first { !["vk-mvk", "avx-on"].contains($0.actionID) }
+        if profile.renderer != nil, let rendererFix {
+            basics.append(SetupLine("Graphics", rendererName(renderer),
+                                    why: rendererWhy(renderer) + " GamePort switched to it after a problem: \(rendererFix.reason).",
+                                    origin: .autoFix))
+        } else if profile.renderer == nil, let community = recipe?.community {
+            basics.append(SetupLine("Graphics", rendererName(renderer),
+                                    why: rendererWhy(renderer) + " " + community.summary, origin: .community))
+        } else {
+            basics.append(SetupLine("Graphics", rendererName(renderer), why: rendererWhy(renderer),
+                                    origin: profile.renderer != nil ? .player : (recipe != nil ? .recipe : .gameport)))
+        }
 
         if runner.effectiveVulkanDriver != .moltenvk || renderer == .dxvk {
             basics.append(SetupLine("Vulkan driver", runner.effectiveVulkanDriver.displayName,

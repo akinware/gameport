@@ -58,6 +58,9 @@ public struct Recipe: Codable, Sendable, Equatable, Identifiable {
     public var knownIssues: [KnownIssue]
     /// Where the facts came from (our test, highball-db id, …).
     public var source: String?
+    /// Set when the renderer comes from other players' reports instead of this file (`CommunityAdvice`).
+    /// Never in the recipe files themselves.
+    public var community: CommunityTuning? = nil
 
     public init(id: String, title: String, steamAppID: Int? = nil, battleNetProduct: String? = nil,
                 executable: String? = nil, launch: Launch = .steam,
@@ -94,7 +97,7 @@ public struct Recipe: Codable, Sendable, Equatable, Identifiable {
 
 /// All recipes the app knows: bundled ones first, then imported ones (bundled wins on id clash).
 public struct RecipeCatalog: Sendable {
-    public private(set) var recipes: [String: Recipe] = [:]
+    public internal(set) var recipes: [String: Recipe] = [:]
 
     public init(recipes: [Recipe] = []) {
         for r in recipes where self.recipes[r.id] == nil { self.recipes[r.id] = r }
@@ -103,7 +106,11 @@ public struct RecipeCatalog: Sendable {
     public static func load(paths: Paths) -> RecipeCatalog {
         var all = bundled()
         all += loadDirectory(paths.db.appendingPathComponent("recipes"))
-        return RecipeCatalog(recipes: all)
+        let catalog = RecipeCatalog(recipes: all)
+        let telemetry = TelemetryStore(paths: paths)
+        guard telemetry.usesCommunityDefaults() else { return catalog }
+        return catalog.withCommunityDefaults(telemetry.loadCachedVerdicts(),
+                                             allowD3DMetal: LicenseStore(paths: paths).isAccepted("apple-gptk"))
     }
 
     public static func bundled() -> [Recipe] {

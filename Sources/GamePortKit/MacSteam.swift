@@ -244,13 +244,20 @@ extension GamePort {
         await report.finished(seconds: played, signs: signs, failedExit: failedExit, fpsLog: fpsLog)
         if Self.bridgeExitNeedsAttention(seconds: played, exitStatus: process.terminationStatus,
                                          crashSigns: signs, macSteamRunning: macSteamRunning) {
-            onState(.needsAttention(profileID: profileID, diagnosis: Self.bridgeExitDiagnosis(
+            var diagnosis = Self.bridgeExitDiagnosis(
                 seconds: Int(played),
                 exitStatus: process.terminationStatus,
                 macSteamRunning: macSteamRunning,
                 macSteamSignIn: MacSteam.signInState(),
                 crashSigns: signs,
-                logPath: gameLog.path)))
+                logPath: gameLog.path)
+            // A graphics or CPU crash the log names has the same sure fix as under Windows Steam.
+            if macSteamRunning, !signs.isEmpty, let profile = try? profiles.load(profileID) {
+                diagnosis.autoFix = SelfHealing.diagnose(
+                    profile: profile, recipe: profile.recipeID.flatMap { catalog[$0] }, crashSigns: signs,
+                    logText: text, hasD3DMetalLicense: licenses.isAccepted("apple-gptk")).autoFix
+            }
+            onState(.needsAttention(profileID: profileID, diagnosis: diagnosis))
         } else {
             onState(.idle)
         }

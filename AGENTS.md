@@ -15,7 +15,7 @@ GamePort is a native macOS app + CLI for running Windows games smoothly on Apple
 
 | Path | Role |
 | --- | --- |
-| `Sources/GamePortKit/` | Core library shared by CLI and SwiftUI app (`GamePort.swift`, `Engine.swift`, `Profile.swift`, `Renderer.swift`, `WineRunner.swift`, `Steam.swift`, `SteamBase.swift`, `SteamDepot.swift`, `SteamQRDownloader.swift`, `MacSteam.swift`, `WindowsSteamLibrary.swift`, `GameSetup.swift`, `CrossOverBottles.swift`, `PlayHistory.swift`, `Snapshots.swift`, `Lab.swift`, `AntiCheat.swift`, `Recipe.swift`, `Brand.swift`) |
+| `Sources/GamePortKit/` | Core library shared by CLI and SwiftUI app (`GamePort.swift`, `Engine.swift`, `Profile.swift`, `Renderer.swift`, `WineRunner.swift`, `Steam.swift`, `SteamBase.swift`, `SteamDepot.swift`, `SteamQRDownloader.swift`, `MacSteam.swift`, `WindowsSteamLibrary.swift`, `GameSetup.swift`, `CrossOverBottles.swift`, `PlayHistory.swift`, `AutoFix.swift`, `Community.swift`, `Snapshots.swift`, `Lab.swift`, `AntiCheat.swift`, `Recipe.swift`, `Brand.swift`) |
 | `Sources/gameport/` | Command-line interface (`main.swift`) |
 | `Sources/GamePortApp/` | SwiftUI macOS app (`App.swift`) |
 | `Data/engines/` | Engine manifests (every component pinned by URL + SHA-256) |
@@ -23,7 +23,7 @@ GamePort is a native macOS app + CLI for running Windows games smoothly on Apple
 | `Data/anticheat/` | Anti-cheat lookup map (1,166 games, MIT) |
 | `Patches/dxvk/` | GamePort's DXVK patches (D3D11 pipeline-statistics fix for MoltenVK) |
 | `Tools/kosmickrisp-shim/` | Experimental Vulkan shim routing only game `.exe`s to Mesa KosmicKrisp while keeping Steam/Wine on MoltenVK |
-| `Scripts/` | `embed-data.py`, `make-app.sh`, `build-dxvk.sh`, `import-anticheat.py`, `import-recipes.py`, `lab-heaven.sh`, `lab-parse.py`, `mark-wine-builtin.py` |
+| `Scripts/` | `embed-data.py`, `community-recipes.py`, `make-app.sh`, `build-dxvk.sh`, `import-anticheat.py`, `import-recipes.py`, `lab-heaven.sh`, `lab-parse.py`, `mark-wine-builtin.py` |
 | `research_notes/` | Technical notes on the open DirectX 12 / KosmicKrisp path and MoltenVK extension dumps |
 | `Tests/GamePortKitTests/` | XCTest suite for GamePortKit |
 
@@ -39,6 +39,9 @@ python3 Scripts/embed-data.py
 # Add missing community recipes from the pinned CC0 catalog and re-embed
 python3 Scripts/import-recipes.py
 python3 -m unittest discover -s Tests/ScriptTests
+
+# Turn community reports into recipe changes (runs weekly as a pull request: .github/workflows/community-recipes.yml)
+python3 Scripts/community-recipes.py
 
 # Build release CLI
 swift build -c release
@@ -72,6 +75,7 @@ Runtime data lives in `~/Library/Application Support/GamePort` (override with `G
   - Never bundle, host, or mirror Apple's D3DMetal or the Windows Steam client. D3DMetal stays behind the in-app Apple license gate.
   - Never add anti-cheat workarounds or bypasses; anti-cheat data is informational only.
   - Only import CC0 recipe paths (plus the MIT anti-cheat map with notice) from `highball-db`.
+- **Learning from play:** sessions go to `profiles/<id>/plays.json`; only fixes in `SelfHealing.automaticActionIDs` are applied without asking (`AutoFix`, undone if the next session fails); community results may change only the renderer and the Bridge/Windows Steam choice of unverified recipes (`CommunityAdvice`), and bundled recipes change only through a reviewed pull request.
 - **Language:** English for all code, comments, UI text, recipes, and commit messages.
 
 ## Current State & Next Priorities

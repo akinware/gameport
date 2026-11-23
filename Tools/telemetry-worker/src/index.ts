@@ -94,6 +94,8 @@ export default {
     }
 
     if (request.method === "GET" && url.pathname === "/v1/verdicts.json") {
+      // Old reports describe old engines and macOS versions: only the last 180 days count.
+      const since = Math.floor(Date.now() / 1000) - 180 * 86400;
       const { results } = await env.DB.prepare(
         `SELECT
           steam_app_id AS steamAppID,
@@ -104,15 +106,35 @@ export default {
           engine_arch AS engineArch,
           launch_method AS launchMethod,
           COUNT(*) AS reports,
+          COUNT(DISTINCT install_id) AS installs,
           SUM(CASE WHEN verdict = 'works' THEN 1 ELSE 0 END) AS works,
           ROUND(AVG(avg_fps), 1) AS avgFPS,
-          ROUND(AVG(one_percent_low_fps), 1) AS onePercentLowFPS
+          ROUND(AVG(one_percent_low_fps), 1) AS onePercentLowFPS,
+          json_group_array(json(crash_codes)) FILTER (WHERE verdict != 'works') AS failingCodes
         FROM lab_reports
+        WHERE updated_at >= ?1
         GROUP BY steam_app_id, chip, ram_gb, renderer, vulkan_driver, engine_arch, launch_method`
-      ).all();
+      ).bind(since).all();
+
+      // How often each problem code shows up in the reports that did not work.
+      const verdicts = results.map((row: Record<string, unknown>) => {
+        const { failingCodes, ...rest } = row;
+        const problems: Record<string, number> = {};
+        try {
+          for (const codes of JSON.parse(String(failingCodes ?? "[]")) as unknown[]) {
+            if (!Array.isArray(codes)) continue;
+            for (const code of codes) {
+              if (typeof code === "string" && code.length <= 40) problems[code] = (problems[code] ?? 0) + 1;
+            }
+          }
+        } catch {
+          // A malformed row only loses its problem counts.
+        }
+        return { ...rest, problems };
+      });
 
       return Response.json(
-        { schema: 1, updatedAt: new Date().toISOString().slice(0, 10), verdicts: results },
+        { schema: 1, updatedAt: new Date().toISOString().slice(0, 10), verdicts },
         { headers: { "Cache-Control": "public, max-age=300" } }
       );
     }

@@ -29,5 +29,10 @@ npx wrangler deploy
 
 Until then the old worker keeps accepting reports and ignores the new field.
 
+`GET /v1/verdicts.json` counts only the last 180 days and gives, per game and setup, the number of
+reports, of different Macs (`installs`) and of working reports, plus how often each problem code
+appears in the reports that did not work (`problems`). The app (`CommunityAdvice`) and
+`Scripts/community-recipes.py` turn it into defaults.
+
 Read aggregated community results anytime at:
 `GET https://gameport-telemetry.<subdomain>.workers.dev/v1/verdicts.json`

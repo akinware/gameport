@@ -9,6 +9,8 @@ import FoundationNetworking
 public struct TelemetrySettings: Codable, Sendable, Equatable {
     public var enabled: Bool
     public var installID: String
+    /// Use other players' results as defaults (`CommunityAdvice`). nil means on.
+    public var communityDefaults: Bool? = nil
 
     public init(enabled: Bool = true, installID: String = UUID().uuidString) {
         self.enabled = enabled
@@ -549,9 +551,35 @@ public struct TelemetryStore: Sendable {
 
     /// Loads cached community verdicts from disk immediately (works offline).
     public func loadCachedVerdicts() -> [Int: [CommunityVerdict]] {
-        guard let data = try? Data(contentsOf: verdictsCacheFile),
+        // Read on every recipe lookup (community defaults), so decoded once per file change.
+        let file = verdictsCacheFile
+        let modified = (try? FileManager.default.attributesOfItem(atPath: file.path)[.modificationDate] as? Date)
+        guard let modified else { return [:] }
+        if let hit = Self.verdictMemo.get(file.path, modified) { return hit }
+        guard let data = try? Data(contentsOf: file),
               let feed = try? JSONDecoder().decode(CommunityVerdictFeed.self, from: data) else { return [:] }
-        return Self.groupVerdicts(feed.verdicts)
+        let grouped = Self.groupVerdicts(feed.verdicts)
+        Self.verdictMemo.set(file.path, modified, grouped)
+        return grouped
+    }
+
+    private static let verdictMemo = VerdictMemo()
+
+    /// The last decoded results file, by path and modification date.
+    final class VerdictMemo: @unchecked Sendable {
+        private let lock = NSLock()
+        private var entry: (path: String, modified: Date, value: [Int: [CommunityVerdict]])?
+
+        func get(_ path: String, _ modified: Date) -> [Int: [CommunityVerdict]]? {
+            lock.lock(); defer { lock.unlock() }
+            guard let entry, entry.path == path, entry.modified == modified else { return nil }
+            return entry.value
+        }
+
+        func set(_ path: String, _ modified: Date, _ value: [Int: [CommunityVerdict]]) {
+            lock.lock(); defer { lock.unlock() }
+            entry = (path, modified, value)
+        }
     }
 
     /// Fetches fresh live community verdicts from Cloudflare, caches them to disk, and returns grouped results.
@@ -593,6 +621,10 @@ public struct CommunityVerdict: Codable, Sendable, Equatable, Identifiable {
     public var onePercentLowFPS: Double?
     /// "windowsSteam", "bridge" or "lab"; nil from servers that do not record it yet.
     public var launchMethod: String? = nil
+    /// Different Macs behind `reports` (a Mac reports once per game and setup); nil from older servers.
+    public var installs: Int? = nil
+    /// How often each problem code shows up in the reports that did not work.
+    public var problems: [String: Int]? = nil
 
     public var id: String { "\(steamAppID)-\(chip)-\(ramGB ?? 0)-\(renderer.rawValue)-\(vulkanDriver.rawValue)-\(engineArch.rawValue)-\(launchMethod ?? "")" }
 
