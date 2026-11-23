@@ -921,7 +921,8 @@ do {
         }
         print("Mac Steam: \(env.macSteamApp?.path ?? "not installed") (\(env.macSteamGames.count) installed, \(env.macSteamOwnedGames.count) owned in localconfig\(env.notProtonInstalled ? ", NotProton/Bridgeplay detected" : ""))")
         for g in env.macSteamGames.prefix(15) {
-            print("  • \(g.name) (\(g.appID))")
+            let version = g.platform == .unknown ? "" : " · \(g.platform == .mac ? "Mac" : "Windows") version"
+            print("  • \(g.name) (\(g.appID))\(version)\(g.fullyInstalled ? "" : " · still installing")")
         }
 
     case "env":

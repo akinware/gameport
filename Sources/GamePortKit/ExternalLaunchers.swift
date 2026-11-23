@@ -2,10 +2,26 @@ import Foundation
 
 /// A Steam game discovered from an installed Valve `appmanifest_<id>.acf` file.
 public struct DiscoveredSteamGame: Sendable, Equatable, Identifiable {
+    /// Which version of the game the install folder holds.
+    public enum Platform: String, Sendable, Equatable {
+        /// A Mac `.app` is there.
+        case mac
+        /// Only Windows programs: Mac Steam installed the Windows version, which happens only when
+        /// Steam Play was turned on for it (NotProton or a similar tool).
+        case windows
+        /// The folder was not looked at, or holds neither.
+        case unknown
+    }
+
     public let appID: Int
     public let name: String
     public let installDir: String
     public let sizeOnDisk: Int64?
+    /// The game's folder (`steamapps/common/<installdir>`), when the library was scanned with folders.
+    public var folder: URL? = nil
+    /// Steam finished installing it (`StateFlags` has the fully-installed bit; true when the manifest has none).
+    public var fullyInstalled: Bool = true
+    public var platform: Platform = .unknown
 
     public var id: Int { appID }
 }
@@ -120,8 +136,20 @@ public struct ExternalEnvironment: Sendable, Equatable {
         return siliconiumAppIDs.contains(id)
     }
 
+    /// Any install of the game in Mac Steam's libraries (Mac or Windows version).
     public func macSteamGame(appID: Int) -> DiscoveredSteamGame? {
         macSteamGames.first { $0.appID == appID }
+    }
+
+    /// The Mac version installed in Mac Steam (or an install whose version could not be told).
+    public func macSteamNativeGame(appID: Int) -> DiscoveredSteamGame? {
+        macSteamGames.first { $0.appID == appID && $0.platform != .windows }
+    }
+
+    /// The Windows version, fully installed in Mac Steam's library. Mac Steam only installs one when
+    /// Steam Play was turned on for it (NotProton or similar), so asking Mac Steam to start it works.
+    public func macSteamWindowsGame(appID: Int) -> DiscoveredSteamGame? {
+        macSteamGames.first { $0.appID == appID && $0.platform == .windows && $0.fullyInstalled }
     }
 
     public func crossoverBottle(containingAppID appID: Int) -> CrossOverBottle? {
@@ -176,7 +204,7 @@ public enum ExternalDiscovery {
         let bottles = scanCrossOverBottles(in: bottlesRoot)
 
         let steamRoot = home.appendingPathComponent("Library/Application Support/Steam", isDirectory: true)
-        let macSteamGames = scanSteamApps(in: steamRoot.appendingPathComponent("steamapps", isDirectory: true))
+        let macSteamGames = scanMacSteamLibraries(steamRoot: steamRoot)
         let appInfo = parseAppInfoVDF(at: steamRoot.appendingPathComponent("appcache/appinfo.vdf"))
         let macSteamOwnedGames = scanMacSteamOwnedGames(
             in: steamRoot.appendingPathComponent("userdata", isDirectory: true),
@@ -438,14 +466,76 @@ public enum ExternalDiscovery {
         return results
     }
 
-    public static func scanSteamApps(in steamappsDir: URL) -> [DiscoveredSteamGame] {
+    /// Reads the `appmanifest_*.acf` files of one `steamapps` folder. With `inspectFolders`, also notes
+    /// each game's folder and whether it holds the Mac or the Windows version.
+    public static func scanSteamApps(in steamappsDir: URL, inspectFolders: Bool = false) -> [DiscoveredSteamGame] {
         let fm = FileManager.default
         guard let files = try? fm.contentsOfDirectory(atPath: steamappsDir.path) else { return [] }
         return files.sorted().compactMap { file -> DiscoveredSteamGame? in
             guard file.hasPrefix("appmanifest_"), file.hasSuffix(".acf") else { return nil }
-            guard let text = try? String(contentsOf: steamappsDir.appendingPathComponent(file), encoding: .utf8) else { return nil }
-            return parseAppManifest(text)
+            guard let text = try? String(contentsOf: steamappsDir.appendingPathComponent(file), encoding: .utf8),
+                  var game = parseAppManifest(text) else { return nil }
+            if inspectFolders, !game.installDir.isEmpty {
+                let folder = steamappsDir.appendingPathComponent("common/\(game.installDir)", isDirectory: true)
+                game.folder = folder
+                game.platform = installPlatform(of: folder)
+            }
+            return game
         }
+    }
+
+    /// Every Mac Steam library: the main one plus the other folders listed in `libraryfolders.vdf`
+    /// (other drives). The first install of a game wins.
+    public static func scanMacSteamLibraries(steamRoot: URL) -> [DiscoveredSteamGame] {
+        let main = steamRoot.appendingPathComponent("steamapps", isDirectory: true)
+        var libraries = [main]
+        let vdf = main.appendingPathComponent("libraryfolders.vdf")
+        if let text = try? String(contentsOf: vdf, encoding: .utf8) {
+            for path in parseLibraryFolderPaths(text) {
+                let steamapps = URL(fileURLWithPath: path, isDirectory: true).appendingPathComponent("steamapps", isDirectory: true)
+                if !libraries.contains(where: { $0.standardizedFileURL.path == steamapps.standardizedFileURL.path }) {
+                    libraries.append(steamapps)
+                }
+            }
+        }
+        var seen = Set<Int>()
+        return libraries.flatMap { scanSteamApps(in: $0, inspectFolders: true) }.filter { seen.insert($0.appID).inserted }
+    }
+
+    /// The `"path"` values of Valve's `libraryfolders.vdf`.
+    public static func parseLibraryFolderPaths(_ text: String) -> [String] {
+        text.split(whereSeparator: \.isNewline).flatMap { line -> [String] in
+            let parts = extractQuotedTokens(String(line))
+            return parts.indices.dropLast().compactMap { i in
+                parts[i].lowercased() == "path" && !parts[i + 1].isEmpty ? parts[i + 1] : nil
+            }
+        }
+    }
+
+    /// Mac when a `.app` is in the folder or one level down; Windows when there is none but there is an
+    /// `.exe` within a few levels. Stops at the first answer and looks at a bounded number of entries,
+    /// so scanning a big library stays fast.
+    public static func installPlatform(of folder: URL) -> DiscoveredSteamGame.Platform {
+        let fm = FileManager.default
+        guard let top = try? fm.contentsOfDirectory(at: folder, includingPropertiesForKeys: [.isDirectoryKey],
+                                                    options: [.skipsHiddenFiles]) else { return .unknown }
+        func isApp(_ url: URL) -> Bool { url.pathExtension.lowercased() == "app" }
+        if top.contains(where: isApp) { return .mac }
+        for sub in top where (try? sub.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true {
+            if let inner = try? fm.contentsOfDirectory(at: sub, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles]),
+               inner.contains(where: isApp) { return .mac }
+        }
+        guard let enumerator = fm.enumerator(at: folder, includingPropertiesForKeys: nil,
+                                             options: [.skipsHiddenFiles, .skipsPackageDescendants]) else { return .unknown }
+        let baseDepth = folder.standardizedFileURL.pathComponents.count
+        var looked = 0
+        for case let url as URL in enumerator {
+            looked += 1
+            if looked > 20_000 { break }
+            if url.pathExtension.lowercased() == "exe" { return .windows }
+            if url.standardizedFileURL.pathComponents.count - baseDepth >= 4 { enumerator.skipDescendants() }
+        }
+        return .unknown
     }
 
     /// Lightweight Valve ACF/VDF key-value parser for `appmanifest_<id>.acf`.
@@ -462,7 +552,10 @@ public enum ExternalDiscovery {
               let name = values["name"], !name.isEmpty else { return nil }
         let installDir = values["installdir"] ?? ""
         let size = values["sizeondisk"].flatMap(Int64.init)
-        return DiscoveredSteamGame(appID: appID, name: name, installDir: installDir, sizeOnDisk: size)
+        // StateFlags bit 4 is "fully installed"; while it is unset Steam is still downloading or updating.
+        let installed = values["stateflags"].flatMap(Int.init).map { $0 & 4 != 0 } ?? true
+        return DiscoveredSteamGame(appID: appID, name: name, installDir: installDir, sizeOnDisk: size,
+                                   fullyInstalled: installed)
     }
 
     /// Reads the active Mac Steam login account name (`"AccountName"`) from `loginusers.vdf`
