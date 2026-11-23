@@ -26,11 +26,8 @@ public struct Paths: Sendable {
         }
         if let saved = StoragePreference.load(from: preferenceFile).customRoot, !saved.isEmpty {
             let url = URL(fileURLWithPath: saved, isDirectory: true)
-            // Use the custom folder if it exists or its parent volume is mounted.
-            if FileManager.default.fileExists(atPath: url.path) ||
-                FileManager.default.fileExists(atPath: url.deletingLastPathComponent().path) {
-                return Paths(root: url)
-            }
+            // Only while its drive is connected; otherwise the internal folder (see `StoragePreference.offlineRoot`).
+            if StoragePreference.isReachable(url) { return Paths(root: url) }
         }
         let home = FileManager.default.homeDirectoryForCurrentUser
         return Paths(root: home.appendingPathComponent("Library/Application Support/\(Brand.dataFolder)", isDirectory: true))

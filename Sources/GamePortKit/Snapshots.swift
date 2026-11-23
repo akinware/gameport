@@ -69,15 +69,22 @@ extension ProfileStore {
     }
 
     /// Clones the prefix. Stop the profile first, or the registry Wine has not flushed yet is missed.
+    /// `allowCopy`: where the drive cannot clone (not APFS), make a full copy instead of failing. A full
+    /// copy holds the whole game again, so automatic snapshots never do that.
     @discardableResult
-    public func createSnapshot(_ id: String, name: String? = nil, now: Date = Date()) throws -> Snapshot {
+    public func createSnapshot(_ id: String, name: String? = nil, now: Date = Date(), allowCopy: Bool = true) throws -> Snapshot {
         let profile = try load(id)
         let name = name ?? Self.snapshotName(now)
         try validateID(name, what: "snapshot name")
         let dir = snapshotDirectory(id, name)
         guard !FileManager.default.fileExists(atPath: dir.path) else { throw GamePortError.invalid("snapshot \(name) already exists") }
         guard FileManager.default.fileExists(atPath: prefix(id).path) else { throw GamePortError.missing("the Windows environment of profile \(id)") }
-        try CopyOnWrite.clone(prefix(id), to: dir.appendingPathComponent("prefix", isDirectory: true))
+        do {
+            try CopyOnWrite.clone(prefix(id), to: dir.appendingPathComponent("prefix", isDirectory: true), allowCopy: allowCopy)
+        } catch {
+            try? FileManager.default.removeItem(at: dir)
+            throw error
+        }
         let snapshot = Snapshot(name: name, engineID: profile.engineID, createdAt: now)
         let encoder = JSONEncoder.pretty
         encoder.dateEncodingStrategy = .iso8601

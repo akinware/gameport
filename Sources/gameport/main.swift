@@ -507,6 +507,9 @@ do {
             print("Storage: \(info.root.path)")
             print("Volume:  \(info.volumeName) (\(info.filesystem), \(info.freeSpaceLabel))\(info.isExternal ? " [external]" : "")")
             if let warning = info.warning { print("! \(warning)") }
+            if let offline = StoragePreference.offlineRoot() {
+                print("! Your chosen folder \(offline.path) is on a drive that is not connected; using the folder above until it is.")
+            }
         case "set":
             let path = arg(1, "folder path")
             let info = try StorageInfo.setCustomRoot(URL(fileURLWithPath: path))

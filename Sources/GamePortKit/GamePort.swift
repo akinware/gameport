@@ -183,21 +183,22 @@ public struct GamePort: Sendable {
 
     /// Stops the profile (so Wine has flushed its registry) and snapshots its prefix.
     @discardableResult
-    public func snapshot(_ profileID: String, name: String? = nil) throws -> Snapshot {
+    public func snapshot(_ profileID: String, name: String? = nil, allowCopy: Bool = true) throws -> Snapshot {
         try runner(for: profileID).killAll()
         try runner(for: profileID).waitForServer()
-        return try profiles.createSnapshot(profileID, name: name)
+        return try profiles.createSnapshot(profileID, name: name, allowCopy: allowCopy)
     }
 
     /// Steam updates itself and its games whenever it starts, so once a day, before it does, the profile
     /// gets an automatic snapshot (the newest two are kept). Returns nil when none was due or it failed:
-    /// a missing snapshot must never stop the player from starting Steam.
+    /// a missing snapshot must never stop the player from starting Steam. Only instant APFS clones: on a
+    /// drive that cannot clone (exFAT, Mac OS Extended) a snapshot would copy the whole game every day.
     @discardableResult
     public func autoSnapshot(_ profileID: String, now: Date = Date()) -> Snapshot? {
         guard let profile = try? profiles.load(profileID), profile.autoSnapshots ?? true,
               FileManager.default.fileExists(atPath: profiles.prefix(profileID).path),
               profiles.autoSnapshotDue(profileID, now: now) else { return nil }
-        let snapshot = try? snapshot(profileID, name: ProfileStore.autoPrefix + ProfileStore.snapshotName(now))
+        let snapshot = try? snapshot(profileID, name: ProfileStore.autoPrefix + ProfileStore.snapshotName(now), allowCopy: false)
         try? profiles.pruneAutoSnapshots(profileID, keep: 2)
         return snapshot
     }
